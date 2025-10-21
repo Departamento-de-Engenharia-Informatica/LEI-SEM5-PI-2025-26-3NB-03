@@ -47,7 +47,7 @@
 
  - Since half the team doesn't have LAPR5, we decided to change the weekly meeting to the ARQSI PL.
 
- ### Week 5 (13/10 ~ 19/10)
+### Week 5 (13/10 ~ 19/10)
 
 **Meeting Date:** 16/10<br>
 **Scrum Master:** 1080714

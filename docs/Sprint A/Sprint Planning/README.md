@@ -63,9 +63,9 @@ The assignee of the User Story is responsable for it, but each individual task c
 
 ## Priorities and dependencies
 
- 1. **Vessel Type**, **Qualification** and **Shipping Agent Organization** don't have dependencies and can be prioritized.
+ 1. **Vessel Type**, **Qualification** and **Representative** don't have dependencies and can be prioritized.
 
- 2. **Dock** and **Vessel** depend on Vessel Type. **Staff Member** depends on Qualification. **Representative** depends on Shipping Agent Organization. These can be prioritized after those.
+ 2. **Dock** and **Vessel** depend on Vessel Type. **Staff Member** depends on Qualification. **Shipping Agent Organization** depends on Representative. These can be prioritized after those.
  
  3. **Storage Area** can depend on Dock, but by default, Dock can be ommited, so depending on how the workflow is going, can be done before Dock, but ideally Dock should be prioritized.
 
