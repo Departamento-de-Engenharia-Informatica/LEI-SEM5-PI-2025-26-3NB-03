@@ -64,11 +64,11 @@ The assignee of the User Story is responsable for it, but each individual task c
 ## Priorities and dependencies
 
  1. **Vessel Type**, **Qualification** and **Shipping Agent Organization** don't have dependencies and can be prioritized.
+
+ 2. **Dock** and **Vessel** depend on Vessel Type. **Staff Member** depends on Qualification. **Representative** depends on Shipping Agent Organization. These can be prioritized after those.
  
- 2. **Storage Area** can depend on Dock, but by default, Dock can be ommited, so depending on how the workflow is going, can be prioritized over Dock, but ideally Dock should be done before.
+ 3. **Storage Area** can depend on Dock, but by default, Dock can be ommited, so depending on how the workflow is going, can be done before Dock, but ideally Dock should be prioritized.
 
- 3. **Dock** and **Vessel** depend on Vessel Type. **Staff Member** depends on Qualification. **Representative** depends on Shipping Agent Organization. These can be prioritized after those.
-
- 4. **Physical Resource** depends on Qualification, but some resources can also depend on Storage Area, so depending on how the workflow is going, can be prioritized over Storage Area, but ideally Storage Area should be done before.
+ 4. **Physical Resource** depends on Qualification, but some resources can also depend on Storage Area, so depending on how the workflow is going, can be done before Storage Area, but ideally Storage Area should be prioritized.
 
  5. **Vessel Visit Notification** depends on both Representative and Vessel directly, but the Containers on the Cargo Manifest also depend on Storage Area.
