@@ -60,3 +60,34 @@ C:\Users\nmmot\OneDrive\Documentos\ISEP\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\ob
 C:\Users\nmmot\OneDrive\Documentos\ISEP\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\obj\Debug\netcoreapp5.0\DDDNetCore.pdb
 C:\Users\nmmot\OneDrive\Documentos\ISEP\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\obj\Debug\netcoreapp5.0\DDDNetCore.genruntimeconfig.cache
 C:\Users\nmmot\OneDrive\Documentos\ISEP\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\obj\Debug\netcoreapp5.0\ref\DDDNetCore.dll
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\bin\Debug\netcoreapp5.0\appsettings.Development.json
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\bin\Debug\netcoreapp5.0\appsettings.json
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\bin\Debug\netcoreapp5.0\DDDNetCore.exe
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\bin\Debug\netcoreapp5.0\DDDNetCore.deps.json
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\bin\Debug\netcoreapp5.0\DDDNetCore.runtimeconfig.json
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\bin\Debug\netcoreapp5.0\DDDNetCore.runtimeconfig.dev.json
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\bin\Debug\netcoreapp5.0\DDDNetCore.dll
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\bin\Debug\netcoreapp5.0\DDDNetCore.pdb
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\bin\Debug\netcoreapp5.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\bin\Debug\netcoreapp5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\bin\Debug\netcoreapp5.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\bin\Debug\netcoreapp5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\bin\Debug\netcoreapp5.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\bin\Debug\netcoreapp5.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\bin\Debug\netcoreapp5.0\Microsoft.EntityFrameworkCore.Relational.Design.dll
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\bin\Debug\netcoreapp5.0\Newtonsoft.Json.dll
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\bin\Debug\netcoreapp5.0\Newtonsoft.Json.Bson.dll
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\obj\Debug\netcoreapp5.0\DDDNetCore.csproj.AssemblyReference.cache
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\obj\Debug\netcoreapp5.0\DDDNetCore.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\obj\Debug\netcoreapp5.0\DDDNetCore.AssemblyInfoInputs.cache
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\obj\Debug\netcoreapp5.0\DDDNetCore.AssemblyInfo.cs
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\obj\Debug\netcoreapp5.0\DDDNetCore.csproj.CoreCompileInputs.cache
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\obj\Debug\netcoreapp5.0\DDDNetCore.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\obj\Debug\netcoreapp5.0\DDDNetCore.sourcelink.json
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\obj\Debug\netcoreapp5.0\DDDNetCore.RazorTargetAssemblyInfo.cache
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\obj\Debug\netcoreapp5.0\DDDNetCore.csproj.Up2Date
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\obj\Debug\netcoreapp5.0\DDDNetCore.dll
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\obj\Debug\netcoreapp5.0\refint\DDDNetCore.dll
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\obj\Debug\netcoreapp5.0\DDDNetCore.pdb
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\obj\Debug\netcoreapp5.0\DDDNetCore.genruntimeconfig.cache
+C:\Users\Utilizador\Documents\Projeto Integrador\LEI-SEM5-PI-2025-26-3NB-03\dddnetcore\obj\Debug\netcoreapp5.0\ref\DDDNetCore.dll

@@ -1,21 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\nmmot\\OneDrive\\Documentos\\ISEP\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\",
+  "WorkspaceRootPath": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\nmmot\\onedrive\\documentos\\isep\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\nmmot\\onedrive\\documentos\\isep\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\nmmot\\onedrive\\documentos\\isep\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\dddnetcore.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\dddnetcore.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:dddnetcore.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\nmmot\\onedrive\\documentos\\isep\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -29,28 +29,27 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "CategoriesController.cs",
-              "DocumentMoniker": "C:\\Users\\nmmot\\OneDrive\\Documentos\\ISEP\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Controllers\\CategoriesController.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Controllers\\CategoriesController.cs",
               "RelativeDocumentMoniker": "Controllers\\CategoriesController.cs",
-              "ToolTip": "C:\\Users\\nmmot\\OneDrive\\Documentos\\ISEP\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Controllers\\CategoriesController.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Controllers\\CategoriesController.cs",
               "RelativeToolTip": "Controllers\\CategoriesController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAcwBUAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-16T14:39:55.82Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-16T14:39:55.82Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\nmmot\\OneDrive\\Documentos\\ISEP\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\nmmot\\OneDrive\\Documentos\\ISEP\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Program.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Program.cs",
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -58,35 +57,35 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "DDDNetCore.csproj",
-              "DocumentMoniker": "C:\\Users\\nmmot\\OneDrive\\Documentos\\ISEP\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\DDDNetCore.csproj",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\DDDNetCore.csproj",
               "RelativeDocumentMoniker": "DDDNetCore.csproj",
-              "ToolTip": "C:\\Users\\nmmot\\OneDrive\\Documentos\\ISEP\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\DDDNetCore.csproj",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\DDDNetCore.csproj",
               "RelativeToolTip": "DDDNetCore.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-10-16T14:32:22.217Z"
+              "WhenOpened": "2025-10-16T14:32:22.217Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
               "Title": "Microsoft.NET.EolTargetFrameworks.targets",
               "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.EolTargetFrameworks.targets",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.EolTargetFrameworks.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.EolTargetFrameworks.targets",
               "ToolTip": "C:\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.EolTargetFrameworks.targets",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.EolTargetFrameworks.targets",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAAB8AAAAEAAAAAAAAAA==",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.EolTargetFrameworks.targets",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
               "WhenOpened": "2025-10-16T14:32:03.534Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Startup.cs",
-              "DocumentMoniker": "C:\\Users\\nmmot\\OneDrive\\Documentos\\ISEP\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Startup.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Startup.cs",
               "RelativeDocumentMoniker": "Startup.cs",
-              "ToolTip": "C:\\Users\\nmmot\\OneDrive\\Documentos\\ISEP\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Startup.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Startup.cs",
               "RelativeToolTip": "Startup.cs",
               "ViewState": "AgIAAD0AAAAAAAAAAAAkwB8AAAA9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

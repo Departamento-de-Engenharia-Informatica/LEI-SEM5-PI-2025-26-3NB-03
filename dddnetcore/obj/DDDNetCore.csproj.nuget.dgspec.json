@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nmmot\\OneDrive\\Documentos\\ISEP\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\DDDNetCore.csproj": {}
+    "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\DDDNetCore.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nmmot\\OneDrive\\Documentos\\ISEP\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\DDDNetCore.csproj": {
+    "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\DDDNetCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nmmot\\OneDrive\\Documentos\\ISEP\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\DDDNetCore.csproj",
+        "projectUniqueName": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\DDDNetCore.csproj",
         "projectName": "DDDNetCore",
-        "projectPath": "C:\\Users\\nmmot\\OneDrive\\Documentos\\ISEP\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\DDDNetCore.csproj",
-        "packagesPath": "C:\\Users\\nmmot\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nmmot\\OneDrive\\Documentos\\ISEP\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\obj\\",
+        "projectPath": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\DDDNetCore.csproj",
+        "packagesPath": "C:\\Users\\Utilizador\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\nmmot\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Utilizador\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -99,7 +100,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305\\RuntimeIdentifierGraph.json"
         }
       }
     }
