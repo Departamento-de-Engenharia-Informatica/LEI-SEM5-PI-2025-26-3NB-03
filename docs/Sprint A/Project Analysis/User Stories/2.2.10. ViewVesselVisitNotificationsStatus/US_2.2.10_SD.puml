@@ -1,0 +1,28 @@
+@startuml 2.2.10_VVN_List
+title 2.2.10 – View VVN Status (by Shipping Agent Representative)
+autonumber
+actor REP as "Shipping Agent Representative"
+participant UI as "SPA"
+participant API as "PortOps API"
+participant IAM as "External IAM (JWT)"
+participant RB as "Authorizer (org-scope)"
+database DB as "EF Core / DB"
+
+REP -> UI : Open "My VVNs"
+UI -> API : GET /api/vvns?vessel=&status=&representative=&from=&to= + Bearer JWT
+API -> IAM : Validate/Introspect JWT
+IAM --> API : Valid (roles: SHIPPING_AGENT_REP, orgId=ORG-123)
+API -> RB : Check role(SHIPPING_AGENT_REP)
+RB --> API : Allowed
+
+API -> DB : SELECT VVN WHERE organizationId='ORG-123'
+API -> DB : (apply filters) vessel LIKE / status = / rep match / submittedAt BETWEEN
+DB --> API : Rows [id, vesselIMO/name, status, dock?, rejectionReason?, repId/name, submittedAt,lastUpdatedAt]
+API --> UI : 200 OK [items...]
+UI --> REP : Render list (badges for status)
+
+alt Missing orgId or no role
+  API --> UI : 403 Forbid / 401 Unauthorized
+  UI --> REP : Access denied
+end
+@enduml
