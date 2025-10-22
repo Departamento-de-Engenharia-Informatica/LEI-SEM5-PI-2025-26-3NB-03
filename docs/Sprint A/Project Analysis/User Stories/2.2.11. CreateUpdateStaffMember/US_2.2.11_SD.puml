@@ -1,0 +1,98 @@
+@startuml 2.2.11_Staff_Create
+title 2.2.11 – Create Staff Member
+autonumber
+actor LO as "Logistics Operator"
+participant UI as "SPA"
+participant API as "PortOps API"
+participant RB as "Authorizer (RBAC)"
+database DB as "EF Core / DB"
+queue AUD as "Audit Log (async)"
+
+LO -> UI : Fill form {mecNumber,shortName,email,phone,window,status,quals[]}
+UI -> API : POST /api/staff {...}
+API -> RB : Check role(LOGISTICS_OPERATOR)
+RB --> API : Allowed
+
+par Validate uniqueness & quals
+  API -> DB : SELECT Staff WHERE mecNumber=?
+  DB --> API : none
+  API -> DB : SELECT Qualifications WHERE code IN (quals[])
+  DB --> API : Found subset/all
+end
+
+alt Missing/unknown qualifications
+  API --> UI : 422 Unprocessable {missing:[...]}
+  UI --> LO : Show missing quals
+else OK
+  API -> DB : INSERT Staff
+  API -> DB : INSERT StaffQualifications (many)
+  DB --> API : Created
+  API --> AUD : Append audit entry (create)
+  API --> UI : 201 Created {id,...,quals}
+  UI --> LO : Success
+end
+
+alt Duplicate mecNumber
+  DB --> API : mec exists
+  API --> UI : 409 Conflict
+end
+@enduml
+
+@startuml 2.2.11_Staff_UpdateDeactivate
+title 2.2.11 – Update/Deactivate Staff Member
+autonumber
+actor LO as "Logistics Operator"
+participant UI as "SPA"
+participant API as "PortOps API"
+participant RB as "Authorizer (RBAC)"
+database DB as "EF Core / DB"
+queue AUD as "Audit Log"
+
+LO -> UI : Edit contacts/window/quals OR set status=inactive
+UI -> API : PATCH /api/staff/{id} {fields...}
+API -> RB : Check role(LOGISTICS_OPERATOR)
+RB --> API : Allowed
+
+API -> DB : SELECT Staff by id (incl. quals)
+DB --> API : Found
+
+opt Update qualifications
+  API -> DB : SELECT Qualifications WHERE code IN(newSet)
+  DB --> API : Validate all exist
+  API -> DB : DELETE+INSERT StaffQualifications (replace set)
+end
+
+opt Status change
+  API -> DB : UPDATE Staff SET status=inactive (no delete)
+end
+
+API -> DB : UPDATE Staff (contacts/window/updatedAt)
+DB --> API : OK
+API --> AUD : Append audit entry (update)
+API --> UI : 200 OK {staff dto}
+
+alt Not found
+  DB --> API : null
+  API --> UI : 404 Not Found
+end
+
+alt Invalid data
+  API --> UI : 400/422 Validation error
+end
+@enduml
+
+@startuml 2.2.11_Staff_Search
+title 2.2.11 – Search Staff Members
+autonumber
+actor LO as "Logistics Operator"
+participant UI as "SPA"
+participant API as "PortOps API"
+database DB as "EF Core / DB"
+
+LO -> UI : Filter by mec/name/status/qual
+UI -> API : GET /api/staff?mec=...&name=...&status=...&qual=...
+API -> DB : SELECT ... WHERE mec LIKE AND name LIKE AND status= AND EXISTS(qual=...)
+DB --> API : Rows[]
+API --> UI : 200 OK [staff...]
+UI --> LO : Render list (paginated)
+@enduml
