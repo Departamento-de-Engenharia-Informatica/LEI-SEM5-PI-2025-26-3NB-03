@@ -1,0 +1,42 @@
+@startuml 2.2.11_Update_L3
+title L3 – Update/Deactivate Staff
+autonumber
+actor LO as "Logistics Operator"
+participant UI as "SPA"
+participant API as "PortOps API"
+participant RB as "RBAC"
+database DB as "EF Core / DB"
+queue AUD as "Audit Log"
+
+LO -> UI : Edit contacts/window/quals OR status=inactive
+UI -> API : PATCH /api/staff/{id} {fields}
+API -> RB : Check(LOGISTICS_OPERATOR)
+RB --> API : Allowed
+
+API -> DB : SELECT Staff by id (incl. quals)
+DB --> API : Found
+
+opt Update qualifications
+API -> DB : SELECT Qual WHERE code IN(newSet)
+DB --> API : Validate all exist
+API -> DB : Replace StaffQualifications
+end
+
+opt Status change
+API -> DB : UPDATE status=inactive (no delete)
+end
+
+API -> DB : UPDATE contacts/window/updatedAt
+DB --> API : OK
+API --> AUD : Append audit "update"
+API --> UI : 200 {staff dto}
+
+alt Not found
+DB --> API : null
+API --> UI : 404
+end
+
+alt Invalid data
+API --> UI : 400/422
+end
+@enduml

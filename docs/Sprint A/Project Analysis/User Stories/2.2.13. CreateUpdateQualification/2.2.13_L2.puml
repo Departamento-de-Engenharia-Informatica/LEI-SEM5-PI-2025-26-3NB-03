@@ -1,0 +1,16 @@
+@startuml 2.2.13_L2
+title L2 – Components & Access
+actor LO as "Logistics Operator"
+participant UI as "SPA"
+participant API as "PortOps API"
+participant RB as "RBAC"
+database DB as "DB"
+
+LO -> UI : Create/Update/Search
+UI -> API : POST/PATCH/GET ... + JWT
+API -> RB : Check(LOGISTICS_OPERATOR)
+RB --> API : Allowed
+API -> DB : CRUD Qualification
+DB --> API : OK / Conflict / NotFound
+API --> UI : 2xx/4xx
+@enduml

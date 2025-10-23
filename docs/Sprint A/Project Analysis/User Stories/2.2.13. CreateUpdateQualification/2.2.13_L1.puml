@@ -1,0 +1,7 @@
+@startuml 2.2.13_L1
+title L1 – Manage Qualifications (Overview)
+actor "Logistics Operator" as LO
+participant SYS as "PortOps System"
+LO -> SYS : Create/Update/Search Qualification
+SYS --> LO : Confirmation + results
+@enduml

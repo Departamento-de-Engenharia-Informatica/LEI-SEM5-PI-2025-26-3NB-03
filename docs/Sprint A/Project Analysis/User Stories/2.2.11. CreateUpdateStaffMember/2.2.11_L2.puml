@@ -1,0 +1,19 @@
+@startuml 2.2.11_L2
+title L2 – Components & Access
+actor LO as "Logistics Operator"
+participant UI as "SPA"
+participant API as "PortOps API"
+participant RB as "RBAC"
+database DB as "DB"
+queue AUD as "Audit Log"
+
+LO -> UI : Manage staff
+UI -> API : POST/PATCH/GET ... + JWT
+API -> RB : Check role(LOGISTICS_OPERATOR)
+RB --> API : Allowed
+API -> DB : CRUD Staff (+ StaffQualifications)
+DB --> API : OK / Conflicts / NotFound
+API --> AUD : Append audit entry (async)
+API --> UI : 2xx/4xx
+UI --> LO : Show results
+@enduml

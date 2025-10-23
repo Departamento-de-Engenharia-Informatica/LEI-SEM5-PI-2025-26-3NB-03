@@ -1,0 +1,28 @@
+@startuml 2.2.10_L3
+title L3 – View VVN Status (Filters & Errors)
+autonumber
+actor REP as "Shipping Agent Rep"
+participant UI as "SPA"
+participant API as "PortOps API"
+participant IAM as "External IAM"
+participant RB as "Authorizer (org-scope)"
+database DB as "EF Core / DB"
+
+REP -> UI : Open "My VVNs"
+UI -> API : GET /api/vvns?vessel=&status=&representative=&from=&to= + JWT
+API -> IAM : Validate JWT
+IAM --> API : roles=SHIPPING_AGENT_REP, orgId=ORG-123
+API -> RB : Check(SHIPPING_AGENT_REP, ORG-123)
+RB --> API : Allowed
+
+API -> DB : SELECT * FROM VVN WHERE organizationId='ORG-123'
+API -> DB : apply filters (vessel LIKE / status / rep / submittedAt BETWEEN)
+DB --> API : Rows [id, vesselIMO/name, status, dock?, rejectionReason?, repId/name, submittedAt,lastUpdatedAt]
+API --> UI : 200 OK [items]
+UI --> REP : Render list
+
+alt Missing orgId or role
+  API --> UI : 403/401
+  UI --> REP : Access denied
+end
+@enduml
