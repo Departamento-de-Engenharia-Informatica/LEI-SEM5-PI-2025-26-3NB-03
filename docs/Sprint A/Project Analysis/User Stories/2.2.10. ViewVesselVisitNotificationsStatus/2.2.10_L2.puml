@@ -1,0 +1,20 @@
+@startuml 2.2.10_L2
+title L2 – Components & Access
+actor REP as "Shipping Agent Rep"
+participant UI as "SPA"
+participant API as "PortOps API"
+participant IAM as "External IAM (JWT)"
+participant RB as "RBAC"
+database DB as "DB"
+
+REP -> UI : Open "My VVNs"
+UI -> API : GET /api/vvns?... + Bearer JWT
+API -> IAM : Validate/Introspect JWT
+IAM --> API : Valid (role: SHIPPING_AGENT_REP, orgId)
+API -> RB : Check role + scope(orgId)
+RB --> API : Allowed
+API -> DB : Query VVNs WHERE organizationId = orgId (+filters)
+DB --> API : Rows
+API --> UI : 200 OK [items]
+UI --> REP : Render list
+@enduml

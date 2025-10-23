@@ -1,0 +1,7 @@
+@startuml 2.2.11_L1
+title L1 – Staff Lifecycle (Overview)
+actor "Logistics Operator" as LO
+participant SYS as "PortOps System"
+LO -> SYS : Create/Update/Deactivate Staff
+SYS --> LO : Confirmation + searchable listing
+@enduml
