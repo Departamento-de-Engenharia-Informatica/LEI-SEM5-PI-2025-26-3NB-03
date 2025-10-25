@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Categories;
-using DDDSample1.Domain.Products;
 using DDDSample1.Domain.Families;
+using DDDSample1.Domain.Products;
+using DDDSample1.Domain.Representatives;
 using DDDSample1.Infrastructure.Categories;
 using DDDSample1.Infrastructure.Products;
 using DDDSample1.Domain.VesselVisitNotifications;
