@@ -14,6 +14,8 @@ using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.Categories;
 using DDDSample1.Domain.Products;
 using DDDSample1.Domain.Families;
+using DDDSample1.Domain.VesselVisitNotifications;
+using DDDSample1.Infrastructure.VesselVisitNotifications;
 
 namespace DDDSample1
 {
@@ -76,6 +78,9 @@ namespace DDDSample1
 
             services.AddTransient<IFamilyRepository,FamilyRepository>();
             services.AddTransient<FamilyService>();
+
+            services.AddTransient<IVvnRepository, VvnRepository>();
+            services.AddTransient<VvnService>();
         }
     }
 }
