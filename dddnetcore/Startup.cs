@@ -1,21 +1,26 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using System.Linq;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+
 using DDDSample1.Infrastructure;
 using DDDSample1.Infrastructure.Categories;
 using DDDSample1.Infrastructure.Products;
 using DDDSample1.Infrastructure.Families;
 using DDDSample1.Infrastructure.Shared;
+using DDDSample1.Infrastructure.VesselVisitNotifications;
+
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.Categories;
 using DDDSample1.Domain.Products;
 using DDDSample1.Domain.Families;
 using DDDSample1.Domain.VesselVisitNotifications;
-using DDDSample1.Infrastructure.VesselVisitNotifications;
 
 namespace DDDSample1
 {
@@ -32,9 +37,10 @@ namespace DDDSample1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DDDSample1DbContext>(opt =>
-                opt.UseInMemoryDatabase("DDDSample1DB")
-                .ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>());
-
+                {
+                    opt.UseInMemoryDatabase("DDDSample1DB");
+                    opt.ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>();
+                });
             ConfigureMyServices(services);
             
 
@@ -64,6 +70,26 @@ namespace DDDSample1
             {
                 endpoints.MapControllers();
             });
+
+            var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            using (var scope = scopeFactory.CreateScope())
+            {
+                var ctx = scope.ServiceProvider.GetRequiredService<DDDSample1.Infrastructure.DDDSample1DbContext>();
+                if (!ctx.VesselVisitNotifications.Any())
+                {
+                    ctx.VesselVisitNotifications.AddRange(new []
+                    {
+                        DDDSample1.Domain.VesselVisitNotifications.VesselVisitNotification.CreateSubmitted(
+                            "9321483", "MSC Aurora", "ORG-123", "REP-1", "Alice", DateTime.UtcNow.AddDays(-2)
+                        ),
+                        DDDSample1.Domain.VesselVisitNotifications.VesselVisitNotification.CreateSubmitted(
+                            "9706903", "CMA CGM Marco Polo", "ORG-123", "REP-2", "Bruno", DateTime.UtcNow.AddDays(-1)
+                        )
+                    });
+                    ctx.SaveChanges();
+                }
+            }
+
         }
 
         public void ConfigureMyServices(IServiceCollection services)

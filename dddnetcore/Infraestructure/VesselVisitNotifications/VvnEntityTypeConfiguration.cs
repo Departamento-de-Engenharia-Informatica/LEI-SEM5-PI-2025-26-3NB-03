@@ -10,11 +10,16 @@ namespace DDDSample1.Infrastructure.VesselVisitNotifications
         {
             builder.HasKey(b => b.Id);
 
-            // Índices úteis para pesquisa
+            // Converter explícito para o ID forte (VvnId <-> Guid)
+            builder.Property(b => b.Id)
+                .HasConversion(
+                    id => id.AsGuid(),         // para a BD
+                    guid => new VvnId(guid))   // da BD para a entidade
+                .ValueGeneratedNever();
+
             builder.HasIndex(b => new { b.OrganizationId, b.Status });
             builder.HasIndex(b => new { b.VesselIMO, b.SubmittedAt });
 
-            // Constraints simples (se quiseres)
             builder.Property(b => b.VesselIMO).IsRequired();
             builder.Property(b => b.VesselName).IsRequired();
             builder.Property(b => b.OrganizationId).IsRequired();
