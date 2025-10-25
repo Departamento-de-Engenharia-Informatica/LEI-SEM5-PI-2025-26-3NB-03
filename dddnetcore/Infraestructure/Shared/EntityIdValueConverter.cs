@@ -1,17 +1,21 @@
 using System;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using DDDSample1.Domain.Shared;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DDDSample1.Infrastructure.Shared
 {
-    public class EntityIdValueConverter<TTypedIdValue> : ValueConverter<TTypedIdValue, String>
-        where TTypedIdValue : EntityId
+    /// Converte IDs fortes (derivados de EntityId) <-> string para EF Core
+    public sealed class EntityIdValueConverter<TId> : ValueConverter<TId, string> where TId : EntityId
     {
-        public EntityIdValueConverter(ConverterMappingHints mappingHints = null) 
-            : base(id => id.Value, value => Create(value), mappingHints)
-        {
-        }
-
-        private static TTypedIdValue Create(String id) => Activator.CreateInstance(typeof(TTypedIdValue), id) as TTypedIdValue;
+        public EntityIdValueConverter(ConverterMappingHints mappingHints = null)
+            : base(
+                id => id.AsString(),                          // para provider (string)
+                text => (TId)Activator.CreateInstance(        // de volta para o tipo forte
+                    typeof(TId),
+                    new object[] { text }
+                ),
+                mappingHints
+            )
+        { }
     }
 }

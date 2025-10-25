@@ -1,6 +1,7 @@
 ## Mandatory Scope of Work for every Team Member
 
-We decided to organize the members by the mechanographic number.
+ - We decided to organize the members by the mechanographic number.
+ - On a later date we decided to change the member 1 and 2 with each other, for a better workflow.
 
 <table>
     <thead>
@@ -9,8 +10,8 @@ We decided to organize the members by the mechanographic number.
             <th colspan="5">Team Composition</th>
         </tr>
         <tr>
-            <th>1010947</th>
             <th>1050071</th>
+            <th>1010947</th>
             <th>1080714</th>
             <th>1200614</th>
             <th>N/A</th>
@@ -42,15 +43,15 @@ We assigned team members to User Stories following the Scope of Work.
 
 | Number  | Short Name                             | Assignee |
 |---------|----------------------------------------|----------|
-| 2.2.1.  | Create/Update Vessel Type              | 1050071  |
-| 2.2.2.  | Create/Update Vessel                   | 1010947  |
-| 2.2.3.  | Create/Update Dock                     | 1050071  |
+| 2.2.1.  | Create/Update Vessel Type              | 1010947  |
+| 2.2.2.  | Create/Update Vessel                   | 1050071  |
+| 2.2.3.  | Create/Update Dock                     | 1010947  |
 | 2.2.4.  | Create/Update Storage Area             | 1080714  |
 | 2.2.5.  | Create Shipping Agent Organization     | 1080714  |
 | 2.2.6.  | Create/Update Representative           | 1080714  |
-| 2.2.7.  | Review Vessel Visit Notification       | 1050071  |
-| 2.2.8.  | Create Vessel Visit Notification       | 1010947  |
-| 2.2.9.  | Update Vessel Visit Notification       | 1010947  |
+| 2.2.7.  | Review Vessel Visit Notification       | 1010947  |
+| 2.2.8.  | Create Vessel Visit Notification       | 1050071  |
+| 2.2.9.  | Update Vessel Visit Notification       | 1050071  |
 | 2.2.10. | View Vessel Visit Notifications Status | 1200614  |
 | 2.2.11. | Create/Update Staff Member             | 1200614  |
 | 2.2.12. | Create/Update Physical Resource        | 1080714  |

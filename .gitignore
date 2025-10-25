@@ -1,0 +1,15 @@
+# IDE
+.vs/
+.idea/
+*.suo
+*.user
+
+# Build
+bin/
+obj/
+
+# Outras caches
+*.cache
+*.vsidx
+/dddnetcore/bin/
+/dddnetcore/.vs/
