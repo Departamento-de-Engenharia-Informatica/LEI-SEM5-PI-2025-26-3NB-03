@@ -4,8 +4,9 @@ using DDDSample1.Domain.Products;
 using DDDSample1.Domain.Representatives;
 using DDDSample1.Infrastructure.Categories;
 using DDDSample1.Infrastructure.Products;
-using DDDSample1.Infrastructure.Representatives;
-using Microsoft.EntityFrameworkCore;
+using DDDSample1.Domain.VesselVisitNotifications;
+using DDDSample1.Infrastructure.VesselVisitNotifications;
+
 
 namespace DDDSample1.Infrastructure
 {
@@ -17,7 +18,8 @@ namespace DDDSample1.Infrastructure
 
         public DbSet<Family> Families { get; set; }
 
-        public DbSet<Representative> Representatives { get; set; }
+        public DbSet<VesselVisitNotification> VesselVisitNotifications { get; set; }
+
 
         public DDDSample1DbContext(DbContextOptions options) : base(options)
         {
@@ -29,7 +31,7 @@ namespace DDDSample1.Infrastructure
             modelBuilder.ApplyConfiguration(new CategoryEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new FamilyEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new RepresentativeEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new VvnEntityTypeConfiguration());
         }
     }
 }
