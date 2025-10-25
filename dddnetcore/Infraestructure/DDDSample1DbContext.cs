@@ -6,6 +6,8 @@ using DDDSample1.Infrastructure.Categories;
 using DDDSample1.Infrastructure.Products;
 using DDDSample1.Domain.VesselVisitNotifications;
 using DDDSample1.Infrastructure.VesselVisitNotifications;
+using DDDSample1.Infrastructure.Representatives;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace DDDSample1.Infrastructure
@@ -17,6 +19,8 @@ namespace DDDSample1.Infrastructure
         public DbSet<Product> Products { get; set; }
 
         public DbSet<Family> Families { get; set; }
+
+        public DbSet<Representative> Representatives { get; set; }
 
         public DbSet<VesselVisitNotification> VesselVisitNotifications { get; set; }
 
@@ -32,6 +36,7 @@ namespace DDDSample1.Infrastructure
             modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new FamilyEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new VvnEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new RepresentativeEntityTypeConfiguration());
         }
     }
 }

@@ -42,7 +42,7 @@ namespace DDDSample1
                     opt.ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>();
                 });
             ConfigureMyServices(services);
-            
+
 
             services.AddControllers().AddNewtonsoftJson();
         }
@@ -104,6 +104,9 @@ namespace DDDSample1
 
             services.AddTransient<IFamilyRepository,FamilyRepository>();
             services.AddTransient<FamilyService>();
+
+            //services.AddTransient<IRepresentativeRepository, RepresentativeRepository>();
+            //services.AddTransient<RepresentativeService>();
 
             services.AddTransient<IVvnRepository, VvnRepository>();
             services.AddTransient<VvnService>();
