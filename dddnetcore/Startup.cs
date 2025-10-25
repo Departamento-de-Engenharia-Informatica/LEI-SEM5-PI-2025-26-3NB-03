@@ -9,11 +9,14 @@ using DDDSample1.Infrastructure;
 using DDDSample1.Infrastructure.Categories;
 using DDDSample1.Infrastructure.Products;
 using DDDSample1.Infrastructure.Families;
+using DDDSample1.Infrastructure.VesselTypes;
 using DDDSample1.Infrastructure.Shared;
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.Categories;
 using DDDSample1.Domain.Products;
 using DDDSample1.Domain.Families;
+using DDDSample1.Domain.VesselTypes;
+
 
 namespace DDDSample1
 {
@@ -76,6 +79,9 @@ namespace DDDSample1
 
             services.AddTransient<IFamilyRepository,FamilyRepository>();
             services.AddTransient<FamilyService>();
+
+            services.AddTransient<IVesselTypeRepository,VesselTypeRepository>();
+            services.AddTransient<VesselTypeService>();
         }
     }
 }

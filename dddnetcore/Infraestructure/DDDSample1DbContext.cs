@@ -2,8 +2,12 @@ using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Categories;
 using DDDSample1.Domain.Products;
 using DDDSample1.Domain.Families;
+using DDDSample1.Domain.VesselTypes;
 using DDDSample1.Infrastructure.Categories;
 using DDDSample1.Infrastructure.Products;
+using DDDSample1.Infrastructure.VesselTypes;
+using System.Diagnostics.Contracts;
+
 
 namespace DDDSample1.Infrastructure
 {
@@ -15,6 +19,8 @@ namespace DDDSample1.Infrastructure
 
         public DbSet<Family> Families { get; set; }
 
+        public DbSet<VesselType> VesselTypes { get; set; }
+
         public DDDSample1DbContext(DbContextOptions options) : base(options)
         {
 
@@ -25,6 +31,7 @@ namespace DDDSample1.Infrastructure
             modelBuilder.ApplyConfiguration(new CategoryEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new FamilyEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new VesselTypeEntityTypeConfiguration());
         }
     }
 }

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
 
-namespace DDDSample1.Domain.VesselType
+namespace DDDSample1.Domain.VesselTypes
 {
    
 
@@ -28,22 +28,22 @@ namespace DDDSample1.Domain.VesselType
             if (capacity <= 0)
                 throw new BusinessRuleValidationException("Capacity must be a positive integer."); //navios de manutencao tem capacidade??? se nao as regras abaixo mudam para <0
 
-            if (maxRows <= 0)
+            if (maxrows <= 0)
                 throw new BusinessRuleValidationException("MaxRows must be a positive integer."); 
 
-            if (maxBays <= 0)
+            if (maxbays <= 0)
                 throw new BusinessRuleValidationException("MaxBays must be a positive integer.");
 
-            if (maxTiers <= 0)
+            if (maxtiers <= 0)
                 throw new BusinessRuleValidationException("MaxTiers must be a positive integer.");
 
             this.Id = new VesselTypeId(Guid.NewGuid());
             this.Name = name;
             this.Description = description;
             this.Capacity = capacity;
-            this.MaxRows = maxRows;
-            this.MaxBays = maxBays;
-            this.MaxTiers = maxTiers;
+            this.MaxRows = maxrows;
+            this.MaxBays = maxbays;
+            this.MaxTiers = maxtiers;
         }
     }
 
