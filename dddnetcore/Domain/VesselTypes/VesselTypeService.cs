@@ -25,6 +25,16 @@ namespace DDDSample1.Domain.VesselTypes
             return listDto;
         }
 
+        public async Task<VesselTypeDto> GetByIdAsync(System.Guid id)
+        {
+            var vt = await this._repo.GetByIdAsync(new VesselTypeId(id));
+
+            if (vt == null)
+                return null;
+
+            return new VesselTypeDto { Id = vt.Id.AsGuid(), Name = vt.Name, Description = vt.Description, Capacity = vt.Capacity, MaxBays = vt.MaxBays, MaxRows = vt.MaxRows, MaxTiers = vt.MaxTiers };
+        }
+
         public async Task<VesselTypeDto> GetByNameAsync(string name)
         {
             var vt = await this._repo.GetByNameAsync(name);
