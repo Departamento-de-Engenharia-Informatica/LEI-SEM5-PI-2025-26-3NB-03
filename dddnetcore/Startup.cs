@@ -7,6 +7,9 @@ using DDDSample1.Domain.ShippingAgentOrganizations;
 using DDDSample1.Domain.StorageAreas;
 using DDDSample1.Domain.PhysicalResources;
 using DDDSample1.Domain.VesselVisitNotifications;
+using DDDSample1.Domain.VeselTypes;
+using DDDSample1.Domain.Docks;
+
 using DDDSample1.Infrastructure;
 using DDDSample1.Infrastructure.Categories;
 using DDDSample1.Infrastructure.Families;
@@ -17,6 +20,9 @@ using DDDSample1.Infrastructure.ShippingAgentOrganizations;
 using DDDSample1.Infrastructure.StorageAreas;
 using DDDSample1.Infrastructure.PhysicalResources;
 using DDDSample1.Infrastructure.VesselVisitNotifications;
+using DDDSample1.Infrastructure.VesselTypes;
+using DDDSample1.Infrastructure.Docks;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -202,6 +208,12 @@ namespace DDDSample1
 
             services.AddTransient<IStaffMemberRepository, StaffMemberRepository>();
             services.AddTransient<StaffMemberService>();
+
+            services.AddTransient<IVesselTypeRepository, VesselTypeRepository>();
+            services.AddTransient<VesselTypeService>();
+
+            services.AddTransient<IDockRepository, DockRepository>();
+            services.AddTransient<DockService>();
         }
     }
 }
