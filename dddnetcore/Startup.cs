@@ -79,6 +79,19 @@ namespace DDDSample1
             });
 
             var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var ctx = scope.ServiceProvider.GetRequiredService<DDDSample1.Infrastructure.DDDSample1DbContext>();
+
+                if (!ctx.Qualifications.Any())
+                {
+                    ctx.Qualifications.AddRange(
+                        Qualification.Create("STS_CRANE", "STS Crane Operator"),
+                        Qualification.Create("TRUCK_DRIVER", "Truck Driver")
+                    );
+                    ctx.SaveChanges();
+                }
+            }
             using (var scope = scopeFactory.CreateScope())
             {
                 var ctx = scope.ServiceProvider.GetRequiredService<DDDSample1.Infrastructure.DDDSample1DbContext>();
@@ -126,22 +139,6 @@ namespace DDDSample1
                     ctx.SaveChanges();
                 }
             }
-
-            using (var scope = app.ApplicationServices.CreateScope())
-            {
-                var ctx = scope.ServiceProvider.GetRequiredService<DDDSample1.Infrastructure.DDDSample1DbContext>();
-
-                if (!ctx.Qualifications.Any())
-                {
-                    ctx.Qualifications.AddRange(
-                        Qualification.Create("STS_CRANE", "STS Crane Operator"),
-                        Qualification.Create("TRUCK_DRIVER", "Truck Driver")
-                    );
-                    ctx.SaveChanges();
-                }
-            }
-
-
         }
 
         public void ConfigureMyServices(IServiceCollection services)
@@ -159,7 +156,6 @@ namespace DDDSample1
 
             services.AddTransient<IQualificationRepository, QualificationRepository>();
             services.AddTransient<QualificationService>();
-
 
             services.AddTransient<IRepresentativeRepository, RepresentativeRepository>();
             services.AddTransient<RepresentativeService>();
