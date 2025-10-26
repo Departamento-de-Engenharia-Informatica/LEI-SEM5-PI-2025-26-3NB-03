@@ -62,8 +62,8 @@ namespace DDDSample1.Infrastructure
             modelBuilder.ApplyConfiguration(new PhysicalResourceEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new VvnEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new StaffMemberEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new VesselTypesEntityTypeConfiguration());
-            modelBuilder.ApplyConfiguration(new DocksEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new VesselTypeEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new DockEntityTypeConfiguration());
         }
     }
 }
