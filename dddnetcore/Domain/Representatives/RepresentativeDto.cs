@@ -5,7 +5,8 @@ namespace DDDSample1.Domain.Representatives
 {
     public class RepresentativeDto
     {
-        public Guid Id { get; set; }
+        [Required(ErrorMessage = "Citizen ID is required.")]
+        public string Id { get; set; }
 
         [Required(ErrorMessage = "Name is required.")]
         public string Name { get; set; }

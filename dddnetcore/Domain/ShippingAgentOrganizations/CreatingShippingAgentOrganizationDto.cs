@@ -9,9 +9,9 @@ namespace DDDSample1.Domain.ShippingAgentOrganizations
         public string AltName { get; set; }
         public string Address { get; set; }
         public int TaxNumber { get; set; }
-        public List<Guid> Representatives { get; set; }
+        public List<string> Representatives { get; set; }
 
-        public CreatingShippingAgentOrganizationDto(string legalname, string altname, string address, int taxnumber, List<Guid> representatives)
+        public CreatingShippingAgentOrganizationDto(string legalname, string altname, string address, int taxnumber, List<string> representatives)
         {
             this.LegalName = legalname;
             this.AltName = altname;

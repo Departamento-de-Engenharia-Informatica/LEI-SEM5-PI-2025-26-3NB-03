@@ -97,8 +97,8 @@ namespace DDDSample1
                 var ctx = scope.ServiceProvider.GetRequiredService<DDDSample1.Infrastructure.DDDSample1DbContext>();
                 if (!ctx.Representatives.Any() || !ctx.ShippingAgentOrganizations.Any())
                 {
-                    var rep1 = Representative.CreateSubmitted("Rep1", "PT", "rep1@rep.pt", 910000000);
-                    var rep2 = Representative.CreateSubmitted("Rep2", "PT", "rep2@rep.pt", 930000000);
+                    var rep1 = Representative.CreateSubmitted(new RepresentativeId("220000000"), "Rep1", "PT", "rep1@rep.pt", 910000000);
+                    var rep2 = Representative.CreateSubmitted(new RepresentativeId("210000000"), "Rep2", "PT", "rep2@rep.pt", 930000000);
                     ctx.Representatives.AddRange(rep1, rep2);
                     ctx.SaveChanges();
 
