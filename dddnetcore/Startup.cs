@@ -1,5 +1,16 @@
-﻿using System;
-using System.Linq;
+﻿using DDDNetCore.Domain.Vessels;
+using DDDNetCore.Infraestructure.Vessels;
+using DDDSample1.Domain.Categories;
+using DDDSample1.Domain.Families;
+using DDDSample1.Domain.Products;
+using DDDSample1.Domain.Shared;
+using DDDSample1.Domain.VesselVisitNotifications;
+using DDDSample1.Infrastructure;
+using DDDSample1.Infrastructure.Categories;
+using DDDSample1.Infrastructure.Families;
+using DDDSample1.Infrastructure.Products;
+using DDDSample1.Infrastructure.Shared;
+using DDDSample1.Infrastructure.VesselVisitNotifications;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -8,19 +19,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-
-using DDDSample1.Infrastructure;
-using DDDSample1.Infrastructure.Categories;
-using DDDSample1.Infrastructure.Products;
-using DDDSample1.Infrastructure.Families;
-using DDDSample1.Infrastructure.Shared;
-using DDDSample1.Infrastructure.VesselVisitNotifications;
-
-using DDDSample1.Domain.Shared;
-using DDDSample1.Domain.Categories;
-using DDDSample1.Domain.Products;
-using DDDSample1.Domain.Families;
-using DDDSample1.Domain.VesselVisitNotifications;
+using System;
+using System.Linq;
 
 namespace DDDSample1
 {
@@ -110,6 +110,9 @@ namespace DDDSample1
 
             services.AddTransient<IVvnRepository, VvnRepository>();
             services.AddTransient<VvnService>();
+
+            services.AddScoped<IVesselRepository, VesselRepository>();
+
         }
     }
 }
