@@ -15,92 +15,47 @@ namespace DDDSample1.Domain.VesselTypes
             this._repo = repo;
         }
 
+        //For test only
         public async Task<List<VesselTypeDto>> GetAllAsync()
         {
             var list = await this._repo.GetAllAsync();
-            
-            List<VesselTypeDto> listDto = list.ConvertAll<VesselTypeDto>(cat => new VesselTypeDto{Id = cat.Id.AsGuid(), Name = cat.Name});
-                                                                                    //string name, string description, int capacity, int maxrows, int maxbays, int maxtiers
+
+            List<VesselTypeDto> listDto = list.ConvertAll<VesselTypeDto>(vt => new VesselTypeDto { Id = vt.Id.AsGuid(), Name = vt.Name, Description = vt.Description, Capacity = vt.Capacity, MaxBays = vt.MaxBays, MaxRows = vt.MaxRows, MaxTiers = vt.MaxTiers }); //
+
             return listDto;
         }
 
-//mudar para getbyname
         public async Task<VesselTypeDto> GetByNameAsync(string name)
         {
-            var cat = await this._repo.GetByNameAsync(name);
-            
-            if(cat == null)
+            var vt = await this._repo.GetByNameAsync(name);
+
+            if (vt == null)
                 return null;
 
-            return new VesselTypeDto{Id = cat.Id.AsGuid(), Description = cat.Description}; // rever com dados de VesselType
+            return new VesselTypeDto { Id = vt.Id.AsGuid(), Name = vt.Name, Description = vt.Description, Capacity = vt.Capacity, MaxBays = vt.MaxBays, MaxRows = vt.MaxRows, MaxTiers = vt.MaxTiers };
         }
-
-   public async Task<VesselTypeDto> GetByDescriptionAsync(VesselTypeId string description)
+        
+        public async Task<VesselTypeDto> GetByDescriptionAsync(string description)
         {
-            var cat = await this._repo.GetByIdAsync(id);
+            var vt = await this._repo.GetByDescriptionAsync(description);
             
-            if(cat == null)
+            if(vt == null)
                 return null;
 
-            return new VesselTypeDto{Id = cat.Id.AsGuid(), Description = cat.Description}; // rever com dados de VesselType
+            return new VesselTypeDto{Id = vt.Id.AsGuid(), Name = vt.Name, Description = vt.Description, Capacity = vt.Capacity, MaxBays = vt.MaxBays, MaxRows = vt.MaxRows, MaxTiers = vt.MaxTiers};
         }
-
 
         public async Task<VesselTypeDto> AddAsync(CreatingVesselTypeDto dto)
         {
-            var vesseltype = new VesselType(dto.Description); // rever com dados Vessel Type
+            var vt = new VesselType(dto.Name, dto.Description, dto.Capacity, dto.MaxBays, dto.MaxRows, dto.MaxTiers);
 
-            await this._repo.AddAsync(vesseltype);
+            await this._repo.AddAsync(vt);
 
             await this._unitOfWork.CommitAsync();
 
-            return new CategoryDto { Id = category.Id.AsGuid(), Description = category.Description }; // rever com dados Vessel Type
+            return new VesselTypeDto {Name = vt.Name, Description = vt.Description, Capacity = vt.Capacity, MaxBays = vt.MaxBays, MaxRows = vt.MaxRows, MaxTiers = vt.MaxTiers};
         }
 
-        /*public async Task<VesselTypeDto> UpdateAsync(VesselTypeDto dto)
-        {
-            var category = await this._repo.GetByIdAsync(new CategoryId(dto.Id));
-
-            if (category == null)
-                return null;   
-
-            // change all field
-            category.ChangeDescription(dto.Description);
-            
-            await this._unitOfWork.CommitAsync();
-
-            return new CategoryDto { Id = category.Id.AsGuid(), Description = category.Description };
-        }
-
-        public async Task<CategoryDto> InactivateAsync(CategoryId id)
-        {
-            var category = await this._repo.GetByIdAsync(id); 
-
-            if (category == null)
-                return null;   
-
-            // change all fields
-            category.MarkAsInative();
-            
-            await this._unitOfWork.CommitAsync();
-
-            return new CategoryDto { Id = category.Id.AsGuid(), Description = category.Description };
-        }
-
-         public async Task<CategoryDto> DeleteAsync(CategoryId id)
-        {
-            var category = await this._repo.GetByIdAsync(id); 
-
-            if (category == null)
-                return null;   
-
-            if (category.Active)
-                throw new BusinessRuleValidationException("It is not possible to delete an active category.");
-            
-            this._repo.Remove(category);
-            await this._unitOfWork.CommitAsync();
-
-            return new CategoryDto { Id = category.Id.AsGuid(), Description = category.Description };
-        }*/
+        
     }
 }

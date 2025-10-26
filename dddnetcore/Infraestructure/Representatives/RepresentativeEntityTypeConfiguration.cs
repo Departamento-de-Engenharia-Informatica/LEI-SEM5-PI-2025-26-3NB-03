@@ -1,6 +1,7 @@
+using DDDSample1.Domain.Representatives;
+using DDDSample1.Domain.ShippingAgentOrganizations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DDDSample1.Domain.Representatives;
 
 namespace DDDSample1.Infrastructure.Representatives
 {
@@ -13,6 +14,10 @@ namespace DDDSample1.Infrastructure.Representatives
             //builder.ToTable("Representatives", SchemaNames.DDDSample1);
             builder.HasKey(b => b.Id);
             //builder.Property<bool>("_active").HasColumnName("Active");
+            builder.HasOne<ShippingAgentOrganization>()
+                   .WithMany(b => b.Representatives)
+                   .HasForeignKey(b => b.ShippingAgentOrganizationId)
+                   .IsRequired();
         }
     }
 }

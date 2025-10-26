@@ -4,7 +4,7 @@ namespace DDDSample1.Domain.VesselTypes
 {
     public class VesselTypeDto
     {
-        public Guid VesselTypeId { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public int Capacity { get; set; }

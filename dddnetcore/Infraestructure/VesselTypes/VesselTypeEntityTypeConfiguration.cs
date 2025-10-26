@@ -8,11 +8,11 @@ namespace DDDSample1.Infrastructure.VesselTypes
     {
         public void Configure(EntityTypeBuilder<VesselType> builder)
         {
-            // cf. https://www.entityframeworktutorial.net/efcore/fluent-api-in-entity-framework-core.aspx
-            
-            //builder.ToTable("Categories", SchemaNames.DDDSample1);
-            builder.HasKey(b => b.Id);
-            //builder.Property<bool>("_active").HasColumnName("Active");
+
+            builder.HasKey(v => v.Id);
+            builder.Property(v => v.Name).IsRequired();
+            builder.Property(v => v.Description).IsRequired();
+           
         }
     }
 }

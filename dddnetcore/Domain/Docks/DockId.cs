@@ -2,16 +2,16 @@ using System;
 using DDDSample1.Domain.Shared;
 using Newtonsoft.Json;
 
-namespace DDDSample1.Domain.Representatives
+namespace DDDSample1.Domain.Docks
 {
-    public class RepresentativeId : EntityId
+    public class DockId : EntityId
     {
         [JsonConstructor]
-        public RepresentativeId(Guid value) : base(value)
+        public DockId(Guid value) : base(value)
         {
         }
 
-        public RepresentativeId(String value) : base(value)
+        public DockId(String value) : base(value)
         {
         }
 
@@ -26,6 +26,7 @@ namespace DDDSample1.Domain.Representatives
             return obj.ToString();
         }
         
+       
         public Guid AsGuid(){
             return (Guid) base.ObjValue;
         }
