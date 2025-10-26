@@ -25,6 +25,8 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DDDSample1.Domain.Staff;
+using DDDSample1.Infrastructure.Staff;
 
 using DDDSample1.Domain.Qualifications;
 using DDDSample1.Infrastructure.Qualifications;
@@ -138,6 +140,19 @@ namespace DDDSample1
                     });
                     ctx.SaveChanges();
                 }
+
+
+                  if (!ctx.StaffMembers.Any())
+                  {
+                      ctx.StaffMembers.AddRange(
+                          StaffMember.Create("EMP001", "Alice", "alice@port.com"),
+                          StaffMember.Create("EMP002", "Bruno Costa", "bruno@port.com")
+                      );
+
+                      ctx.SaveChanges();
+                  }
+
+
             }
         }
 
@@ -168,6 +183,9 @@ namespace DDDSample1
 
             services.AddTransient<IVvnRepository, VvnRepository>();
             services.AddTransient<VvnService>();
+
+            services.AddTransient<IStaffMemberRepository, StaffMemberRepository>();
+            services.AddTransient<StaffMemberService>();
         }
     }
 }
