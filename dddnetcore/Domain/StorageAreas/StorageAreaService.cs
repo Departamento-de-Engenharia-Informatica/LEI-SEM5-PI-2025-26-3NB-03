@@ -22,7 +22,10 @@ namespace DDDSample1.Domain.StorageAreas
             return list.ConvertAll<StorageAreaDto>(storageArea => new StorageAreaDto {
                 Id = storageArea.Id.AsGuid(),
                 Type = storageArea.Type,
-                Location = storageArea.Location });
+                Location = storageArea.Location,
+                MaximumCapacity = storageArea.MaximumCapacity,
+                CurrentOccupancy = storageArea.CurrentOccupancy
+            });
         }
 
         public async Task<StorageAreaDto> GetByIdAsync(StorageAreaId id)
@@ -35,12 +38,15 @@ namespace DDDSample1.Domain.StorageAreas
             return new StorageAreaDto {
                 Id = storageArea.Id.AsGuid(),
                 Type = storageArea.Type,
-                Location = storageArea.Location };
+                Location = storageArea.Location,
+                MaximumCapacity = storageArea.MaximumCapacity,
+                CurrentOccupancy = storageArea.CurrentOccupancy
+            };
         }
 
         public async Task<StorageAreaDto> AddAsync(CreatingStorageAreaDto dto)
         {
-            var storageArea = new StorageArea(dto.Type, dto.Location);
+            var storageArea = new StorageArea(dto.Type, dto.Location, dto.MaximumCapacity, dto.CurrentOccupancy);
 
             await this._repo.AddAsync(storageArea);
             await this._unitOfWork.CommitAsync();
@@ -48,7 +54,10 @@ namespace DDDSample1.Domain.StorageAreas
             return new StorageAreaDto {
                 Id = storageArea.Id.AsGuid(),
                 Type = storageArea.Type,
-                Location = storageArea.Location };
+                Location = storageArea.Location,
+                MaximumCapacity = storageArea.MaximumCapacity,
+                CurrentOccupancy = storageArea.CurrentOccupancy
+            };
         }
 
         public async Task<StorageAreaDto> UpdateAsync(StorageAreaDto dto)
@@ -61,13 +70,18 @@ namespace DDDSample1.Domain.StorageAreas
             // change all field
             storageArea.ChangeType(dto.Type);
             storageArea.ChangeLocation(dto.Location);
+            storageArea.ChangeMaximumCapacity(dto.MaximumCapacity);
+            storageArea.ChangeCurrentOccupancy(dto.CurrentOccupancy);
 
             await this._unitOfWork.CommitAsync();
 
             return new StorageAreaDto {
                 Id = storageArea.Id.AsGuid(),
                 Type = storageArea.Type,
-                Location = storageArea.Location };
+                Location = storageArea.Location,
+                MaximumCapacity = storageArea.MaximumCapacity,
+                CurrentOccupancy = storageArea.CurrentOccupancy
+            };
         }
     }
 }

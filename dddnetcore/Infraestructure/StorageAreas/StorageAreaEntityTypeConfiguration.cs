@@ -13,6 +13,14 @@ namespace DDDSample1.Infrastructure.StorageAreas
             //builder.ToTable("StorageArea", SchemaNames.DDDSample1);
             builder.HasKey(b => b.Id);
             //builder.Property<bool>("_active").HasColumnName("Active");
+            builder.Property(b => b.Type)
+                .IsRequired();
+            builder.Property(b => b.Location)
+                .IsRequired();
+            builder.Property(b => b.MaximumCapacity)
+                .IsRequired();
+            builder.Property(b => b.CurrentOccupancy)
+                .IsRequired();
         }
     }
 }

@@ -8,5 +8,7 @@ namespace DDDSample1.Domain.StorageAreas
 
         public string Type { get; set; }
         public string Location { get; set; }
+        public int MaximumCapacity { get; set; }
+        public int CurrentOccupancy { get; set; }
     }
 }
