@@ -21,7 +21,7 @@ namespace DDDSample1.Domain.Representatives
             this.Active = true;
         }
 
-        public Representative(string name, string nationality, string email, int phonenumber)
+        public Representative(RepresentativeId id, string name, string nationality, string email, int phonenumber)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new BusinessRuleValidationException("Name is required.");
@@ -40,7 +40,7 @@ namespace DDDSample1.Domain.Representatives
             if (phonenumber <= 0)
                 throw new BusinessRuleValidationException("Phone number must be a positive integer.");
 
-            this.Id = new RepresentativeId(Guid.NewGuid());
+            this.Id = id ?? throw new BusinessRuleValidationException("Representative ID is required.");
             this.Name = name;
             this.Nationality = nationality;
             this.Email = email;
@@ -100,7 +100,7 @@ namespace DDDSample1.Domain.Representatives
         }
 
         public static Representative CreateSubmitted(
-            string name, string nationality, string email, int phonenumber)
-            => new(name, nationality, email, phonenumber);
+            RepresentativeId id, string name, string nationality, string email, int phonenumber)
+            => new(id, name, nationality, email, phonenumber);
     }
 }

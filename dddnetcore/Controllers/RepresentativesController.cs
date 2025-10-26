@@ -27,7 +27,7 @@ namespace DDDSample1.Controllers
 
         // GET: api/Representatives/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<RepresentativeDto>> GetGetById(Guid id)
+        public async Task<ActionResult<RepresentativeDto>> GetGetById(string id)
         {
             var representative = await _service.GetByIdAsync(new RepresentativeId(id));
 
@@ -50,7 +50,7 @@ namespace DDDSample1.Controllers
 
         // PUT: api/Representatives/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<RepresentativeDto>> Update(Guid id, RepresentativeDto dto)
+        public async Task<ActionResult<RepresentativeDto>> Update(string id, RepresentativeDto dto)
         {
             if (id != dto.Id)
             {
@@ -75,7 +75,7 @@ namespace DDDSample1.Controllers
 
         // Inactivate: api/Representatives/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<RepresentativeDto>> SoftDelete(Guid id)
+        public async Task<ActionResult<RepresentativeDto>> SoftDelete(string id)
         {
             var representative = await _service.InactivateAsync(new RepresentativeId(id));
 

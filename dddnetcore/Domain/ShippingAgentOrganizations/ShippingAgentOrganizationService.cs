@@ -30,7 +30,7 @@ namespace DDDSample1.Domain.ShippingAgentOrganizations
                 AltName = organization.AltName,
                 Address = organization.Address,
                 TaxNumber = organization.TaxNumber,
-                Representatives = organization.Representatives.Select(r => r.Id.AsGuid()).ToList()
+                Representatives = organization.Representatives.Select(r => r.Id.AsString()).ToList()
             });
         }
 
@@ -48,7 +48,7 @@ namespace DDDSample1.Domain.ShippingAgentOrganizations
                 AltName = organization.AltName,
                 Address = organization.Address,
                 TaxNumber = organization.TaxNumber,
-                Representatives = organization.Representatives.Select(r => r.Id.AsGuid()).ToList()
+                Representatives = organization.Representatives.Select(r => r.Id.AsString()).ToList()
             };
         }
 
@@ -57,19 +57,12 @@ namespace DDDSample1.Domain.ShippingAgentOrganizations
             if (dto.Representatives == null || dto.Representatives.Count == 0)
                 throw new BusinessRuleValidationException("A Shipping Agent Organization needs at least one Representative.");
 
-            /*var representativeIds = dto.Representatives.Select(id => new RepresentativeId(id)).ToList();
-            foreach (var repId in representativeIds)
-            {
-                var rep = await _repRepo.GetByIdAsync(repId);
-                if (rep == null)
-                    throw new BusinessRuleValidationException($"Representative {repId.AsGuid()} doesn't exist.");
-            }*/
             var representatives = new List<Representative>();
             foreach (var repId in dto.Representatives.Select(id => new RepresentativeId(id)))
             {
                 var rep = await _repRepo.GetByIdAsync(repId);
                 if (rep == null)
-                    throw new BusinessRuleValidationException($"Representative {repId.AsGuid()} doesn't exist.");
+                    throw new BusinessRuleValidationException($"Representative {repId.AsString()} doesn't exist.");
                 representatives.Add(rep);
             }
 
@@ -92,7 +85,7 @@ namespace DDDSample1.Domain.ShippingAgentOrganizations
                 AltName = organization.AltName,
                 Address = organization.Address,
                 TaxNumber = organization.TaxNumber,
-                Representatives = organization.Representatives.Select(r => r.Id.AsGuid()).ToList()
+                Representatives = organization.Representatives.Select(r => r.Id.AsString()).ToList()
             };
         }
 
@@ -103,19 +96,12 @@ namespace DDDSample1.Domain.ShippingAgentOrganizations
             if (organization == null)
                 return null;
 
-            /*var representativeIds = dto.Representatives.Select(r => new RepresentativeId(r)).ToList();
-            foreach (var repId in representativeIds)
-            {
-                var rep = await _repRepo.GetByIdAsync(repId);
-                if (rep == null)
-                    throw new BusinessRuleValidationException($"Representative {repId.AsGuid()} doesn't exist.");
-            }*/
             var representatives = new List<Representative>();
             foreach (var repId in dto.Representatives.Select(id => new RepresentativeId(id)))
             {
                 var rep = await _repRepo.GetByIdAsync(repId);
                 if (rep == null)
-                    throw new BusinessRuleValidationException($"Representative {repId.AsGuid()} doesn't exist.");
+                    throw new BusinessRuleValidationException($"Representative {repId.AsString()} doesn't exist.");
                 representatives.Add(rep);
             }
 
@@ -135,7 +121,7 @@ namespace DDDSample1.Domain.ShippingAgentOrganizations
                 AltName = organization.AltName,
                 Address = organization.Address,
                 TaxNumber = organization.TaxNumber,
-                Representatives = organization.Representatives.Select(r => r.Id.AsGuid()).ToList()
+                Representatives = organization.Representatives.Select(r => r.Id.AsString()).ToList()
             };
         }
     }
