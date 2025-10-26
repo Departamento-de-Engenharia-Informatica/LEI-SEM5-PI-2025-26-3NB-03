@@ -8,7 +8,7 @@ namespace DDDSample1.Infrastructure.Docks
     internal class DockEntityTypeConfiguration : IEntityTypeConfiguration<Dock>
     {
         public void Configure(EntityTypeBuilder<Dock> builder)
-    {
+        {
         builder.HasKey(d => d.Id);
 
         builder.Property(d => d.Name).IsRequired();
@@ -17,9 +17,9 @@ namespace DDDSample1.Infrastructure.Docks
         // Mapeia muitos-para-muitos
         builder
             .HasMany(d => d.VesselTypes)
-            .WithMany()
+            .WithMany(v => v.Docks)
             .UsingEntity(j => j.ToTable("DockVesselTypes"));
-    }  
+        }  
 
 
     }

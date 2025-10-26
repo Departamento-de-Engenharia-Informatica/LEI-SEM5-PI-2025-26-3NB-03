@@ -3,6 +3,61 @@
   "WorkspaceRootPath": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\infraestructure\\docks\\dockentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:infraestructure\\docks\\dockentitytypeconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\domain\\vesseltypes\\vesseltypeid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:domain\\vesseltypes\\vesseltypeid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\domain\\docks\\idockrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:domain\\docks\\idockrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\infraestructure\\dddsample1dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:infraestructure\\dddsample1dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\infraestructure\\shared\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:infraestructure\\shared\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk.Razor\\targets\\Sdk.Razor.CurrentVersion.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\controllers\\dockscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:controllers\\dockscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\domain\\docks\\dockservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:domain\\docks\\dockservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\domain\\docks\\dockid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:domain\\docks\\dockid.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\domain\\docks\\dockdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:domain\\docks\\dockdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\domain\\docks\\dock.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:domain\\docks\\dock.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\domain\\docks\\creatingdockdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:domain\\docks\\creatingdockdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\dddnetcore.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
       "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:dddnetcore.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     },
@@ -11,15 +66,7 @@
       "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:controllers\\categoriescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.EolTargetFrameworks.targets||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|c:\\users\\utilizador\\documents\\projeto integrador\\lei-sem5-pi-2025-26-3nb-03\\dddnetcore\\startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{967350F0-50F5-DDCE-A30D-4FF4417264CF}|DDDNetCore.csproj|solutionrelative:startup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -29,11 +76,157 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DockEntityTypeConfiguration.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Infraestructure\\Docks\\DockEntityTypeConfiguration.cs",
+              "RelativeDocumentMoniker": "Infraestructure\\Docks\\DockEntityTypeConfiguration.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Infraestructure\\Docks\\DockEntityTypeConfiguration.cs",
+              "RelativeToolTip": "Infraestructure\\Docks\\DockEntityTypeConfiguration.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAA1wBQAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-26T21:15:01.981Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DocksController.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Controllers\\DocksController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DocksController.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Controllers\\DocksController.cs",
+              "RelativeToolTip": "Controllers\\DocksController.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAIwEYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-26T21:42:35.439Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BaseRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Infraestructure\\Shared\\BaseRepository.cs",
+              "RelativeDocumentMoniker": "Infraestructure\\Shared\\BaseRepository.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Infraestructure\\Shared\\BaseRepository.cs",
+              "RelativeToolTip": "Infraestructure\\Shared\\BaseRepository.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-26T22:00:38.693Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Sdk.Razor.CurrentVersion.targets",
+              "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk.Razor\\targets\\Sdk.Razor.CurrentVersion.targets",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk.Razor\\targets\\Sdk.Razor.CurrentVersion.targets",
+              "ToolTip": "C:\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk.Razor\\targets\\Sdk.Razor.CurrentVersion.targets",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk.Razor\\targets\\Sdk.Razor.CurrentVersion.targets",
+              "ViewState": "AgIAAMIBAAAAAAAAAAAcwMwBAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
+              "WhenOpened": "2025-10-26T22:05:33.939Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "DDDSample1DbContext.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Infraestructure\\DDDSample1DbContext.cs",
+              "RelativeDocumentMoniker": "Infraestructure\\DDDSample1DbContext.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Infraestructure\\DDDSample1DbContext.cs",
+              "RelativeToolTip": "Infraestructure\\DDDSample1DbContext.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAADwvz8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-26T21:41:31.697Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "DockService.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Domain\\Docks\\DockService.cs",
+              "RelativeDocumentMoniker": "Domain\\Docks\\DockService.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Domain\\Docks\\DockService.cs",
+              "RelativeToolTip": "Domain\\Docks\\DockService.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAYwFkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-26T20:27:33.16Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DockId.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Domain\\Docks\\DockId.cs",
+              "RelativeDocumentMoniker": "Domain\\Docks\\DockId.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Domain\\Docks\\DockId.cs",
+              "RelativeToolTip": "Domain\\Docks\\DockId.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAYwBQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-26T21:22:11.643Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DockDto.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Domain\\Docks\\DockDto.cs",
+              "RelativeDocumentMoniker": "Domain\\Docks\\DockDto.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Domain\\Docks\\DockDto.cs",
+              "RelativeToolTip": "Domain\\Docks\\DockDto.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAA9wA4AAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-26T21:30:31.537Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "VesselTypeId.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Domain\\VesselTypes\\VesselTypeId.cs",
+              "RelativeDocumentMoniker": "Domain\\VesselTypes\\VesselTypeId.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Domain\\VesselTypes\\VesselTypeId.cs",
+              "RelativeToolTip": "Domain\\VesselTypes\\VesselTypeId.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwBQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-26T21:26:10.597Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Dock.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Domain\\Docks\\Dock.cs",
+              "RelativeDocumentMoniker": "Domain\\Docks\\Dock.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Domain\\Docks\\Dock.cs",
+              "RelativeToolTip": "Domain\\Docks\\Dock.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAsAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-26T21:20:52.78Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "CreatingDockDto.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Domain\\Docks\\CreatingDockDto.cs",
+              "RelativeDocumentMoniker": "Domain\\Docks\\CreatingDockDto.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Domain\\Docks\\CreatingDockDto.cs",
+              "RelativeToolTip": "Domain\\Docks\\CreatingDockDto.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-26T21:31:26.464Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "IDockRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Domain\\Docks\\IDockRepository.cs",
+              "RelativeDocumentMoniker": "Domain\\Docks\\IDockRepository.cs",
+              "ToolTip": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Domain\\Docks\\IDockRepository.cs",
+              "RelativeToolTip": "Domain\\Docks\\IDockRepository.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA0AAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-26T21:15:46.42Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "CategoriesController.cs",
               "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Controllers\\CategoriesController.cs",
               "RelativeDocumentMoniker": "Controllers\\CategoriesController.cs",
@@ -41,12 +234,11 @@
               "RelativeToolTip": "Controllers\\CategoriesController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAcwBUAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-16T14:39:55.82Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-16T14:39:55.82Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 15,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -54,12 +246,11 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-16T14:33:14.423Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-16T14:33:14.423Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 14,
               "Title": "DDDNetCore.csproj",
               "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\DDDNetCore.csproj",
               "RelativeDocumentMoniker": "DDDNetCore.csproj",
@@ -67,12 +258,11 @@
               "RelativeToolTip": "DDDNetCore.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-10-16T14:32:22.217Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-16T14:32:22.217Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 16,
               "Title": "Microsoft.NET.EolTargetFrameworks.targets",
               "DocumentMoniker": "C:\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.EolTargetFrameworks.targets",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.EolTargetFrameworks.targets",
@@ -80,24 +270,19 @@
               "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files\\dotnet\\sdk\\9.0.306\\Sdks\\Microsoft.NET.Sdk\\targets\\Microsoft.NET.EolTargetFrameworks.targets",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003801|",
-              "WhenOpened": "2025-10-16T14:32:03.534Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-16T14:32:03.534Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 13,
               "Title": "Startup.cs",
               "DocumentMoniker": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Startup.cs",
               "RelativeDocumentMoniker": "Startup.cs",
               "ToolTip": "C:\\Users\\Utilizador\\Documents\\Projeto Integrador\\LEI-SEM5-PI-2025-26-3NB-03\\dddnetcore\\Startup.cs",
               "RelativeToolTip": "Startup.cs",
-              "ViewState": "AgIAAD0AAAAAAAAAAAAkwB8AAAA9AAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAYAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-10-16T14:26:38.691Z"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             }
           ]
         }

@@ -1,4 +1,3 @@
-
 using DDDSample1.Domain.Docks;
 using DDDSample1.Domain.VesselTypes;
 using DDDSample1.Infrastructure.Shared;
@@ -7,13 +6,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-
 namespace DDDSample1.Infrastructure.Docks
 {
     public class DockRepository : BaseRepository<Dock, DockId>, IDockRepository
     {
-        public DockRepository(DDDSample1DbContext context) : base(context)
+        private readonly DDDSample1DbContext _context;
+
+        public DockRepository(DDDSample1DbContext context) : base(context.Docks)
         {
+            _context = context;
         }
 
         public async Task<List<Dock>> GetByNameAsync(string name)
@@ -39,7 +40,5 @@ namespace DDDSample1.Infrastructure.Docks
                 .Where(d => d.VesselTypes.Any(v => v.Id == vesselTypeId))
                 .ToListAsync();
         }
-
-
     }
 }

@@ -32,8 +32,8 @@ namespace DDDSample1.Controllers
             }
         }
 
-        // GET: api/docks/{id} - testes
-        /*[HttpGet("{id:guid}")]
+        // GET: api/docks/{id}
+        [HttpGet("{id:guid}")]
         public async Task<ActionResult<DockDto>> GetById(Guid id)
         {
             var dock = await _service.GetByIdAsync(id);
@@ -41,7 +41,7 @@ namespace DDDSample1.Controllers
                 return NotFound();
 
             return Ok(dock);
-        }*/
+        }
 
         // GET: api/docks/by-name/{name}
         [HttpGet("by-name/{name}")]

@@ -7,28 +7,14 @@ namespace DDDSample1.Domain.Docks
     public class DockId : EntityId
     {
         [JsonConstructor]
-        public DockId(Guid value) : base(value)
-        {
-        }
+        public DockId(Guid value) : base(value) { }
 
-        public DockId(String value) : base(value)
-        {
-        }
+        public DockId(string value) : base(value) { }
 
-        override
-        protected  Object createFromString(String text){
-            return new Guid(text);
-        }
+        override protected object createFromString(string text) => new Guid(text);
 
-        override
-        public String AsString(){
-            Guid obj = (Guid) base.ObjValue;
-            return obj.ToString();
-        }
-        
-       
-        public Guid AsGuid(){
-            return (Guid) base.ObjValue;
-        }
+        override public string AsString() => ((Guid)base.ObjValue).ToString();
+
+        public Guid AsGuid() => (Guid)base.ObjValue;
     }
 }

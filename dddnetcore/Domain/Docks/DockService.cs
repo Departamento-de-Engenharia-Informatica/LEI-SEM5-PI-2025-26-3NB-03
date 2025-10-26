@@ -1,82 +1,89 @@
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.VesselTypes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DDDSample1.Domain.Docks
 {
     public class DockService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IDockRepository _repo;
+        private readonly IDockRepository _dockRepo;
+        private readonly IVesselTypeRepository _vesselTypeRepo;
 
-        private readonly IVesselTypeRepository _repoVT;
-
-        public DockService(IUnitOfWork unitOfWork, IDockRepository repo, IVesselTypeRepository repovt)
+        public DockService(IUnitOfWork unitOfWork, IDockRepository dockRepo, IVesselTypeRepository vesselTypeRepo)
         {
-            this._unitOfWork = unitOfWork;
-            this._repo = repo;
-            this._repoVT = repovt;
+            _unitOfWork = unitOfWork;
+            _dockRepo = dockRepo;
+            _vesselTypeRepo = vesselTypeRepo;
         }
 
-        public async Task<List<DockDto>> GetAllAsync() //for testing purposes only
-        {
-            var list = await this._repo.GetAllAsync();
-
-            List<DockDto> listDto = list.ConvertAll<DockDto>(doc =>
-                new DockDto(doc.Id.AsGuid(), doc.Name, doc.Location, doc.Length, doc.Depth, doc.MaxDraft, doc.Capacity, doc.AllowedVesselTypes));
-
-            return listDto;
-        }
-
-        //adicionar
-
+        // Criar Dock
         public async Task<DockDto> AddAsync(CreatingDockDto dto)
         {
-            // buscar as entidades reais
-            var vesselTypes = await _vesselTypeRepository.GetByIdsAsync(vesselTypeIds);
+            var vesselTypeIds = dto.VesselTypeIds.Select(g => new VesselTypeId(g)).ToList();
+            var vesselTypes = await _vesselTypeRepo.GetByIdsAsync(vesselTypeIds);
 
-            // criar dock com entidades reais
-            var dock = new Dock(dto.Name, dto.Location, dto.Length, dto.Depth, dto.MaxDraft, dto.Capacity, vesselTypes.ToList());
+            var dock = new Dock(
+                dto.Name,
+                dto.Location,
+                dto.Length,
+                dto.Depth,
+                dto.MaxDraft,
+                dto.Capacity,
+                vesselTypes.ToList()
+            );
 
-            await _repo.AddAsync(dock);
+            await _dockRepo.AddAsync(dock);
             await _unitOfWork.CommitAsync();
-            
+
             return ToDto(dock);
-
-
         }
-        
+
+        // Buscar Dock por Id
+        public async Task<DockDto?> GetByIdAsync(Guid id)
+        {
+            var dock = await _dockRepo.GetByIdAsync(new DockId(id));
+            return dock == null ? null : ToDto(dock);
+        }
+
+        // Buscar Docks por nome
         public async Task<List<DockDto>> GetByNameAsync(string name)
         {
-            var docks = await _repo.GetByNameAsync(name);
+            var docks = await _dockRepo.GetByNameAsync(name);
             return docks.Select(ToDto).ToList();
         }
 
+        // Buscar Docks por localização
         public async Task<List<DockDto>> GetByLocationAsync(string location)
         {
-            var docks = await _repo.GetByLocationAsync(location);
+            var docks = await _dockRepo.GetByLocationAsync(location);
             return docks.Select(ToDto).ToList();
         }
 
+        // Buscar Docks por tipo de embarcação
         public async Task<List<DockDto>> GetByVesselTypeAsync(Guid vesselTypeId)
         {
-            var docks = await _repo.GetByVesselTypeAsync(new VesselTypeId(vesselTypeId));
+            var docks = await _dockRepo.GetByVesselTypeAsync(new VesselTypeId(vesselTypeId));
             return docks.Select(ToDto).ToList();
         }
-        
-        private static DockDto ToDto(Dock d)
+
+        // Converter Dock para DockDto
+        private static DockDto ToDto(Dock dock)
         {
-        return new DockDto
-        {
-            Id = d.Id.AsGuid(),
-            Name = d.Name,
-            Location = d.Location,
-            Length = d.Length,
-            Depth = d.Depth,
-            MaxDraft = d.MaxDraft,
-            Capacity = d.Capacity,
-            VesselTypeIds = d.VesselTypes.Select(v => v.Id.AsGuid()).ToList()
-        };
+            return new DockDto
+            {
+                Id = dock.Id.AsGuid(),
+                Name = dock.Name,
+                Location = dock.Location,
+                Length = dock.Length,
+                Depth = dock.Depth,
+                MaxDraft = dock.MaxDraft,
+                Capacity = dock.Capacity,
+                VesselTypeIds = dock.VesselTypes.Select(v => v.Id.AsGuid()).ToList()
+            };
+        }
     }
 }

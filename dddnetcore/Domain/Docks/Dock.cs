@@ -8,12 +8,12 @@ namespace DDDSample1.Domain.Docks
 {
     public class Dock : Entity<DockId>
     {
-        public string Name { get; private set; }
-        public string Location { get; private set; }
-        public int Length { get; private set; }
-        public int Depth { get; private set; }
-        public int MaxDraft { get; private set; }
-        public int Capacity { get; private set; }
+        public string Name { get;  set; }
+        public string Location { get; set; }
+        public int Length { get; set; }
+        public int Depth { get; set; }
+        public int MaxDraft { get; set; }
+        public int Capacity { get; set; }
 
         private readonly List<VesselType> _vesselTypes = new();
         public IReadOnlyCollection<VesselType> VesselTypes => _vesselTypes.AsReadOnly();
@@ -49,27 +49,10 @@ namespace DDDSample1.Domain.Docks
             MaxDraft = maxDraft;
             Capacity = capacity;
 
-            _vesselTypes.AddRange(vesselTypes);
+            _vesselTypes.AddRange(vesselTypes ?? new List<VesselType>());
         }
 
-        public Dock(string name, string location, int length, int depth, int maxDraft, int capacity, List<Guid> vesselTypeIds)
-        {
-            Validate(name, location, length, depth, maxDraft, capacity);
-
-            Id = new DockId(Guid.NewGuid());
-            Name = name;
-            Location = location;
-            Length = length;
-            Depth = depth;
-            MaxDraft = maxDraft;
-            Capacity = capacity;
-
-            // Converter os GUIDs para entidades VesselType “placeholder” (se necessário)
-            foreach (var id in vesselTypeIds)
-            {
-                _vesselTypes.Add(new VesselType(new VesselTypeId(id), "placeholder", "auto", 0, 0, 0, 0));
-            }
-        }
+        
         public void AddVesselType(VesselType vesselType)
         {
             if (!_vesselTypes.Contains(vesselType))
