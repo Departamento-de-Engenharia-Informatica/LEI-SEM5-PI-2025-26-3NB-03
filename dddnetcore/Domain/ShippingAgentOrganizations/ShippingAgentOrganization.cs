@@ -21,6 +21,14 @@ namespace DDDSample1.Domain.ShippingAgentOrganizations
 
         public ShippingAgentOrganization(string legalname, string altname, string address, int taxnumber, List<Representative> representatives)
         {
+            if (string.IsNullOrWhiteSpace(legalname))
+                throw new BusinessRuleValidationException("Legal name is required.");
+            if (string.IsNullOrWhiteSpace(altname))
+                throw new BusinessRuleValidationException("Alternative name is required.");
+            if (string.IsNullOrWhiteSpace(address))
+                throw new BusinessRuleValidationException("Address is required.");
+            if (taxnumber <= 0)
+                throw new BusinessRuleValidationException("Tax number must be a positive integer.");
             if (representatives == null || representatives.Count == 0)
                 throw new BusinessRuleValidationException("A Shipping Agent Organization needs at least one Representative.");
 
