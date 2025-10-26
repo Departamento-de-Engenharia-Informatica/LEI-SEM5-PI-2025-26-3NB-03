@@ -1,0 +1,13 @@
+@startuml 2.2.13_Search_L3
+title L3 – Search Qualifications
+actor LO as "Logistics Operator"
+participant UI as "SPA"
+participant API as "PortOps API"
+database DB as "DB"
+
+LO -> UI : Search by code/name
+UI -> API : GET /api/qualifications?code=...&name=...
+API -> DB : SELECT ... WHERE code LIKE OR name LIKE ORDER BY code
+DB --> API : Rows[]
+API --> UI : 200 [ {code,name}, ... ]
+@enduml

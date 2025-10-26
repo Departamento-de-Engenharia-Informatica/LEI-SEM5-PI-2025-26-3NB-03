@@ -1,9 +1,34 @@
+<<<<<<< HEAD
+=======
+using DDDSample1.Domain.Categories;
+using DDDSample1.Domain.Families;
+using DDDSample1.Domain.Products;
+using DDDSample1.Domain.Representatives;
+using DDDSample1.Infrastructure.Categories;
+using DDDSample1.Infrastructure.Products;
+using DDDSample1.Domain.VesselVisitNotifications;
+using DDDSample1.Infrastructure.VesselVisitNotifications;
+using DDDSample1.Infrastructure.Representatives;
+using Microsoft.EntityFrameworkCore;
+
+>>>>>>> c86068a5f4621245df15c19cdf6cf8d2f12c7fab
 
 
 
 
+<<<<<<< HEAD
+=======
+        public DbSet<Representative> Representatives { get; set; }
+
+        public DbSet<VesselVisitNotification> VesselVisitNotifications { get; set; }
 
 
+        public DDDSample1DbContext(DbContextOptions options) : base(options)
+        {
+>>>>>>> c86068a5f4621245df15c19cdf6cf8d2f12c7fab
+
+
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html
   lang="en"
@@ -39,6 +64,16 @@
   <style type="text/css">
     :root {
       --tab-size-preference: 4;
+=======
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfiguration(new CategoryEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new FamilyEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new VvnEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new RepresentativeEntityTypeConfiguration());
+        }
+>>>>>>> c86068a5f4621245df15c19cdf6cf8d2f12c7fab
     }
 
     pre, code {

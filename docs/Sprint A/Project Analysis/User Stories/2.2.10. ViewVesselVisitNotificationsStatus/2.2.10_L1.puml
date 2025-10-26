@@ -1,0 +1,7 @@
+@startuml 2.2.10_L1
+title L1 – View VVN Status (Overview)
+actor "Shipping Agent Rep" as REP
+participant "PortOps System" as SYS
+REP -> SYS : View my organization's VVNs (with filters)
+SYS --> REP : List of VVN statuses (in_progress/submitted/approved/rejected)
+@enduml

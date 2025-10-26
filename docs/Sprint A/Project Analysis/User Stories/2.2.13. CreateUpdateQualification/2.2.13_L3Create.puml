@@ -1,0 +1,29 @@
+@startuml 2.2.13_Create_L3
+title L3 – Create Qualification
+autonumber
+actor LO as "Logistics Operator"
+participant UI as "SPA"
+participant API as "PortOps API"
+participant RB as "RBAC"
+database DB as "EF Core / DB"
+
+LO -> UI : Submit {code, name}
+UI -> API : POST /api/qualifications
+API -> RB : Check(LOGISTICS_OPERATOR)
+RB --> API : Allowed
+
+API -> DB : SELECT Qualification WHERE lower(code)=lower(:code)
+DB --> API : Not found
+API -> DB : INSERT Qualification(code,name)
+DB --> API : Created
+API --> UI : 201 {code,name}
+
+alt Duplicate code
+DB --> API : Found
+API --> UI : 409 Conflict
+end
+
+alt Invalid payload
+API --> UI : 400/422
+end
+@enduml
