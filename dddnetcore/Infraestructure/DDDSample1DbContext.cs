@@ -12,6 +12,8 @@ using DDDSample1.Infrastructure.ShippingAgentOrganizations;
 using DDDSample1.Infrastructure.StorageAreas;
 using DDDSample1.Infrastructure.VesselVisitNotifications;
 using Microsoft.EntityFrameworkCore;
+using DDDSample1.Domain.Qualifications;
+using DDDSample1.Infrastructure.Qualifications;
 
 namespace DDDSample1.Infrastructure
 {
@@ -25,6 +27,9 @@ namespace DDDSample1.Infrastructure
         public DbSet<StorageArea> StorageAreas { get; set; }
         public DbSet<VesselVisitNotification> VesselVisitNotifications { get; set; }
 
+        public DbSet<Qualification> Qualifications { get; set; }
+
+
         public DDDSample1DbContext(DbContextOptions options) : base(options)
         {
 
@@ -36,6 +41,8 @@ namespace DDDSample1.Infrastructure
             modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new FamilyEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new RepresentativeEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new QualificationEntityTypeConfiguration());
+
             modelBuilder.ApplyConfiguration(new ShippingAgentOrganizationEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new StorageAreaEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new VvnEntityTypeConfiguration());
