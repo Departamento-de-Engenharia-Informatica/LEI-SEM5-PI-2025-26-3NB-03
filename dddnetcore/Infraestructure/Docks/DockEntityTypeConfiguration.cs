@@ -18,7 +18,8 @@ namespace DDDSample1.Infrastructure.Docks
         builder
             .HasMany(d => d.VesselTypes)
             .WithMany(v => v.Docks)
-            .UsingEntity(j => j.ToTable("DockVesselTypes"));
+            //.UsingEntity(j => j.ToTable("DockVesselTypes"))
+            ;
         }  
 
 
