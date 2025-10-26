@@ -2,16 +2,16 @@ using System;
 using DDDSample1.Domain.Shared;
 using Newtonsoft.Json;
 
-namespace DDDSample1.Domain.Representatives
+namespace DDDSample1.Domain.StorageAreas
 {
-    public class RepresentativeId : EntityId
+    public class StorageAreaId : EntityId
     {
         [JsonConstructor]
-        public RepresentativeId(Guid value) : base(value)
+        public StorageAreaId(Guid value) : base(value)
         {
         }
 
-        public RepresentativeId(String value) : base(value)
+        public StorageAreaId(String value) : base(value)
         {
         }
 

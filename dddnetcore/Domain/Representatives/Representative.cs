@@ -1,5 +1,6 @@
-using System;
 using DDDSample1.Domain.Shared;
+using DDDSample1.Domain.ShippingAgentOrganizations;
+using System;
 
 namespace DDDSample1.Domain.Representatives
 {
@@ -9,6 +10,8 @@ namespace DDDSample1.Domain.Representatives
         public string Nationality { get; private set; }
         public string Email { get; private set; }
         public int PhoneNumber { get; private set; }
+        public ShippingAgentOrganization ShippingAgentOrganization { get; private set; }
+        public ShippingAgentOrganizationId ShippingAgentOrganizationId { get; private set; }
 
         public bool Active{ get;  private set; }
 
@@ -51,10 +54,19 @@ namespace DDDSample1.Domain.Representatives
                 throw new BusinessRuleValidationException("It is not possible to change the phone number to an inactive representative.");
             this.PhoneNumber = phonenumber;
         }
+        public void ChangeOrganization(ShippingAgentOrganizationId organizationId, ShippingAgentOrganization organization)
+        {
+            this.ShippingAgentOrganizationId = organizationId;
+            this.ShippingAgentOrganization = organization;
+        }
 
         public void MarkAsInative()
         {
             this.Active = false;
         }
+
+        public static Representative CreateSubmitted(
+            string name, string nationality, string email, int phonenumber)
+            => new(name, nationality, email, phonenumber);
     }
 }
