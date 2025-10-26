@@ -14,6 +14,14 @@ namespace DDDSample1.Infrastructure.Representatives
             //builder.ToTable("Representatives", SchemaNames.DDDSample1);
             builder.HasKey(b => b.Id);
             //builder.Property<bool>("_active").HasColumnName("Active");
+            builder.Property(b => b.Name)
+                .IsRequired();
+            builder.Property(b => b.Nationality)
+                .IsRequired();
+            builder.Property(b => b.Email)
+                .IsRequired();
+            builder.Property(b => b.PhoneNumber)
+                .IsRequired();
             builder.HasOne<ShippingAgentOrganization>()
                    .WithMany(b => b.Representatives)
                    .HasForeignKey(b => b.ShippingAgentOrganizationId)
