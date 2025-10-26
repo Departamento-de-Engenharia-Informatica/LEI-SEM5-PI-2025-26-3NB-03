@@ -161,8 +161,6 @@ namespace DDDSample1
             services.AddTransient<QualificationService>();
 
 
-            //services.AddTransient<IRepresentativeRepository, RepresentativeRepository>();
-            //services.AddTransient<RepresentativeService>();
             services.AddTransient<IRepresentativeRepository, RepresentativeRepository>();
             services.AddTransient<RepresentativeService>();
 
