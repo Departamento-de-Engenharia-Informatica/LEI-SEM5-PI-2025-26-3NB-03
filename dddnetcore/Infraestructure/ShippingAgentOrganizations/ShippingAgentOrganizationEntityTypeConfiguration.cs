@@ -12,10 +12,18 @@ namespace DDDSample1.Infrastructure.ShippingAgentOrganizations
 
             //builder.ToTable("ShippingAgentOrganizations", SchemaNames.DDDSample1);
             builder.HasKey(b => b.Id);
+            builder.Property(o => o.LegalName)
+                .IsRequired();
+            builder.Property(o => o.AltName)
+                .IsRequired();
+            builder.Property(o => o.Address)
+                .IsRequired();
+            builder.Property(o => o.TaxNumber)
+                .IsRequired();
             builder.HasMany(o => o.Representatives)
-               .WithOne(r => r.ShippingAgentOrganization)
-               .HasForeignKey(r => r.ShippingAgentOrganizationId)
-               .IsRequired();
+                .WithOne(r => r.ShippingAgentOrganization)
+                .HasForeignKey(r => r.ShippingAgentOrganizationId)
+                .IsRequired();
         }
     }
 }
