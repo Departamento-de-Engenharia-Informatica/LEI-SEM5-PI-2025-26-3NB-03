@@ -1,0 +1,13 @@
+@startuml 2.2.11_Search_L3
+title L3 – Search Staff
+actor LO as "Logistics Operator"
+participant UI as "SPA"
+participant API as "PortOps API"
+database DB as "DB"
+
+LO -> UI : Filter by mec/name/status/qual
+UI -> API : GET /api/staff?mec=...&name=...&status=...&qual=...
+API -> DB : SELECT ... WHERE mec LIKE AND name LIKE AND status= AND EXISTS(qual=...)
+DB --> API : Rows[]
+API --> UI : 200 [staff...]
+@enduml

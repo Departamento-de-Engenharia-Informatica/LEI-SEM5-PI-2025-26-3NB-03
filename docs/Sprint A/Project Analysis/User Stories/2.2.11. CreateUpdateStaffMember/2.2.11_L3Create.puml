@@ -1,0 +1,36 @@
+@startuml 2.2.11_Create_L3
+title L3 – Create Staff
+autonumber
+actor LO as "Logistics Operator"
+participant UI as "SPA"
+participant API as "PortOps API"
+participant RB as "RBAC"
+database DB as "EF Core / DB"
+queue AUD as "Audit Log"
+
+LO -> UI : Submit {mecNumber,shortName,email,phone,window,status,quals[]}
+UI -> API : POST /api/staff {...}
+API -> RB : Check(LOGISTICS_OPERATOR)
+RB --> API : Allowed
+
+par Validate
+API -> DB : SELECT Staff WHERE mecNumber=?
+DB --> API : none
+API -> DB : SELECT Qualification WHERE code IN (quals[])
+DB --> API : subset/all
+end
+
+alt Missing qualifications
+API --> UI : 422 {missing:[...]}
+else OK
+API -> DB : INSERT Staff + StaffQualifications
+DB --> API : Created
+API --> AUD : Append audit "create"
+API --> UI : 201 {id,...}
+end
+
+alt Duplicate mecNumber
+DB --> API : exists
+API --> UI : 409 Conflict
+end
+@enduml

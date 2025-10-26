@@ -1,0 +1,23 @@
+@startuml 2.2.13_Update_L3
+title L3 – Update Qualification
+actor LO as "Logistics Operator"
+participant UI as "SPA"
+participant API as "PortOps API"
+participant RB as "RBAC"
+database DB as "DB"
+
+LO -> UI : Edit name
+UI -> API : PATCH /api/qualifications/{code} {name}
+API -> RB : Check(LOGISTICS_OPERATOR)
+RB --> API : Allowed
+API -> DB : SELECT by code
+DB --> API : Found
+API -> DB : UPDATE name, updatedAt
+DB --> API : OK
+API --> UI : 200 {code,name}
+
+alt Not found
+DB --> API : null
+API --> UI : 404
+end
+@enduml
