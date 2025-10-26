@@ -2,16 +2,16 @@ using System;
 using DDDSample1.Domain.Shared;
 using Newtonsoft.Json;
 
-namespace DDDSample1.Domain.Representatives
+namespace DDDSample1.Domain.ShippingAgentOrganizations
 {
-    public class RepresentativeId : EntityId
+    public class ShippingAgentOrganizationId : EntityId
     {
         [JsonConstructor]
-        public RepresentativeId(Guid value) : base(value)
+        public ShippingAgentOrganizationId(Guid value) : base(value)
         {
         }
 
-        public RepresentativeId(String value) : base(value)
+        public ShippingAgentOrganizationId(String value) : base(value)
         {
         }
 
@@ -25,7 +25,7 @@ namespace DDDSample1.Domain.Representatives
             Guid obj = (Guid) base.ObjValue;
             return obj.ToString();
         }
-        
+       
         public Guid AsGuid(){
             return (Guid) base.ObjValue;
         }

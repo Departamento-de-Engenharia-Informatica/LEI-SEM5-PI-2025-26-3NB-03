@@ -7,7 +7,6 @@ namespace DDDSample1.Domain.Representatives
         public string Email { get; set; }
         public int PhoneNumber { get; set; }
 
-
         public CreatingRepresentativeDto(string name, string nationality, string email, int phonenumber)
         {
             this.Name = name;
