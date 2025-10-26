@@ -104,10 +104,10 @@ namespace DDDSample1
                     ctx.StorageAreas.AddRange(new[]
                     {
                         DDDSample1.Domain.StorageAreas.StorageArea.CreateSubmitted(
-                            "Yard", "South"
+                            "Yard", "Zone A", 30, 1
                         ),
                         DDDSample1.Domain.StorageAreas.StorageArea.CreateSubmitted(
-                            "Warehouse", "North"
+                            "Warehouse", "Zone B", 20, 0
                         )
                     });
                     ctx.SaveChanges();

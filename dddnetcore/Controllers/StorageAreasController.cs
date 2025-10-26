@@ -27,7 +27,7 @@ namespace DDDSample1.Controllers
 
         // GET: api/StorageAreas/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<StorageAreaDto>> GetGetById(Guid id)
+        public async Task<ActionResult<StorageAreaDto>> GetById(Guid id)
         {
             var storageArea = await _service.GetByIdAsync(new StorageAreaId(id));
 
@@ -42,16 +42,19 @@ namespace DDDSample1.Controllers
         [HttpPost]
         public async Task<ActionResult<StorageAreaDto>> Create(CreatingStorageAreaDto dto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             var storageArea = await _service.AddAsync(dto);
 
-            return CreatedAtAction(nameof(GetGetById), new { id = storageArea.Id }, storageArea);
+            return CreatedAtAction(nameof(GetById), new { id = storageArea.Id }, storageArea);
         }
 
         // PUT: api/StorageAreas/5
         [HttpPut("{id}")]
         public async Task<ActionResult<StorageAreaDto>> Update(Guid id, StorageAreaDto dto)
         {
-            if (id != dto.Id)
+            if (id != dto.Id || !ModelState.IsValid)
             {
                 return BadRequest();
             }
