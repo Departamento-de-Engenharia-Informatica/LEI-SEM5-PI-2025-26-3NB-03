@@ -90,7 +90,7 @@ Esta user story é a principal responsável por criar as seguintes entidades:
 
 ---
 
-## 🧪 Como Testar (Sprint A)
+## Como Testar (Sprint A)
 
 Os testes são feitos diretamente na API:
 
