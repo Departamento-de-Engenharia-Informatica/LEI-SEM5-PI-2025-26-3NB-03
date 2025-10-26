@@ -17,6 +17,8 @@ using DDDSample1.Infrastructure.StorageAreas;
 using DDDSample1.Infrastructure.PhysicalResources;
 using DDDSample1.Infrastructure.VesselVisitNotifications;
 using Microsoft.EntityFrameworkCore;
+using DDDSample1.Domain.Staff;
+using DDDSample1.Infrastructure.Staff;
 
 namespace DDDSample1.Infrastructure
 {
@@ -31,6 +33,7 @@ namespace DDDSample1.Infrastructure
         public DbSet<StorageArea> StorageAreas { get; set; }
         public DbSet<PhysicalResource> PhysicalResources { get; set; }
         public DbSet<VesselVisitNotification> VesselVisitNotifications { get; set; }
+        public DbSet<StaffMember> StaffMembers { get; set; }
 
         public DDDSample1DbContext(DbContextOptions options) : base(options)
         {
@@ -48,6 +51,7 @@ namespace DDDSample1.Infrastructure
             modelBuilder.ApplyConfiguration(new StorageAreaEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new PhysicalResourceEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new VvnEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new StaffMemberEntityTypeConfiguration());
         }
     }
 }
