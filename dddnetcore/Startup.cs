@@ -4,6 +4,7 @@ using DDDSample1.Domain.Products;
 using DDDSample1.Domain.Representatives;
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.ShippingAgentOrganizations;
+using DDDSample1.Domain.StorageAreas;
 using DDDSample1.Domain.VesselVisitNotifications;
 using DDDSample1.Infrastructure;
 using DDDSample1.Infrastructure.Categories;
@@ -12,6 +13,7 @@ using DDDSample1.Infrastructure.Products;
 using DDDSample1.Infrastructure.Representatives;
 using DDDSample1.Infrastructure.Shared;
 using DDDSample1.Infrastructure.ShippingAgentOrganizations;
+using DDDSample1.Infrastructure.StorageAreas;
 using DDDSample1.Infrastructure.VesselVisitNotifications;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -94,6 +96,19 @@ namespace DDDSample1
                     ctx.ShippingAgentOrganizations.Add(org);
                     ctx.SaveChanges();
                 }
+                if (!ctx.StorageAreas.Any())
+                {
+                    ctx.StorageAreas.AddRange(new[]
+                    {
+                        DDDSample1.Domain.StorageAreas.StorageArea.CreateSubmitted(
+                            "Yard", "South"
+                        ),
+                        DDDSample1.Domain.StorageAreas.StorageArea.CreateSubmitted(
+                            "Warehouse", "North"
+                        )
+                    });
+                    ctx.SaveChanges();
+                }
                 if (!ctx.VesselVisitNotifications.Any())
                 {
                     ctx.VesselVisitNotifications.AddRange(new []
@@ -128,6 +143,9 @@ namespace DDDSample1
 
             services.AddTransient<IShippingAgentOrganizationRepository, ShippingAgentOrganizationRepository>();
             services.AddTransient<ShippingAgentOrganizationService>();
+
+            services.AddTransient<IStorageAreaRepository, StorageAreaRepository>();
+            services.AddTransient<StorageAreaService>();
 
             services.AddTransient<IVvnRepository, VvnRepository>();
             services.AddTransient<VvnService>();
