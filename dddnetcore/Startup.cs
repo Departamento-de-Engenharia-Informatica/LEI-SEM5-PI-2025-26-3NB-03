@@ -22,6 +22,9 @@ using DDDSample1.Domain.Products;
 using DDDSample1.Domain.Families;
 using DDDSample1.Domain.VesselVisitNotifications;
 
+using DDDSample1.Domain.Qualifications;
+using DDDSample1.Infrastructure.Qualifications;
+
 namespace DDDSample1
 {
     public class Startup
@@ -90,6 +93,21 @@ namespace DDDSample1
                 }
             }
 
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var ctx = scope.ServiceProvider.GetRequiredService<DDDSample1.Infrastructure.DDDSample1DbContext>();
+
+                if (!ctx.Qualifications.Any())
+                {
+                    ctx.Qualifications.AddRange(
+                        Qualification.Create("STS_CRANE", "STS Crane Operator"),
+                        Qualification.Create("TRUCK_DRIVER", "Truck Driver")
+                    );
+                    ctx.SaveChanges();
+                }
+            }
+
+
         }
 
         public void ConfigureMyServices(IServiceCollection services)
@@ -104,6 +122,10 @@ namespace DDDSample1
 
             services.AddTransient<IFamilyRepository,FamilyRepository>();
             services.AddTransient<FamilyService>();
+
+            services.AddTransient<IQualificationRepository, QualificationRepository>();
+            services.AddTransient<QualificationService>();
+
 
             //services.AddTransient<IRepresentativeRepository, RepresentativeRepository>();
             //services.AddTransient<RepresentativeService>();

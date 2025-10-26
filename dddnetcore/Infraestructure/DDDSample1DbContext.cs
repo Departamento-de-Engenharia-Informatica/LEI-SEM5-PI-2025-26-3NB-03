@@ -8,6 +8,8 @@ using DDDSample1.Domain.VesselVisitNotifications;
 using DDDSample1.Infrastructure.VesselVisitNotifications;
 using DDDSample1.Infrastructure.Representatives;
 using Microsoft.EntityFrameworkCore;
+using DDDSample1.Domain.Qualifications;
+using DDDSample1.Infrastructure.Qualifications;
 
 
 namespace DDDSample1.Infrastructure
@@ -24,6 +26,8 @@ namespace DDDSample1.Infrastructure
 
         public DbSet<VesselVisitNotification> VesselVisitNotifications { get; set; }
 
+        public DbSet<Qualification> Qualifications { get; set; }
+
 
         public DDDSample1DbContext(DbContextOptions options) : base(options)
         {
@@ -37,6 +41,8 @@ namespace DDDSample1.Infrastructure
             modelBuilder.ApplyConfiguration(new FamilyEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new VvnEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new RepresentativeEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new QualificationEntityTypeConfiguration());
+
         }
     }
 }
