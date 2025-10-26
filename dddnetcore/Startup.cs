@@ -7,7 +7,7 @@ using DDDSample1.Domain.ShippingAgentOrganizations;
 using DDDSample1.Domain.StorageAreas;
 using DDDSample1.Domain.PhysicalResources;
 using DDDSample1.Domain.VesselVisitNotifications;
-using DDDSample1.Domain.VeselTypes;
+using DDDSample1.Domain.VesselTypes;
 using DDDSample1.Domain.Docks;
 
 using DDDSample1.Infrastructure;
