@@ -18,7 +18,7 @@ namespace DDDSample1.Controllers
             _service = service;
         }
 
-        // GET: api/ShippingAgentOrganization
+        // GET: api/ShippingAgentOrganizations
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ShippingAgentOrganizationDto>>> GetAll()
         {
