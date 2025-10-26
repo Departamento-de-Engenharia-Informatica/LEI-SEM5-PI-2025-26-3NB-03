@@ -5,6 +5,7 @@ using DDDSample1.Domain.Representatives;
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.ShippingAgentOrganizations;
 using DDDSample1.Domain.StorageAreas;
+using DDDSample1.Domain.PhysicalResources;
 using DDDSample1.Domain.VesselVisitNotifications;
 using DDDSample1.Infrastructure;
 using DDDSample1.Infrastructure.Categories;
@@ -14,6 +15,7 @@ using DDDSample1.Infrastructure.Representatives;
 using DDDSample1.Infrastructure.Shared;
 using DDDSample1.Infrastructure.ShippingAgentOrganizations;
 using DDDSample1.Infrastructure.StorageAreas;
+using DDDSample1.Infrastructure.PhysicalResources;
 using DDDSample1.Infrastructure.VesselVisitNotifications;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -127,6 +129,17 @@ namespace DDDSample1
                     });
                     ctx.SaveChanges();
                 }
+                if (!ctx.PhysicalResources.Any())
+                {
+                    var qualifications = ctx.Qualifications.ToList();
+                    ctx.PhysicalResources.AddRange(new[]
+                    {
+                        DDDSample1.Domain.PhysicalResources.PhysicalResource.CreateSubmitted(
+                            "Descrição 1.", "10", "Active", 0, qualifications
+                        )
+                    });
+                    ctx.SaveChanges();
+                }
                 if (!ctx.VesselVisitNotifications.Any())
                 {
                     ctx.VesselVisitNotifications.AddRange(new []
@@ -180,6 +193,9 @@ namespace DDDSample1
 
             services.AddTransient<IStorageAreaRepository, StorageAreaRepository>();
             services.AddTransient<StorageAreaService>();
+
+            services.AddTransient<IPhysicalResourceRepository, PhysicalResourceRepository>();
+            services.AddTransient<PhysicalResourceService>();
 
             services.AddTransient<IVvnRepository, VvnRepository>();
             services.AddTransient<VvnService>();
