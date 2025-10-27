@@ -27,31 +27,30 @@ namespace DDDSample1.Controllers
 
         // GET: api/Representatives/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<RepresentativeDto>> GetGetById(Guid id)
+        public async Task<ActionResult<RepresentativeDto>> GetGetById(string id)
         {
-            var cat = await _service.GetByIdAsync(new RepresentativeId(id));
+            var representative = await _service.GetByIdAsync(new RepresentativeId(id));
 
-            if (cat == null)
+            if (representative == null)
             {
                 return NotFound();
             }
 
-            return cat;
+            return representative;
         }
 
         // POST: api/Representatives
         [HttpPost]
         public async Task<ActionResult<RepresentativeDto>> Create(CreatingRepresentativeDto dto)
         {
-            var cat = await _service.AddAsync(dto);
+            var representative = await _service.AddAsync(dto);
 
-            return CreatedAtAction(nameof(GetGetById), new { id = cat.Id }, cat);
+            return CreatedAtAction(nameof(GetGetById), new { id = representative.Id }, representative);
         }
-
 
         // PUT: api/Representatives/5
         [HttpPut("{id}")]
-        public async Task<ActionResult<RepresentativeDto>> Update(Guid id, RepresentativeDto dto)
+        public async Task<ActionResult<RepresentativeDto>> Update(string id, RepresentativeDto dto)
         {
             if (id != dto.Id)
             {
@@ -60,13 +59,13 @@ namespace DDDSample1.Controllers
 
             try
             {
-                var cat = await _service.UpdateAsync(dto);
+                var representative = await _service.UpdateAsync(dto);
                 
-                if (cat == null)
+                if (representative == null)
                 {
                     return NotFound();
                 }
-                return Ok(cat);
+                return Ok(representative);
             }
             catch(BusinessRuleValidationException ex)
             {
@@ -76,37 +75,16 @@ namespace DDDSample1.Controllers
 
         // Inactivate: api/Representatives/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<RepresentativeDto>> SoftDelete(Guid id)
+        public async Task<ActionResult<RepresentativeDto>> SoftDelete(string id)
         {
-            var cat = await _service.InactivateAsync(new RepresentativeId(id));
+            var representative = await _service.InactivateAsync(new RepresentativeId(id));
 
-            if (cat == null)
+            if (representative == null)
             {
                 return NotFound();
             }
 
-            return Ok(cat);
+            return Ok(representative);
         }
-
-        // DELETE: api/Representative/5
-        /*[HttpDelete("{id}/hard")]
-        public async Task<ActionResult<RepresentativeDto>> HardDelete(Guid id)
-        {
-            try
-            {
-                var cat = await _service.DeleteAsync(new RepresentativeId(id));
-
-                if (cat == null)
-                {
-                    return NotFound();
-                }
-
-                return Ok(cat);
-            }
-            catch(BusinessRuleValidationException ex)
-            {
-               return BadRequest(new {Message = ex.Message});
-            }
-        }*/
     }
 }

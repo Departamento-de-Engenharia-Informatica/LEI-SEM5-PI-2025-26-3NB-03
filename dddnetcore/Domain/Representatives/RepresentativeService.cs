@@ -19,7 +19,7 @@ namespace DDDSample1.Domain.Representatives
         {
             var list = await this._repo.GetAllAsync();
             
-            List<RepresentativeDto> listDto = list.ConvertAll<RepresentativeDto>(representative => new RepresentativeDto { Id = representative.Id.AsGuid(), Name = representative.Name, Nationality = representative.Nationality, Email = representative.Email, PhoneNumber = representative.PhoneNumber});
+            List<RepresentativeDto> listDto = list.ConvertAll<RepresentativeDto>(representative => new RepresentativeDto { Id = representative.Id.AsString(), Name = representative.Name, Nationality = representative.Nationality, Email = representative.Email, PhoneNumber = representative.PhoneNumber });
 
             return listDto;
         }
@@ -31,18 +31,19 @@ namespace DDDSample1.Domain.Representatives
             if(representative == null)
                 return null;
 
-            return new RepresentativeDto { Id = representative.Id.AsGuid(), Name = representative.Name, Nationality = representative.Nationality, Email = representative.Email, PhoneNumber = representative.PhoneNumber};
+            return new RepresentativeDto { Id = representative.Id.AsString(), Name = representative.Name, Nationality = representative.Nationality, Email = representative.Email, PhoneNumber = representative.PhoneNumber };
         }
 
         public async Task<RepresentativeDto> AddAsync(CreatingRepresentativeDto dto)
         {
-            var representative = new Representative(dto.Name, dto.Nationality, dto.Email, dto.PhoneNumber);
+            var repId = new RepresentativeId(dto.Id);
+            var representative = new Representative(repId, dto.Name, dto.Nationality, dto.Email, dto.PhoneNumber);
 
             await this._repo.AddAsync(representative);
 
             await this._unitOfWork.CommitAsync();
 
-            return new RepresentativeDto { Id = representative.Id.AsGuid(), Name = representative.Name, Nationality = representative.Nationality, Email = representative.Email, PhoneNumber = representative.PhoneNumber };
+            return new RepresentativeDto { Id = representative.Id.AsString(), Name = representative.Name, Nationality = representative.Nationality, Email = representative.Email, PhoneNumber = representative.PhoneNumber };
         }
 
         public async Task<RepresentativeDto> UpdateAsync(RepresentativeDto dto)
@@ -60,7 +61,7 @@ namespace DDDSample1.Domain.Representatives
 
             await this._unitOfWork.CommitAsync();
 
-            return new RepresentativeDto { Id = representative.Id.AsGuid(), Name = representative.Name, Nationality = representative.Nationality, Email = representative.Email, PhoneNumber = representative.PhoneNumber };
+            return new RepresentativeDto { Id = representative.Id.AsString(), Name = representative.Name, Nationality = representative.Nationality, Email = representative.Email, PhoneNumber = representative.PhoneNumber };
         }
 
         public async Task<RepresentativeDto> InactivateAsync(RepresentativeId id)
@@ -75,23 +76,7 @@ namespace DDDSample1.Domain.Representatives
             
             await this._unitOfWork.CommitAsync();
 
-            return new RepresentativeDto { Id = representative.Id.AsGuid(), Name = representative.Name, Nationality = representative.Nationality, Email = representative.Email, PhoneNumber = representative.PhoneNumber };
+            return new RepresentativeDto { Id = representative.Id.AsString(), Name = representative.Name, Nationality = representative.Nationality, Email = representative.Email, PhoneNumber = representative.PhoneNumber };
         }
-
-        /*public async Task<RepresentativeDto> DeleteAsync(RepresentativeId id)
-        {
-            var representative = await this._repo.GetByIdAsync(id); 
-
-            if (representative == null)
-                return null;   
-
-            if (representative.Active)
-                throw new BusinessRuleValidationException("It is not possible to delete an active representative.");
-            
-            this._repo.Remove(representative);
-            await this._unitOfWork.CommitAsync();
-
-            return new RepresentativeDto { Id = representative.Id.AsGuid(), Name = representative.Name, Nationality = representative.Nationality, Email = representative.Email, PhoneNumber = representative.PhoneNumber };
-        }*/
     }
 }

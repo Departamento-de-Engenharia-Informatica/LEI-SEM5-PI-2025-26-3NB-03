@@ -5,22 +5,46 @@ using DDDSample1.Domain.Families;
 using DDDSample1.Domain.Products;
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.VesselVisitNotifications;
+﻿using DDDSample1.Domain.Categories;
+using DDDSample1.Domain.Families;
+using DDDSample1.Domain.Products;
+using DDDSample1.Domain.Representatives;
+using DDDSample1.Domain.Shared;
+using DDDSample1.Domain.ShippingAgentOrganizations;
+using DDDSample1.Domain.StorageAreas;
+using DDDSample1.Domain.PhysicalResources;
+using DDDSample1.Domain.VesselVisitNotifications;
+using DDDSample1.Domain.VesselTypes;
+using DDDSample1.Domain.Docks;
+
 using DDDSample1.Infrastructure;
 using DDDSample1.Infrastructure.Categories;
 using DDDSample1.Infrastructure.Families;
 using DDDSample1.Infrastructure.Products;
+using DDDSample1.Infrastructure.Representatives;
 using DDDSample1.Infrastructure.Shared;
+using DDDSample1.Infrastructure.ShippingAgentOrganizations;
+using DDDSample1.Infrastructure.StorageAreas;
+using DDDSample1.Infrastructure.PhysicalResources;
 using DDDSample1.Infrastructure.VesselVisitNotifications;
+using DDDSample1.Infrastructure.VesselTypes;
+using DDDSample1.Infrastructure.Docks;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using DDDSample1.Domain.Staff;
+using DDDSample1.Infrastructure.Staff;
+
+using DDDSample1.Domain.Qualifications;
+using DDDSample1.Infrastructure.Qualifications;
 
 namespace DDDSample1
 {
@@ -72,9 +96,63 @@ namespace DDDSample1
             });
 
             var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var ctx = scope.ServiceProvider.GetRequiredService<DDDSample1.Infrastructure.DDDSample1DbContext>();
+
+                if (!ctx.Qualifications.Any())
+                {
+                    ctx.Qualifications.AddRange(
+                        Qualification.Create("STS_CRANE", "STS Crane Operator"),
+                        Qualification.Create("TRUCK_DRIVER", "Truck Driver")
+                    );
+                    ctx.SaveChanges();
+                }
+            }
             using (var scope = scopeFactory.CreateScope())
             {
                 var ctx = scope.ServiceProvider.GetRequiredService<DDDSample1.Infrastructure.DDDSample1DbContext>();
+                if (!ctx.Representatives.Any() || !ctx.ShippingAgentOrganizations.Any())
+                {
+                    var rep1 = Representative.CreateSubmitted(new RepresentativeId("220000000"), "Rep1", "PT", "rep1@rep.pt", 910000000);
+                    var rep2 = Representative.CreateSubmitted(new RepresentativeId("210000000"), "Rep2", "PT", "rep2@rep.pt", 930000000);
+                    ctx.Representatives.AddRange(rep1, rep2);
+                    ctx.SaveChanges();
+
+                    var org = new ShippingAgentOrganization(
+                        "Organization1",
+                        "Org1",
+                        "Rua do Teste, 123, Porto",
+                        500000000,
+                        new List<Representative> { rep1, rep2 }
+                    );
+                    ctx.ShippingAgentOrganizations.Add(org);
+                    ctx.SaveChanges();
+                }
+                if (!ctx.StorageAreas.Any())
+                {
+                    ctx.StorageAreas.AddRange(new[]
+                    {
+                        DDDSample1.Domain.StorageAreas.StorageArea.CreateSubmitted(
+                            "Yard", "Zone A", 30, 1
+                        ),
+                        DDDSample1.Domain.StorageAreas.StorageArea.CreateSubmitted(
+                            "Warehouse", "Zone B", 20, 0
+                        )
+                    });
+                    ctx.SaveChanges();
+                }
+                if (!ctx.PhysicalResources.Any())
+                {
+                    var qualifications = ctx.Qualifications.ToList();
+                    ctx.PhysicalResources.AddRange(new[]
+                    {
+                        DDDSample1.Domain.PhysicalResources.PhysicalResource.CreateSubmitted(
+                            "Descrição 1.", "10", "Active", 0, qualifications
+                        )
+                    });
+                    ctx.SaveChanges();
+                }
                 if (!ctx.VesselVisitNotifications.Any())
                 {
                     ctx.VesselVisitNotifications.AddRange(new []
@@ -88,8 +166,20 @@ namespace DDDSample1
                     });
                     ctx.SaveChanges();
                 }
-            }
 
+
+                  if (!ctx.StaffMembers.Any())
+                  {
+                      ctx.StaffMembers.AddRange(
+                          StaffMember.Create("EMP001", "Alice", "alice@port.com"),
+                          StaffMember.Create("EMP002", "Bruno Costa", "bruno@port.com")
+                      );
+
+                      ctx.SaveChanges();
+                  }
+
+
+            }
         }
 
         public void ConfigureMyServices(IServiceCollection services)
@@ -105,14 +195,34 @@ namespace DDDSample1
             services.AddTransient<IFamilyRepository,FamilyRepository>();
             services.AddTransient<FamilyService>();
 
-            //services.AddTransient<IRepresentativeRepository, RepresentativeRepository>();
-            //services.AddTransient<RepresentativeService>();
+            services.AddTransient<IQualificationRepository, QualificationRepository>();
+            services.AddTransient<QualificationService>();
+
+            services.AddTransient<IRepresentativeRepository, RepresentativeRepository>();
+            services.AddTransient<RepresentativeService>();
+
+            services.AddTransient<IShippingAgentOrganizationRepository, ShippingAgentOrganizationRepository>();
+            services.AddTransient<ShippingAgentOrganizationService>();
+
+            services.AddTransient<IStorageAreaRepository, StorageAreaRepository>();
+            services.AddTransient<StorageAreaService>();
+
+            services.AddTransient<IPhysicalResourceRepository, PhysicalResourceRepository>();
+            services.AddTransient<PhysicalResourceService>();
 
             services.AddTransient<IVvnRepository, VvnRepository>();
             services.AddTransient<VvnService>();
 
             services.AddScoped<IVesselRepository, VesselRepository>();
 
+            services.AddTransient<IStaffMemberRepository, StaffMemberRepository>();
+            services.AddTransient<StaffMemberService>();
+
+            services.AddTransient<IVesselTypeRepository, VesselTypeRepository>();
+            services.AddTransient<VesselTypeService>();
+
+            services.AddTransient<IDockRepository, DockRepository>();
+            services.AddTransient<DockService>();
         }
     }
 }

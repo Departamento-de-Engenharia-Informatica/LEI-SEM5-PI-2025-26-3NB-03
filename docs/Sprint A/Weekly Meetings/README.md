@@ -38,8 +38,8 @@
 
 | Team member | Done Since Last Week | Blockers | Plan for Next Week |
 |-------------|----------------------|----------|--------------------|
-| 1010947 | - | - | Review DM. |
-| 1050071 | - | - | Review DM.<br>Start Logical/Development/Physical Views. |
+| 1010947 | - | - | Review DM.<br>Start Logical/Development/Physical Views. |
+| 1050071 | - | - | Review DM. |
 | 1080714 | Completed DM.<br>Formed team. | - | Project setup and engineering practices. |
 | 1200614 | - | - | Review DM. |
 
@@ -54,7 +54,19 @@
 
 | Team member | Done Since Last Week | Blockers | Plan for Next Week |
 |-------------|----------------------|----------|--------------------|
-| 1010947 | DM reviewed. | - | Start assigned User Stories. |
-| 1050071 | DM reviewed.<br>Started Views. | - | Continue Views.<br>Start assigned User Stories. |
+| 1010947 | DM reviewed.<br>Started Views. | - | Continue Views.<br>Start assigned User Stories. |
+| 1050071 | DM reviewed. | - | Start assigned User Stories. |
 | 1080714 | Project setup and engineering practices completed. | - | Create issues and assign them.<br>Document Sprint Planning and Weekly Meetings.<br>Start assigned User Stories. |
 | 1200614 | DM reviewed. | - | Start assigned User Stories. |
+
+### Week 6 (20/10 ~ 26/10)
+
+**Meeting Date:** 23/10<br>
+**Scrum Master:** 1080714
+
+| Team member | Done Since Last Week | Blockers | Plan for Next Week |
+|-------------|----------------------|----------|--------------------|
+| 1010947 | Continued Views.<br>Started assigned User Stories. | - | Continue Views.<br>Continue assigned User Stories. |
+| 1050071 | - | - | Start assigned User Stories. |
+| 1080714 | Created issues and assigned them.<br>Documented Sprint Planning and Weekly Meetings.<br>Completed generic SDs for most USs.<br>Started assigned User Stories. | - | Document Weekly Meeting.<br>Continue assigned User Stories. |
+| 1200614 | Started assigned User Stories. | - | Continue assigned User Stories. |
