@@ -1,29 +1,4 @@
-﻿using DDDSample1.Domain.Categories;
-using DDDSample1.Domain.Families;
-using DDDSample1.Domain.Products;
-using DDDSample1.Domain.Representatives;
-using DDDSample1.Domain.Shared;
-using DDDSample1.Domain.ShippingAgentOrganizations;
-using DDDSample1.Domain.StorageAreas;
-using DDDSample1.Domain.PhysicalResources;
-using DDDSample1.Domain.VesselVisitNotifications;
-using DDDSample1.Domain.VesselTypes;
-using DDDSample1.Domain.Docks;
-
-using DDDSample1.Infrastructure;
-using DDDSample1.Infrastructure.Categories;
-using DDDSample1.Infrastructure.Families;
-using DDDSample1.Infrastructure.Products;
-using DDDSample1.Infrastructure.Representatives;
-using DDDSample1.Infrastructure.Shared;
-using DDDSample1.Infrastructure.ShippingAgentOrganizations;
-using DDDSample1.Infrastructure.StorageAreas;
-using DDDSample1.Infrastructure.PhysicalResources;
-using DDDSample1.Infrastructure.VesselVisitNotifications;
-using DDDSample1.Infrastructure.VesselTypes;
-using DDDSample1.Infrastructure.Docks;
-
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
@@ -33,11 +8,35 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DDDSample1.Domain.Staff;
-using DDDSample1.Infrastructure.Staff;
-
+using DDDSample1.Infrastructure;
+using DDDSample1.Domain.Categories;
+using DDDSample1.Infrastructure.Categories;
+using DDDSample1.Domain.Families;
+using DDDSample1.Infrastructure.Families;
+using DDDSample1.Domain.Products;
+using DDDSample1.Infrastructure.Products;
+using DDDSample1.Domain.Shared;
+using DDDSample1.Infrastructure.Shared;
+using DDDSample1.Domain.VesselTypes;
+using DDDSample1.Infrastructure.VesselTypes;
 using DDDSample1.Domain.Qualifications;
 using DDDSample1.Infrastructure.Qualifications;
+using DDDSample1.Domain.Representatives;
+using DDDSample1.Infrastructure.Representatives;
+using DDDSample1.Domain.Docks;
+using DDDSample1.Infrastructure.Docks;
+using DDDNetCore.Domain.Vessels;
+using DDDNetCore.Infraestructure.Vessels;
+using DDDSample1.Domain.Staff;
+using DDDSample1.Infrastructure.Staff;
+using DDDSample1.Domain.ShippingAgentOrganizations;
+using DDDSample1.Infrastructure.ShippingAgentOrganizations;
+using DDDSample1.Domain.StorageAreas;
+using DDDSample1.Infrastructure.StorageAreas;
+using DDDSample1.Domain.PhysicalResources;
+using DDDSample1.Infrastructure.PhysicalResources;
+using DDDSample1.Domain.VesselVisitNotifications;
+using DDDSample1.Infrastructure.VesselVisitNotifications;
 
 namespace DDDSample1
 {
@@ -59,7 +58,6 @@ namespace DDDSample1
                     opt.ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>();
                 });
             ConfigureMyServices(services);
-
 
             services.AddControllers().AddNewtonsoftJson();
         }
@@ -159,19 +157,14 @@ namespace DDDSample1
                     });
                     ctx.SaveChanges();
                 }
-
-
-                  if (!ctx.StaffMembers.Any())
-                  {
-                      ctx.StaffMembers.AddRange(
-                          StaffMember.Create("EMP001", "Alice", "alice@port.com"),
-                          StaffMember.Create("EMP002", "Bruno Costa", "bruno@port.com")
-                      );
-
-                      ctx.SaveChanges();
-                  }
-
-
+                if (!ctx.StaffMembers.Any())
+                {
+                    ctx.StaffMembers.AddRange(
+                        StaffMember.Create("EMP001", "Alice", "alice@port.com"),
+                        StaffMember.Create("EMP002", "Bruno Costa", "bruno@port.com")
+                    );
+                    ctx.SaveChanges();
+                }
             }
         }
 
@@ -182,17 +175,28 @@ namespace DDDSample1
             services.AddTransient<ICategoryRepository,CategoryRepository>();
             services.AddTransient<CategoryService>();
 
+            services.AddTransient<IFamilyRepository, FamilyRepository>();
+            services.AddTransient<FamilyService>();
+
             services.AddTransient<IProductRepository,ProductRepository>();
             services.AddTransient<ProductService>();
 
-            services.AddTransient<IFamilyRepository,FamilyRepository>();
-            services.AddTransient<FamilyService>();
+            services.AddTransient<IVesselTypeRepository, VesselTypeRepository>();
+            services.AddTransient<VesselTypeService>();
 
             services.AddTransient<IQualificationRepository, QualificationRepository>();
             services.AddTransient<QualificationService>();
 
             services.AddTransient<IRepresentativeRepository, RepresentativeRepository>();
             services.AddTransient<RepresentativeService>();
+
+            services.AddTransient<IDockRepository, DockRepository>();
+            services.AddTransient<DockService>();
+
+            services.AddScoped<IVesselRepository, VesselRepository>();
+
+            services.AddTransient<IStaffMemberRepository, StaffMemberRepository>();
+            services.AddTransient<StaffMemberService>();
 
             services.AddTransient<IShippingAgentOrganizationRepository, ShippingAgentOrganizationRepository>();
             services.AddTransient<ShippingAgentOrganizationService>();
@@ -205,15 +209,6 @@ namespace DDDSample1
 
             services.AddTransient<IVvnRepository, VvnRepository>();
             services.AddTransient<VvnService>();
-
-            services.AddTransient<IStaffMemberRepository, StaffMemberRepository>();
-            services.AddTransient<StaffMemberService>();
-
-            services.AddTransient<IVesselTypeRepository, VesselTypeRepository>();
-            services.AddTransient<VesselTypeService>();
-
-            services.AddTransient<IDockRepository, DockRepository>();
-            services.AddTransient<DockService>();
         }
     }
 }
