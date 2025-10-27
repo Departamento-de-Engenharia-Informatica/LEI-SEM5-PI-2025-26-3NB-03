@@ -1,3 +1,10 @@
+﻿using DDDNetCore.Domain.Vessels;
+using DDDNetCore.Infraestructure.Vessels;
+using DDDSample1.Domain.Categories;
+using DDDSample1.Domain.Families;
+using DDDSample1.Domain.Products;
+using DDDSample1.Domain.Shared;
+using DDDSample1.Domain.VesselVisitNotifications;
 ﻿using DDDSample1.Domain.Categories;
 using DDDSample1.Domain.Families;
 using DDDSample1.Domain.Products;
@@ -205,6 +212,8 @@ namespace DDDSample1
 
             services.AddTransient<IVvnRepository, VvnRepository>();
             services.AddTransient<VvnService>();
+
+            services.AddScoped<IVesselRepository, VesselRepository>();
 
             services.AddTransient<IStaffMemberRepository, StaffMemberRepository>();
             services.AddTransient<StaffMemberService>();

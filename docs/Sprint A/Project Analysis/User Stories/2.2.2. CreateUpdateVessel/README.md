@@ -125,7 +125,7 @@ os testes são feitos diretamente na API:
 {
   "imoNumber": "IMO 9074729",
   "name": "MSC Gülsün",
-  "type": "Container Ship",
+  "VesselType": "Container Ship",
   "operator": "Mediterranean Shipping Company"
 }
 ```
@@ -165,7 +165,7 @@ Para seguir o princípio de **segregação de responsabilidades** e evitar a sob
 ```json
 {
   "name": "MSC Gülsün (Updated)",
-  "vesselType": "Ultra Large Container Ship",
+  "VesselType": "Ultra Large Container Ship",
   "operator": "MSC"
 }
 ```
