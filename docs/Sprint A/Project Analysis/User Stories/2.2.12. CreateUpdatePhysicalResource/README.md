@@ -23,10 +23,6 @@
 User: Logistics Operator<br>
 x: Physical Resource
 
-### SD Level 2
-
-N/A
-
-### SD Level 3
+### SD Other Levels
 
 N/A

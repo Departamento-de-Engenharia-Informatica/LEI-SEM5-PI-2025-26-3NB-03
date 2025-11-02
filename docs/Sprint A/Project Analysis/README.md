@@ -2,37 +2,27 @@
 
 ### Domain Model
 
-![MD](Domain%20Model/DomainModel.png)
+![DM](Domain%20Model/DomainModel.png)
 
-### Logical View
+### Logical Views
 
 #### Level 1
 
-![MD](./Logical%20View/Vista%20Lógica%20-%20Nível%201.png)
+![LV_L1](Logical%20Views/Logical%20View%20-%20Level%201.png)
 
 #### Level 2
 
-![MD](./Logical%20View/Vista%20Lógica%20%20-%20Nivel%202.png)
+![LV_L2](Logical%20Views/Logical%20View%20-%20Level%202.png)
 
 #### Level 3
 
-![MD](./Logical%20View/Vista%20Lógica%20-%20Nível%203.png)
+![LV_L3](Logical%20Views/Logical%20View%20-%20Level%203.png)
 
 #### Level 4
 
-![MD](./Logical%20View/Logical%20View%20-%20LVL%204.png)
+![LV_L4](Logical%20Views/Logical%20View%20-%20Level%204.png)
 
-### Development View
-
-#### Level 1
-
-N/A
-
-#### Level 2
-
-N/A
-
-#### Level 3
+### Development Views
 
 N/A
 

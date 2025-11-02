@@ -1,4 +1,4 @@
-## Sprint A
+## Sprint B
 
 - [Sprint Planning](Sprint%20Planning/)
 - [Weekly Meetings](Weekly%20Meetings/)

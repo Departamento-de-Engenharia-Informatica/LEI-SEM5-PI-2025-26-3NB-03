@@ -1,8 +1,6 @@
-### Team Members
+# INTEGRATIVE PROJECT OF THE 5TH SEMESTER OF LEI-ISEP
+## 2025-2026
 
-| # | Número  | Nome         |
-|---|---------|--------------|
-| 1 | 1010947 | Nuno César   |
-| 2 | 1050071 | Nuno Silvano |
-| 3 | 1080714 | Nuno Mota    |
-| 4 | 1200614 | João Miranda |
+- [PART I – Context and Operation](ContextOperation.md)
+- [PART II – System Specification](SystemSpecification.md)
+- [PART III – User Stories](UserStories.md)

@@ -7,14 +7,6 @@
  - If rejected, the shipping agent representative might review / update the notification for further new decision.
  - All decisions (approve/reject) must be logged with timestamp, officer ID, and decision outcome for auditing purposes.
 
-### SD Level 1
-
-N/A
-
-### SD Level 2
-
-N/A
-
-### SD Level 3
+### SDs
 
 N/A
