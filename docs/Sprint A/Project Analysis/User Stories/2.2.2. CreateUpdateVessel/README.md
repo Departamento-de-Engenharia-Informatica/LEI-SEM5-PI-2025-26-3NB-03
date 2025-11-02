@@ -1,4 +1,4 @@
-# User Story 2.2.2 - Create and Update Vessel Records
+# User Story 2.2.2 - Create/Update Vessel
 
 **Autor:** [Nuno Silvano]  
 **Data:** Outubro 2025
