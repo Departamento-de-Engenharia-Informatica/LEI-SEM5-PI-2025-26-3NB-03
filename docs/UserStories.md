@@ -369,8 +369,7 @@ The front-end must be developed as a Single Page Application (SPA), providing a 
 **Acceptance Criteria / Comments:**
 
 - The 3D module must retrieve the port layout from the backend as JSON-formatted content. Tip: the layout may use placeholders for positioning the port facilities as well as to map this information to the one retrieved from the existing REST APIs.
-- Models representing docks, container yards and warehouses can either be procedurally
-created or imported.
+- Models representing docks, container yards and warehouses can either be procedurally created or imported.
 
 #### 3.3.3. As a Logistics Operator or Port Authority Officer, I want to see vessels and major resources (e.g., ship-to-shore cranes, yard gantry cranes) displayed in the 3D environment, so that I can visualize operational elements.
 
