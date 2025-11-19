@@ -1,0 +1,13 @@
+<nav class="sidebar">
+  <ul>
+    <li *ngFor="let item of filteredMenuItems">
+      <a [routerLink]="item.link" routerLinkActive="active-link">
+        {{ item.label | translate }} 
+      </a>
+    </li>
+  </ul>
+  
+  <button (click)="authService.logout()">
+    {{ 'ACTION.LOGOUT' | translate }}
+  </button>
+</nav>

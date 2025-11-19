@@ -1,0 +1,21 @@
+{
+  "APP": {
+    "NAME": "Port Management"
+  },
+  "LOGIN": {
+    "EMAIL": "E-mail",
+    "PASSWORD": "Palavra-passe",
+    "INVALIDCRED": "Credenciais inválidas.",
+    "BUTTON": "Iniciar Sessão"
+  },
+  "MENU": {
+    "DASHBOARD": "Painel Principal",
+    "VESSELTYPES": "Tipos de Embarcação",
+    "STAFF": "Membros da Equipa",
+    "VVNS": "Notificações de Visita de Embarcação",
+    "PORT": "Porto"
+  },
+  "ACTION": {
+    "LOGOUT": "Sair"
+  }
+}
