@@ -1,0 +1,53 @@
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%; 
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-area .app-logo {
+    height: 50px; 
+    width: auto;
+}
+
+.logo-area h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+    visibility: visible;
+}
+
+@media (max-width: 992px) {
+    .logo-area h1 {
+        visibility: hidden;
+    }
+}
+
+.controls {
+    display: flex;
+    gap: 5px;
+}
+
+.controls button {
+    background: none;
+    border: 1px solid white;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.controls button.active {
+    background-color: white;
+    color: #3f51b5;
+    font-weight: bold;
+}

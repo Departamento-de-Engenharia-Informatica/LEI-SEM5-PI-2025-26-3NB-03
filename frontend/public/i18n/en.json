@@ -1,0 +1,21 @@
+{
+  "APP": {
+    "NAME": "Port Management"
+  },
+  "LOGIN": {
+    "EMAIL": "E-mail",
+    "PASSWORD": "Password",
+    "INVALIDCRED": "Invalid credentials.",
+    "BUTTON": "Log In"
+  },
+  "MENU": {
+    "DASHBOARD": "Main Dashboard",
+    "VESSELTYPES": "Vessel Types",
+    "STAFF": "Staff Members",
+    "VVNS": "Vessel Visit Notifications",
+    "PORT": "Port"
+  },
+  "ACTION": {
+    "LOGOUT": "Logout"
+  }
+}

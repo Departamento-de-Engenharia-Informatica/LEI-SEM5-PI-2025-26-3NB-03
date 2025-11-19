@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --color-primary: #0056b3;
+  --color-secondary: #007bff;
+  --color-background: #f4f7fa;
+  --sidebar-width: 200px;
+  --header-height: 60px;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--color-background);
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.content-wrapper {
+  display: flex;
+  flex: 1;
+}
+
+.page-content {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
