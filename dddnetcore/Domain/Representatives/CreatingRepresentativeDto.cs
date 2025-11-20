@@ -4,21 +4,21 @@ namespace DDDSample1.Domain.Representatives
 {
     public class CreatingRepresentativeDto
     {
-        [Required]
+        [Required(ErrorMessage = "Citizen ID is required.")]
         public string Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Name is required.")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Nationality is required.")]
         public string Nationality { get; set; }
 
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "E-mail is required.")]
+        [EmailAddress(ErrorMessage = "Invalid E-mail format.")]
         public string Email { get; set; }
 
-        [Required]
-        [Range(1, int.MaxValue)]
+        [Required(ErrorMessage = "Phone number is required.")]
+        [Range(1, int.MaxValue, ErrorMessage = "Phone number must be a positive integer.")]
         public int PhoneNumber { get; set; }
 
         public CreatingRepresentativeDto(string id, string name, string nationality, string email, int phonenumber)

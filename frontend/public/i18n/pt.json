@@ -6,16 +6,44 @@
     "EMAIL": "E-mail",
     "PASSWORD": "Palavra-passe",
     "INVALIDCRED": "Credenciais inválidas.",
-    "BUTTON": "Iniciar Sessão"
+    "BUTTON": "Iniciar Sessão",
+    "LOGOUT": "Terminar sessão"
   },
   "MENU": {
     "DASHBOARD": "Painel Principal",
     "VESSELTYPES": "Tipos de Embarcação",
     "STAFF": "Membros da Equipa",
     "VVNS": "Notificações de Visita de Embarcação",
-    "PORT": "Porto"
+    "PORT": "Porto",
+    "REPRESENTATIVES": "Representantes"
   },
-  "ACTION": {
-    "LOGOUT": "Sair"
+  "COMMON": {
+    "LOADING": "A carregar",
+    "NO_DATA": "Nenhum dado encontrado"
+  },
+  "BUTTON": {
+    "NEW": "Novo",
+    "REFRESH": "Atualizar Lista",
+    "CREATE": "Adicionar",
+    "UPDATE": "Atualizar",
+    "DEACTIVATE": "Desativar"
+  },
+  "REPRESENTATIVE": {
+    "VIEW_TITLE": "Visualizar Detalhes do Representante",
+    "CREATE_TITLE": "Criar Novo Representante",
+    "UPDATE_TITLE": "Editar Representante",
+    "ORGANIZATION_ID": "Organização de Agentes de Transporte Marítimo",
+    "NAME": "Nome",
+    "NATIONALITY": "Nacionalidade",
+    "EMAIL": "E-mail",
+    "PHONE": "Número de Telefone"
+  },
+  "CONFIRM": {
+    "ACTION": "Tem certeza que deseja desativar este representante?"
+  },
+  "MESSAGE": {
+    "CREATE_SUCCESS": "Criado com sucesso.",
+    "UPDATE_SUCCESS": "Atualizado com sucesso.",
+    "GENERIC_ERROR": "Erro."
   }
 }
