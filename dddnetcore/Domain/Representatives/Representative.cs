@@ -1,6 +1,5 @@
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.ShippingAgentOrganizations;
-using System;
 using System.Net.Mail;
 
 namespace DDDSample1.Domain.Representatives
