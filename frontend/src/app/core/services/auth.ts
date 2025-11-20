@@ -12,13 +12,19 @@ export class Auth {
   private isAuthenticated = false;
 
   constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {
-    if (isPlatformBrowser(this.platformId)) {
-      const storedRole = localStorage.getItem('userRole') as UserRole;
-      if (storedRole) {
-        this.userRole = storedRole;
-        this.isAuthenticated = true;
+    try {
+      if (isPlatformBrowser(this.platformId)) {
+        const storedRole = localStorage.getItem('userRole') as UserRole;
+        if (storedRole) {
+          this.userRole = storedRole;
+          this.isAuthenticated = true;
+        }
       }
+    } catch (e) {
+      console.error('Erro ao inicializar Auth Service:', e);
     }
+
+    console.log('isAuthenticated:', this.isAuthenticated);
   }
 
   login(email: string, password: string): boolean {
@@ -65,7 +71,7 @@ export class Auth {
     this.userRole = null;
     this.isAuthenticated = false;
     localStorage.removeItem('userRole');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth/login']);
   }
 
   getRole(): UserRole | null {
@@ -77,6 +83,10 @@ export class Auth {
   }
 
   hasRole(requiredRoles: UserRole[]): boolean {
+    if (!this.isLoggedIn()) { 
+      return false;
+    }
+
     if (!this.userRole) {
       return false;
     }
