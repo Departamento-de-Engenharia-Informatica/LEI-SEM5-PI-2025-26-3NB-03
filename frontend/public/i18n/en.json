@@ -6,16 +6,44 @@
     "EMAIL": "E-mail",
     "PASSWORD": "Password",
     "INVALIDCRED": "Invalid credentials.",
-    "BUTTON": "Log In"
+    "BUTTON": "Log In",
+    "LOGOUT": "Logout"
   },
   "MENU": {
     "DASHBOARD": "Main Dashboard",
     "VESSELTYPES": "Vessel Types",
     "STAFF": "Staff Members",
     "VVNS": "Vessel Visit Notifications",
-    "PORT": "Port"
+    "PORT": "Port",
+    "REPRESENTATIVES": "Representatives"
   },
-  "ACTION": {
-    "LOGOUT": "Logout"
+  "COMMON": {
+    "LOADING": "Loading",
+    "NO_DATA": "No data found"
+  },
+  "BUTTON": {
+    "NEW": "New",
+    "REFRESH": "Refresh",
+    "CREATE": "Add",
+    "UPDATE": "Update",
+    "DEACTIVATE": "Deactivate"
+  },
+  "REPRESENTATIVE": {
+    "VIEW_TITLE": "View Representative Details",
+    "CREATE_TITLE": "Add New Representative",
+    "UPDATE_TITLE": "Update Representative",
+    "ORGANIZATION_ID": "Shipping Agent Organization",
+    "NAME": "Name",
+    "NATIONALITY": "Nationality",
+    "EMAIL": "E-mail",
+    "PHONE": "Phone Number"
+  },
+  "CONFIRM": {
+    "ACTION": "Are you sure you want to deactivate this representative?"
+  },
+  "MESSAGE": {
+    "CREATE_SUCCESS": "Successfully created.",
+    "UPDATE_SUCCESS": "Successfully updated.",
+    "GENERIC_ERROR": "Error."
   }
 }

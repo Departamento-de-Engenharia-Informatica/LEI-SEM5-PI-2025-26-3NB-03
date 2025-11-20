@@ -23,6 +23,7 @@ export const MENU_ITEMS: MenuItem[] = [
            3.3.4. Render 3D Models Appropriatelly
   */
   { label: 'MENU.VESSELTYPES', link: '/vesseltypes', requiredRoles: ['PAO'] },
+  { label: 'MENU.REPRESENTATIVES', link: '/representatives', requiredRoles: ['PAO'] },
 
   /*
     Logistics Operator (lo@pm.pt / admin)

@@ -42,6 +42,8 @@ namespace DDDSample1
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -57,6 +59,19 @@ namespace DDDSample1
                     opt.UseInMemoryDatabase("DDDSample1DB");
                     opt.ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>();
                 });
+
+            services.AddCors(options =>
+                {
+                    options.AddPolicy( 
+                        name: MyAllowSpecificOrigins,
+                        builder =>
+                            {
+                                builder.AllowAnyOrigin()
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod();
+                            });
+                });
+
             ConfigureMyServices(services);
 
             services.AddControllers().AddNewtonsoftJson();
@@ -78,6 +93,8 @@ namespace DDDSample1
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 
