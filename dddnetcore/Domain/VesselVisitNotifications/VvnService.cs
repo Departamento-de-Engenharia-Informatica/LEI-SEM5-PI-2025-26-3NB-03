@@ -33,5 +33,21 @@ namespace DDDSample1.Domain.VesselVisitNotifications
 
             return (items, total);
         }
+
+        public async Task<VvnListItemDto> CreateAsync(string orgId, CreateVvnDto dto)
+        {
+            var vvn = VesselVisitNotification.CreateInProgress(
+                dto.VesselIMO,
+                dto.VesselName,
+                orgId,
+                dto.RepresentativeId,
+                dto.RepresentativeName
+            );
+
+            await _repo.AddAsync(vvn);
+
+
+            return vvn.ToListItemDto();
+        }
     }
 }
