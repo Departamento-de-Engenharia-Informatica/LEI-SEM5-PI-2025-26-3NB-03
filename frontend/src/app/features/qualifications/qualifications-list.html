@@ -1,0 +1,27 @@
+<div class="page-container">
+
+  <h2 class="page-title">Qualificações</h2>
+
+  <a routerLink="/qualifications/create" class="add-button">+ Adicionar</a>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Código</th>
+      <th>Nome</th>
+      <th>Ações</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let q of qualifications">
+      <td>{{ q.id }}</td>
+      <td>{{ q.code }}</td>
+      <td>{{ q.name }}</td>
+      <td><a class="edit-link" [routerLink]="['/qualifications', q.code]">Editar</a></td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

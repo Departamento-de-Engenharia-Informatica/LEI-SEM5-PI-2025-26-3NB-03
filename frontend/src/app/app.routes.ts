@@ -13,7 +13,7 @@ export const routes: Routes = [
         path: '',
         component: Layout,
         resolve: {
-            authReady: AuthResolver 
+            authReady: AuthResolver
         },
         children: [
             {
@@ -25,7 +25,7 @@ export const routes: Routes = [
                 path: 'dashboard',
                 loadChildren: () => import('./dashboard/dashboard-module').then(m => m.DashboardModule),
                 canActivate: [roleGuard],
-                data: { roles: ['PAO', 'LO', 'Rep', 'Staff'] }, 
+                data: { roles: ['PAO', 'LO', 'Rep', 'Staff'] },
             },
             {
                 path: 'representatives',
@@ -34,6 +34,31 @@ export const routes: Routes = [
                 canActivate: [roleGuard],
                 data: { roles: ['PAO'] },
             },
+
+          {
+            path: 'qualifications',
+            loadComponent: () =>
+              import('./features/qualifications/qualifications-list').then(m => m.QualificationsList),
+            title: 'Qualificações',
+            canActivate: [roleGuard],
+            data: { roles: ['LO'] },
+          },
+          {
+            path: 'qualifications/create',
+            loadComponent: () =>
+              import('./features/qualifications/qualifications-create').then(m => m.QualificationsCreate),
+            title: 'Criar Qualificação',
+            canActivate: [roleGuard],
+            data: { roles: ['LO'] },
+          },
+          {
+            path: 'qualifications/:id',
+            loadComponent: () =>
+              import('./features/qualifications/qualifications-edit').then(m => m.QualificationsEdit),
+            title: 'Editar Qualificação',
+            canActivate: [roleGuard],
+            data: { roles: ['LO'] },
+          },
             {
                 path: 'port', 
                 loadComponent: () => import('./features/port-visualization/port-visualization/port-visualization').then(m => m.PortVisualization),
