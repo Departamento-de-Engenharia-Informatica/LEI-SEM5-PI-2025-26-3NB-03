@@ -2,6 +2,12 @@ import { Component, ElementRef, ViewChild, AfterViewInit, OnDestroy } from '@ang
 import { CommonModule } from '@angular/common';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { firstValueFrom } from 'rxjs';
+import { StorageAreaDTO } from '../../core/models/storagearea';
+import { Api } from '../../core/services/api';
+import { createWarehouse, createYard } from './utils/storageareas';
+import { setupLighting } from './utils/lighting';
+import { setupBackground, setupGround } from './utils/environment';
 
 @Component({
   selector: 'app-port-visualization',
@@ -19,14 +25,18 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
   private controls!: OrbitControls;
   private resizeObserver!: ResizeObserver;
 
-  constructor() { }
+  constructor(private apiService: Api) { }
 
   ngAfterViewInit(): void {
-    this.initThree();
-    this.renderScene();
-
-    window.addEventListener('resize', this.onWindowResize.bind(this));
-    this.setupResizeObserver();
+    this.loadStorageAreas().then(areas => {
+      this.initThree(areas);
+      this.renderScene();
+      
+      window.addEventListener('resize', this.onWindowResize.bind(this));
+      this.setupResizeObserver();
+    }).catch(error => {
+      console.error('Erro ao carregar Storage Areas:', error);
+    });
   }
 
   ngOnDestroy(): void {
@@ -40,6 +50,17 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     window.removeEventListener('resize', this.onWindowResize.bind(this));
     if (this.resizeObserver) {
       this.resizeObserver.disconnect();
+    }
+  }
+
+  private async loadStorageAreas(): Promise<StorageAreaDTO[]> {
+    try {
+      const areasObservable = this.apiService.getAll<StorageAreaDTO>('StorageAreas');
+      const areas = await firstValueFrom(areasObservable);
+      return areas || [];
+    } catch (error) {
+      console.error('Falha ao buscar Storage Areas:', error);
+      return [];
     }
   }
 
@@ -77,69 +98,27 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     this.updateCanvasSize(container.clientWidth, container.clientHeight);
   }
 
-  private initThree(): void {
+  private initThree(storageAreas: StorageAreaDTO[]): void {
     const container = this.canvasContainer.nativeElement as HTMLElement;
     
     const width = container.clientWidth;
     const height = container.clientHeight;
 
     this.scene = new THREE.Scene();
-    const skyColor = 0x87CEEB;
-    const fogColor = 0x97DEFB;
-    this.scene.background = new THREE.Color(skyColor);
-    const near = 0.1;
-    const far = 80;
-    this.scene.fog = new THREE.Fog(fogColor, near, far);
+
+    setupBackground(this.scene);
 
     this.camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
     this.camera.position.set(10, 8, 15);
     this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
-    const groundRotation = -Math.PI / 2;
-    const portColor = 0x555555;
-    const portSize = 30;
-    const portGeometry = new THREE.PlaneGeometry(portSize, portSize);
-    const portMaterial = new THREE.MeshLambertMaterial({ color: portColor });
-    const port = new THREE.Mesh(portGeometry, portMaterial);
-    port.rotation.x = groundRotation;
-    port.receiveShadow = true;
-    this.scene.add(port);
+    setupGround(this.scene);
 
-    const waterSize = 1000;
-    const waterGeometry = new THREE.PlaneGeometry(waterSize, waterSize); 
-    const waterMaterial = new THREE.MeshStandardMaterial({ 
-        color: 0x004477, 
-        metalness: 0.5, 
-        roughness: 0.5 
-    }); 
-    const water = new THREE.Mesh(waterGeometry, waterMaterial);
-    water.rotation.x = groundRotation;
-    water.position.z = portSize / 2 + waterSize / 2;
-    water.position.y = -0.01;
-    water.receiveShadow = true;
-    this.scene.add(water);
+    const warehouses = storageAreas.filter(area => area.type === 'Warehouse');
+    warehouses.forEach((area: StorageAreaDTO) => createWarehouse(this.scene, area));
 
-    const landSize = 1000;
-    const landGeometry = new THREE.PlaneGeometry(landSize, landSize);
-    const landMaterial = new THREE.MeshStandardMaterial({ color: 0x8B4513 }); 
-    const land = new THREE.Mesh(landGeometry, landMaterial);
-    land.rotation.x = groundRotation;
-    land.position.z = -(-(portSize / 2) + landSize / 2);
-    land.position.y = -0.01;
-    land.receiveShadow = true;
-    this.scene.add(land);
-
-    const warehouseWidth = 6; 
-    const warehouseHeight = 2;
-    const warehouseDepth = 3;
-    const warehouseGeometry = new THREE.BoxGeometry(warehouseWidth, warehouseHeight, warehouseDepth); 
-    const warehouseMaterial = new THREE.MeshStandardMaterial({ color: 0x758090 });
-    const warehouse = new THREE.Mesh(warehouseGeometry, warehouseMaterial);
-    warehouse.castShadow = true;
-    warehouse.receiveShadow = true;
-    warehouse.position.set(7.2, warehouseHeight / 2, 1.3);
-    warehouse.rotation.y = 10.7;
-    this.scene.add(warehouse);
+    const yards = storageAreas.filter(area => area.type === 'Yard');
+    yards.forEach((area: StorageAreaDTO) => createYard(this.scene, area));
 
     const dockWidth = 7; 
     const dockHeight = 0.3;
@@ -154,20 +133,7 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     dock.rotation.y = graus * (Math.PI / 180);
     this.scene.add(dock);
 
-    const sunLight = new THREE.DirectionalLight(0xffffff, 3); 
-    sunLight.position.set(10, 20, 10); 
-    sunLight.target.position.set(0, 0, 0);
-    this.scene.add(sunLight);
-    sunLight.castShadow = true;
-    sunLight.shadow.camera.left = -20;
-    sunLight.shadow.camera.right = 20;
-    sunLight.shadow.camera.top = 20;
-    sunLight.shadow.camera.bottom = -20;
-    sunLight.shadow.camera.near = 0.1;
-    sunLight.shadow.camera.far = 50;
-    
-    const ambientLight = new THREE.AmbientLight(0xffffff, 3)
-    this.scene.add(ambientLight);
+    setupLighting(this.scene);
     
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setSize(width, height);

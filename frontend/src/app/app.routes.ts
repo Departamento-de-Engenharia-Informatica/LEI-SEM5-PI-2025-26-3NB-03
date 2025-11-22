@@ -68,7 +68,7 @@ export const routes: Routes = [
 
           {
                 path: 'port',
-                loadComponent: () => import('./features/port-visualization/port-visualization/port-visualization').then(m => m.PortVisualization),
+                loadComponent: () => import('./features/port-visualization/port-visualization').then(m => m.PortVisualization),
                 canMatch: [roleGuard],
                 data: {
                     roles: ['PAO', 'LO', 'Rep', 'Staff'],
