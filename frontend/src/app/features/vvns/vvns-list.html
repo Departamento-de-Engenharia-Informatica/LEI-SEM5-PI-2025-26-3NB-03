@@ -1,0 +1,63 @@
+<div class="page-card">
+
+  <h2 class="page-title">Notificações de Visita de Embarcação</h2>
+
+  <!-- FILTROS -->
+  <div class="filters">
+
+    <input placeholder="Vessel (IMO ou Nome)" [(ngModel)]="filters.vessel">
+
+    <select [(ngModel)]="filters.status">
+      <option value="">-- Status --</option>
+      <option value="in_progress">Em Progresso</option>
+      <option value="submitted">Submetido</option>
+      <option value="approved">Aprovado</option>
+      <option value="rejected">Rejeitado</option>
+    </select>
+
+    <input placeholder="Representante" [(ngModel)]="filters.representative">
+
+    <label>De:</label>
+    <input type="date" [(ngModel)]="filters.from">
+
+    <label>Até:</label>
+    <input type="date" [(ngModel)]="filters.to">
+
+    <button class="btn-primary" (click)="load()">Pesquisar</button>
+
+  </div>
+
+  <div *ngIf="isLoading" class="loading-text">A carregar...</div>
+
+  <table class="table" *ngIf="!isLoading">
+    <thead>
+    <tr>
+      <th>IMO</th>
+      <th>Nome</th>
+      <th>Status</th>
+      <th>Docagem</th>
+      <th>Razão Rejeição</th>
+      <th>Representante</th>
+      <th>Data Submissão</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let v of vvns">
+      <td>{{ v.vesselIMO }}</td>
+      <td>{{ v.vesselName }}</td>
+
+      <td class="status" [class]="v.status">
+        {{ v.status }}
+      </td>
+
+      <td>{{ v.currentDock || '-' }}</td>
+      <td>{{ v.rejectionReason || '-' }}</td>
+      <td>{{ v.representativeName }}</td>
+
+      <td>{{ v.submittedAt | date:'short' }}</td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

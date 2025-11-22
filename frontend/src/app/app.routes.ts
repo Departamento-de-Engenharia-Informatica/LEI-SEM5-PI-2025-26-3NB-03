@@ -67,6 +67,11 @@ export const routes: Routes = [
           { path: 'staff/:code', component: StaffEdit },
 
           {
+            path: 'vvns',
+            loadComponent: () => import('./features/vvns/vvns-list').then(m => m.VvnsListComponent)
+          },
+
+          {
                 path: 'port',
                 loadComponent: () => import('./features/port-visualization/port-visualization').then(m => m.PortVisualization),
                 canMatch: [roleGuard],
