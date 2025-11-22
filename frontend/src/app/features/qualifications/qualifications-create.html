@@ -1,0 +1,21 @@
+<div class="page-card">
+
+  <h2 class="page-title">Criar Qualificação</h2>
+
+  <form (ngSubmit)="save()">
+
+    <div class="form-row">
+      <label>Código</label>
+      <input [(ngModel)]="model.code" name="code" required />
+    </div>
+
+    <div class="form-row">
+      <label>Nome</label>
+      <input [(ngModel)]="model.name" name="name" required />
+    </div>
+
+    <button type="submit" class="btn-primary" [disabled]="isSaving">Criar</button>
+
+  </form>
+
+</div>

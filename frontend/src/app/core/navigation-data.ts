@@ -36,6 +36,8 @@ export const MENU_ITEMS: MenuItem[] = [
   */
   { label: 'MENU.STAFF', link: '/staff', requiredRoles: ['LO'] },
 
+  { label: 'MENU.QUALIFICATIONS', link: '/qualifications', requiredRoles: ['LO'] },
+
   /*
     Representative (qualquer email / rep)
     Pages: 2.2.8. Create Vessel Visit Notification

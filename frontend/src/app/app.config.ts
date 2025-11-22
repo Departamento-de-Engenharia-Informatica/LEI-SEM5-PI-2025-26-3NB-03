@@ -9,7 +9,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { CustomTranslateLoader } from './core/i18n-custom-loader';
 
 export function HttpLoaderFactory(http: HttpClient) {
-  return new CustomTranslateLoader(http); 
+  return new CustomTranslateLoader(http);
 }
 
 function initializeApp(i18nService: I18n): () => Promise<void> {
@@ -35,8 +35,8 @@ export const appConfig: ApplicationConfig = {
     {
       provide: APP_INITIALIZER,
       useFactory: initializeApp,
-      deps: [I18n], 
-      multi: true 
+      deps: [I18n],
+      multi: true
     }
   ]
 };

@@ -1,0 +1,25 @@
+<div class="page-card">
+
+  <h2 class="page-title">Editar Qualificação</h2>
+
+  <div *ngIf="isLoading" class="loading-text">
+    A carregar...
+  </div>
+
+  <form *ngIf="!isLoading" (ngSubmit)="save()">
+
+    <div class="form-row">
+      <label>Código</label>
+      <input [value]="code" disabled />
+    </div>
+
+    <div class="form-row">
+      <label>Nome</label>
+      <input [(ngModel)]="model.name" name="name" required />
+    </div>
+
+    <button type="submit" class="btn-primary" [disabled]="isSaving">Guardar</button>
+
+  </form>
+
+</div>
