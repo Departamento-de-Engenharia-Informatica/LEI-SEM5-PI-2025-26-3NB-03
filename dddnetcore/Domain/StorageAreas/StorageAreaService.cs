@@ -22,7 +22,9 @@ namespace DDDSample1.Domain.StorageAreas
             return list.ConvertAll<StorageAreaDto>(storageArea => new StorageAreaDto {
                 Id = storageArea.Id.AsGuid(),
                 Type = storageArea.Type,
-                Location = storageArea.Location,
+                LocationX = storageArea.LocationX,
+                LocationZ = storageArea.LocationZ,
+                LocationOrientation = storageArea.LocationOrientation,
                 MaximumCapacity = storageArea.MaximumCapacity,
                 CurrentOccupancy = storageArea.CurrentOccupancy
             });
@@ -38,7 +40,9 @@ namespace DDDSample1.Domain.StorageAreas
             return new StorageAreaDto {
                 Id = storageArea.Id.AsGuid(),
                 Type = storageArea.Type,
-                Location = storageArea.Location,
+                LocationX = storageArea.LocationX,
+                LocationZ = storageArea.LocationZ,
+                LocationOrientation = storageArea.LocationOrientation,
                 MaximumCapacity = storageArea.MaximumCapacity,
                 CurrentOccupancy = storageArea.CurrentOccupancy
             };
@@ -46,7 +50,7 @@ namespace DDDSample1.Domain.StorageAreas
 
         public async Task<StorageAreaDto> AddAsync(CreatingStorageAreaDto dto)
         {
-            var storageArea = new StorageArea(dto.Type, dto.Location, dto.MaximumCapacity, dto.CurrentOccupancy);
+            var storageArea = new StorageArea(dto.Type, dto.LocationX, dto.LocationZ, dto.LocationOrientation, dto.MaximumCapacity, dto.CurrentOccupancy);
 
             await this._repo.AddAsync(storageArea);
             await this._unitOfWork.CommitAsync();
@@ -54,7 +58,9 @@ namespace DDDSample1.Domain.StorageAreas
             return new StorageAreaDto {
                 Id = storageArea.Id.AsGuid(),
                 Type = storageArea.Type,
-                Location = storageArea.Location,
+                LocationX = storageArea.LocationX,
+                LocationZ = storageArea.LocationZ,
+                LocationOrientation = storageArea.LocationOrientation,
                 MaximumCapacity = storageArea.MaximumCapacity,
                 CurrentOccupancy = storageArea.CurrentOccupancy
             };
@@ -69,7 +75,9 @@ namespace DDDSample1.Domain.StorageAreas
 
             // change all field
             storageArea.ChangeType(dto.Type);
-            storageArea.ChangeLocation(dto.Location);
+            storageArea.ChangeLocationX(dto.LocationX);
+            storageArea.ChangeLocationZ(dto.LocationZ);
+            storageArea.ChangeLocationOrientation(dto.LocationOrientation);
             storageArea.ChangeMaximumCapacity(dto.MaximumCapacity);
             storageArea.ChangeCurrentOccupancy(dto.CurrentOccupancy);
 
@@ -78,7 +86,9 @@ namespace DDDSample1.Domain.StorageAreas
             return new StorageAreaDto {
                 Id = storageArea.Id.AsGuid(),
                 Type = storageArea.Type,
-                Location = storageArea.Location,
+                LocationX = storageArea.LocationX,
+                LocationZ = storageArea.LocationZ,
+                LocationOrientation = storageArea.LocationOrientation,
                 MaximumCapacity = storageArea.MaximumCapacity,
                 CurrentOccupancy = storageArea.CurrentOccupancy
             };
