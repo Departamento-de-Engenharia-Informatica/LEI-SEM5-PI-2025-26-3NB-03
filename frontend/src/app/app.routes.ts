@@ -59,6 +59,15 @@ export const routes: Routes = [
             canActivate: [roleGuard],
             data: { roles: ['LO'] },
           },
+            {
+                path: 'port', 
+                loadComponent: () => import('./features/port-visualization/port-visualization/port-visualization').then(m => m.PortVisualization),
+                canMatch: [roleGuard],
+                data: { 
+                    roles: ['PAO', 'LO', 'Rep', 'Staff'], 
+                    title: '3D Port Visualization' 
+                },
+            },
         ]
     },
     {

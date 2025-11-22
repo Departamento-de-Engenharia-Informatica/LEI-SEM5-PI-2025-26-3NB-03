@@ -1,7 +1,5 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { isPlatformBrowser } from '@angular/common';
-import { OnInit } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -10,38 +8,26 @@ export class I18n {
   private availableLangs = ['en', 'pt'];
   private defaultLang = 'pt';
   private _currentLang: string = this.defaultLang;
-  private isBrowser: boolean;
 
-  constructor(private translate: TranslateService, @Inject(PLATFORM_ID) platformId: Object ) {
-    this.isBrowser = isPlatformBrowser(platformId);
+  constructor(private translate: TranslateService) {
 
     this.translate.onLangChange.subscribe(event => {
       this._currentLang = event.lang;
     });
   }
 
-  /*ngOnInit() {
-    this.initLanguage();
-  }*/
-
   public initLanguage(): Promise<void> {
     this.translate.addLangs(this.availableLangs);
     let langToUse: string = this.defaultLang;
 
-    if (this.isBrowser) { 
-      const storedLang = localStorage.getItem('language');
-      const browserLang = this.translate.getBrowserLang(); 
+    const storedLang = localStorage.getItem('language');
+    const browserLang = this.translate.getBrowserLang(); 
 
-      if (storedLang && this.availableLangs.includes(storedLang)) {
-        langToUse = storedLang;
-      } else if (browserLang && this.availableLangs.includes(browserLang)) {
-        langToUse = browserLang;
-      }
+    if (storedLang && this.availableLangs.includes(storedLang)) {
+      langToUse = storedLang;
+    } else if (browserLang && this.availableLangs.includes(browserLang)) {
+      langToUse = browserLang;
     }
-
-    /*setTimeout(() => {
-        this.translate.use(langToUse); 
-    }, 10);*/
 
     return new Promise((resolve) => {
       this.translate.use(langToUse).subscribe({
@@ -58,9 +44,7 @@ export class I18n {
    */
   setLanguage(lang: string) {
     this.translate.use(lang);
-    if (this.isBrowser) {
-      localStorage.setItem('language', lang);
-    }
+    localStorage.setItem('language', lang);
   }
 
   /**
