@@ -3,6 +3,9 @@ import { roleGuard } from './core/guards/role-guard';
 import { Layout } from './core/components/layout/layout';
 import { Representative } from './features/representative/representative';
 import { AuthResolver } from './core/resolvers/auth-resolver';
+import {StaffList} from './features/staff/staff-list';
+import {StaffCreate} from './features/staff/staff-create';
+import {StaffEdit} from './features/staff/staff-edit';
 
 export const routes: Routes = [
     {
@@ -59,13 +62,17 @@ export const routes: Routes = [
             canActivate: [roleGuard],
             data: { roles: ['LO'] },
           },
-            {
-                path: 'port', 
+          { path: 'staff', component: StaffList },
+          { path: 'staff/create', component: StaffCreate },
+          { path: 'staff/:code', component: StaffEdit },
+
+          {
+                path: 'port',
                 loadComponent: () => import('./features/port-visualization/port-visualization/port-visualization').then(m => m.PortVisualization),
                 canMatch: [roleGuard],
-                data: { 
-                    roles: ['PAO', 'LO', 'Rep', 'Staff'], 
-                    title: '3D Port Visualization' 
+                data: {
+                    roles: ['PAO', 'LO', 'Rep', 'Staff'],
+                    title: '3D Port Visualization'
                 },
             },
         ]

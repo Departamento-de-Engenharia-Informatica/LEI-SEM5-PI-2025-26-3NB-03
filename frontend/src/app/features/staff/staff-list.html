@@ -1,0 +1,38 @@
+<div class="page-container">
+
+  <h2 class="page-title">Staff</h2>
+
+  <a routerLink="/staff/create" class="add-button">+ Adicionar</a>
+
+
+  <div class="filters">
+    <input class="filter-input" placeholder="Código" [(ngModel)]="filter.code">
+    <input class="filter-input" placeholder="Nome" [(ngModel)]="filter.name">
+    <button (click)="load()" class="btn-primary">Pesquisar</button>
+  </div>
+
+  <div class="page-card">
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Código</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Ações</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let s of staff">
+        <td>{{ s.code }}</td>
+        <td>{{ s.name }}</td>
+        <td>{{ s.email }}</td>
+        <td><a class="edit-link" [routerLink]="['/staff', s.code]">Editar</a></td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>

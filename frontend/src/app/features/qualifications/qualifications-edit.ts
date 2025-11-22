@@ -15,6 +15,7 @@ import { QualificationsService } from '../../core/services/qualifications.servic
   selector: 'app-qualifications-edit',
   templateUrl: './qualifications-edit.html',
   imports: [CommonModule, FormsModule],
+  styleUrls: ['./qualifications.css']
 })
 export class QualificationsEdit implements OnInit {
 
