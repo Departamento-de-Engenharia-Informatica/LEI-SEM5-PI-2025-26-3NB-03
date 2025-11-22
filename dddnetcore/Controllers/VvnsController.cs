@@ -23,7 +23,7 @@ namespace DDDSample1.Controllers
             [FromQuery] int size = 20,
             [FromQuery] string sort = "-submittedAt")
         {
-            // RBAC & org-scope (simplificado por headers, alinhado com SD)
+
             var roles = Request?.Headers["X-Roles"].ToString() ?? string.Empty;
             var orgId = Request?.Headers["X-Org-Id"].ToString();
 
