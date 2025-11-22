@@ -31,7 +31,7 @@
     </tbody>
 </table>
 
-To compensate for the lack a fifth member, Shipping Agent Organization and Representative were given to 1080714.
+To compensate for the lack of a fifth member, Shipping Agent Organization and Representative were given to 1080714.
 
 ## User Stories
 
