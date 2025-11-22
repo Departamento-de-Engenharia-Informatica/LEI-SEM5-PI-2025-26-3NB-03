@@ -1,0 +1,26 @@
+<div class="page-card">
+
+  <h2 class="page-title">Criar Staff Member</h2>
+
+  <form (ngSubmit)="save()">
+
+    <div class="form-row">
+      <label>Código</label>
+      <input [(ngModel)]="model.code" name="code" required>
+    </div>
+
+    <div class="form-row">
+      <label>Nome</label>
+      <input [(ngModel)]="model.name" name="name" required>
+    </div>
+
+    <div class="form-row">
+      <label>Email</label>
+      <input [(ngModel)]="model.email" name="email" required>
+    </div>
+
+    <button class="btn-primary" type="submit" [disabled]="isSaving">Criar</button>
+
+  </form>
+
+</div>

@@ -1,0 +1,28 @@
+<div class="page-card">
+
+  <h2 class="page-title">Editar Staff Member</h2>
+
+  <div *ngIf="isLoading">A carregar...</div>
+
+  <form *ngIf="!isLoading" (ngSubmit)="save()">
+
+    <div class="form-row">
+      <label>Código</label>
+      <input [value]="code" disabled>
+    </div>
+
+    <div class="form-row">
+      <label>Nome</label>
+      <input [(ngModel)]="model.name" name="name" required>
+    </div>
+
+    <div class="form-row">
+      <label>Email</label>
+      <input [(ngModel)]="model.email" name="email" required>
+    </div>
+
+    <button class="btn-primary" type="submit" [disabled]="isSaving">Guardar</button>
+
+  </form>
+
+</div>

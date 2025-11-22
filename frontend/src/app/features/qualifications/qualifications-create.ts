@@ -9,7 +9,8 @@ import { CreateQualificationDto } from '../../core/models/qualification';
   standalone: true,
   selector: 'app-qualifications-create',
   templateUrl: './qualifications-create.html',
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule],
+  styleUrls: ['./qualifications.css']
 })
 export class QualificationsCreate {
 
