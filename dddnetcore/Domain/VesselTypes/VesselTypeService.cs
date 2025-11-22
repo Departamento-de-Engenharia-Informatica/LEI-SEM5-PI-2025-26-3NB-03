@@ -66,6 +66,37 @@ namespace DDDSample1.Domain.VesselTypes
             return new VesselTypeDto {Name = vt.Name, Description = vt.Description, Capacity = vt.Capacity, MaxBays = vt.MaxBays, MaxRows = vt.MaxRows, MaxTiers = vt.MaxTiers};
         }
 
+       
+
+        public async Task<VesselTypeDto> UpdateAsync(VesselTypeDto dto)
+        {
+            var vesseltype = await this._repo.GetByIdAsync(new VesselTypeId(dto.Id)); 
+
+            if (vesseltype == null)
+                return null;
+
+            // change all           
+            vesseltype.ChangeName(dto.Name);
+            vesseltype.ChangeDescription(dto.Description);
+            vesseltype.ChangeCapacity(dto.Capacity);
+            vesseltype.ChangeMaxBays(dto.MaxBays);
+            vesseltype.ChangeMaxRows(dto.MaxRows);
+            vesseltype.ChangeMaxTiers(dto.MaxTiers);
+            
+
+            await this._unitOfWork.CommitAsync();
+
+            return new VesselTypeDto {
+                Id = vesseltype.Id.AsGuid(),
+                Name = vesseltype.Name,
+                Description = vesseltype.Description,
+                Capacity = vesseltype.Capacity,
+                MaxBays = vesseltype.MaxBays,
+                MaxRows = vesseltype.MaxRows,
+                MaxTiers = vesseltype.MaxTiers
+            };
+        }
+
         
     }
 }
