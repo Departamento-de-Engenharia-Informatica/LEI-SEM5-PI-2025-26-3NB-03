@@ -51,5 +51,5 @@ export const MENU_ITEMS: MenuItem[] = [
     Pages: 3.3.2. 3D Representation of Port Structure
            3.3.4. Render 3D Models Appropriatelly
   */
-  { label: 'MENU.PORT', link: '/port', requiredRoles: ['Staff'] },
+  { label: 'MENU.PORT', link: '/port', requiredRoles: ['PAO', 'LO', 'Rep', 'Staff'] },
 ];

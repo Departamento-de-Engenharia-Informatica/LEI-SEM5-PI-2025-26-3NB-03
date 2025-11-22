@@ -1,5 +1,4 @@
-import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 export type UserRole = 'PAO' | 'LO' | 'Rep' | 'Staff';
@@ -11,20 +10,16 @@ export class Auth {
   private userRole: UserRole | null = null;
   private isAuthenticated = false;
 
-  constructor(private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(private router: Router) {
     try {
-      if (isPlatformBrowser(this.platformId)) {
-        const storedRole = localStorage.getItem('userRole') as UserRole;
-        if (storedRole) {
-          this.userRole = storedRole;
-          this.isAuthenticated = true;
-        }
+      const storedRole = localStorage.getItem('userRole') as UserRole;
+      if (storedRole) {
+        this.userRole = storedRole;
+        this.isAuthenticated = true;
       }
     } catch (e) {
       console.error('Erro ao inicializar Auth Service:', e);
     }
-
-    console.log('isAuthenticated:', this.isAuthenticated);
   }
 
   login(email: string, password: string): boolean {
