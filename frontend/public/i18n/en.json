@@ -73,5 +73,39 @@
     "UPDATE_SUCCESS": "Successfully updated.",
     "GENERIC_ERROR": "Error.",
     "DOCK_ALREADY_ADDED": "Dock already added."
+  },
+  "VVN": {
+    "TITLE": "Vessel Visit Notifications",
+    "SEARCH": "Search",
+    "IMO": "IMO",
+    "VESSEL_NAME": "Vessel Name",
+    "STATUS": "Status",
+    "DOCKING": "Dock",
+    "REJECTION_REASON": "Rejection Reason",
+    "REPRESENTATIVE": "Representative",
+    "SUBMISSION_DATE": "Submission Date"
+  },
+
+  "QUAL": {
+    "TITLE": "Qualifications",
+    "CODE": "Code",
+    "NAME": "Name",
+    "CREATE_TITLE": "Create Qualification",
+    "EDIT_TITLE": "Edit Qualification"
+  },
+
+  "STAFF": {
+    "TITLE": "Staff Members",
+    "CODE": "Employee ID",
+    "NAME": "Name",
+    "EMAIL": "Email",
+    "PHONE": "Phone",
+    "QUALIFICATIONS": "Qualifications",
+    "STATUS": "Status",
+    "ACTIVE": "Active",
+    "INACTIVE": "Inactive",
+    "CREATE_TITLE": "Create Staff Member",
+    "EDIT_TITLE": "Edit Staff Member",
+    "ACTIONS": "Actions"
   }
 }

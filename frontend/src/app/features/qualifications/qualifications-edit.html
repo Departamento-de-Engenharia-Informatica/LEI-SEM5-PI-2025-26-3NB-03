@@ -1,24 +1,26 @@
 <div class="page-card">
 
-  <h2 class="page-title">Editar Qualificação</h2>
+  <h2 class="page-title">{{ 'QUAL.EDIT_TITLE' | translate }}</h2>
 
-  <div *ngIf="isLoading" class="loading-text">
-    A carregar...
+  <div *ngIf="isLoading">
+    {{ 'COMMON.LOADING' | translate }}
   </div>
 
   <form *ngIf="!isLoading" (ngSubmit)="save()">
 
     <div class="form-row">
-      <label>Código</label>
+      <label>{{ 'QUAL.CODE' | translate }}</label>
       <input [value]="code" disabled />
     </div>
 
     <div class="form-row">
-      <label>Nome</label>
+      <label>{{ 'QUAL.NAME' | translate }}</label>
       <input [(ngModel)]="model.name" name="name" required />
     </div>
 
-    <button type="submit" class="btn-primary" [disabled]="isSaving">Guardar</button>
+    <button class="btn-primary" type="submit">
+      {{ 'BUTTON.UPDATE' | translate }}
+    </button>
 
   </form>
 

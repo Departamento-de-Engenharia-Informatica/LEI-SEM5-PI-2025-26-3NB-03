@@ -1,25 +1,29 @@
 <div class="page-container">
 
-  <h2 class="page-title">Qualificações</h2>
+  <h2 class="page-title">{{ 'QUAL.TITLE' | translate }}</h2>
 
-  <a routerLink="/qualifications/create" class="add-button">+ Adicionar</a>
+  <a routerLink="/qualifications/create" class="add-button">
+    {{ 'BUTTON.NEW' | translate }}
+  </a>
 
   <table class="table">
     <thead>
     <tr>
-      <th>ID</th>
-      <th>Código</th>
-      <th>Nome</th>
-      <th>Ações</th>
+      <th>{{ 'QUAL.CODE' | translate }}</th>
+      <th>{{ 'QUAL.NAME' | translate }}</th>
+      <th>{{ 'STAFF.ACTIONS' | translate }}</th>
     </tr>
     </thead>
 
     <tbody>
     <tr *ngFor="let q of qualifications">
-      <td>{{ q.id }}</td>
       <td>{{ q.code }}</td>
       <td>{{ q.name }}</td>
-      <td><a class="edit-link" [routerLink]="['/qualifications', q.code]">Editar</a></td>
+      <td>
+        <a class="edit-link" [routerLink]="['/qualifications', q.code]">
+          {{ 'BUTTON.UPDATE' | translate }}
+        </a>
+      </td>
     </tr>
     </tbody>
   </table>

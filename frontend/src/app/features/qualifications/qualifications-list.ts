@@ -3,13 +3,14 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { QualificationsService } from '../../core/services/qualifications.service';
 import { QualificationDto } from '../../core/models/qualification';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   standalone: true,
   selector: 'app-qualifications-list',
   templateUrl: './qualifications-list.html',
   styleUrls: ['./qualifications.css'],
-  imports: [CommonModule, RouterModule]
+  imports: [CommonModule, RouterModule, TranslatePipe]
 })
 
 export class QualificationsList implements OnInit {

@@ -1,38 +1,35 @@
 <div class="page-container">
 
-  <h2 class="page-title">Staff</h2>
+  <h2 class="page-title">{{ 'STAFF.TITLE' | translate }}</h2>
 
-  <a routerLink="/staff/create" class="add-button">+ Adicionar</a>
+  <a routerLink="/staff/create" class="add-button">
+    {{ 'BUTTON.NEW' | translate }}
+  </a>
 
+  <table class="table">
+    <thead>
+    <tr>
+      <th>{{ 'STAFF.CODE' | translate }}</th>
+      <th>{{ 'STAFF.NAME' | translate }}</th>
+      <th>{{ 'STAFF.EMAIL' | translate }}</th>
+      <th>{{ 'STAFF.STATUS' | translate }}</th>
+      <th>{{ 'STAFF.ACTIONS' | translate }}</th>
+    </tr>
+    </thead>
 
-  <div class="filters">
-    <input class="filter-input" placeholder="Código" [(ngModel)]="filter.code">
-    <input class="filter-input" placeholder="Nome" [(ngModel)]="filter.name">
-    <button (click)="load()" class="btn-primary">Pesquisar</button>
-  </div>
+    <tbody>
+    <tr *ngFor="let s of staff">
+      <td>{{ s.code }}</td>
+      <td>{{ s.name }}</td>
+      <td>{{ s.email }}</td>
 
-  <div class="page-card">
-
-    <table class="table">
-      <thead>
-      <tr>
-        <th>Código</th>
-        <th>Nome</th>
-        <th>Email</th>
-        <th>Ações</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <tr *ngFor="let s of staff">
-        <td>{{ s.code }}</td>
-        <td>{{ s.name }}</td>
-        <td>{{ s.email }}</td>
-        <td><a class="edit-link" [routerLink]="['/staff', s.code]">Editar</a></td>
-      </tr>
-      </tbody>
-    </table>
-
-  </div>
+      <td>
+        <a class="edit-link" [routerLink]="['/staff', s.code]">
+          {{ 'BUTTON.UPDATE' | translate }}
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 
 </div>

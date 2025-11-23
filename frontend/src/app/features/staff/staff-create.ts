@@ -5,12 +5,13 @@ import { CommonModule } from '@angular/common';
 
 import { StaffService } from '../../core/services/staff.service';
 import { CreateStaffMemberDto } from '../../core/models/staff';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   standalone: true,
   selector: 'app-staff-create',
   templateUrl: './staff-create.html',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslatePipe],
   styleUrl: './staff.css'
 })
 export class StaffCreate {

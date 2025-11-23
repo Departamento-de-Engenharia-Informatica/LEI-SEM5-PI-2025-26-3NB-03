@@ -1,6 +1,7 @@
 <div class="page-card">
 
-  <h2 class="page-title">Notificações de Visita de Embarcação</h2>
+  <h2>{{ 'VVN.TITLE' | translate }}</h2>
+
 
   <!-- FILTROS -->
   <div class="filters">
@@ -23,7 +24,7 @@
     <label>Até:</label>
     <input type="date" [(ngModel)]="filters.to">
 
-    <button class="btn-primary" (click)="load()">Pesquisar</button>
+    <button>{{ 'VVN.SEARCH' | translate }}</button>
 
   </div>
 
@@ -32,13 +33,14 @@
   <table class="table" *ngIf="!isLoading">
     <thead>
     <tr>
-      <th title="IMO é o número de identificação único atribuído a cada navio.">IMO</th>
-      <th>Nome</th>
-      <th>Status</th>
-      <th title="Cais atribuído ao navio após aprovação da VVN">Cais</th>
-      <th title="Motivo apresentado quando a notificação é rejeitada">Motivo da Rejeição</th>
-      <th>Representante</th>
-      <th>Data Submissão</th>
+      <th>{{ 'VVN.IMO' | translate }}</th>
+      <th>{{ 'VVN.VESSEL_NAME' | translate }}</th>
+      <th>{{ 'VVN.STATUS' | translate }}</th>
+      <th>{{ 'VVN.DOCKING' | translate }}</th>
+      <th>{{ 'VVN.REJECTION_REASON' | translate }}</th>
+      <th>{{ 'VVN.REPRESENTATIVE' | translate }}</th>
+      <th>{{ 'VVN.SUBMISSION_DATE' | translate }}</th>
+
     </tr>
     </thead>
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import {TranslatePipe, TranslateService} from '@ngx-translate/core';
 
 import {
   UpdateQualificationDto,
@@ -14,7 +14,7 @@ import { QualificationsService } from '../../core/services/qualifications.servic
   standalone: true,
   selector: 'app-qualifications-edit',
   templateUrl: './qualifications-edit.html',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslatePipe],
   styleUrls: ['./qualifications.css']
 })
 export class QualificationsEdit implements OnInit {
