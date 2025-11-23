@@ -50,7 +50,39 @@ namespace DDDSample1.Domain.VesselTypes
             this.MaxTiers = maxtiers;
         }
         
+        public void ChangeName(string name)
+        {
+            this.Name = name;
+        }
+
+        public void ChangeDescription(string description)
+        {
+            this.Description = description; 
+        }
+
+        public void ChangeCapacity(int capacity)
+        {
+            this.Capacity = capacity;
+        }
+
+        public void ChangeMaxBays(int maxbays)
+        {
+            this.MaxBays = maxbays;
+        }
+
+        public void ChangeMaxRows(int maxrows)
+        {
+            this.MaxRows = maxrows;
+        }
+
+        public void ChangeMaxTiers(int maxtiers)
+        {
+            this.MaxTiers = maxtiers;
+        }
+
+        public static VesselType CreateSubmitted(
+            string name, string description, int capacity, int maxrows, int maxbays, int maxtiers)
+            => new(name, description, capacity, maxrows, maxbays, maxtiers);
        
-       
-    }
+           }
 }

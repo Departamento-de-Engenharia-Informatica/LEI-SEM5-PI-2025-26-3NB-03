@@ -153,6 +153,17 @@ namespace DDDSample1
                     });
                     ctx.SaveChanges();
                 }
+                if (!ctx.VesselTypes.Any())
+                {
+                    ctx.VesselTypes.AddRange(new[]
+                    {
+                        DDDSample1.Domain.VesselTypes.VesselType.CreateSubmitted(
+                            "Cargueiro Pequeno", "Navio de transporte de carga pequena", 200, 10, 10,2),
+                        DDDSample1.Domain.VesselTypes.VesselType.CreateSubmitted(
+                            "Cargueiro Medio", "Navio de transporte de carga media", 400, 10, 10,4),
+                    });
+                    ctx.SaveChanges();
+                }
                 if (!ctx.PhysicalResources.Any())
                 {
                     var qualifications = ctx.Qualifications.ToList();

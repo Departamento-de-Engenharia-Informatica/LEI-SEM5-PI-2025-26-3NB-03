@@ -39,6 +39,17 @@
     "EMAIL": "E-mail",
     "PHONE": "Phone Number"
   },
+"VESSELTYPE":{
+"VIEW_TITLE": "Vessel Type Visualizationo",
+"CREATE_TITLE": "Create new Vessel Type",
+"UPDATE_TITLE": "Update Vessel Type",
+"NAME": "Name",
+"DESCRIPTION": "Description",
+"CAPACITY": "Capacity",
+"MAXROWS": "Max rows",
+"MAXBAYS": "Max Bays",
+"MAXTIERS": "Max Tiers"
+},
   "CONFIRM": {
     "ACTION": "Are you sure you want to deactivate this representative?"
   },

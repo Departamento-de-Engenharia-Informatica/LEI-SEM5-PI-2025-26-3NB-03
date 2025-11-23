@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { roleGuard } from './core/guards/role-guard';
 import { Layout } from './core/components/layout/layout';
 import { Representative } from './features/representative/representative';
+import { VesselType } from './features/vesseltype/vesseltype';
 import { AuthResolver } from './core/resolvers/auth-resolver';
 import {StaffList} from './features/staff/staff-list';
 import {StaffCreate} from './features/staff/staff-create';
@@ -34,6 +35,13 @@ export const routes: Routes = [
                 path: 'representatives',
                 component: Representative,
                 title: 'Representative',
+                canActivate: [roleGuard],
+                data: { roles: ['PAO'] },
+            },
+             {
+                path: 'vesseltypes',
+                component: VesselType,
+                title: 'VesselType',
                 canActivate: [roleGuard],
                 data: { roles: ['PAO'] },
             },

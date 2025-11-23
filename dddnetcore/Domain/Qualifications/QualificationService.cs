@@ -25,7 +25,7 @@ namespace DDDSample1.Domain.Qualifications
             await _repo.AddAsync(q);
             await _uow.CommitAsync();
 
-            return new QualificationViewDto { Id = q.Id.AsString(), Code = q.Code, Name = q.Name };
+            return new QualificationViewDto { /*Id = q.Id.AsString(), */Code = q.Code, Name = q.Name };
         }
 
         public async Task<QualificationViewDto> UpdateAsync(string code, UpdateQualificationDto dto)
@@ -37,13 +37,13 @@ namespace DDDSample1.Domain.Qualifications
 
             await _uow.CommitAsync();
 
-            return new QualificationViewDto { Id = q.Id.AsString(), Code = q.Code, Name = q.Name };
+            return new QualificationViewDto { /*Id = q.Id.AsString(),*/ Code = q.Code, Name = q.Name };
         }
 
         public async Task<List<QualificationViewDto>> SearchAsync(string code, string name)
         {
             var list = await _repo.SearchAsync(code, name);
-            return list.Select(x => new QualificationViewDto { Id = x.Id.AsString(), Code = x.Code, Name = x.Name }).ToList();
+            return list.Select(x => new QualificationViewDto { /*Id = x.Id.AsString(),*/ Code = x.Code, Name = x.Name }).ToList();
         }
     }
 }
