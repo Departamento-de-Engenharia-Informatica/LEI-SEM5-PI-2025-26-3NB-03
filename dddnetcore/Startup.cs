@@ -152,11 +152,11 @@ namespace DDDSample1
 
                     var dock1 = new Dock(
                         name: "Dock1",
-                        locationx: 1,
-                        locationz: 1,
-                        locationorientation: 1,
-                        length: 200,
-                        depth: 15,
+                        locationx: -3,
+                        locationz: 17,
+                        locationorientation: 90,
+                        length: 7,
+                        depth: 2,
                         maxDraft: 12,
                         capacity: 500,
                         vesselTypes: new List<VesselType> { type1 }
@@ -165,9 +165,28 @@ namespace DDDSample1
                     ctx.Docks.AddRange(new[] { dock1 });
                     ctx.SaveChanges();
 
+                    
+                     var type2 = ctx.VesselTypes.FirstOrDefault(vt => vt.Name == "Type2");
 
+                        if (type1 == null)
+                            throw new Exception("VesselType 'Type2' não foi encontrado na base de dados.");
 
-                    if (!ctx.StorageAreas.Any())
+                        var dock2 = new Dock(
+                            name: "Dock2",
+                            locationx: 6,
+                            locationz: 17,
+                            locationorientation: 90,
+                            length: 7,
+                            depth: 2,
+                            maxDraft: 12,
+                            capacity: 500,
+                            vesselTypes: new List<VesselType> { type2 }
+                        );
+
+                        ctx.Docks.AddRange(new[] { dock2 });
+                        ctx.SaveChanges();
+
+                        if (!ctx.StorageAreas.Any())
                     {
                         ctx.StorageAreas.AddRange(new[]
                         {

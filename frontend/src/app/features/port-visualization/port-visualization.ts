@@ -4,8 +4,10 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { firstValueFrom } from 'rxjs';
 import { StorageAreaDto } from '../../core/models/storagearea';
+import { DockDto } from '../../core/models/dock';
 import { Api } from '../../core/services/api';
 import { createWarehouse, createYard } from './utils/storageareas';
+import { createDock} from './utils/docks';
 import { setupLighting } from './utils/lighting';
 import { setupBackground, setupGround } from './utils/environment';
 
@@ -29,16 +31,19 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
   constructor(private apiService: Api) { }
 
   ngAfterViewInit(): void {
-    this.loadStorageAreas().then(areas => {
-      this.initThree(areas);
+  Promise.all([this.loadStorageAreas(), this.loadDocks()])
+    .then(([areas, docks]) => {
+      this.initThree(areas, docks);
       this.renderScene();
-      
+
       window.addEventListener('resize', this.onWindowResize.bind(this));
       this.setupResizeObserver();
-    }).catch(error => {
-      console.error('Erro ao carregar Storage Areas:', error);
+    })
+    .catch(error => {
+      console.error('Erro ao carregar dados:', error);
     });
-  }
+}
+
 
   ngOnDestroy(): void {
     if (this.animationId !== null) cancelAnimationFrame(this.animationId);
@@ -122,7 +127,7 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     this.updateCanvasSize(container.clientWidth, container.clientHeight);
   }
 
-  private initThree(storageAreas: StorageAreaDto[]): void {
+  private initThree(storageAreas: StorageAreaDto[], docks: DockDto[]): void {
     const container = this.canvasContainer.nativeElement as HTMLElement;
     
     const width = container.clientWidth;
@@ -144,18 +149,10 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     const yards = storageAreas.filter(area => area.type === 'Yard');
     yards.forEach((area: StorageAreaDto) => createYard(this.scene, area));
 
-    const dockWidth = 7; 
-    const dockHeight = 0.3;
-    const dockDepth = 4;
-    const dockGeometry = new THREE.BoxGeometry(dockWidth, dockHeight, dockDepth); 
-    const dockMaterial = new THREE.MeshStandardMaterial({ color: 0x657080 });
-    const dock = new THREE.Mesh(dockGeometry, dockMaterial);
-    dock.castShadow = true;
-    dock.receiveShadow = true;
-    dock.position.set(-3.5, dockHeight / 2, 13.1);
-    const graus = 90;
-    dock.rotation.y = graus * (Math.PI / 180);
-    this.scene.add(dock);
+    //criar Docks
+    docks.forEach((area: DockDto) => createDock(this.scene, area));
+
+
 
     setupLighting(this.scene);
     
@@ -176,6 +173,17 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     this.controls.maxPolarAngle = Math.PI / 2 - 0.1;
     this.controls.update();
   }
+
+  private async loadDocks(): Promise<DockDto[]> {
+  try {
+    const docksObservable = this.apiService.getAll<DockDto>('docks');
+    const docks = await firstValueFrom(docksObservable);
+    return docks || [];
+  } catch (error) {
+    console.error('Falha ao buscar Docks:', error);
+    return [];
+  }
+}
 
   private renderScene(): void {
     this.animationId = requestAnimationFrame(() => this.renderScene());
