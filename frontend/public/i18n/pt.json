@@ -54,18 +54,17 @@
     "EMAIL": "E-mail",
     "PHONE": "Número de Telefone"
   },
-"VESSELTYPE":{
-"VIEW_TITLE": "Visualizar de Tipos de Embarcação",
-"CREATE_TITLE": "Criar Novo tipo de Embarcação",
-"UPDATE_TITLE": "Editar Tipo de Embarcação",
-"NAME": "Nome",
-"DESCRIPTION": "Descrição",
-"CAPACITY": "Capacidade",
-"MAXROWS": "Maximo de camadas transversais",
-"MAXBAYS": "Maximo de camadas longitudinal",
-"MAXTIERS": "Maximo de camadas verticais"
-},
-
+  "VESSELTYPE":{
+    "VIEW_TITLE": "Visualizar de Tipos de Embarcação",
+    "CREATE_TITLE": "Criar Novo tipo de Embarcação",
+    "UPDATE_TITLE": "Editar Tipo de Embarcação",
+    "NAME": "Nome",
+    "DESCRIPTION": "Descrição",
+    "CAPACITY": "Capacidade",
+    "MAXROWS": "Maximo de camadas transversais",
+    "MAXBAYS": "Maximo de camadas longitudinal",
+    "MAXTIERS": "Maximo de camadas verticais"
+  },
   "CONFIRM": {
     "ACTION": "Tem certeza que deseja desativar este representante?"
   },
