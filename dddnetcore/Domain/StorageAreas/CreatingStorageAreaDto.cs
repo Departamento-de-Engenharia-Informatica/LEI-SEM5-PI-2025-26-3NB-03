@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace DDDSample1.Domain.StorageAreas
@@ -22,7 +24,9 @@ namespace DDDSample1.Domain.StorageAreas
         [Range(0, int.MaxValue)]
         public int CurrentOccupancy { get; set; }
 
-        public CreatingStorageAreaDto(string type, float locationX, float locationZ, float locationOrientation, int maximumCapacity, int currentOccupancy)
+        public List<Guid> Docks { get; set; }
+
+        public CreatingStorageAreaDto(string type, float locationX, float locationZ, float locationOrientation, int maximumCapacity, int currentOccupancy, List<Guid> docks)
         {
             this.Type = type;
             this.LocationX = locationX;
@@ -30,6 +34,8 @@ namespace DDDSample1.Domain.StorageAreas
             this.LocationOrientation = locationOrientation;
             this.MaximumCapacity = maximumCapacity;
             this.CurrentOccupancy = currentOccupancy;
+
+            this.Docks = docks ?? new List<Guid>();
         }
     }
 }
