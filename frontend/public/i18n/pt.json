@@ -13,9 +13,19 @@
     "DASHBOARD": "Painel Principal",
     "VESSELTYPES": "Tipos de Embarcação",
     "STAFF": "Membros da Equipa",
+    "CREATE_VVNS": "Criar Notificações de Visita de Embarcação",
+    "UPDATE_VVNS": "Atualizar Notificações de Visita de Embarcação",
+    "VIEW_VVNS": "Visualizar Notificações de Visita de Embarcação",
     "VVNS": "Notificações de Visita de Embarcação",
     "PORT": "Porto",
-    "REPRESENTATIVES": "Representantes"
+    "SHIPPING_AGENT_ORGANIZATIONS": "Organizações de Transporte Marítimos",
+    "REPRESENTATIVES": "Representantes",
+    "QUALIFICATIONS": "Qualificações",
+    "STORAGE_AREAS": "Zonas de Armazenamento",
+    "DOCKS": "Docas",
+    "VESSELS": "Navios",
+    "REVIEW_VVNS": "Analise a Notificações de Visita de Embarcação",
+    "PHYSICAL_RESOURCES": "Recursos Físicos"
   },
   "COMMON": {
     "LOADING": "A carregar",
@@ -24,9 +34,28 @@
   "BUTTON": {
     "NEW": "Novo",
     "REFRESH": "Atualizar Lista",
-    "CREATE": "Adicionar",
+    "CREATE": "Criar",
     "UPDATE": "Atualizar",
-    "DEACTIVATE": "Desativar"
+    "DEACTIVATE": "Desativar",
+    "ADD": "Adicionar",
+    "REMOVE": "Remover"
+  },
+  "DOCK": {
+    "NO_DOCKS_AVAILABLE": "Não existem docas."
+  },
+  "STORAGE_AREA": {
+    "TYPE": "Tipo",
+    "LOCATION": "Localização",
+    "ORIENTATION": "Orientação",
+    "MAX_CAPACITY": "Capacidade Máxima",
+    "CURRENT_OCCUPANCY": "Ocupação Atual",
+    "NO_DOCKS_ASSOCIATED": "Não está a servir nenhuma doca."
+  },
+  "SHIPPING_AGENT_ORGANIZATION": {
+    "LEGAL_NAME": "Nome Legal",
+    "ALTERNATIVE_NAME": "Nome Alternativo",
+    "ADDRESS": "Morada",
+    "TAX_NUMBER": "NIF"
   },
   "REPRESENTATIVE": {
     "VIEW_TITLE": "Visualizar Detalhes do Representante",
@@ -38,12 +67,62 @@
     "EMAIL": "E-mail",
     "PHONE": "Número de Telefone"
   },
+  "VESSELTYPE":{
+    "VIEW_TITLE": "Visualizar de Tipos de Embarcação",
+    "CREATE_TITLE": "Criar Novo tipo de Embarcação",
+    "UPDATE_TITLE": "Editar Tipo de Embarcação",
+    "NAME": "Nome",
+    "DESCRIPTION": "Descrição",
+    "CAPACITY": "Capacidade",
+    "MAXROWS": "Maximo de camadas transversais",
+    "MAXBAYS": "Maximo de camadas longitudinal",
+    "MAXTIERS": "Maximo de camadas verticais"
+  },
   "CONFIRM": {
     "ACTION": "Tem certeza que deseja desativar este representante?"
   },
   "MESSAGE": {
     "CREATE_SUCCESS": "Criado com sucesso.",
     "UPDATE_SUCCESS": "Atualizado com sucesso.",
-    "GENERIC_ERROR": "Erro."
+    "GENERIC_ERROR": "Erro.",
+    "DOCK_ALREADY_ADDED": "A doca já tinha sido adicionada."
+  },
+  "VVN": {
+    "TITLE": "Notificações de Visita de Embarcação",
+    "SEARCH": "Pesquisar",
+    "IMO": "IMO",
+    "VESSEL_NAME": "Nome da Embarcação",
+    "STATUS": "Estado",
+    "DOCKING": "Cais",
+    "REJECTION_REASON": "Motivo da Rejeição",
+    "REPRESENTATIVE": "Representante",
+    "SUBMISSION_DATE": "Data de Submissão",
+    "CREATE_TITLE": "Criar Notificação de Visita"
+  },
+  "QUAL": {
+    "TITLE": "Qualificações",
+    "CODE": "Código",
+    "NAME": "Nome",
+    "CREATE_TITLE": "Criar Qualificação",
+    "EDIT_TITLE": "Editar Qualificação"
+  },
+  "STAFF": {
+    "TITLE": "Membros da Equipa",
+    "CODE": "Código",
+    "NAME": "Nome",
+    "EMAIL": "Email",
+    "PHONE": "Telefone",
+    "QUALIFICATIONS": "Qualificações",
+    "STATUS": "Estado",
+    "ACTIVE": "Ativo",
+    "INACTIVE": "Inativo",
+    "CREATE_TITLE": "Criar Membro de Equipa",
+    "EDIT_TITLE": "Editar Membro de Equipa",
+    "ACTIONS": "Ações"
+  },
+  "NOT_FOUND": {
+    "TITLE": "404",
+    "MESSAGE": "Página Não Encontrada",
+    "GO_HOME": "Ir para a Página Inicial"
   }
 }

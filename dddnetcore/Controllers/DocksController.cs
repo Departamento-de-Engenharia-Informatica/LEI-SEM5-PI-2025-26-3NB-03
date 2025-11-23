@@ -17,6 +17,15 @@ namespace DDDSample1.Controllers
             _service = service;
         }
 
+        // GET: api/docks
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<DockDto>>> GetAll()
+        {
+            var docks = await _service.GetAllAsync();
+            return Ok(docks);
+        }
+
+
         // POST: api/docks
         [HttpPost]
         public async Task<ActionResult<DockDto>> CreateDock([FromBody] CreatingDockDto dto)
@@ -52,12 +61,12 @@ namespace DDDSample1.Controllers
         }
 
         // GET: api/docks/by-location/{location}
-        [HttpGet("by-location/{location}")]
-        public async Task<ActionResult<List<DockDto>>> GetByLocation(string location)
+        /*[HttpGet("by-location/{location}")]
+        public async Task<ActionResult<List<DockDto>>> GetByLocation(float locationx)
         {
-            var docks = await _service.GetByLocationAsync(location);
+            var docks = await _service.GetByLocationAsync(locationx);
             return Ok(docks);
-        }
+        }*/
 
         // GET: api/docks/by-vessel-type/{vesselTypeId}
         [HttpGet("by-vessel-type/{vesselTypeId:guid}")]

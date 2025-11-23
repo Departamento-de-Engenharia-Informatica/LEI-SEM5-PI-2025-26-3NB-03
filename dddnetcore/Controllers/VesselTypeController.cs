@@ -66,5 +66,19 @@ namespace DDDSample1.Controllers
             var vesselTypes = await _service.GetByDescriptionAsync(description);
             return Ok(vesselTypes);
         }
+
+        // PUT: api/vesseltype/
+        [HttpPut("{id:guid}")]
+        public async Task<ActionResult<VesselTypeDto>> UpdateVesselType(Guid id, [FromBody] VesselTypeDto dto)
+        {
+            if (id != dto.Id)
+                return BadRequest("ID do URL não corresponde ao ID do corpo.");
+
+            var updated = await _service.UpdateAsync(dto);
+            if (updated == null)
+                return NotFound();
+
+            return Ok(updated);
+        }
     }
 }

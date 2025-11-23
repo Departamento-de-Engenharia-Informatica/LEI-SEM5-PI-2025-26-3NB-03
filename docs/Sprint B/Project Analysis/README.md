@@ -4,17 +4,19 @@
 
 #### Level 1
 
-N/A
-
+![LV_LV1](./Logical%20Views/Level1LogicalView.png)
 #### Level 2
 
-N/A
+![LV_LV2](./Logical%20Views/Level2LogivalView.png)
 
 #### Level 3
 
-N/A
+![LV_LV3B](./Logical%20Views/Level3LogicalViewBackend.png)
+
+![LV_LV3F](./Logical%20Views/Level3LogicalViewFrontendAngular.png)
 
 #### Level 4
+
 
 N/A
 
@@ -22,12 +24,11 @@ N/A
 
 #### Level 1
 
-N/A
+![IV_LV1](./Development%20Views/Level1ImplementView.png)
 
 #### Level 2
 
-N/A
-
+![IV_LV2](./Development%20Views/Level2ImplementView.png)
 #### Level 3
 
 N/A
@@ -38,4 +39,4 @@ N/A
 
 ### Physical View
 
-N/A
+![PV](./Physical%20View/Level2PhisicalView.png)

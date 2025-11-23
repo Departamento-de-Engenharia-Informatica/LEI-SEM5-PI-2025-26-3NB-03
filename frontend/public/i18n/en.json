@@ -13,9 +13,18 @@
     "DASHBOARD": "Main Dashboard",
     "VESSELTYPES": "Vessel Types",
     "STAFF": "Staff Members",
-    "VVNS": "Vessel Visit Notifications",
+    "CREATE_VVNS": "Create Vessel Visit Notifications",
+    "UPDATE_VVNS": "Update Vessel Visit Notifications",
+    "VIEW_VVNS": "View Vessel Visit Notifications",
     "PORT": "Port",
-    "REPRESENTATIVES": "Representatives"
+    "SHIPPING_AGENT_ORGANIZATIONS": "Shipping Agent Organizations",
+    "REPRESENTATIVES": "Representatives",
+    "QUALIFICATIONS": "Qualifications",
+    "STORAGE_AREAS": "Storage Areas",
+    "DOCKS": "Docks",
+    "VESSELS": "Vessels",
+    "REVIEW_VVNS": "Review Vessel Visit Notifications",
+    "PHYSICAL_RESOURCES": "Physical Resources"
   },
   "COMMON": {
     "LOADING": "Loading",
@@ -24,9 +33,28 @@
   "BUTTON": {
     "NEW": "New",
     "REFRESH": "Refresh",
-    "CREATE": "Add",
+    "CREATE": "Create",
     "UPDATE": "Update",
-    "DEACTIVATE": "Deactivate"
+    "DEACTIVATE": "Deactivate",
+    "ADD": "Add",
+    "REMOVE": "Remove"
+  },
+  "DOCK": {
+    "NO_DOCKS_AVAILABLE": "No docks available."
+  },
+  "STORAGE_AREA": {
+    "TYPE": "Type",
+    "LOCATION": "Location",
+    "ORIENTATION": "Orientation",
+    "MAX_CAPACITY": "Maximum Capacity",
+    "CURRENT_OCCUPANCY": "Current Occupancy",
+    "NO_DOCKS_ASSOCIATED": "Doesn't serve any dock."
+  },
+  "SHIPPING_AGENT_ORGANIZATION": {
+    "LEGAL_NAME": "Legal Name",
+    "ALTERNATIVE_NAME": "Alternative Name",
+    "ADDRESS": "Address",
+    "TAX_NUMBER": "Tax Number"
   },
   "REPRESENTATIVE": {
     "VIEW_TITLE": "View Representative Details",
@@ -38,12 +66,62 @@
     "EMAIL": "E-mail",
     "PHONE": "Phone Number"
   },
+  "VESSELTYPE":{
+    "VIEW_TITLE": "Vessel Type Visualizationo",
+    "CREATE_TITLE": "Create new Vessel Type",
+    "UPDATE_TITLE": "Update Vessel Type",
+    "NAME": "Name",
+    "DESCRIPTION": "Description",
+    "CAPACITY": "Capacity",
+    "MAXROWS": "Max rows",
+    "MAXBAYS": "Max Bays",
+    "MAXTIERS": "Max Tiers"
+  },
   "CONFIRM": {
     "ACTION": "Are you sure you want to deactivate this representative?"
   },
   "MESSAGE": {
     "CREATE_SUCCESS": "Successfully created.",
     "UPDATE_SUCCESS": "Successfully updated.",
-    "GENERIC_ERROR": "Error."
+    "GENERIC_ERROR": "Error.",
+    "DOCK_ALREADY_ADDED": "Dock already added."
+  },
+  "VVN": {
+    "TITLE": "Vessel Visit Notifications",
+    "SEARCH": "Search",
+    "IMO": "IMO",
+    "VESSEL_NAME": "Vessel Name",
+    "STATUS": "Status",
+    "DOCKING": "Dock",
+    "REJECTION_REASON": "Rejection Reason",
+    "REPRESENTATIVE": "Representative",
+    "SUBMISSION_DATE": "Submission Date",
+    "CREATE_TITLE": "Create Vessel Visit Notification"
+  },
+  "QUAL": {
+    "TITLE": "Qualifications",
+    "CODE": "Code",
+    "NAME": "Name",
+    "CREATE_TITLE": "Create Qualification",
+    "EDIT_TITLE": "Edit Qualification"
+  },
+  "STAFF": {
+    "TITLE": "Staff Members",
+    "CODE": "Employee ID",
+    "NAME": "Name",
+    "EMAIL": "Email",
+    "PHONE": "Phone",
+    "QUALIFICATIONS": "Qualifications",
+    "STATUS": "Status",
+    "ACTIVE": "Active",
+    "INACTIVE": "Inactive",
+    "CREATE_TITLE": "Create Staff Member",
+    "EDIT_TITLE": "Edit Staff Member",
+    "ACTIONS": "Actions"
+  },
+  "NOT_FOUND": {
+    "TITLE": "404",
+    "MESSAGE": "Page Not Found",
+    "GO_HOME": "Go to Home"
   }
 }

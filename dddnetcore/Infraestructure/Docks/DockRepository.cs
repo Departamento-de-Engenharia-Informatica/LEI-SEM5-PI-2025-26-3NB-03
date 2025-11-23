@@ -25,13 +25,13 @@ namespace DDDSample1.Infrastructure.Docks
                 .ToListAsync();
         }
 
-        public async Task<List<Dock>> GetByLocationAsync(string location)
+        /*public async Task<List<Dock>> GetByLocationAsync(string location)
         {
             return await _context.Docks
                 .Include(d => d.VesselTypes)
                 .Where(d => d.Location.ToLower().Contains(location.ToLower()))
                 .ToListAsync();
-        }
+        }*/
 
         public async Task<List<Dock>> GetByVesselTypeAsync(VesselTypeId vesselTypeId)
         {

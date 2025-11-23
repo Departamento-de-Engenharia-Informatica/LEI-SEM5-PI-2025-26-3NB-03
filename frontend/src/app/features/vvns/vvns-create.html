@@ -1,0 +1,28 @@
+<div class="page-card">
+
+  <h2 class="page-title">{{ 'VVN.CREATE_TITLE' | translate }}</h2>
+
+  <form (ngSubmit)="save()">
+
+    <div class="form-row">
+      <label>{{ 'VVN.IMO' | translate }}</label>
+      <input [(ngModel)]="model.vesselIMO" name="imo" required />
+    </div>
+
+    <div class="form-row">
+      <label>{{ 'VVN.VESSEL_NAME' | translate }}</label>
+      <input [(ngModel)]="model.vesselName" name="vesselName" required />
+    </div>
+
+    <div class="form-row">
+      <label>{{ 'REPRESENTATIVE.NAME' | translate }}</label>
+      <input [(ngModel)]="model.representativeName" name="repName" required />
+    </div>
+
+    <button type="submit" class="btn-primary" [disabled]="isSaving">
+      {{ 'BUTTON.CREATE' | translate }}
+    </button>
+
+  </form>
+
+</div>
