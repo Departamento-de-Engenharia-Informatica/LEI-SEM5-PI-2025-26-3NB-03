@@ -96,7 +96,8 @@
     "DOCKING": "Cais",
     "REJECTION_REASON": "Motivo da Rejeição",
     "REPRESENTATIVE": "Representante",
-    "SUBMISSION_DATE": "Data de Submissão"
+    "SUBMISSION_DATE": "Data de Submissão",
+    "CREATE_TITLE": "Criar Notificação de Visita"
   },
   "QUAL": {
     "TITLE": "Qualificações",

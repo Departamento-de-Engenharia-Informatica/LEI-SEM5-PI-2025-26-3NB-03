@@ -95,7 +95,8 @@
     "DOCKING": "Dock",
     "REJECTION_REASON": "Rejection Reason",
     "REPRESENTATIVE": "Representative",
-    "SUBMISSION_DATE": "Submission Date"
+    "SUBMISSION_DATE": "Submission Date",
+    "CREATE_TITLE": "Create Vessel Visit Notification"
   },
   "QUAL": {
     "TITLE": "Qualifications",

@@ -94,6 +94,13 @@ export const routes: Routes = [
         loadComponent: () => import('./features/vvns/vvns-list').then(m => m.VvnsListComponent)
       },
       {
+        path: 'vvns/create',
+        loadComponent: () => import('./features/vvns/vvns-create')
+          .then(m => m.VvnsCreateComponent),
+        canActivate: [roleGuard],
+        data: { roles: ['Rep'] }
+      },
+      {
         path: 'port',
         loadComponent: () => import('./features/port-visualization/port-visualization').then(m => m.PortVisualization),
         canMatch: [roleGuard],

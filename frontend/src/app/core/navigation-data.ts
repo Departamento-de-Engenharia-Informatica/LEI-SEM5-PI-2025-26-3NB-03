@@ -51,7 +51,7 @@ export const MENU_ITEMS: MenuItem[] = [
            3.3.2. 3D Representation of Port Structure
            3.3.4. Render 3D Models Appropriatelly
   */
-  { label: 'MENU.CREATE_VVNS', link: '/createvvns', requiredRoles: ['Rep'] },
+  { label: 'MENU.CREATE_VVNS', link: 'vvns/create', requiredRoles: ['Rep'] },
   { label: 'MENU.UPDATE_VVNS', link: '/updatevvns', requiredRoles: ['Rep'] },
   { label: 'MENU.VIEW_VVNS', link: '/viewvvns', requiredRoles: ['Rep'] },
 

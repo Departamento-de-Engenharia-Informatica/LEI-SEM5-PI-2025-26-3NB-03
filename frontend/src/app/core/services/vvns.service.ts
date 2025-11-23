@@ -25,4 +25,15 @@ export class VvnsService {
       headers
     });
   }
+
+
+  create(dto: any) {
+
+    const headers = new HttpHeaders({
+      'X-Roles': 'SHIPPING_AGENT_REP',
+      'X-Org-Id': 'ORG-123'
+    });
+
+    return this.http.post('/api/vvns', dto, { headers });
+  }
 }

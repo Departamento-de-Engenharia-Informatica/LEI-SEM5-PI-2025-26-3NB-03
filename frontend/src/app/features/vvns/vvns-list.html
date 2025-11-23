@@ -24,7 +24,9 @@
     <label>Até:</label>
     <input type="date" [(ngModel)]="filters.to">
 
-    <button>{{ 'VVN.SEARCH' | translate }}</button>
+    <button (click)="load()">
+      {{ 'VVN.SEARCH' | translate }}
+    </button>
 
   </div>
 
