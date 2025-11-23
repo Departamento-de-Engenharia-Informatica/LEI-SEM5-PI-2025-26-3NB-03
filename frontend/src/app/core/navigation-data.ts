@@ -24,6 +24,7 @@ export const MENU_ITEMS: MenuItem[] = [
   */
   { label: 'MENU.VESSELTYPES', link: '/vesseltypes', requiredRoles: ['PAO'] },
   { label: 'MENU.STORAGE_AREAS', link: '/storageareas', requiredRoles: ['PAO'] },
+  { label: 'MENU.SHIPPING_AGENT_ORGANIZATIONS', link: '/shippingagentorganizations', requiredRoles: ['PAO'] },
   { label: 'MENU.REPRESENTATIVES', link: '/representatives', requiredRoles: ['PAO'] },
 
   /*
