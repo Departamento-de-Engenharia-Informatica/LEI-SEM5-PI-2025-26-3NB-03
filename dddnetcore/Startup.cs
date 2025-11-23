@@ -143,7 +143,6 @@ namespace DDDSample1
                     ctx.VesselTypes.AddRange(new[] { new VesselType("Type2", "Carqueiro Médio", 64, 4, 4, 4) });
                     ctx.SaveChanges();
                 }
-
                 if (!ctx.Docks.Any())
                 {
                     var dock1 = new Dock(
@@ -155,7 +154,7 @@ namespace DDDSample1
                         depth: 15,
                         maxDraft: 12,
                         capacity: 500,
-                        vesselTypes: new List<VesselType> { ctx.VesselTypes.FirstOrDefault(vt => vt.Name == "Type1") }
+                        vesselTypes: new List<VesselType> { ctx.VesselTypes.FirstOrDefault(vt => vt.Name == "Cargueiro Pequeno") }
                     );
                     ctx.Docks.AddRange(new[] { dock1 });
                     ctx.SaveChanges();
