@@ -140,11 +140,16 @@ namespace DDDSample1
                 if (!ctx.VesselTypes.Any())
                 {
                     ctx.VesselTypes.AddRange(new[] { new VesselType("Type1", "Carqueiro Pequeno", 27, 3, 3, 3) });
-                    ctx.VesselTypes.AddRange(new[] { new VesselType("Type2", "Carqueiro Pequeno", 64, 4, 4, 4) });
+                    ctx.VesselTypes.AddRange(new[] { new VesselType("Type2", "Carqueiro Médio", 64, 4, 4, 4) });
                     ctx.SaveChanges();
                 }
                 if (!ctx.Docks.Any())
                 {
+                    var type1 = ctx.VesselTypes.FirstOrDefault(vt => vt.Name == "Type1");
+
+                    if (type1 == null)
+                        throw new Exception("VesselType 'Type1' não foi encontrado na base de dados.");
+
                     var dock1 = new Dock(
                         name: "Dock1",
                         locationx: 1,
@@ -154,10 +159,13 @@ namespace DDDSample1
                         depth: 15,
                         maxDraft: 12,
                         capacity: 500,
-                        vesselTypes: new List<VesselType> { ctx.VesselTypes.FirstOrDefault(vt => vt.Name == "Cargueiro Pequeno") }
+                        vesselTypes: new List<VesselType> { type1 }
                     );
+
                     ctx.Docks.AddRange(new[] { dock1 });
                     ctx.SaveChanges();
+
+
 
                     if (!ctx.StorageAreas.Any())
                     {
