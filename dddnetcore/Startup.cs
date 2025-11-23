@@ -139,7 +139,13 @@ namespace DDDSample1
                 }
                 if (!ctx.VesselTypes.Any())
                 {
-                    ctx.VesselTypes.AddRange(new[] { new VesselType("Type1", "Desc1", 27, 3, 3, 3) });
+                    ctx.VesselTypes.AddRange(new[]
+                    {
+                        DDDSample1.Domain.VesselTypes.VesselType.CreateSubmitted(
+                            "Cargueiro Pequeno", "Navio de transporte de carga pequena", 200, 10, 10, 2),
+                        DDDSample1.Domain.VesselTypes.VesselType.CreateSubmitted(
+                            "Cargueiro Medio", "Navio de transporte de carga media", 400, 10, 10, 4),
+                    });
                     ctx.SaveChanges();
                 }
                 if (!ctx.Docks.Any())
@@ -151,7 +157,7 @@ namespace DDDSample1
                         depth: 15,
                         maxDraft: 12,
                         capacity: 500,
-                        vesselTypes: new List<VesselType> { ctx.VesselTypes.FirstOrDefault(vt => vt.Name == "Type1") }
+                        vesselTypes: new List<VesselType> { ctx.VesselTypes.FirstOrDefault(vt => vt.Name == "Cargueiro Pequeno") }
                     );
                     ctx.Docks.AddRange(new[] { dock1 });
                     ctx.SaveChanges();

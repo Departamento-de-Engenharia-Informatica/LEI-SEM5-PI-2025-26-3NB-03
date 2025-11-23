@@ -67,7 +67,7 @@ namespace DDDSample1.Controllers
             return Ok(vesselTypes);
         }
 
-        // PUT: 
+        // PUT: api/vesseltype/
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<VesselTypeDto>> UpdateVesselType(Guid id, [FromBody] VesselTypeDto dto)
         {
@@ -80,7 +80,5 @@ namespace DDDSample1.Controllers
 
             return Ok(updated);
         }
-
-
     }
 }
