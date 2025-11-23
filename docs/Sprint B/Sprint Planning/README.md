@@ -20,7 +20,7 @@ User Stories are already numbered, but we gave them a short name so that they ar
 
 ### Tasks
 
-For the User Stories regarding using the backend created in Sprint A, each team members is responsible for creating the necessary components, in the frontend, to interact with the User Stories they were assigned to in Sprint A.
+For the User Stories regarding using the backend created in Sprint A, each team members is responsible for creating the necessary components, in the frontend, to interact with the User Stories they were assigned to in Sprint A. With the exception of Physical Resources, that will be assigned to 1050071 because this team member is the only one with IARTI.
 
 <p align="center">User Stories assigned in Sprint A for the backend, following the Scope of Work:</p>
 
@@ -37,7 +37,7 @@ For the User Stories regarding using the backend created in Sprint A, each team 
 | 2.2.9.  | Update Vessel Visit Notification       | 1050071  |
 | 2.2.10. | View Vessel Visit Notifications Status | 1200614  |
 | 2.2.11. | Create/Update Staff Member             | 1200614  |
-| 2.2.12. | Create/Update Physical Resource        | 1080714  |
+| 2.2.12. | Create/Update Physical Resource        | 1050071  |
 | 2.2.13. | Create/Update Qualification            | 1200614  |
 
 So now, each assignee is responsable for the interaction with each of these User Stories in the frontend.
