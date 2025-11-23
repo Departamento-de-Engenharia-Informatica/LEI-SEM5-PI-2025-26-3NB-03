@@ -12,7 +12,7 @@ namespace DDDSample1.Infrastructure.Docks
         builder.HasKey(d => d.Id);
 
         builder.Property(d => d.Name).IsRequired();
-        builder.Property(d => d.Location).IsRequired();
+        //builder.Property(d => d.LocationX).IsRequired();
 
         // Mapeia muitos-para-muitos
         builder

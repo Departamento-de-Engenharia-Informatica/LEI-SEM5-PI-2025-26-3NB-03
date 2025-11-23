@@ -7,12 +7,12 @@ namespace DDDSample1.Domain.VesselVisitNotifications
 
     public class VesselVisitNotification : Entity<VvnId>, IAggregateRoot
     {
-        // Required props (EF private setters)
+
         public string VesselIMO { get; private set; }
         public string VesselName { get; private set; }
         public VvnStatus Status { get; private set; }
-        public string CurrentDock { get; private set; }        // if Approved
-        public string RejectionReason { get; private set; }     // if Rejected
+        public string CurrentDock { get; private set; }
+        public string RejectionReason { get; private set; }
 
         public string RepresentativeId { get; private set; }
         public string RepresentativeName { get; private set; }
@@ -21,7 +21,7 @@ namespace DDDSample1.Domain.VesselVisitNotifications
         public DateTime SubmittedAt { get; private set; }
         public DateTime LastUpdatedAt { get; private set; }
 
-        // EF Core
+
         private VesselVisitNotification() { }
 
         private VesselVisitNotification(
@@ -49,7 +49,45 @@ namespace DDDSample1.Domain.VesselVisitNotifications
             LastUpdatedAt = lastUpdatedAt;
         }
 
-        // Fábricas (se precisares noutras US)
+        public VvnListItemDto ToListItemDto()
+        {
+            return new VvnListItemDto
+            {
+                Id = this.Id.AsGuid(),
+                VesselIMO = this.VesselIMO,
+                VesselName = this.VesselName,
+                Status = VvnStatusMapper.ToApiString(this.Status),
+                CurrentDock = this.CurrentDock,
+                RejectionReason = this.RejectionReason,
+                RepresentativeId = this.RepresentativeId,
+                RepresentativeName = this.RepresentativeName,
+                SubmittedAt = this.SubmittedAt,
+                LastUpdatedAt = this.LastUpdatedAt
+            };
+        }
+        public static VesselVisitNotification CreateInProgress(
+            string vesselIMO,
+            string vesselName,
+            string organizationId,
+            string representativeId,
+            string representativeName
+        )
+        {
+            var now = DateTime.UtcNow;
+
+            return new VesselVisitNotification(
+                vesselIMO,
+                vesselName,
+                VvnStatus.InProgress,
+                organizationId,
+                representativeId,
+                representativeName,
+                currentDock: null,
+                rejectionReason: null,
+                submittedAt: now,
+                lastUpdatedAt: now
+            );
+        }
         public static VesselVisitNotification CreateSubmitted(
             string vesselIMO, string vesselName,
             string organizationId, string representativeId, string representativeName,

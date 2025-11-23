@@ -23,6 +23,8 @@ export const MENU_ITEMS: MenuItem[] = [
            3.3.4. Render 3D Models Appropriatelly
   */
   { label: 'MENU.VESSELTYPES', link: '/vesseltypes', requiredRoles: ['PAO'] },
+  { label: 'MENU.STORAGE_AREAS', link: '/storageareas', requiredRoles: ['PAO'] },
+  { label: 'MENU.SHIPPING_AGENT_ORGANIZATIONS', link: '/shippingagentorganizations', requiredRoles: ['PAO'] },
   { label: 'MENU.REPRESENTATIVES', link: '/representatives', requiredRoles: ['PAO'] },
 
   /*
@@ -35,6 +37,8 @@ export const MENU_ITEMS: MenuItem[] = [
            3.3.4. Render 3D Models Appropriatelly
   */
   { label: 'MENU.STAFF', link: '/staff', requiredRoles: ['LO'] },
+
+  { label: 'MENU.QUALIFICATIONS', link: '/qualifications', requiredRoles: ['LO'] },
 
   /*
     Representative (qualquer email / rep)
@@ -51,5 +55,5 @@ export const MENU_ITEMS: MenuItem[] = [
     Pages: 3.3.2. 3D Representation of Port Structure
            3.3.4. Render 3D Models Appropriatelly
   */
-  { label: 'MENU.PORT', link: '/port', requiredRoles: ['Staff'] },
+  { label: 'MENU.PORT', link: '/port', requiredRoles: ['PAO', 'LO', 'Rep', 'Staff'] },
 ];

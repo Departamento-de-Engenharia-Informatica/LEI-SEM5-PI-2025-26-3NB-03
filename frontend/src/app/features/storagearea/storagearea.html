@@ -1,0 +1,185 @@
+<div class="management-container">
+
+    <div class="sidebar-list">
+        <div class="list-header">
+            <h3>{{ 'MENU.STORAGE_AREAS' | translate }}</h3>
+            <div class="actions">
+                <button (click)="startCreate()" title="{{ 'BUTTON.NEW' | translate }}">+</button>
+                <button (click)="loadStorageAreas()" [disabled]="isLoading" title="{{ 'BUTTON.REFRESH' | translate }}">
+                    <span *ngIf="!isLoading">↻</span>
+                    <span *ngIf="isLoading">...</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="list-items">
+            <div *ngIf="isLoading" class="loading-message">
+                {{ 'COMMON.LOADING' | translate }}...
+            </div>
+
+            <div
+                *ngFor="let sa of storageAreas"
+                [class.selected]="selectedStorageArea?.id === sa.id"
+                (click)="selectStorageArea(sa)"
+                class="active-rep"
+            >
+                [{{ sa.type }}] X: {{ sa.locationX }} / Z: {{ sa.locationZ }}
+            </div>
+
+            <div *ngIf="!storageAreas.length && !isLoading" class="no-data">
+                {{ 'COMMON.NO_DATA' | translate }}
+            </div>
+        </div>
+    </div>
+
+    <div class="details-form">
+        <form (ngSubmit)="saveStorageArea()">
+
+            <div class="form-group">
+                <label>{{ 'STORAGE_AREA.TYPE' | translate }}:</label>
+                <select 
+                    [(ngModel)]="formModel.type" 
+                    name="type" 
+                    [disabled]="currentFormMode === 'view'" 
+                    required
+                    class="block w-full"
+                >
+                    <option value="" disabled></option>
+                    <option value="Warehouse">Warehouse</option>
+                    <option value="Yard">Yard</option>
+                </select>
+            </div>
+
+            <div class="form-group-location-group">
+                <label class="group-label">{{ 'STORAGE_AREA.LOCATION' | translate }}</label>
+
+                <div class="location-field">
+                    <label>X:</label>
+                    <input 
+                        type="number" 
+                        [(ngModel)]="formModel.locationX" 
+                        name="locationX" 
+                        [disabled]="currentFormMode === 'view'" 
+                        required>
+                </div>
+
+                <div class="location-field">
+                    <label>Z:</label>
+                    <input 
+                        type="number" 
+                        [(ngModel)]="formModel.locationZ" 
+                        name="locationZ" 
+                        [disabled]="currentFormMode === 'view'" 
+                        required>
+                </div>
+
+                <div class="location-field">
+                    <label>{{ 'STORAGE_AREA.ORIENTATION' | translate }}:</label>
+                    <input 
+                        type="number" 
+                        [(ngModel)]="formModel.locationOrientation" 
+                        name="locationOrientation" 
+                        [disabled]="currentFormMode === 'view'" 
+                        required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>{{ 'STORAGE_AREA.MAX_CAPACITY' | translate }}:</label>
+                <input 
+                    type="number" 
+                    [(ngModel)]="formModel.maximumCapacity" 
+                    name="maximumCapacity" 
+                    [disabled]="currentFormMode === 'view'" 
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>{{ 'STORAGE_AREA.CURRENT_OCCUPANCY' | translate }}:</label>
+                <input 
+                    type="number" 
+                    [(ngModel)]="formModel.currentOccupancy" 
+                    name="currentOccupancy" 
+                    [disabled]="currentFormMode === 'view'" 
+                    required
+                >
+            </div>
+
+            <div class="form-group">
+                <label>{{ 'MENU.DOCKS' | translate }}:</label>
+
+                <div class="dock-management-row">
+                    <select 
+                        [(ngModel)]="selectedDockIdInArea"
+                        name="associatedDocks"
+                        [disabled]="currentFormMode === 'view' || !(formModel.docks && formModel.docks.length)"
+                        class="dock-list-select"
+                        size="3"
+                    >
+                        <option 
+                            *ngFor="let dockId of formModel.docks" 
+                            [value]="dockId"
+                        >
+                            {{ getDockName(dockId) }}
+                        </option>
+                    </select>
+
+                    <button 
+                        type="button" 
+                        (click)="removeSelectedDock()"
+                        [disabled]="currentFormMode === 'view' || !selectedDockIdInArea"
+                        class="remove-dock-button"
+                    >
+                        {{ 'BUTTON.REMOVE' | translate }}
+                    </button>
+                </div>
+                <div *ngIf="formModel.docks && !formModel.docks.length" class="no-data-docks">
+                    {{ 'STORAGE_AREA.NO_DOCKS_ASSOCIATED' | translate }}
+                </div>
+
+                <div class="dock-management-row dock-add-control">
+                    <select 
+                        [(ngModel)]="dockToAddId" 
+                        name="dockToAdd"
+                        [disabled]="currentFormMode === 'view' || !availableDocksForAdd.length"
+                    >
+                        <option [ngValue]="null" disabled></option>
+                        <option *ngFor="let dock of availableDocksForAdd" [ngValue]="dock.id">
+                            {{ dock.name }}
+                        </option>
+                    </select>
+                    <button 
+                        type="button" 
+                        (click)="addDock()"
+                        [disabled]="currentFormMode === 'view' || !dockToAddId"
+                        class="add-dock-button"
+                    >
+                        {{ 'BUTTON.ADD' | translate }}
+                    </button>
+                </div>
+                <div *ngIf="currentFormMode !== 'view' && !availableDocksForAdd.length" class="no-data-docks">
+                    {{ 'DOCK.NO_DOCKS_AVAILABLE' | translate }}
+                </div>
+            </div>
+
+            <div class="feedback-message"
+                *ngIf="feedbackMessage.text"
+                [class.success]="feedbackMessage.type === 'success'"
+                [class.error]="feedbackMessage.type === 'error'"
+            >
+                <p>{{ feedbackMessage.text }}</p>
+            </div>
+
+            <div class="form-actions" [class.hidden]="currentFormMode === 'view'">
+
+                <button
+                    type="submit"
+                    [disabled]="isSubmitting"
+                >
+                    {{ (currentFormMode === 'create' ? 'BUTTON.CREATE' : 'BUTTON.UPDATE') | translate }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
