@@ -15,6 +15,7 @@
     "STAFF": "Staff Members",
     "VVNS": "Vessel Visit Notifications",
     "PORT": "Port",
+    "SHIPPING_AGENT_ORGANIZATIONS": "Shipping Agent Organizations",
     "REPRESENTATIVES": "Representatives",
     "QUALIFICATIONS": "Qualifications",
     "STORAGE_AREAS": "Storage Areas",
@@ -43,6 +44,12 @@
     "MAX_CAPACITY": "Maximum Capacity",
     "CURRENT_OCCUPANCY": "Current Occupancy",
     "NO_DOCKS_ASSOCIATED": "Doesn't serve any dock."
+  },
+  "SHIPPING_AGENT_ORGANIZATION": {
+    "LEGAL_NAME": "Legal Name",
+    "ALTERNATIVE_NAME": "Alternative Name",
+    "ADDRESS": "Address",
+    "TAX_NUMBER": "Tax Number"
   },
   "REPRESENTATIVE": {
     "VIEW_TITLE": "View Representative Details",

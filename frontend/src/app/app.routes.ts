@@ -4,10 +4,11 @@ import { Layout } from './core/components/layout/layout';
 import { Representative } from './features/representative/representative';
 import { VesselType } from './features/vesseltype/vesseltype';
 import { AuthResolver } from './core/resolvers/auth-resolver';
-import {StaffList} from './features/staff/staff-list';
-import {StaffCreate} from './features/staff/staff-create';
-import {StaffEdit} from './features/staff/staff-edit';
+import { StaffList } from './features/staff/staff-list';
+import { StaffCreate } from './features/staff/staff-create';
+import { StaffEdit } from './features/staff/staff-edit';
 import { StorageArea } from './features/storagearea/storagearea';
+import { ShippingAgentOrganization } from './features/shippingagentorganization/shippingagentorganization';
 
 export const routes: Routes = [
   {
@@ -50,6 +51,13 @@ export const routes: Routes = [
         path: 'representatives',
         component: Representative,
         title: 'Representative',
+        canActivate: [roleGuard],
+        data: { roles: ['PAO'] },
+      },
+      {
+        path: 'shippingagentorganizations',
+        component: ShippingAgentOrganization,
+        title: 'Shipping Agent Organizations',
         canActivate: [roleGuard],
         data: { roles: ['PAO'] },
       },

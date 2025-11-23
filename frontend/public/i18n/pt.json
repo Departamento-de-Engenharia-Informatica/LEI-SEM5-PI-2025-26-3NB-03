@@ -15,9 +15,10 @@
     "STAFF": "Membros da Equipa",
     "VVNS": "Notificações de Visita de Embarcação",
     "PORT": "Porto",
+    "SHIPPING_AGENT_ORGANIZATIONS": "Organizações de Transporte Marítimo",
     "REPRESENTATIVES": "Representantes",
     "QUALIFICATIONS": "Qualificações",
-    "STORAGEAREAS": "Zonas de Armazenamento",
+    "STORAGE_AREAS": "Zonas de Armazenamento",
     "DOCKS": "Docas"
   },
   "COMMON": {
@@ -43,6 +44,12 @@
     "MAX_CAPACITY": "Capacidade Máxima",
     "CURRENT_OCCUPANCY": "Ocupação Atual",
     "NO_DOCKS_ASSOCIATED": "Não está a servir nenhuma doca."
+  },
+  "SHIPPING_AGENT_ORGANIZATION": {
+    "LEGAL_NAME": "Nome Legal",
+    "ALTERNATIVE_NAME": "Nome Alternativo",
+    "ADDRESS": "Morada",
+    "TAX_NUMBER": "NIF"
   },
   "REPRESENTATIVE": {
     "VIEW_TITLE": "Visualizar Detalhes do Representante",
