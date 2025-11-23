@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
-using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.ShippingAgentOrganizations;
 
 namespace DDDSample1.Controllers
@@ -25,7 +24,7 @@ namespace DDDSample1.Controllers
             return await _service.GetAllAsync();
         }
 
-        // GET: api/ShippingAgentOrganizations/5
+        // GET: api/ShippingAgentOrganizations/id
         [HttpGet("{id}")]
         public async Task<ActionResult<ShippingAgentOrganizationDto>> GetGetById(Guid id)
         {
@@ -48,29 +47,15 @@ namespace DDDSample1.Controllers
             return CreatedAtAction(nameof(GetGetById), new { id = organization.Id }, organization);
         }
 
-        // PUT: api/ShippingAgentOrganizations/5
+        // PUT: api/ShippingAgentOrganizations/id
         [HttpPut("{id}")]
-        public async Task<ActionResult<ShippingAgentOrganizationDto>> Update(Guid id, ShippingAgentOrganizationDto dto)
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateShippingAgentOrganizationDto dto)
         {
-            if (id != dto.Id)
-            {
-                return BadRequest();
-            }
+            var updatedOrg = await _service.UpdateAsync(id, dto);
+            if (updatedOrg == null)
+                return NotFound();
 
-            try
-            {
-                var organization = await _service.UpdateAsync(dto);
-                
-                if (organization == null)
-                {
-                    return NotFound();
-                }
-                return Ok(organization);
-            }
-            catch(BusinessRuleValidationException ex)
-            {
-                return BadRequest(new {Message = ex.Message});
-            }
+            return Ok(updatedOrg);
         }
     }
 }
