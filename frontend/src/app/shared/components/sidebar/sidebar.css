@@ -12,6 +12,8 @@
     margin: 0;
     padding: 10px 0;
     flex-grow: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .sidebar li {
