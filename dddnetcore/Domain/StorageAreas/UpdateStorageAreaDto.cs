@@ -1,13 +1,10 @@
-using DDDSample1.Domain.Docks;
 using System;
 using System.Collections.Generic;
 
 namespace DDDSample1.Domain.StorageAreas
 {
-    public class StorageAreaDto
+    public class UpdateStorageAreaDto
     {
-        public Guid Id { get; set; }
-
         public string Type { get; set; }
         public float LocationX { get; set; }
         public float LocationZ { get; set; }

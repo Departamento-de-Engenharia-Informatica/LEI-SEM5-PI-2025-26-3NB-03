@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { firstValueFrom } from 'rxjs';
-import { StorageAreaDTO } from '../../core/models/storagearea';
+import { StorageAreaDto } from '../../core/models/storagearea';
 import { Api } from '../../core/services/api';
 import { createWarehouse, createYard } from './utils/storageareas';
 import { setupLighting } from './utils/lighting';
@@ -24,6 +24,7 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
   private renderer!: THREE.WebGLRenderer;
   private controls!: OrbitControls;
   private resizeObserver!: ResizeObserver;
+  private animationId: number | null = null;
 
   constructor(private apiService: Api) { }
 
@@ -40,11 +41,34 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    if (this.animationId !== null) cancelAnimationFrame(this.animationId);
+
     if (this.controls) {
       this.controls.dispose();
     }
+
+    if (this.scene) {
+      this.scene.traverse((obj) => {
+        if ((obj as THREE.Mesh).geometry) (obj as THREE.Mesh).geometry.dispose();
+        if ((obj as THREE.Mesh).material) {
+          const mat = (obj as THREE.Mesh).material;
+          if (Array.isArray(mat)) {
+            mat.forEach(m => m.dispose());
+          } else {
+            mat.dispose();
+          }
+        }
+      });
+    }
+
+    /*if (this.renderer) {
+      this.renderer.dispose();
+    }*/
     if (this.renderer) {
       this.renderer.dispose();
+      if (this.renderer.domElement && this.renderer.domElement.parentElement) {
+        this.renderer.domElement.parentElement.removeChild(this.renderer.domElement);
+      }
     }
 
     window.removeEventListener('resize', this.onWindowResize.bind(this));
@@ -53,9 +77,9 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     }
   }
 
-  private async loadStorageAreas(): Promise<StorageAreaDTO[]> {
+  private async loadStorageAreas(): Promise<StorageAreaDto[]> {
     try {
-      const areasObservable = this.apiService.getAll<StorageAreaDTO>('StorageAreas');
+      const areasObservable = this.apiService.getAll<StorageAreaDto>('StorageAreas');
       const areas = await firstValueFrom(areasObservable);
       return areas || [];
     } catch (error) {
@@ -98,7 +122,7 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     this.updateCanvasSize(container.clientWidth, container.clientHeight);
   }
 
-  private initThree(storageAreas: StorageAreaDTO[]): void {
+  private initThree(storageAreas: StorageAreaDto[]): void {
     const container = this.canvasContainer.nativeElement as HTMLElement;
     
     const width = container.clientWidth;
@@ -115,10 +139,10 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     setupGround(this.scene);
 
     const warehouses = storageAreas.filter(area => area.type === 'Warehouse');
-    warehouses.forEach((area: StorageAreaDTO) => createWarehouse(this.scene, area));
+    warehouses.forEach((area: StorageAreaDto) => createWarehouse(this.scene, area));
 
     const yards = storageAreas.filter(area => area.type === 'Yard');
-    yards.forEach((area: StorageAreaDTO) => createYard(this.scene, area));
+    yards.forEach((area: StorageAreaDto) => createYard(this.scene, area));
 
     const dockWidth = 7; 
     const dockHeight = 0.3;
@@ -154,7 +178,7 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
   }
 
   private renderScene(): void {
-    requestAnimationFrame(() => this.renderScene());
+    this.animationId = requestAnimationFrame(() => this.renderScene());
 
     if (this.controls) {
       this.controls.update();

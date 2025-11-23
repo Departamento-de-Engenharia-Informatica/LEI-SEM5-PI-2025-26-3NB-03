@@ -73,14 +73,12 @@ namespace DDDSample1.Domain.VesselTypes
             if (vesseltype == null)
                 return null;
 
-            // change all           
             vesseltype.ChangeName(dto.Name);
             vesseltype.ChangeDescription(dto.Description);
             vesseltype.ChangeCapacity(dto.Capacity);
             vesseltype.ChangeMaxBays(dto.MaxBays);
             vesseltype.ChangeMaxRows(dto.MaxRows);
             vesseltype.ChangeMaxTiers(dto.MaxTiers);
-            
 
             await this._unitOfWork.CommitAsync();
 
@@ -94,7 +92,5 @@ namespace DDDSample1.Domain.VesselTypes
                 MaxTiers = vesseltype.MaxTiers
             };
         }
-
-        
     }
 }

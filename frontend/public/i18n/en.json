@@ -16,7 +16,9 @@
     "VVNS": "Vessel Visit Notifications",
     "PORT": "Port",
     "REPRESENTATIVES": "Representatives",
-    "QUALIFICATIONS": "Qualifications"
+    "QUALIFICATIONS": "Qualifications",
+    "STORAGE_AREAS": "Storage Areas",
+    "DOCKS": "Docks"
   },
   "COMMON": {
     "LOADING": "Loading",
@@ -25,9 +27,22 @@
   "BUTTON": {
     "NEW": "New",
     "REFRESH": "Refresh",
-    "CREATE": "Add",
+    "CREATE": "Create",
     "UPDATE": "Update",
-    "DEACTIVATE": "Deactivate"
+    "DEACTIVATE": "Deactivate",
+    "ADD": "Add",
+    "REMOVE": "Remove"
+  },
+  "DOCK": {
+    "NO_DOCKS_AVAILABLE": "No docks available."
+  },
+  "STORAGE_AREA": {
+    "TYPE": "Type",
+    "LOCATION": "Location",
+    "ORIENTATION": "Orientation",
+    "MAX_CAPACITY": "Maximum Capacity",
+    "CURRENT_OCCUPANCY": "Current Occupancy",
+    "NO_DOCKS_ASSOCIATED": "Doesn't serve any dock."
   },
   "REPRESENTATIVE": {
     "VIEW_TITLE": "View Representative Details",
@@ -56,6 +71,7 @@
   "MESSAGE": {
     "CREATE_SUCCESS": "Successfully created.",
     "UPDATE_SUCCESS": "Successfully updated.",
-    "GENERIC_ERROR": "Error."
+    "GENERIC_ERROR": "Error.",
+    "DOCK_ALREADY_ADDED": "Dock already added."
   }
 }

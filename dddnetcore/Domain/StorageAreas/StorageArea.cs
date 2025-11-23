@@ -1,5 +1,7 @@
+using DDDSample1.Domain.Docks;
 using DDDSample1.Domain.Shared;
 using System;
+using System.Collections.Generic;
 
 namespace DDDSample1.Domain.StorageAreas
 {
@@ -12,11 +14,12 @@ namespace DDDSample1.Domain.StorageAreas
         public int MaximumCapacity { get; private set; }
         public int CurrentOccupancy { get; private set; }
 
-        private StorageArea()
-        {
-        }
+        private readonly List<Dock> _docks = new();
+        public IReadOnlyCollection<Dock> Docks => _docks.AsReadOnly();
 
-        public StorageArea(string type, float locationX, float locationZ, float locationOrientation, int maximumCapacity, int currentOccupancy)
+        private StorageArea() { }
+
+        public StorageArea(string type, float locationX, float locationZ, float locationOrientation, int maximumCapacity, int currentOccupancy, List<Dock> docks)
         {
             if (string.IsNullOrWhiteSpace(type))
                 throw new BusinessRuleValidationException("Type is required.");
@@ -36,6 +39,8 @@ namespace DDDSample1.Domain.StorageAreas
             this.LocationOrientation = locationOrientation;
             this.MaximumCapacity = maximumCapacity;
             this.CurrentOccupancy = currentOccupancy;
+
+            _docks.AddRange(docks ?? new List<Dock>());
         }
 
         public void ChangeType(string type)
@@ -69,8 +74,14 @@ namespace DDDSample1.Domain.StorageAreas
             this.CurrentOccupancy = currentOccupancy;
         }
 
+        public void ChangeDocks(List<Dock> docks)
+        {
+            _docks.Clear();
+            _docks.AddRange(docks ?? new List<Dock>());
+        }
+
         public static StorageArea CreateSubmitted(
-            string type, float locationX, float locationZ, float locationOrientation, int maximumCapacity, int currentOccupancy)
-            => new(type, locationX, locationZ, locationOrientation, maximumCapacity, currentOccupancy);
+            string type, float locationX, float locationZ, float locationOrientation, int maximumCapacity, int currentOccupancy, List<Dock> docks)
+            => new(type, locationX, locationZ, locationOrientation, maximumCapacity, currentOccupancy, docks);
     }
 }

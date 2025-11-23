@@ -16,7 +16,9 @@
     "VVNS": "Notificações de Visita de Embarcação",
     "PORT": "Porto",
     "REPRESENTATIVES": "Representantes",
-    "QUALIFICATIONS": "Qualificações"
+    "QUALIFICATIONS": "Qualificações",
+    "STORAGEAREAS": "Zonas de Armazenamento",
+    "DOCKS": "Docas"
   },
   "COMMON": {
     "LOADING": "A carregar",
@@ -25,9 +27,22 @@
   "BUTTON": {
     "NEW": "Novo",
     "REFRESH": "Atualizar Lista",
-    "CREATE": "Adicionar",
+    "CREATE": "Criar",
     "UPDATE": "Atualizar",
-    "DEACTIVATE": "Desativar"
+    "DEACTIVATE": "Desativar",
+    "ADD": "Adicionar",
+    "REMOVE": "Remover"
+  },
+  "DOCK": {
+    "NO_DOCKS_AVAILABLE": "Não existem docas."
+  },
+  "STORAGE_AREA": {
+    "TYPE": "Tipo",
+    "LOCATION": "Localização",
+    "ORIENTATION": "Orientação",
+    "MAX_CAPACITY": "Capacidade Máxima",
+    "CURRENT_OCCUPANCY": "Ocupação Atual",
+    "NO_DOCKS_ASSOCIATED": "Não está a servir nenhuma doca."
   },
   "REPRESENTATIVE": {
     "VIEW_TITLE": "Visualizar Detalhes do Representante",
@@ -57,6 +72,7 @@
   "MESSAGE": {
     "CREATE_SUCCESS": "Criado com sucesso.",
     "UPDATE_SUCCESS": "Atualizado com sucesso.",
-    "GENERIC_ERROR": "Erro."
+    "GENERIC_ERROR": "Erro.",
+    "DOCK_ALREADY_ADDED": "A doca já tinha sido adicionada."
   }
 }

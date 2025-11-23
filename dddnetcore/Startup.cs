@@ -137,20 +137,9 @@ namespace DDDSample1
                     ctx.ShippingAgentOrganizations.Add(org);
                     ctx.SaveChanges();
                 }
-                if (!ctx.StorageAreas.Any())
+                if (!ctx.VesselTypes.Any())
                 {
-                    ctx.StorageAreas.AddRange(new[]
-                    {
-                        DDDSample1.Domain.StorageAreas.StorageArea.CreateSubmitted(
-                            "Warehouse", 7.2f, -7.2f, 45.0f, 30, 1
-                        ),
-                        DDDSample1.Domain.StorageAreas.StorageArea.CreateSubmitted(
-                            "Warehouse", -10.0f, 2.1f, 0.0f, 19, 0
-                        ),
-                        DDDSample1.Domain.StorageAreas.StorageArea.CreateSubmitted(
-                            "Yard", 10.2f, 5.3f, 90.0f, 20, 0
-                        )
-                    });
+                    ctx.VesselTypes.AddRange(new[] { new VesselType("Type1", "Desc1", 27, 3, 3, 3) });
                     ctx.SaveChanges();
                 }
                 if (!ctx.VesselTypes.Any())
@@ -158,11 +147,42 @@ namespace DDDSample1
                     ctx.VesselTypes.AddRange(new[]
                     {
                         DDDSample1.Domain.VesselTypes.VesselType.CreateSubmitted(
-                            "Cargueiro Pequeno", "Navio de transporte de carga pequena", 200, 10, 10,2),
+                            "Cargueiro Pequeno", "Navio de transporte de carga pequena", 200, 10, 10, 2),
                         DDDSample1.Domain.VesselTypes.VesselType.CreateSubmitted(
-                            "Cargueiro Medio", "Navio de transporte de carga media", 400, 10, 10,4),
+                            "Cargueiro Medio", "Navio de transporte de carga media", 400, 10, 10, 4),
                     });
                     ctx.SaveChanges();
+                }
+                if (!ctx.Docks.Any())
+                {
+                    var dock1 = new Dock(
+                        name: "Dock1",
+                        location: "Lateral Norte",
+                        length: 200,
+                        depth: 15,
+                        maxDraft: 12,
+                        capacity: 500,
+                        vesselTypes: new List<VesselType> { ctx.VesselTypes.FirstOrDefault(vt => vt.Name == "Cargueiro Pequeno") }
+                    );
+                    ctx.Docks.AddRange(new[] { dock1 });
+                    ctx.SaveChanges();
+
+                    if (!ctx.StorageAreas.Any())
+                    {
+                        ctx.StorageAreas.AddRange(new[]
+                        {
+                            DDDSample1.Domain.StorageAreas.StorageArea.CreateSubmitted(
+                                "Warehouse", 7.2f, -7.2f, 205.0f, 3000, 1200, new List<Dock>()
+                            ),
+                            DDDSample1.Domain.StorageAreas.StorageArea.CreateSubmitted(
+                                "Warehouse", -10.0f, 2.1f, 0.0f, 1300, 10, new List<Dock> { dock1 }
+                            ),
+                            DDDSample1.Domain.StorageAreas.StorageArea.CreateSubmitted(
+                                "Yard", 10.2f, 5.3f, 90.0f, 4000, 1000, new List<Dock> { dock1 }
+                            )
+                        });
+                        ctx.SaveChanges();
+                    }
                 }
                 if (!ctx.PhysicalResources.Any())
                 {
