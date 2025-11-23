@@ -13,13 +13,18 @@
     "DASHBOARD": "Main Dashboard",
     "VESSELTYPES": "Vessel Types",
     "STAFF": "Staff Members",
-    "VVNS": "Vessel Visit Notifications",
+    "CREATE_VVNS": "Create Vessel Visit Notifications",
+    "UPDATE_VVNS": "Update Vessel Visit Notifications",
+    "VIEW_VVNS": "View Vessel Visit Notifications",
     "PORT": "Port",
     "SHIPPING_AGENT_ORGANIZATIONS": "Shipping Agent Organizations",
     "REPRESENTATIVES": "Representatives",
     "QUALIFICATIONS": "Qualifications",
     "STORAGE_AREAS": "Storage Areas",
-    "DOCKS": "Docks"
+    "DOCKS": "Docks",
+    "VESSELS": "Vessels",
+    "REVIEW_VVNS": "Review Vessel Visit Notifications",
+    "PHYSICAL_RESOURCES": "Physical Resources"
   },
   "COMMON": {
     "LOADING": "Loading",
@@ -92,7 +97,6 @@
     "REPRESENTATIVE": "Representative",
     "SUBMISSION_DATE": "Submission Date"
   },
-
   "QUAL": {
     "TITLE": "Qualifications",
     "CODE": "Code",
@@ -100,7 +104,6 @@
     "CREATE_TITLE": "Create Qualification",
     "EDIT_TITLE": "Edit Qualification"
   },
-
   "STAFF": {
     "TITLE": "Staff Members",
     "CODE": "Employee ID",
@@ -114,5 +117,10 @@
     "CREATE_TITLE": "Create Staff Member",
     "EDIT_TITLE": "Edit Staff Member",
     "ACTIONS": "Actions"
+  },
+  "NOT_FOUND": {
+    "TITLE": "404",
+    "MESSAGE": "Page Not Found",
+    "GO_HOME": "Go to Home"
   }
 }

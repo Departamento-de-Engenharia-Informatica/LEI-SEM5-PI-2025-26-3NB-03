@@ -23,9 +23,12 @@ export const MENU_ITEMS: MenuItem[] = [
            3.3.4. Render 3D Models Appropriatelly
   */
   { label: 'MENU.VESSELTYPES', link: '/vesseltypes', requiredRoles: ['PAO'] },
+  { label: 'MENU.VESSELS', link: '/vessels', requiredRoles: ['PAO'] },
+  { label: 'MENU.DOCKS', link: '/docks', requiredRoles: ['PAO'] },
   { label: 'MENU.STORAGE_AREAS', link: '/storageareas', requiredRoles: ['PAO'] },
   { label: 'MENU.SHIPPING_AGENT_ORGANIZATIONS', link: '/shippingagentorganizations', requiredRoles: ['PAO'] },
   { label: 'MENU.REPRESENTATIVES', link: '/representatives', requiredRoles: ['PAO'] },
+  { label: 'MENU.REVIEW_VVNS', link: '/reviewvvns', requiredRoles: ['PAO'] },
 
   /*
     Logistics Operator (lo@pm.pt / admin)
@@ -37,7 +40,7 @@ export const MENU_ITEMS: MenuItem[] = [
            3.3.4. Render 3D Models Appropriatelly
   */
   { label: 'MENU.STAFF', link: '/staff', requiredRoles: ['LO'] },
-
+  { label: 'MENU.PHYSICAL_RESOURCES', link: '/physicalresources', requiredRoles: ['LO'] },
   { label: 'MENU.QUALIFICATIONS', link: '/qualifications', requiredRoles: ['LO'] },
 
   /*
@@ -48,7 +51,9 @@ export const MENU_ITEMS: MenuItem[] = [
            3.3.2. 3D Representation of Port Structure
            3.3.4. Render 3D Models Appropriatelly
   */
-  { label: 'MENU.VVNS', link: '/vvns', requiredRoles: ['Rep'] },
+  { label: 'MENU.CREATE_VVNS', link: '/createvvns', requiredRoles: ['Rep'] },
+  { label: 'MENU.UPDATE_VVNS', link: '/updatevvns', requiredRoles: ['Rep'] },
+  { label: 'MENU.VIEW_VVNS', link: '/viewvvns', requiredRoles: ['Rep'] },
 
   /*
     Staff Member (qualquer email / staff)
