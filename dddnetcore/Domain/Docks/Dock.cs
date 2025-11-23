@@ -9,7 +9,9 @@ namespace DDDSample1.Domain.Docks
     public class Dock : Entity<DockId>
     {
         public string Name { get;  set; }
-        public string Location { get; set; }
+        public float LocationX { get; private set; }
+        public float LocationZ { get; private set; }
+        public float LocationOrientation { get; private set; }
         public int Length { get; set; }
         public int Depth { get; set; }
         public int MaxDraft { get; set; }
@@ -21,12 +23,12 @@ namespace DDDSample1.Domain.Docks
         // EF Core
         private Dock() { }
 
-        public Dock(string name, string location, int length, int depth, int maxDraft, int capacity, List<VesselType> vesselTypes)
+        public Dock(string name, float locationx, float locationz, float locationorientation, int length, int depth, int maxDraft, int capacity, List<VesselType> vesselTypes)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new BusinessRuleValidationException("Name is required.");
 
-            if (string.IsNullOrWhiteSpace(location))
+            if (float.IsNaN(locationx) || float.IsNaN(locationz) || float.IsNaN(locationorientation))
                 throw new BusinessRuleValidationException("Location is required.");
 
             if (length <= 0)
@@ -43,7 +45,9 @@ namespace DDDSample1.Domain.Docks
 
             Id = new DockId(Guid.NewGuid());
             Name = name;
-            Location = location;
+            LocationX = locationx;
+            LocationZ = locationz;
+            LocationOrientation = locationorientation;
             Length = length;
             Depth = depth;
             MaxDraft = maxDraft;

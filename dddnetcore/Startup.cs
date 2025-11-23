@@ -139,20 +139,17 @@ namespace DDDSample1
                 }
                 if (!ctx.VesselTypes.Any())
                 {
-                    ctx.VesselTypes.AddRange(new[]
-                    {
-                        DDDSample1.Domain.VesselTypes.VesselType.CreateSubmitted(
-                            "Cargueiro Pequeno", "Navio de transporte de carga pequena", 200, 10, 10, 2),
-                        DDDSample1.Domain.VesselTypes.VesselType.CreateSubmitted(
-                            "Cargueiro Medio", "Navio de transporte de carga media", 400, 10, 10, 4),
-                    });
+                    ctx.VesselTypes.AddRange(new[] { new VesselType("Type1", "Carqueiro Pequeno", 27, 3, 3, 3) });
+                    ctx.VesselTypes.AddRange(new[] { new VesselType("Type2", "Carqueiro Pequeno", 64, 4, 4, 4) });
                     ctx.SaveChanges();
                 }
                 if (!ctx.Docks.Any())
                 {
                     var dock1 = new Dock(
                         name: "Dock1",
-                        location: "Lateral Norte",
+                        locationx: 1,
+                        locationz: 1,
+                        locationorientation: 1,
                         length: 200,
                         depth: 15,
                         maxDraft: 12,

@@ -7,7 +7,9 @@ namespace DDDSample1.Domain.Docks
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = null!;
-        public string Location { get; set; } = null!;
+        public float LocationX { get; set; }
+        public float LocationZ { get; set; } 
+        public float LocationOrientation { get; set; }
         public int Length { get; set; }
         public int Depth { get; set; }
         public int MaxDraft { get; set; }

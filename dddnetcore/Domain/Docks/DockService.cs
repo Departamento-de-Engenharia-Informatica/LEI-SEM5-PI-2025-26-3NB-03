@@ -20,6 +20,27 @@ namespace DDDSample1.Domain.Docks
             _vesselTypeRepo = vesselTypeRepo;
         }
 
+        //Getall
+        public async Task<List<DockDto>> GetAllAsync()
+{
+    var list = await _dockRepo.GetAllAsync();
+
+    return list
+        .Select(dc => new DockDto
+        {
+            Id = dc.Id.AsGuid(),
+            Name = dc.Name,
+            LocationX = dc.LocationX,
+            LocationZ = dc.LocationZ,
+            LocationOrientation = dc.LocationOrientation,
+            Length = dc.Length,
+            Depth = dc.Depth,
+            MaxDraft = dc.MaxDraft,
+            Capacity = dc.Capacity,
+            VesselTypeIds = dc.VesselTypes.Select(v => v.Id.AsGuid()).ToList()
+        })
+        .ToList();
+}
         // Criar Dock
         public async Task<DockDto> AddAsync(CreatingDockDto dto)
         {
@@ -28,7 +49,9 @@ namespace DDDSample1.Domain.Docks
 
             var dock = new Dock(
                 dto.Name,
-                dto.Location,
+                dto.LocationX,
+                dto.LocationZ,
+                dto.LocationOrientation,
                 dto.Length,
                 dto.Depth,
                 dto.MaxDraft,
@@ -56,14 +79,14 @@ namespace DDDSample1.Domain.Docks
             return docks.Select(ToDto).ToList();
         }
 
-        // Buscar Docks por localização
-        public async Task<List<DockDto>> GetByLocationAsync(string location)
+        // Buscar Docks por local
+        /*public async Task<List<DockDto>> GetByLocationAsync(float locationx)
         {
-            var docks = await _dockRepo.GetByLocationAsync(location);
+            var docks = await _dockRepo.GetByLocationAsync(locationx);
             return docks.Select(ToDto).ToList();
-        }
+        }*/
 
-        // Buscar Docks por tipo de embarcação
+        // Buscar Docks por tipo de vessel
         public async Task<List<DockDto>> GetByVesselTypeAsync(Guid vesselTypeId)
         {
             var docks = await _dockRepo.GetByVesselTypeAsync(new VesselTypeId(vesselTypeId));
@@ -77,7 +100,9 @@ namespace DDDSample1.Domain.Docks
             {
                 Id = dock.Id.AsGuid(),
                 Name = dock.Name,
-                Location = dock.Location,
+                LocationX = dock.LocationX,
+                LocationZ = dock.LocationZ,
+                LocationOrientation = dock.LocationOrientation,
                 Length = dock.Length,
                 Depth = dock.Depth,
                 MaxDraft = dock.MaxDraft,
