@@ -139,11 +139,6 @@ namespace DDDSample1
                 }
                 if (!ctx.VesselTypes.Any())
                 {
-                    ctx.VesselTypes.AddRange(new[] { new VesselType("Type1", "Desc1", 27, 3, 3, 3) });
-                    ctx.SaveChanges();
-                }
-                if (!ctx.VesselTypes.Any())
-                {
                     ctx.VesselTypes.AddRange(new[]
                     {
                         DDDSample1.Domain.VesselTypes.VesselType.CreateSubmitted(
