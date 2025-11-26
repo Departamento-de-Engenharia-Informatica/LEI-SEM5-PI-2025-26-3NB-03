@@ -5,30 +5,25 @@ import { StorageAreaDto } from '../../../core/models/storagearea';
  * Cria TEUs empilhados dentro de uma área retangular.
  * 
  * @param scene Cena Three.js
- * @param area DTO com currentOccupancy
+ * @param storageArea DTO com Current Occupancy e Localização (X, Z e Orientação).
  * @param usableWidth Largura disponível para os TEUs
  * @param usableDepth Profundidade disponível para os TEUs
- * @param baseX Posição X do centro da área
- * @param baseZ Posição Z do centro da área
  * @param baseY Altura da base onde os TEUs começam
  */
 export function createTeusInArea(
   scene: THREE.Scene,
-  area: StorageAreaDto,
+  storageArea: StorageAreaDto,
   usableWidth: number,
   usableDepth: number,
-  baseX: number,
-  baseZ: number,
   baseY: number
 ): void {
-
   const teuW = 0.15;
   const teuH = 0.15;
   const teuD = 0.3;
-
   const rowGap = 0.15;
   const maxFloors = 3;
-  let remaining = area.currentOccupancy;
+  
+  let remaining = storageArea.currentOccupancy;
 
   const cols = Math.floor(usableWidth / teuW);
   const rows = Math.floor(usableDepth / (teuD + rowGap));
@@ -36,7 +31,7 @@ export function createTeusInArea(
   if (cols <= 0 || rows <= 0) return;
 
   const teusGroup = new THREE.Group();
-  teusGroup.position.set(baseX, 0, baseZ);
+  teusGroup.position.set(storageArea.locationX, 0, storageArea.locationZ);
   scene.add(teusGroup);
 
   for (let floor = 0; floor < maxFloors && remaining > 0; floor++) {
@@ -57,7 +52,7 @@ export function createTeusInArea(
         teu.receiveShadow = true;
 
         const x = -usableWidth / 2 + (c + 0.5) * teuW;
-        const y = + baseY + teuH / 2 + floor * teuH;
+        const y = baseY + teuH / 2 + floor * teuH;
         const z = -usableDepth / 2 + r * (teuD + rowGap) + teuD / 2;
 
         teu.position.set(x, y, z);
@@ -67,5 +62,5 @@ export function createTeusInArea(
       }
     }
   }
-  teusGroup.rotation.y = (area.locationOrientation || 0) * (Math.PI / 180);
+  teusGroup.rotation.y = (storageArea.locationOrientation || 0) * (Math.PI / 180);
 }

@@ -2,15 +2,17 @@
 
 #### Level 1
 
-N/A
+![LV_LV1](Level1LogicalView.png)
 
 #### Level 2
 
-N/A
+![LV_LV2](Level2LogivalView.png)
 
 #### Level 3
 
-N/A
+![LV_LV3B](Level3LogicalViewBackend.png)
+
+![LV_LV3F](Level3LogicalViewFrontendAngular.png)
 
 #### Level 4
 
