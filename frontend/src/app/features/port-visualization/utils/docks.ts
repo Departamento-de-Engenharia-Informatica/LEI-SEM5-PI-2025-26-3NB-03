@@ -1,4 +1,7 @@
 import * as THREE from 'three';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
+import { MTLLoader } from 'three/examples/jsm/loaders/MTLLoader.js';
+
 import { DockDto } from '../../../core/models/dock';
 
 /**
@@ -16,8 +19,9 @@ export function createDock(scene: THREE.Scene, area: DockDto): void {
       const textureLoader = new THREE.TextureLoader();
       const dockTexture = textureLoader.load('textures/rock.jpg');
 
+
       const dockGeometry = new THREE.BoxGeometry(dockLength, dockHeight, dockDepth); 
-      const dockMaterial = new THREE.MeshStandardMaterial({ map: dockTexture });
+      const dockMaterial = new THREE.MeshBasicMaterial({ map: dockTexture });
       const dock = new THREE.Mesh(dockGeometry, dockMaterial);
       dock.castShadow = true;
       dock.receiveShadow = true;
@@ -26,9 +30,23 @@ export function createDock(scene: THREE.Scene, area: DockDto): void {
       const graus = area.locationOrientation;
       dock.rotation.y = graus * (Math.PI / 180);
 
-      const edges = new THREE.EdgesGeometry(dockGeometry);
-      const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x000000 }));
-      dock.add(line);
+
+      const mtlLoader = new MTLLoader();
+      mtlLoader.load('models/SurreyQuaysMooringFeature2_01.mtl', (materials) => {
+      materials.preload();
+
+      const objLoader = new OBJLoader();
+      objLoader.setMaterials(materials);
+
+      objLoader.load('models/SurreyQuaysMooringFeature2_01.obj', (object) => {
+      // Ajustar escala e posição
+      object.rotation.x = -Math.PI / 2; // roda 90° em torno do eixo X
+      object.scale.set(0.05, 0.05, 0.05);
+      object.position.set(-dockLength / 2 + 0.4, dockHeight / 2, 0); // em cima da dock
+       dock.add(object);
+        });
+      });
+
 
       scene.add(dock);
     
