@@ -13,3 +13,5 @@
 | 3.3.4. | Render 3D Models Appropriatelly     |
 | 3.3.5. | Add Appropriate Lighting            |
 | 3.3.5. | Control Camera with Mouse           |
+| 3.6.1. | Handle Personal Data                |
+| 3.6.2. | Handle a Personal Data Breach       |
