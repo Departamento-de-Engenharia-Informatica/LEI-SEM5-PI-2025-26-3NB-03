@@ -1,27 +1,29 @@
 <div class="page-card">
 
-  <h2 class="page-title">Editar Staff Member</h2>
+  <h2 class="page-title">{{ 'STAFF.EDIT_TITLE' | translate }}</h2>
 
-  <div *ngIf="isLoading">A carregar...</div>
+  <div *ngIf="isLoading">{{ 'COMMON.LOADING' | translate }}</div>
 
   <form *ngIf="!isLoading" (ngSubmit)="save()">
 
     <div class="form-row">
-      <label>Código</label>
-      <input [value]="code" disabled>
+      <label>{{ 'STAFF.CODE' | translate }}</label>
+      <input [value]="code" disabled />
     </div>
 
     <div class="form-row">
-      <label>Nome</label>
-      <input [(ngModel)]="model.name" name="name" required>
+      <label>{{ 'STAFF.NAME' | translate }}</label>
+      <input [(ngModel)]="model.name" name="name" required />
     </div>
 
     <div class="form-row">
-      <label>Email</label>
-      <input [(ngModel)]="model.email" name="email" required>
+      <label>{{ 'STAFF.EMAIL' | translate }}</label>
+      <input [(ngModel)]="model.email" name="email" required />
     </div>
 
-    <button class="btn-primary" type="submit" [disabled]="isSaving">Guardar</button>
+    <button class="btn-primary" type="submit">
+      {{ 'BUTTON.UPDATE' | translate }}
+    </button>
 
   </form>
 

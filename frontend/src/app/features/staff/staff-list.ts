@@ -5,12 +5,13 @@ import { RouterModule } from '@angular/router';
 
 import { StaffService } from '../../core/services/staff.service';
 import { StaffMemberDto } from '../../core/models/staff';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   standalone: true,
   selector: 'app-staff-list',
   templateUrl: './staff-list.html',
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, TranslatePipe],
   styleUrl: './staff.css'
 })
 export class StaffList implements OnInit {

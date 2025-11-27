@@ -1,8 +1,10 @@
 using DDDSample1.Domain.Representatives;
 using DDDSample1.Domain.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DDDSample1.Domain.ShippingAgentOrganizations;
 
 namespace DDDSample1.Domain.ShippingAgentOrganizations
 {
@@ -89,9 +91,9 @@ namespace DDDSample1.Domain.ShippingAgentOrganizations
             };
         }
 
-        public async Task<ShippingAgentOrganizationDto> UpdateAsync(ShippingAgentOrganizationDto dto)
+        public async Task<ShippingAgentOrganizationDto> UpdateAsync(Guid id, UpdateShippingAgentOrganizationDto dto)
         {
-            var organization = await this._repo.GetByIdAsync(new ShippingAgentOrganizationId(dto.Id)); 
+            var organization = await this._repo.GetByIdAsync(new ShippingAgentOrganizationId(id)); 
 
             if (organization == null)
                 return null;
@@ -105,7 +107,6 @@ namespace DDDSample1.Domain.ShippingAgentOrganizations
                 representatives.Add(rep);
             }
 
-            // change all field
             organization.ChangeLegalName(dto.LegalName);
             organization.ChangeAltName(dto.AltName);
             organization.ChangeAddress(dto.Address);

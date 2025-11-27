@@ -4,12 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { QualificationsService } from '../../core/services/qualifications.service';
 import { CreateQualificationDto } from '../../core/models/qualification';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   standalone: true,
   selector: 'app-qualifications-create',
   templateUrl: './qualifications-create.html',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslatePipe],
   styleUrls: ['./qualifications.css']
 })
 export class QualificationsCreate {
