@@ -1,6 +1,11 @@
 import * as THREE from 'three';
 import { StorageAreaDto } from '../../../core/models/storagearea';
 
+export const TEU_WIDTH = 0.15;
+export const TEU_HEIGHT = 0.15;
+export const TEU_DEPTH = 0.3;
+export const MAX_FLOORS = 3;
+
 /**
  * Cria TEUs empilhados dentro de uma área retangular.
  * 
@@ -17,16 +22,12 @@ export function createTeusInArea(
   usableDepth: number,
   baseY: number
 ): void {
-  const teuW = 0.15;
-  const teuH = 0.15;
-  const teuD = 0.3;
   const rowGap = 0.15;
-  const maxFloors = 3;
   
   let remaining = storageArea.currentOccupancy;
 
-  const cols = Math.floor(usableWidth / teuW);
-  const rows = Math.floor(usableDepth / (teuD + rowGap));
+  const cols = Math.floor(usableWidth / TEU_WIDTH);
+  const rows = Math.floor(usableDepth / (TEU_DEPTH + rowGap));
 
   if (cols <= 0 || rows <= 0) return;
 
@@ -34,10 +35,10 @@ export function createTeusInArea(
   teusGroup.position.set(storageArea.locationX, 0, storageArea.locationZ);
   scene.add(teusGroup);
 
-  for (let floor = 0; floor < maxFloors && remaining > 0; floor++) {
+  for (let floor = 0; floor < MAX_FLOORS && remaining > 0; floor++) {
     for (let r = 0; r < rows && remaining > 0; r++) {
       for (let c = 0; c < cols && remaining > 0; c++) {
-        const geometry = new THREE.BoxGeometry(teuW, teuH, teuD);
+        const geometry = new THREE.BoxGeometry(TEU_WIDTH, TEU_HEIGHT, TEU_DEPTH);
         const material = new THREE.MeshStandardMaterial({
           color: new THREE.Color(
             0.05 + Math.random() * 0.25,
@@ -51,9 +52,9 @@ export function createTeusInArea(
         teu.castShadow = true;
         teu.receiveShadow = true;
 
-        const x = -usableWidth / 2 + (c + 0.5) * teuW;
-        const y = baseY + teuH / 2 + floor * teuH;
-        const z = -usableDepth / 2 + r * (teuD + rowGap) + teuD / 2;
+        const x = -usableWidth / 2 + (c + 0.5) * TEU_WIDTH;
+        const y = baseY + TEU_HEIGHT / 2 + floor * TEU_HEIGHT;
+        const z = -usableDepth / 2 + r * (TEU_DEPTH + rowGap) + TEU_DEPTH / 2;
 
         teu.position.set(x, y, z);
 

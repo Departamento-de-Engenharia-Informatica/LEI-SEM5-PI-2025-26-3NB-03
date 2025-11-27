@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { StorageAreaDto } from '../../../core/models/storagearea';
-import { createTeusInArea } from './teus';
+import { createTeusInArea, TEU_WIDTH, TEU_HEIGHT, TEU_DEPTH, MAX_FLOORS } from './teus';
 import { RectAreaLight } from 'three';
 import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
 
@@ -10,17 +10,11 @@ import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUnifo
  * @param storageArea Os dados da Storage Area.
  */
 export function createWarehouse(scene: THREE.Scene, storageArea: StorageAreaDto): void {
-  const teuW = 0.15;
-  const teuD = 0.3;
-  const teuH = 0.15;
-  const maxFloors = 3;
+  const teusPerFloor = Math.ceil(storageArea.maximumCapacity / MAX_FLOORS);
 
-  const teusPerFloor = Math.ceil(storageArea.maximumCapacity / maxFloors);
-  const floorArea = teusPerFloor * (teuW * teuD);
-
-  const internalWidth = Math.sqrt(floorArea * 2) + 1;
+  const internalWidth = Math.sqrt(teusPerFloor * TEU_WIDTH * TEU_DEPTH * 2) + 1;
   const internalDepth = internalWidth / 2 + 1;
-  const internalHeight = teuH * maxFloors;
+  const internalHeight = TEU_HEIGHT * MAX_FLOORS;
 
   const wallThickness = 0.2;
   const wallHeight = internalHeight + 0.5;
@@ -122,15 +116,10 @@ export function createWarehouse(scene: THREE.Scene, storageArea: StorageAreaDto)
  * @param storageArea Os dados da Storage Area.
  */
 export function createYard(scene: THREE.Scene, storageArea: StorageAreaDto): void {
-  const teuW = 0.15;
-  const teuD = 0.3;
-  const maxFloors = 3;
-  const teusPerFloor = Math.ceil(storageArea.maximumCapacity / maxFloors);
-  const teuArea = teuW * teuD;
-  const side = Math.sqrt(teusPerFloor * teuArea);
+  const teusPerFloor = Math.ceil(storageArea.maximumCapacity / MAX_FLOORS);
 
-  const yardWidth = side + 1;
-  const yardDepth = side + 1;
+  const yardWidth = Math.sqrt(teusPerFloor * TEU_WIDTH * TEU_DEPTH) + 1;
+  const yardDepth = yardWidth;
   const yardHeight = 0.1;
 
   const yardGeometry = new THREE.BoxGeometry(yardWidth, yardHeight, yardDepth);
@@ -143,18 +132,13 @@ export function createYard(scene: THREE.Scene, storageArea: StorageAreaDto): voi
   yard.position.set(storageArea.locationX, yardHeight / 2, storageArea.locationZ);
   yard.rotation.y = storageArea.locationOrientation * (Math.PI / 180);
 
-  yard.userData = { id: storageArea.id, type: storageArea.type };
   scene.add(yard);
-
-  const usableWidth = side;
-  const usableDepth = side;
-  const baseY = yardHeight;
 
   createTeusInArea(
     scene,
     storageArea,
-    usableWidth,
-    usableDepth,
-    baseY
+    yardWidth - 1,
+    yardDepth - 1,
+    yardHeight
   );
 }

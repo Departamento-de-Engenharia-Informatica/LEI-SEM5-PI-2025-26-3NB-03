@@ -147,9 +147,18 @@ export class ShippingAgentOrganization implements OnInit {
           this.currentFormMode = 'update';
         },
         error: err => {
+          let text = 'Error creating organization.';
+
+          if (err.error?.message) {
+            text = err.error.message;
+          } else if (err.error?.errors) {
+            const allErrors = Object.values(err.error.errors).flat();
+            text = allErrors.join(' ');
+          }
+
           this.feedbackMessage = {
             type: 'error',
-            text: err.error?.Message || 'Error creating organization'
+            text: text
           };
         }
       }).add(() => this.isSubmitting = false);
@@ -166,9 +175,18 @@ export class ShippingAgentOrganization implements OnInit {
           this.selectedOrganization = updated;
         },
         error: err => {
+          let text = 'Error updating organization.';
+
+          if (err.error?.message) {
+            text = err.error.message;
+          } else if (err.error?.errors) {
+            const allErrors = Object.values(err.error.errors).flat();
+            text = allErrors.join(' ');
+          }
+
           this.feedbackMessage = {
             type: 'error',
-            text: err.error?.Message || 'Error updating organization'
+            text: text
           };
         }
       }).add(() => this.isSubmitting = false);

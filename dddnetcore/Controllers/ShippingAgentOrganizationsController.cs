@@ -1,8 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System;
-using System.Threading.Tasks;
+using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.ShippingAgentOrganizations;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DDDSample1.Controllers
 {
@@ -26,7 +27,7 @@ namespace DDDSample1.Controllers
 
         // GET: api/ShippingAgentOrganizations/id
         [HttpGet("{id}")]
-        public async Task<ActionResult<ShippingAgentOrganizationDto>> GetGetById(Guid id)
+        public async Task<ActionResult<ShippingAgentOrganizationDto>> GetById(Guid id)
         {
             var organization = await _service.GetByIdAsync(new ShippingAgentOrganizationId(id));
 
@@ -42,20 +43,35 @@ namespace DDDSample1.Controllers
         [HttpPost]
         public async Task<ActionResult<ShippingAgentOrganizationDto>> Create(CreatingShippingAgentOrganizationDto dto)
         {
-            var organization = await _service.AddAsync(dto);
+            try
+            {
+                var organization = await _service.AddAsync(dto);
 
-            return CreatedAtAction(nameof(GetGetById), new { id = organization.Id }, organization);
+                return CreatedAtAction(nameof(GetById), new { id = organization.Id }, organization);
+            }
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
         }
 
         // PUT: api/ShippingAgentOrganizations/id
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, [FromBody] UpdateShippingAgentOrganizationDto dto)
         {
-            var updatedOrg = await _service.UpdateAsync(id, dto);
-            if (updatedOrg == null)
-                return NotFound();
+            try
+            {
+                var updatedOrg = await _service.UpdateAsync(id, dto);
+                if (updatedOrg == null)
+                    return NotFound();
 
-            return Ok(updatedOrg);
+                return Ok(updatedOrg);
+            }
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }
