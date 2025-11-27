@@ -50,10 +50,8 @@
             <div class="form-group">
                 <label>{{ 'REPRESENTATIVE.ORGANIZATION_ID' | translate }}:</label>
                 <input type="text" 
-                    [(ngModel)]="formModel.shippingAgentOrganizationId" 
-                    name="shippingAgentOrganizationId" 
-                    [disabled]="true" 
-                    required>
+                    [value]="getOrganizationName(formModel.shippingAgentOrganizationId ?? '')" 
+                    disabled>
             </div>
 
             <div class="form-group">
