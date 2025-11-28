@@ -40,17 +40,24 @@ export function createDock(scene: THREE.Scene, dockData: DockDto): void {
   mtlLoader.setPath('models/');
   mtlLoader.setResourcePath('models/textures/');
   
-  mtlLoader.load('SurreyQuaysMooringFeature2_01.mtl', (materials) => {
+  mtlLoader.load('SurreyQuaysMooringFeature2_01_decimated.mtl', (materials) => {
     materials.preload();
     
     const objLoader = new OBJLoader();
     objLoader.setMaterials(materials);
     objLoader.setPath('models/');
     
-    objLoader.load('SurreyQuaysMooringFeature2_01.obj', (object) => {
+    objLoader.load('SurreyQuaysMooringFeature2_01_decimated.obj', (object) => {
       object.scale.set(0.05, 0.05, 0.05);
       object.rotation.x = -Math.PI / 2; 
       object.position.set(-dockLength / 2 + 0.4, dockHeight / 2, 0);
+
+      object.traverse((child) => {
+            if ((child as THREE.Mesh).isMesh) {
+                  (child as THREE.Mesh).castShadow = true;
+                  (child as THREE.Mesh).receiveShadow = true;
+            }
+      });
 
       dock.add(object);
     });
