@@ -5,12 +5,13 @@ import { FormsModule } from '@angular/forms';
 
 import { StaffService } from '../../core/services/staff.service';
 import { UpdateStaffMemberDto, StaffMemberDto } from '../../core/models/staff';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   standalone: true,
   selector: 'app-staff-edit',
   templateUrl: './staff-edit.html',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslatePipe],
   styleUrl: './staff.css'
 })
 export class StaffEdit implements OnInit {

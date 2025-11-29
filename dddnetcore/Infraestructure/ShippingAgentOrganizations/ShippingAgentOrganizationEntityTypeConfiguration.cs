@@ -23,7 +23,7 @@ namespace DDDSample1.Infrastructure.ShippingAgentOrganizations
             builder.HasMany(o => o.Representatives)
                 .WithOne(r => r.ShippingAgentOrganization)
                 .HasForeignKey(r => r.ShippingAgentOrganizationId)
-                .IsRequired();
+                .IsRequired(false);
         }
     }
 }

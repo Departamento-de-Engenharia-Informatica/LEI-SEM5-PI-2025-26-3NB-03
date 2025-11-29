@@ -16,6 +16,11 @@
   gap: 10px;
   margin-bottom: 20px;
   flex-wrap: wrap;
+  align-items: center;
+}
+
+.filters button {
+    align-self: stretch;
 }
 
 .filters input,

@@ -33,7 +33,7 @@ export class StorageArea implements OnInit {
   formModel: StorageAreaFormModel = {} as StorageAreaFormModel;
 
   dockToAddId: string | null = null;
-  selectedDockIdInArea: string | null = null;
+  selectedDockIdInArea: string | null = null;
 
   constructor( private api: Api, private translate: TranslateService ) {}
 
