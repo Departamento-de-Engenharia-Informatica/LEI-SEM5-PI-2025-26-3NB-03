@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { FormsModule } from '@angular/forms'; 
 import { RepresentativeDto, CreatingRepresentativeDto, UpdateRepresentativeDto } from '../../core/models/representative';
+import { ShippingAgentOrganizationDto } from '../../core/models/shippingagentorganization';
 import { Api } from '../../core/services/api';
 
 @Component({
@@ -26,6 +27,7 @@ export class Representative implements OnInit {
   isSubmitting: boolean = false;
   
   formModel: RepresentativeDto | CreatingRepresentativeDto | UpdateRepresentativeDto = {} as RepresentativeDto;
+  organizationNames: { [id: string]: string } = {};
 
   constructor( private api: Api, private translate: TranslateService ) {}
 
@@ -56,12 +58,10 @@ export class Representative implements OnInit {
 
     this.selectedRepresentative = representative;
     this.formModel = { ...representative };
+
+    this.loadOrganizationName(representative.shippingAgentOrganizationId);
     
-    if (representative.active) {
-      this.currentFormMode = 'update';
-    } else {
-      this.currentFormMode = 'view';
-    }
+    this.currentFormMode = representative.active ? 'update' : 'view';
   }
 
   startCreate(): void {
@@ -168,5 +168,26 @@ export class Representative implements OnInit {
         }
       });
     }
+  }
+
+  loadOrganizationName(id: string): void {
+    if (!id) return;
+
+    if (this.organizationNames[id]) return;
+
+    this.api.getById<ShippingAgentOrganizationDto>('ShippingAgentOrganizations', id).subscribe({
+      next: org => {
+        this.organizationNames[id] = org.legalName;
+      },
+      error: err => {
+        console.error('Erro ao carregar organização', err);
+        this.organizationNames[id] = this.translate.instant('COMMON.NO_DATA');
+      }
+    });
+  }
+
+  getOrganizationName(id?: string): string {
+    if (!id) return '';
+    return this.organizationNames[id] || this.translate.instant('COMMON.LOADING');
   }
 }

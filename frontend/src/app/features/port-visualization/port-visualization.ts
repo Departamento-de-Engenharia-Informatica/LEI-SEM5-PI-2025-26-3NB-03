@@ -31,19 +31,18 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
   constructor(private apiService: Api) { }
 
   ngAfterViewInit(): void {
-  Promise.all([this.loadStorageAreas(), this.loadDocks()])
-    .then(([areas, docks]) => {
-      this.initThree(areas, docks);
-      this.renderScene();
+    Promise.all([this.loadStorageAreas(), this.loadDocks()])
+      .then(([storageAreas, docks]) => {
+        this.initThree(storageAreas, docks);
+        this.renderScene();
 
-      window.addEventListener('resize', this.onWindowResize.bind(this));
-      this.setupResizeObserver();
-    })
-    .catch(error => {
-      console.error('Erro ao carregar dados:', error);
-    });
-}
-
+        window.addEventListener('resize', this.onWindowResize.bind(this));
+        this.setupResizeObserver();
+      })
+      .catch(error => {
+        console.error('Erro ao carregar dados:', error);
+      });
+  }
 
   ngOnDestroy(): void {
     if (this.animationId !== null) cancelAnimationFrame(this.animationId);
@@ -51,6 +50,8 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     if (this.controls) {
       this.controls.dispose();
     }
+
+    this.renderer.forceContextLoss();
 
     if (this.scene) {
       this.scene.traverse((obj) => {
@@ -66,9 +67,6 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
       });
     }
 
-    /*if (this.renderer) {
-      this.renderer.dispose();
-    }*/
     if (this.renderer) {
       this.renderer.dispose();
       if (this.renderer.domElement && this.renderer.domElement.parentElement) {
@@ -84,11 +82,22 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
 
   private async loadStorageAreas(): Promise<StorageAreaDto[]> {
     try {
-      const areasObservable = this.apiService.getAll<StorageAreaDto>('StorageAreas');
-      const areas = await firstValueFrom(areasObservable);
-      return areas || [];
+      const storageAreasObservable = this.apiService.getAll<StorageAreaDto>('StorageAreas');
+      const storageAreas = await firstValueFrom(storageAreasObservable);
+      return storageAreas || [];
     } catch (error) {
       console.error('Falha ao buscar Storage Areas:', error);
+      return [];
+    }
+  }
+
+  private async loadDocks(): Promise<DockDto[]> {
+    try {
+      const docksObservable = this.apiService.getAll<DockDto>('docks');
+      const docks = await firstValueFrom(docksObservable);
+      return docks || [];
+    } catch (error) {
+      console.error('Falha ao buscar Docks:', error);
       return [];
     }
   }
@@ -127,6 +136,15 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     this.updateCanvasSize(container.clientWidth, container.clientHeight);
   }
 
+  private renderScene(): void {
+    this.animationId = requestAnimationFrame(() => this.renderScene());
+
+    if (this.controls) {
+      this.controls.update();
+    }
+    this.renderer.render(this.scene, this.camera);
+  }
+
   private initThree(storageAreas: StorageAreaDto[], docks: DockDto[]): void {
     const container = this.canvasContainer.nativeElement as HTMLElement;
     
@@ -149,10 +167,7 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     const yards = storageAreas.filter(area => area.type === 'Yard');
     yards.forEach((area: StorageAreaDto) => createYard(this.scene, area));
 
-    //criar Docks
     docks.forEach((area: DockDto) => createDock(this.scene, area));
-
-
 
     setupLighting(this.scene);
     
@@ -165,6 +180,11 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     container.appendChild(this.renderer.domElement);
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.controls.mouseButtons = {
+      LEFT: THREE.MOUSE.PAN,
+      MIDDLE: THREE.MOUSE.DOLLY,
+      RIGHT: THREE.MOUSE.ROTATE
+    };
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.05;
     this.controls.screenSpacePanning = false;
@@ -172,25 +192,5 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     this.controls.maxDistance = 30;
     this.controls.maxPolarAngle = Math.PI / 2 - 0.1;
     this.controls.update();
-  }
-
-  private async loadDocks(): Promise<DockDto[]> {
-  try {
-    const docksObservable = this.apiService.getAll<DockDto>('docks');
-    const docks = await firstValueFrom(docksObservable);
-    return docks || [];
-  } catch (error) {
-    console.error('Falha ao buscar Docks:', error);
-    return [];
-  }
-}
-
-  private renderScene(): void {
-    this.animationId = requestAnimationFrame(() => this.renderScene());
-
-    if (this.controls) {
-      this.controls.update();
-    }
-    this.renderer.render(this.scene, this.camera);
   }
 }
