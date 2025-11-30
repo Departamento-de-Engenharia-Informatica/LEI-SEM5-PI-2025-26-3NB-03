@@ -99,9 +99,9 @@ namespace DDDSample1
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+                {
+                    endpoints.MapControllers();
+                });
 
             var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
             using (var scope = app.ApplicationServices.CreateScope())
@@ -161,32 +161,28 @@ namespace DDDSample1
                         capacity: 500,
                         vesselTypes: new List<VesselType> { type1 }
                     );
+                    
+                    var type2 = ctx.VesselTypes.FirstOrDefault(vt => vt.Name == "Type2");
 
-                    ctx.Docks.AddRange(new[] { dock1 });
+                    if (type1 == null)
+                        throw new Exception("VesselType 'Type2' não foi encontrado na base de dados.");
+
+                    var dock2 = new Dock(
+                        name: "Dock2",
+                        locationx: 6,
+                        locationz: 17,
+                        locationorientation: 90,
+                        length: 7,
+                        depth: 2,
+                        maxDraft: 12,
+                        capacity: 500,
+                        vesselTypes: new List<VesselType> { type2 }
+                    );
+
+                    ctx.Docks.AddRange(new[] { dock1, dock2 });
                     ctx.SaveChanges();
 
-                    
-                     var type2 = ctx.VesselTypes.FirstOrDefault(vt => vt.Name == "Type2");
-
-                        if (type1 == null)
-                            throw new Exception("VesselType 'Type2' não foi encontrado na base de dados.");
-
-                        var dock2 = new Dock(
-                            name: "Dock2",
-                            locationx: 6,
-                            locationz: 17,
-                            locationorientation: 90,
-                            length: 7,
-                            depth: 2,
-                            maxDraft: 12,
-                            capacity: 500,
-                            vesselTypes: new List<VesselType> { type2 }
-                        );
-
-                        ctx.Docks.AddRange(new[] { dock2 });
-                        ctx.SaveChanges();
-
-                        if (!ctx.StorageAreas.Any())
+                    if (!ctx.StorageAreas.Any())
                     {
                         ctx.StorageAreas.AddRange(new[]
                         {
