@@ -54,7 +54,13 @@
     "LEGAL_NAME": "Legal Name",
     "ALTERNATIVE_NAME": "Alternative Name",
     "ADDRESS": "Address",
-    "TAX_NUMBER": "Tax Number"
+    "TAX_NUMBER": "Tax Number",
+    "LEGAL_NAME_REQUIRED": "Legal Name is required.",
+    "ALT_NAME_REQUIRED": "Alternative Name is required.",
+    "ADDRESS_REQUIRED": "Address is required.",
+    "TAX_NUMBER_REQUIRED": "Tax Number is required.",
+    "TAX_NUMBER_INVALID": "The Tax Number is invalid.",
+    "REPRESENTATIVE_REQUIRED": "A Shipping Agent Organization requires at least one representative."
   },
   "REPRESENTATIVE": {
     "VIEW_TITLE": "View Representative Details",

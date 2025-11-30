@@ -323,3 +323,9 @@
     font-size: 0.875rem;
     font-style: italic;
 }
+
+.has-error input,
+.has-error select.dock-list-select {
+  border: 2px solid red !important;
+  background: #ffe5e5;
+}

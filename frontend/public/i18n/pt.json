@@ -55,7 +55,13 @@
     "LEGAL_NAME": "Nome Legal",
     "ALTERNATIVE_NAME": "Nome Alternativo",
     "ADDRESS": "Morada",
-    "TAX_NUMBER": "NIF"
+    "TAX_NUMBER": "NIF",
+    "LEGAL_NAME_REQUIRED": "O Nome Legal é de preenchimento obrigatório.",
+    "ALT_NAME_REQUIRED": "O Nome Alternativo é de preenchimento obrigatório.",
+    "ADDRESS_REQUIRED": "A Morada é de preenchimento obrigatório.",
+    "TAX_NUMBER_REQUIRED": "O NIF é de preenchimento obrigatório.",
+    "TAX_NUMBER_INVALID": "O NIF introduzido é inválido.",
+    "REPRESENTATIVE_REQUIRED": "Uma Organização de Transporte Marítimos necessita de, pelo menos, um Representante."
   },
   "REPRESENTATIVE": {
     "VIEW_TITLE": "Visualizar Detalhes do Representante",
