@@ -50,7 +50,7 @@
     flex-grow: 1;
 }
 
-.active-rep {
+.active-org {
     padding: 12px 15px;
     border-bottom: 1px solid #f3f4f6;
     cursor: pointer;
@@ -58,11 +58,11 @@
     color: #374151;
 }
 
-.active-rep:hover {
+.active-org:hover {
     background-color: #f3f4f6;
 }
 
-.active-rep.selected {
+.active-org.selected {
     background-color: #eef2ff;
     border-left: 4px solid #4f46e5;
     font-weight: 600;
@@ -219,23 +219,6 @@
     border: 1px solid #f87171;
 }
 
-.docks-list ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.docks-list li {
-    background-color: #e0e7ff;
-    color: #4f46e5;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.875rem;
-}
-
 @media (max-width: 768px) {
     .management-container {
         flex-direction: column;
@@ -259,14 +242,14 @@
     flex-wrap: nowrap;
 }
 
-.dock-management-row {
+.rep-management-row {
     display: flex;
     gap: 10px;
     align-items: flex-start;
     margin-bottom: 10px;
 }
 
-.dock-management-row select {
+.rep-management-row select {
     flex-grow: 1;
     padding: 8px;
     border: 1px solid #d1d5db;
@@ -274,16 +257,16 @@
     box-sizing: border-box;
 }
 
-.dock-list-select {
+.rep-list-select {
     min-height: 60px;
 }
 
-.dock-add-control select {
+.rep-add-control select {
     min-height: 40px;
 }
 
-.remove-dock-button,
-.add-dock-button {
+.remove-rep-button,
+.add-rep-button {
     flex-shrink: 0;
     min-width: 80px;
     padding: 10px 15px;
@@ -295,37 +278,30 @@
     transition: background-color 0.2s;
 }
 
-.remove-dock-button {
+.remove-rep-button {
     background-color: #ef4444;
 }
 
-.remove-dock-button:hover:not(:disabled) {
+.remove-rep-button:hover:not(:disabled) {
     background-color: #dc2626;
 }
 
-.add-dock-button {
+.add-rep-button {
     background-color: #10b981;
 }
 
-.add-dock-button:hover:not(:disabled) {
+.add-rep-button:hover:not(:disabled) {
     background-color: #059669;
 }
 
-.remove-dock-button:disabled,
-.add-dock-button:disabled {
+.remove-rep-button:disabled,
+.add-rep-button:disabled {
     background-color: #d1d5db;
     cursor: not-allowed;
 }
 
-.no-data-docks {
-    padding: 5px 0 10px 0;
-    color: #9ca3af;
-    font-size: 0.875rem;
-    font-style: italic;
-}
-
 .has-error input,
-.has-error select.dock-list-select {
+.has-error select.rep-list-select {
   border: 2px solid red !important;
   background: #ffe5e5;
 }

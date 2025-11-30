@@ -48,7 +48,12 @@
     "ORIENTATION": "Orientation",
     "MAX_CAPACITY": "Maximum Capacity",
     "CURRENT_OCCUPANCY": "Current Occupancy",
-    "NO_DOCKS_ASSOCIATED": "Doesn't serve any dock."
+    "NO_DOCKS_ASSOCIATED": "Doesn't serve any dock.",
+    "CREATE_SUCCESS": "Storage Area created successfully.",
+    "CREATE_FAILURE": "Error creating Storage Area.",
+    "UPDATE_SUCCESS": "Storage Area updated successfully.",
+    "UPDATE_FAILURE": "Error updating Storage Area.",
+    "DOCK_ALREADY_ADDED": "Dock already added."
   },
   "SHIPPING_AGENT_ORGANIZATION": {
     "LEGAL_NAME": "Legal Name",
@@ -60,7 +65,12 @@
     "ADDRESS_REQUIRED": "Address is required.",
     "TAX_NUMBER_REQUIRED": "Tax Number is required.",
     "TAX_NUMBER_INVALID": "The Tax Number is invalid.",
-    "REPRESENTATIVE_REQUIRED": "A Shipping Agent Organization requires at least one representative."
+    "REPRESENTATIVE_REQUIRED": "A Shipping Agent Organization requires at least one representative.",
+    "CREATE_SUCCESS": "Organization created successfully.",
+    "CREATE_FAILURE": "Error creating Organization.",
+    "UPDATE_SUCCESS": "Organization updated successfully.",
+    "UPDATE_FAILURE": "Error updating Organization.",
+    "REP_ALREADY_ADDED": "Representative already added."
   },
   "REPRESENTATIVE": {
     "VIEW_TITLE": "View Representative Details",
@@ -89,8 +99,7 @@
   "MESSAGE": {
     "CREATE_SUCCESS": "Successfully created.",
     "UPDATE_SUCCESS": "Successfully updated.",
-    "GENERIC_ERROR": "Error.",
-    "DOCK_ALREADY_ADDED": "Dock already added."
+    "GENERIC_ERROR": "Error."
   },
   "VVN": {
     "TITLE": "Vessel Visit Notifications",

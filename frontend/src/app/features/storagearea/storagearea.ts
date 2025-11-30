@@ -21,6 +21,7 @@ type StorageAreaFormModel = StorageAreaDto | (CreatingStorageAreaDto & { docks: 
 export class StorageArea implements OnInit {
   private readonly endpoint = 'StorageAreas';
   private readonly dockEndpoint = 'Docks';
+  errorField: string[] = [];
 
   storageAreas: StorageAreaDto[] = [];
   availableDocks: DockDto[] = [];
@@ -44,6 +45,7 @@ export class StorageArea implements OnInit {
 
   clearFeedback(): void {
     this.feedbackMessage = { type: null, text: null };
+    this.errorField = [];
   }
 
   loadDocks(): void {
@@ -116,7 +118,7 @@ export class StorageArea implements OnInit {
       } else {
         this.feedbackMessage = { 
           type: 'error', 
-          text: this.translate.instant('MESSAGE.DOCK_ALREADY_ADDED')
+          text: this.translate.instant('STORAGE_AREA.DOCK_ALREADY_ADDED')
         };
       }
     }
@@ -170,15 +172,19 @@ export class StorageArea implements OnInit {
 
         this.feedbackMessage = {
           type: 'success',
-          text: this.translate.instant('MESSAGE.CREATE_SUCCESS', { name: newStorageArea.id })
+          text: this.translate.instant('STORAGE_AREA.CREATE_SUCCESS')
         };
       },
       error: (err) => {
-        console.error('Erro ao criar Storage Areas', err);
-        this.feedbackMessage = {
-          type: 'error',
-          text: this.extractErrorMessage(err)
-        };
+        let text = this.translate.instant('STORAGE_AREA.CREATE_FAILURE');
+
+        if (err.error?.message) {
+          text = err.error.message;
+        } else if (err.error?.errors) {
+          const allErrors = Object.values(err.error.errors).flat();
+          text = allErrors.join(' ');
+        }
+        this.handleErrorMessage(text);
       }
     }).add(() => this.isSubmitting = false);
   }
@@ -197,34 +203,103 @@ export class StorageArea implements OnInit {
 
         this.feedbackMessage = {
           type: 'success',
-          text: this.translate.instant('MESSAGE.UPDATE_SUCCESS', { name: updatedStorageArea.id })
+          text: this.translate.instant('STORAGE_AREA.UPDATE_SUCCESS')
         };
       },
       error: (err) => {
-        console.error('Erro ao atualizar Storage Area', err);
-        this.feedbackMessage = {
-          type: 'error',
-          text: this.extractErrorMessage(err)
-        };
+        let text = this.translate.instant('STORAGE_AREA.UPDATE_FAILURE');
+
+        if (err.error?.message) {
+          text = err.error.message;
+        } else if (err.error?.errors) {
+          const allErrors = Object.values(err.error.errors).flat();
+          text = allErrors.join(' ');
+        }
+        this.handleErrorMessage(text);
       }
     }).add(() => this.isSubmitting = false);
   }
 
-  extractErrorMessage(error: any): string {
-    if (error?.error?.Message) {
-      return error.error.Message;
-    }
-    if (error?.error?.errors) {
-      const modelErrors = error.error.errors;
-      let messages: string[] = [];
-      for (const key in modelErrors) {
-        if (modelErrors.hasOwnProperty(key)) {
-          messages = messages.concat(modelErrors[key]);
-        }
+  private handleErrorMessage(errorMessage: string) {
+    const errorMap: Record<string, { field: string, translateKey: string }> = {
+      "The Type field is required.": {
+        field: "type",
+        translateKey: "STORAGE_AREA.TYPE_REQUIRED"
+      },
+      "Error converting value {null} to type 'System.Single'. Path 'locationX'": {
+        field: "locationX",
+        translateKey: "STORAGE_AREA.LOCATION_X_REQUIRED"
+      },
+      "Error converting value {null} to type 'System.Single'. Path 'locationZ'": {
+        field: "locationZ",
+        translateKey: "STORAGE_AREA.LOCATION_Z_REQUIRED"
+      },
+      "Error converting value {null} to type 'System.Single'. Path 'locationOrientation'": {
+        field: "locationOrientation",
+        translateKey: "STORAGE_AREA.LOCATION_ORIENTATION_REQUIRED"
+      },
+      "Error converting value {null} to type 'System.Int32'. Path 'maximumCapacity'": {
+        field: "maximumCapacity",
+        translateKey: "STORAGE_AREA.MAXIMUM_CAPACITY_REQUIRED"
+      },
+      "Error converting value {null} to type 'System.Int32'. Path 'currentOccupancy'": {
+        field: "currentOccupancy",
+        translateKey: "STORAGE_AREA.CURRENT_OCCUPANCY_REQUIRED"
+      },
+      "is too large or small for an Int32. Path 'maximumCapacity'": {
+        field: "maximumCapacity",
+        translateKey: "STORAGE_AREA.MAXIMUM_CAPACITY_INVALID"
+      },
+      "is too large or small for an Int32. Path 'currentOccupancy'": {
+        field: "currentOccupancy",
+        translateKey: "STORAGE_AREA.CURRENT_OCCUPANCY_INVALID"
+      },
+      "is not a valid integer. Path 'maximumCapacity'": {
+        field: "maximumCapacity",
+        translateKey: "STORAGE_AREA.MAXIMUM_CAPACITY_INVALID"
+      },
+      "is not a valid integer. Path 'currentOccupancy'": {
+        field: "currentOccupancy",
+        translateKey: "STORAGE_AREA.CURRENT_OCCUPANCY_INVALID"
+      },
+      "The field MaximumCapacity must be between 1 and 2147483647.": {
+        field: "maximumCapacity",
+        translateKey: "STORAGE_AREA.MAXIMUM_CAPACITY_INVALID"
+      },
+      "Current occupancy cannot exceed maximum capacity.": {
+        field: "currentOccupancy",
+        translateKey: "STORAGE_AREA.OCCUPANCY_EXCEEDS_CAPACITY"
+      },
+      "Maximum capacity must be greater than zero.": {
+        field: "maximumCapacity",
+        translateKey: "STORAGE_AREA.MAXIMUM_CAPACITY_INVALID"
+      },
+      "Current occupancy cannot be negative.": {
+        field: "currentOccupancy",
+        translateKey: "STORAGE_AREA.CURRENT_OCCUPANCY_INVALID"
       }
-      return messages.join('; ');
-    }
+    };
 
-    return this.translate.instant('MESSAGE.GENERIC_ERROR');
+    const foundTranslations: string[] = [];
+    Object.keys(errorMap).forEach(key => {
+      if (errorMessage.includes(key)) {
+        const mapped = errorMap[key];
+        this.errorField.push(mapped.field);
+
+        foundTranslations.push(this.translate.instant(mapped.translateKey));
+      }
+    });
+
+    if (foundTranslations.length > 0) {
+      this.feedbackMessage = {
+        type: "error",
+        text: foundTranslations.join('<br>')
+      };
+    } else {
+      this.feedbackMessage = {
+        type: "error",
+        text: errorMessage
+      };
+    }
   }
 }

@@ -31,7 +31,7 @@ export class ShippingAgentOrganization implements OnInit {
 
   formModel: OrgFormModel = {} as OrgFormModel;
 
-  repToAddId: string | null = null;
+  repToAdd: string | null = null;
   selectedRepInOrg: string | null = null;
 
   feedbackMessage = { type: null as 'success' | 'error' | null, text: null as string | null };
@@ -106,17 +106,17 @@ export class ShippingAgentOrganization implements OnInit {
   }
 
   addRepresentative() {
-    if (this.currentFormMode === 'view' || !this.repToAddId) return;
+    if (this.currentFormMode === 'view' || !this.repToAdd) return;
 
     const reps = this.formModel.representatives;
 
-    if (!reps.includes(this.repToAddId)) {
-      reps.push(this.repToAddId);
-      this.repToAddId = null;
+    if (!reps.includes(this.repToAdd)) {
+      reps.push(this.repToAdd);
+      this.repToAdd = null;
     } else {
       this.feedbackMessage = { 
         type: 'error',
-        text: 'Representative already added.'
+        text: this.translate.instant('SHIPPING_AGENT_ORGANIZATION.REP_ALREADY_ADDED')
       };
     }
   }
@@ -133,7 +133,7 @@ export class ShippingAgentOrganization implements OnInit {
     }
   }
 
-  save() {
+  saveOrganization() {
     this.isSubmitting = true;
     this.clearFeedback();
 
@@ -142,14 +142,14 @@ export class ShippingAgentOrganization implements OnInit {
         next: created => {
           this.feedbackMessage = {
             type: 'success',
-            text: 'Organization created successfully.'
+            text: this.translate.instant('SHIPPING_AGENT_ORGANIZATION.CREATE_SUCCESS')
           };
           this.loadOrganizations();
           this.selectedOrganization = created;
           this.currentFormMode = 'update';
         },
         error: err => {
-          let text = 'Error creating organization.';
+          let text = this.translate.instant('SHIPPING_AGENT_ORGANIZATION.CREATE_FAILURE')
 
           if (err.error?.message) {
             text = err.error.message;
@@ -166,13 +166,13 @@ export class ShippingAgentOrganization implements OnInit {
         next: updated => {
           this.feedbackMessage = {
             type: 'success',
-            text: 'Organization updated successfully.'
+            text: this.translate.instant('SHIPPING_AGENT_ORGANIZATION.UPDATE_SUCCESS')
           };
           this.loadOrganizations();
           this.selectedOrganization = updated;
         },
         error: err => {
-          let text = 'Error updating organization.';
+          let text = this.translate.instant('SHIPPING_AGENT_ORGANIZATION.UPDATE_FAILURE')
 
           if (err.error?.message) {
             text = err.error.message;

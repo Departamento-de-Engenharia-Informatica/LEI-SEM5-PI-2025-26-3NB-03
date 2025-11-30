@@ -49,7 +49,12 @@
     "ORIENTATION": "Orientação",
     "MAX_CAPACITY": "Capacidade Máxima",
     "CURRENT_OCCUPANCY": "Ocupação Atual",
-    "NO_DOCKS_ASSOCIATED": "Não está a servir nenhuma doca."
+    "NO_DOCKS_ASSOCIATED": "Não está a servir nenhuma doca.",
+    "CREATE_SUCCESS": "Zona de Armazenamento criada com sucesso.",
+    "CREATE_FAILURE": "Erro ao criar a Zona de Armazenamentoa.",
+    "UPDATE_SUCCESS": "Zona de Armazenamento atualizada com sucesso.",
+    "UPDATE_FAILURE": "Erro ao atualizar a Zona de Armazenamento.",
+    "DOCK_ALREADY_ADDED": "A Doca já tinha sido adicionada."
   },
   "SHIPPING_AGENT_ORGANIZATION": {
     "LEGAL_NAME": "Nome Legal",
@@ -61,7 +66,12 @@
     "ADDRESS_REQUIRED": "A Morada é de preenchimento obrigatório.",
     "TAX_NUMBER_REQUIRED": "O NIF é de preenchimento obrigatório.",
     "TAX_NUMBER_INVALID": "O NIF introduzido é inválido.",
-    "REPRESENTATIVE_REQUIRED": "Uma Organização de Transporte Marítimos necessita de, pelo menos, um Representante."
+    "REPRESENTATIVE_REQUIRED": "Uma Organização de Transporte Marítimos necessita de, pelo menos, um Representante.",
+    "CREATE_SUCCESS": "Organização criada com sucesso.",
+    "CREATE_FAILURE": "Erro ao criar a Organização.",
+    "UPDATE_SUCCESS": "Organização atualizada com sucesso.",
+    "UPDATE_FAILURE": "Erro ao atualizar a Organização.",
+    "REP_ALREADY_ADDED": "O Representante já tinha sido adicionado."
   },
   "REPRESENTATIVE": {
     "VIEW_TITLE": "Visualizar Detalhes do Representante",
@@ -90,8 +100,7 @@
   "MESSAGE": {
     "CREATE_SUCCESS": "Criado com sucesso.",
     "UPDATE_SUCCESS": "Atualizado com sucesso.",
-    "GENERIC_ERROR": "Erro.",
-    "DOCK_ALREADY_ADDED": "A doca já tinha sido adicionada."
+    "GENERIC_ERROR": "Erro."
   },
   "VVN": {
     "TITLE": "Notificações de Visita de Embarcação",
