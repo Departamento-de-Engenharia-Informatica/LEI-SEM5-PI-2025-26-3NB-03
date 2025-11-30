@@ -155,7 +155,7 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
 
     setupBackground(this.scene);
 
-    this.camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+    this.camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
     this.camera.position.set(10, 8, 15);
     this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
