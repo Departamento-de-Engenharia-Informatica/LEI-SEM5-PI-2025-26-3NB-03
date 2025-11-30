@@ -73,14 +73,23 @@
     "REP_ALREADY_ADDED": "Representative already added."
   },
   "REPRESENTATIVE": {
-    "VIEW_TITLE": "View Representative Details",
-    "CREATE_TITLE": "Add New Representative",
-    "UPDATE_TITLE": "Update Representative",
+    "CITIZEN_ID": "Citizen ID",
     "ORGANIZATION_ID": "Shipping Agent Organization",
     "NAME": "Name",
     "NATIONALITY": "Nationality",
     "EMAIL": "E-mail",
-    "PHONE": "Phone Number"
+    "PHONE": "Phone Number",
+    "ID_REQUIRED": "Citizen ID is required.",
+    "NAME_REQUIRED": "Name is required.",
+    "EMAIL_REQUIRED": "E-mail is required.",
+    "EMAIL_INVALID_FORMAT": "Invalid E-mail format.",
+    "NATIONALITY_REQUIRED": "Nationality is required.",
+    "PHONE_NUMBER_REQUIRED": "Phone Number is required.",
+    "PHONE_NUMBER_INVALID": "The Phone Number is invalid.",
+    "CREATE_SUCCESS": "Representative created successfully.",
+    "CREATE_FAILURE": "Error creating Representative.",
+    "UPDATE_SUCCESS": "Representative updated successfully.",
+    "UPDATE_FAILURE": "Error updating Representative."
   },
   "VESSELTYPE":{
     "VIEW_TITLE": "Vessel Type Visualizationo",

@@ -74,14 +74,23 @@
     "REP_ALREADY_ADDED": "O Representante já tinha sido adicionado."
   },
   "REPRESENTATIVE": {
-    "VIEW_TITLE": "Visualizar Detalhes do Representante",
-    "CREATE_TITLE": "Criar Novo Representante",
-    "UPDATE_TITLE": "Editar Representante",
+    "CITIZEN_ID": "ID de Cidadão",
     "ORGANIZATION_ID": "Organização de Agentes de Transporte Marítimo",
     "NAME": "Nome",
     "NATIONALITY": "Nacionalidade",
     "EMAIL": "E-mail",
-    "PHONE": "Número de Telefone"
+    "PHONE": "Número de Telefone",
+    "ID_REQUIRED": "ID de Cidadão é de preenchimento obrigatório.",
+    "NAME_REQUIRED": "Nome é de preenchimento obrigatório.",
+    "EMAIL_REQUIRED": "E-mail é de preenchimento obrigatório.",
+    "EMAIL_INVALID_FORMAT": "Formato de E-mail inválido.",
+    "NATIONALITY_REQUIRED": "Nacionalidade é de preenchimento obrigatório.",
+    "PHONE_NUMBER_REQUIRED": "Número de Telefone é de preenchimento obrigatório.",
+    "PHONE_NUMBER_INVALID": "O Número de Telefone é inválido.",
+    "CREATE_SUCCESS": "Representante criado com sucesso.",
+    "CREATE_FAILURE": "Erro ao criar o Representante.",
+    "UPDATE_SUCCESS": "Representante atualizado com sucesso.",
+    "UPDATE_FAILURE": "Erro ao atualizar o Representante."
   },
   "VESSELTYPE":{
     "VIEW_TITLE": "Visualizar de Tipos de Embarcação",
