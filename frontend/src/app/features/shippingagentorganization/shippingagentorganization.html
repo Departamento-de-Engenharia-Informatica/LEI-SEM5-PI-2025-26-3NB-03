@@ -17,10 +17,10 @@
                 {{ 'COMMON.LOADING' | translate }}...
             </div>
 
-            <div *ngFor="let org of organizations"
-                 class="active-rep"
-                 [class.selected]="selectedOrganization?.id === org.id"
-                 (click)="selectOrganization(org)"
+            <div *ngFor="let org of organizations" 
+                 class="active-org" 
+                 [class.selected]="selectedOrganization?.id === org.id" 
+                 (click)="selectOrganization(org)" 
             >
                 {{ org.legalName }} ({{ org.altName }})
             </div>
@@ -32,56 +32,80 @@
     </div>
 
     <div class="details-form">
-        <form (ngSubmit)="save()">
+        <form (ngSubmit)="saveOrganization()">
 
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{ 'has-error': errorField.includes('legalName') }">
                 <label>{{ 'SHIPPING_AGENT_ORGANIZATION.LEGAL_NAME' | translate }}:</label>
-                <input type="text" [(ngModel)]="formModel.legalName" name="legalName" required>
+                <input 
+                    type="text" 
+                    [(ngModel)]="formModel.legalName" 
+                    name="legalName" 
+                    required.
+                    [disabled]="currentFormMode === 'view'">
             </div>
 
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{ 'has-error': errorField.includes('altName') }">
                 <label>{{ 'SHIPPING_AGENT_ORGANIZATION.ALTERNATIVE_NAME' | translate }}:</label>
-                <input type="text" [(ngModel)]="formModel.altName" name="altName" required>
+                <input 
+                    type="text" 
+                    [(ngModel)]="formModel.altName" 
+                    name="altName" 
+                    required 
+                    [disabled]="currentFormMode === 'view'">
             </div>
 
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{ 'has-error': errorField.includes('address') }">
                 <label>{{ 'SHIPPING_AGENT_ORGANIZATION.ADDRESS' | translate }}:</label>
-                <input type="text" [(ngModel)]="formModel.address" name="address" required>
+                <input 
+                    type="text" 
+                    [(ngModel)]="formModel.address" 
+                    name="address" 
+                    required 
+                    [disabled]="currentFormMode === 'view'">
             </div>
 
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{ 'has-error': errorField.includes('taxNumber') }">
                 <label>{{ 'SHIPPING_AGENT_ORGANIZATION.TAX_NUMBER' | translate }}:</label>
-                <input type="number" [(ngModel)]="formModel.taxNumber" name="taxNumber" required>
+                <input 
+                    type="number" 
+                    [(ngModel)]="formModel.taxNumber" 
+                    name="taxNumber" 
+                    required 
+                    [disabled]="currentFormMode === 'view'">
             </div>
 
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{ 'has-error': errorField.includes('representatives') }">
                 <label>{{ 'MENU.REPRESENTATIVES' | translate }}:</label>
 
-                <div class="dock-management-row">
+                <div class="rep-management-row">
                     <select 
-                        [(ngModel)]="selectedRepInOrg"
-                        name="selectedRepInOrg"
-                        size="3"
-                        class="dock-list-select">
+                        [(ngModel)]="selectedRepInOrg" 
+                        name="selectedRepInOrg" 
+                        size="3" 
+                        class="rep-list-select" 
+                        [disabled]="currentFormMode === 'view' 
+                            || !formModel.representatives 
+                            || formModel.representatives.length === 0">
                         <option *ngFor="let repId of formModel.representatives" [value]="repId">
                             {{ getRepName(repId) }}
                         </option>
                     </select>
 
                     <button 
-                        type="button"
-                        class="remove-dock-button"
-                        (click)="removeRepresentative()"
+                        type="button" 
+                        class="remove-rep-button" 
+                        (click)="removeRepresentative()" 
                         [disabled]="!selectedRepInOrg"
                     >
                         {{ 'BUTTON.REMOVE' | translate }}
                     </button>
                 </div>
 
-                <div class="dock-management-row">
+                <div class="rep-management-row">
                     <select 
-                        [(ngModel)]="repToAddId"
-                        name="repToAddId">
+                        [(ngModel)]="repToAdd" 
+                        name="repToAdd" 
+                        [disabled]="currentFormMode === 'view' || representativesForAdd.length === 0">
                         <option [ngValue]="null"></option>
                         <option *ngFor="let rep of representativesForAdd" [value]="rep.id">
                             {{ rep.name }}
@@ -89,22 +113,21 @@
                     </select>
 
                     <button 
-                        type="button"
-                        class="add-dock-button"
-                        (click)="addRepresentative()"
-                        [disabled]="!repToAddId"
+                        type="button" 
+                        class="add-rep-button" 
+                        (click)="addRepresentative()" 
+                        [disabled]="!repToAdd"
                     >
                         {{ 'BUTTON.ADD' | translate }}
                     </button>
                 </div>
             </div>
 
-            <div class="feedback-message"
-                [class.success]="feedbackMessage.type === 'success'"
-                [class.error]="feedbackMessage.type === 'error'"
-                *ngIf="feedbackMessage.text"
-            >
-                {{ feedbackMessage.text }}
+            <div class="feedback-message" 
+                [class.success]="feedbackMessage.type === 'success'" 
+                [class.error]="feedbackMessage.type === 'error'" 
+                *ngIf="feedbackMessage.text" 
+                [innerHTML]="feedbackMessage.text">
             </div>
 
             <div class="form-actions">

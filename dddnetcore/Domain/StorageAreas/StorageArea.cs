@@ -61,13 +61,15 @@ namespace DDDSample1.Domain.StorageAreas
         }
         public void ChangeMaximumCapacity(int maximumCapacity)
         {
-            if (maximumCapacity < this.CurrentOccupancy)
-                throw new BusinessRuleValidationException("Maximum capacity cannot be less than current occupancy.");
+            if (maximumCapacity <= 0)
+                throw new BusinessRuleValidationException("Maximum capacity must be greater than zero.");
 
             this.MaximumCapacity = maximumCapacity;
         }
         public void ChangeCurrentOccupancy(int currentOccupancy)
         {
+            if (currentOccupancy < 0)
+                throw new BusinessRuleValidationException("Current occupancy cannot be negative.");
             if (currentOccupancy > this.MaximumCapacity)
                 throw new BusinessRuleValidationException("Current occupancy cannot exceed maximum capacity.");
 

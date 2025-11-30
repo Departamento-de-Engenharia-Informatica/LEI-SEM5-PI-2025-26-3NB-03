@@ -122,3 +122,25 @@
     flex-direction: row;
     flex-wrap: nowrap;
 }
+
+.has-error input {
+  border: 2px solid red !important;
+  background: #ffe5e5;
+}
+
+@media (max-width: 568px) {
+    .management-container {
+        flex-direction: column;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    .sidebar-list {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .form-group-location-group .location-field {
+        flex: 1 1 100%;
+    }
+}

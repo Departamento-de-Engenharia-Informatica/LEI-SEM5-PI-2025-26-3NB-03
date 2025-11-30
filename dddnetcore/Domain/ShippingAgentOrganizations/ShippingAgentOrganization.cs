@@ -15,9 +15,7 @@ namespace DDDSample1.Domain.ShippingAgentOrganizations
         private readonly List<Representative> _representatives = new();
         public IReadOnlyCollection<Representative> Representatives => _representatives.AsReadOnly();
 
-        private ShippingAgentOrganization()
-        {
-        }
+        private ShippingAgentOrganization() { }
 
         public ShippingAgentOrganization(string legalname, string altname, string address, int taxnumber, List<Representative> representatives)
         {
@@ -59,6 +57,9 @@ namespace DDDSample1.Domain.ShippingAgentOrganizations
         }
         public void ChangeTaxNumber(int taxnumber)
         {
+            if (taxnumber <= 0)
+                throw new BusinessRuleValidationException("Tax number must be a positive integer.");
+
             this.TaxNumber = taxnumber;
         }
         public void ChangeRepresentatives(List<Representative> representatives)

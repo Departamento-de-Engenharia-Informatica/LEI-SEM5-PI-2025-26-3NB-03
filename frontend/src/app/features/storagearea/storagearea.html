@@ -18,10 +18,10 @@
             </div>
 
             <div
-                *ngFor="let sa of storageAreas"
-                [class.selected]="selectedStorageArea?.id === sa.id"
-                (click)="selectStorageArea(sa)"
-                class="active-rep"
+                *ngFor="let sa of storageAreas" 
+                [class.selected]="selectedStorageArea?.id === sa.id" 
+                (click)="selectStorageArea(sa)" 
+                class="active-sa"
             >
                 [{{ sa.type }}] X: {{ sa.locationX }} / Z: {{ sa.locationZ }}
             </div>
@@ -35,13 +35,13 @@
     <div class="details-form">
         <form (ngSubmit)="saveStorageArea()">
 
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{ 'has-error': errorField.includes('type') }">
                 <label>{{ 'STORAGE_AREA.TYPE' | translate }}:</label>
                 <select 
                     [(ngModel)]="formModel.type" 
                     name="type" 
                     [disabled]="currentFormMode === 'view'" 
-                    required
+                    required 
                     class="block w-full"
                 >
                     <option value="" disabled></option>
@@ -53,7 +53,7 @@
             <div class="form-group-location-group">
                 <label class="group-label">{{ 'STORAGE_AREA.LOCATION' | translate }}</label>
 
-                <div class="location-field">
+                <div class="location-field" [ngClass]="{ 'has-error': errorField.includes('locationX') }">
                     <label>X:</label>
                     <input 
                         type="number" 
@@ -63,7 +63,7 @@
                         required>
                 </div>
 
-                <div class="location-field">
+                <div class="location-field" [ngClass]="{ 'has-error': errorField.includes('locationZ') }">
                     <label>Z:</label>
                     <input 
                         type="number" 
@@ -73,7 +73,7 @@
                         required>
                 </div>
 
-                <div class="location-field">
+                <div class="location-field" [ngClass]="{ 'has-error': errorField.includes('locationOrientation') }">
                     <label>{{ 'STORAGE_AREA.ORIENTATION' | translate }}:</label>
                     <input 
                         type="number" 
@@ -84,26 +84,24 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{ 'has-error': errorField.includes('maximumCapacity') }">
                 <label>{{ 'STORAGE_AREA.MAX_CAPACITY' | translate }}:</label>
                 <input 
                     type="number" 
                     [(ngModel)]="formModel.maximumCapacity" 
                     name="maximumCapacity" 
                     [disabled]="currentFormMode === 'view'" 
-                    required
-                >
+                    required>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{ 'has-error': errorField.includes('currentOccupancy') }">
                 <label>{{ 'STORAGE_AREA.CURRENT_OCCUPANCY' | translate }}:</label>
                 <input 
                     type="number" 
                     [(ngModel)]="formModel.currentOccupancy" 
                     name="currentOccupancy" 
                     [disabled]="currentFormMode === 'view'" 
-                    required
-                >
+                    required>
             </div>
 
             <div class="form-group">
@@ -111,10 +109,10 @@
 
                 <div class="dock-management-row">
                     <select 
-                        [(ngModel)]="selectedDockIdInArea"
-                        name="associatedDocks"
-                        [disabled]="currentFormMode === 'view' || !(formModel.docks && formModel.docks.length)"
-                        class="dock-list-select"
+                        [(ngModel)]="selectedDockIdInArea" 
+                        name="associatedDocks" 
+                        [disabled]="currentFormMode === 'view' || !(formModel.docks && formModel.docks.length)" 
+                        class="dock-list-select" 
                         size="3"
                     >
                         <option 
@@ -127,8 +125,8 @@
 
                     <button 
                         type="button" 
-                        (click)="removeSelectedDock()"
-                        [disabled]="currentFormMode === 'view' || !selectedDockIdInArea"
+                        (click)="removeSelectedDock()" 
+                        [disabled]="currentFormMode === 'view' || !selectedDockIdInArea" 
                         class="remove-dock-button"
                     >
                         {{ 'BUTTON.REMOVE' | translate }}
@@ -141,7 +139,7 @@
                 <div class="dock-management-row dock-add-control">
                     <select 
                         [(ngModel)]="dockToAddId" 
-                        name="dockToAdd"
+                        name="dockToAdd" 
                         [disabled]="currentFormMode === 'view' || !availableDocksForAdd.length"
                     >
                         <option [ngValue]="null" disabled></option>
@@ -151,8 +149,8 @@
                     </select>
                     <button 
                         type="button" 
-                        (click)="addDock()"
-                        [disabled]="currentFormMode === 'view' || !dockToAddId"
+                        (click)="addDock()" 
+                        [disabled]="currentFormMode === 'view' || !dockToAddId" 
                         class="add-dock-button"
                     >
                         {{ 'BUTTON.ADD' | translate }}
@@ -163,18 +161,16 @@
                 </div>
             </div>
 
-            <div class="feedback-message"
-                *ngIf="feedbackMessage.text"
-                [class.success]="feedbackMessage.type === 'success'"
-                [class.error]="feedbackMessage.type === 'error'"
-            >
-                <p>{{ feedbackMessage.text }}</p>
+            <div class="feedback-message" 
+                *ngIf="feedbackMessage.text" 
+                [class.success]="feedbackMessage.type === 'success'" 
+                [class.error]="feedbackMessage.type === 'error'" 
+                [innerHTML]="feedbackMessage.text">
             </div>
 
             <div class="form-actions" [class.hidden]="currentFormMode === 'view'">
-
-                <button
-                    type="submit"
+                <button 
+                    type="submit" 
                     [disabled]="isSubmitting"
                 >
                     {{ (currentFormMode === 'create' ? 'BUTTON.CREATE' : 'BUTTON.UPDATE') | translate }}

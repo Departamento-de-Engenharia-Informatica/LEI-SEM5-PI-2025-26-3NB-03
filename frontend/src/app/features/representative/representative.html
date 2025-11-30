@@ -17,8 +17,7 @@
                 {{ 'COMMON.LOADING' | translate }}...
             </div>
 
-            <div 
-                *ngFor="let rep of representatives" 
+            <div *ngFor="let rep of representatives" 
                 [class.active-rep]="rep.active" 
                 [class.inactive-rep]="!rep.active" 
                 [class.selected]="selectedRepresentative?.id === rep.id" 
@@ -36,14 +35,14 @@
     <div class="details-form">
         <form (ngSubmit)="saveRepresentative()">
 
-            <div class="form-group">
-                <label>Citizen ID:</label>
+            <div class="form-group" [ngClass]="{ 'has-error': errorField.includes('citizenId') }">
+                <label>{{ 'REPRESENTATIVE.CITIZEN_ID' | translate }}:</label>
                 <input 
                     type="text" 
                     [(ngModel)]="formModel.id" 
                     name="id" 
                     required 
-                    [disabled]="currentFormMode !== 'create'" 
+                    [disabled]="currentFormMode !== 'create'"
                 >
             </div>
 
@@ -54,39 +53,53 @@
                     disabled>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{ 'has-error': errorField.includes('name') }">
                 <label>{{ 'REPRESENTATIVE.NAME' | translate }}:</label>
-                <input type="text" [(ngModel)]="formModel.name" name="name" [disabled]="currentFormMode === 'view'" required>
+                <input type="text" 
+                    [(ngModel)]="formModel.name" 
+                    name="name" 
+                    [disabled]="currentFormMode === 'view'" 
+                    required>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{ 'has-error': errorField.includes('nationality') }">
                 <label>{{ 'REPRESENTATIVE.NATIONALITY' | translate }}:</label>
-                <input type="text" [(ngModel)]="formModel.nationality" name="nationality" [disabled]="currentFormMode === 'view'" required>
+                <input type="text" 
+                    [(ngModel)]="formModel.nationality" 
+                    name="nationality" 
+                    [disabled]="currentFormMode === 'view'" 
+                    required>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{ 'has-error': errorField.includes('email') }">
                 <label>{{ 'REPRESENTATIVE.EMAIL' | translate }}:</label>
-                <input type="email" [(ngModel)]="formModel.email" name="email" [disabled]="currentFormMode === 'view'" required>
+                <input type="email" 
+                    [(ngModel)]="formModel.email" 
+                    name="email" 
+                    [disabled]="currentFormMode === 'view'" 
+                    required>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" [ngClass]="{ 'has-error': errorField.includes('phoneNumber') }">
                 <label>{{ 'REPRESENTATIVE.PHONE' | translate }}:</label>
-                <input type="number" [(ngModel)]="formModel.phoneNumber" name="phoneNumber" [disabled]="currentFormMode === 'view'" required>
+                <input type="number" 
+                    [(ngModel)]="formModel.phoneNumber" 
+                    name="phoneNumber" 
+                    [disabled]="currentFormMode === 'view'" 
+                    required>
             </div>
 
             <div class="feedback-message" 
                 *ngIf="feedbackMessage.text" 
                 [class.success]="feedbackMessage.type === 'success'" 
-                [class.error]="feedbackMessage.type === 'error'"
-            >
-                <p>{{ feedbackMessage.text }}</p>
+                [class.error]="feedbackMessage.type === 'error'" 
+                [innerHTML]="feedbackMessage.text">
             </div>
 
             <div class="form-actions" [class.hidden]="currentFormMode === 'view'">
-
                 <button 
                     type="submit" 
-                    *ngIf="currentFormMode !== 'view'"
+                    *ngIf="currentFormMode !== 'view'" 
                     [disabled]="(currentFormMode === 'update' && selectedRepresentative && !selectedRepresentative.active) || isSubmitting"
                 >
                     {{ (currentFormMode === 'create' ? 'BUTTON.CREATE' : 'BUTTON.UPDATE') | translate }}
@@ -94,9 +107,8 @@
 
                 <button 
                     type="button" 
-                    (click)="deactivation()"
-                    
-                    *ngIf="currentFormMode === 'update' && selectedRepresentative && selectedRepresentative.active"
+                    (click)="deactivation()" 
+                    *ngIf="currentFormMode === 'update' && selectedRepresentative && selectedRepresentative.active" 
                     class="deactivate"
                 >
                     {{ 'BUTTON.DEACTIVATE' | translate }}
@@ -104,15 +116,13 @@
                 
                 <button 
                     type="button" 
-                    disabled
-                    *ngIf="currentFormMode === 'update' && selectedRepresentative && !selectedRepresentative.active"
+                    disabled 
+                    *ngIf="currentFormMode === 'update' && selectedRepresentative && !selectedRepresentative.active" 
                     class="inactive-disabled"
                 >
                     {{ 'BUTTON.INACTIVE' | translate }}
                 </button>
-
-                </div>
-            
-            </form>
+            </div>
+        </form>
     </div>
 </div>
