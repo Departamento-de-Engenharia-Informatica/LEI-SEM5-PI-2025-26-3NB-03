@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace DDDSample1.Domain.PhysicalResources
 {
-    public class PhysicalResourceDto
+    public class UpdatingPhysicalResourceDto
     {
-        public Guid Id { get; set; }
-
         public string Code { get; set; }
         public string Type { get; set; }
         public string Description { get; set; }
@@ -16,7 +14,6 @@ namespace DDDSample1.Domain.PhysicalResources
         public TimeSpan? WeekendFinish { get; set; }
         public int ContainerCapacity { get; set; }
         public int? AverageSpeed { get; set; }
-        public string AvailabilityStatus { get; set; }
         public int SetupTime { get; set; }
         public List<string> Qualifications { get; set; }
         public Guid? Dock { get; set; }
