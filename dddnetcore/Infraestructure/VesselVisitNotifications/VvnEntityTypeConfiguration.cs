@@ -10,11 +10,11 @@ namespace DDDSample1.Infrastructure.VesselVisitNotifications
         {
             builder.HasKey(b => b.Id);
 
-            // Converter explícito para o ID forte (VvnId <-> Guid)
+
             builder.Property(b => b.Id)
                 .HasConversion(
-                    id => id.AsGuid(),         // para a BD
-                    guid => new VvnId(guid))   // da BD para a entidade
+                    id => id.AsGuid(),
+                    guid => new VvnId(guid))
                 .ValueGeneratedNever();
 
             builder.HasIndex(b => new { b.OrganizationId, b.Status });

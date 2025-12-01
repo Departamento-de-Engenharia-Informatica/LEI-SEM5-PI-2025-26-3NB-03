@@ -15,7 +15,7 @@ namespace DDDSample1.Controllers
             _service = service;
         }
 
-        // POST /api/qualifications
+
         [HttpPost]
         public async Task<ActionResult<QualificationViewDto>> Create([FromBody] CreateQualificationDto dto)
         {
@@ -23,7 +23,7 @@ namespace DDDSample1.Controllers
             return Created($"/api/qualifications/{created.Code}", created);
         }
 
-        // PATCH /api/qualifications/{code}
+
         [HttpPatch("{code}")]
         public async Task<ActionResult<QualificationViewDto>> Update(string code, [FromBody] UpdateQualificationDto dto)
         {
@@ -31,7 +31,7 @@ namespace DDDSample1.Controllers
             return Ok(updated);
         }
 
-        // GET /api/qualifications?code=...&name=...
+
         [HttpGet]
         public async Task<ActionResult> Search([FromQuery] string code, [FromQuery] string name)
         {

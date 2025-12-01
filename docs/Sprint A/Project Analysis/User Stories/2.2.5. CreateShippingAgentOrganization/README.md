@@ -15,10 +15,6 @@
 User: Port Authority Officer<br>
 x: Shipping Agent Organization
 
-### SD Level 2
-
-N/A
-
-### SD Level 3
+### SD Other Levels
 
 N/A

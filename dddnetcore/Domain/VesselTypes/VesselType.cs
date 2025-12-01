@@ -1,5 +1,7 @@
 using System;
 using DDDSample1.Domain.Shared;
+using DDDSample1.Domain.Docks;
+using System.Collections.Generic;
 
 namespace DDDSample1.Domain.VesselTypes
 {
@@ -12,10 +14,12 @@ namespace DDDSample1.Domain.VesselTypes
         public int MaxBays { get; private set; }
         public int MaxTiers { get; private set; }
 
-        // EF Core
+        private readonly List<Dock> _docks = new();
+        public IReadOnlyCollection<Dock> Docks => _docks.AsReadOnly();
+
         private VesselType() { }
 
-        public VesselType(string name, string description, int capacity, int maxRows, int maxBays, int maxTiers)
+        public VesselType(string name, string description, int capacity, int maxrows, int maxbays, int maxtiers)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new BusinessRuleValidationException("Name is required.");
@@ -26,22 +30,57 @@ namespace DDDSample1.Domain.VesselTypes
             if (capacity <= 0)
                 throw new BusinessRuleValidationException("Capacity must be a positive integer.");
 
-            if (maxRows <= 0)
+            if (maxrows <= 0)
                 throw new BusinessRuleValidationException("MaxRows must be a positive integer.");
 
-            if (maxBays <= 0)
+            if (maxbays <= 0)
                 throw new BusinessRuleValidationException("MaxBays must be a positive integer.");
 
-            if (maxTiers <= 0)
+            if (maxtiers <= 0)
                 throw new BusinessRuleValidationException("MaxTiers must be a positive integer.");
 
             this.Id = new VesselTypeId(Guid.NewGuid());
             this.Name = name;
             this.Description = description;
             this.Capacity = capacity;
-            this.MaxRows = maxRows;
-            this.MaxBays = maxBays;
-            this.MaxTiers = maxTiers;
+            this.MaxRows = maxrows;
+            this.MaxBays = maxbays;
+            this.MaxTiers = maxtiers;
         }
+        
+        public void ChangeName(string name)
+        {
+            this.Name = name;
+        }
+
+        public void ChangeDescription(string description)
+        {
+            this.Description = description; 
+        }
+
+        public void ChangeCapacity(int capacity)
+        {
+            this.Capacity = capacity;
+        }
+
+        public void ChangeMaxBays(int maxbays)
+        {
+            this.MaxBays = maxbays;
+        }
+
+        public void ChangeMaxRows(int maxrows)
+        {
+            this.MaxRows = maxrows;
+        }
+
+        public void ChangeMaxTiers(int maxtiers)
+        {
+            this.MaxTiers = maxtiers;
+        }
+
+        public static VesselType CreateSubmitted(
+            string name, string description, int capacity, int maxrows, int maxbays, int maxtiers)
+            => new(name, description, capacity, maxrows, maxbays, maxtiers);
+       
     }
 }

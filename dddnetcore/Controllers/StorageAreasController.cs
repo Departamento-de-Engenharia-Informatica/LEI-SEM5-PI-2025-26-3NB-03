@@ -25,7 +25,7 @@ namespace DDDSample1.Controllers
             return await _service.GetAllAsync();
         }
 
-        // GET: api/StorageAreas/5
+        // GET: api/StorageAreas/id
         [HttpGet("{id}")]
         public async Task<ActionResult<StorageAreaDto>> GetById(Guid id)
         {
@@ -45,33 +45,36 @@ namespace DDDSample1.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var storageArea = await _service.AddAsync(dto);
-
-            return CreatedAtAction(nameof(GetById), new { id = storageArea.Id }, storageArea);
+            try
+            {
+                var storageArea = await _service.AddAsync(dto);
+                return CreatedAtAction(nameof(GetById), new { id = storageArea.Id }, storageArea);
+            }
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
         }
 
-        // PUT: api/StorageAreas/5
+        // PUT: api/StorageAreas/id
         [HttpPut("{id}")]
-        public async Task<ActionResult<StorageAreaDto>> Update(Guid id, StorageAreaDto dto)
+        public async Task<ActionResult<StorageAreaDto>> Update(Guid id, UpdateStorageAreaDto dto)
         {
-            if (id != dto.Id || !ModelState.IsValid)
-            {
-                return BadRequest();
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             try
             {
-                var storageArea = await _service.UpdateAsync(dto);
-                
+                var storageArea = await _service.UpdateAsync(id, dto);
+
                 if (storageArea == null)
-                {
                     return NotFound();
-                }
+
                 return Ok(storageArea);
             }
-            catch(BusinessRuleValidationException ex)
+            catch (BusinessRuleValidationException ex)
             {
-                return BadRequest(new {Message = ex.Message});
+                return BadRequest(new { Message = ex.Message });
             }
         }
     }

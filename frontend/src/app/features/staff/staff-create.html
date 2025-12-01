@@ -1,0 +1,28 @@
+<div class="page-card">
+
+  <h2 class="page-title">{{ 'STAFF.CREATE_TITLE' | translate }}</h2>
+
+  <form (ngSubmit)="save()">
+
+    <div class="form-row">
+      <label>{{ 'STAFF.CODE' | translate }}</label>
+      <input [(ngModel)]="model.code" name="code" required />
+    </div>
+
+    <div class="form-row">
+      <label>{{ 'STAFF.NAME' | translate }}</label>
+      <input [(ngModel)]="model.name" name="name" required />
+    </div>
+
+    <div class="form-row">
+      <label>{{ 'STAFF.EMAIL' | translate }}</label>
+      <input [(ngModel)]="model.email" name="email" required />
+    </div>
+
+    <button class="btn-primary" type="submit">
+      {{ 'BUTTON.CREATE' | translate }}
+    </button>
+
+  </form>
+
+</div>

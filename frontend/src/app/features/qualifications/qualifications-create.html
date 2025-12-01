@@ -1,0 +1,23 @@
+<div class="page-card">
+
+  <h2 class="page-title">{{ 'QUAL.CREATE_TITLE' | translate }}</h2>
+
+  <form (ngSubmit)="save()">
+
+    <div class="form-row">
+      <label>{{ 'QUAL.CODE' | translate }}</label>
+      <input [(ngModel)]="model.code" name="code" required />
+    </div>
+
+    <div class="form-row">
+      <label>{{ 'QUAL.NAME' | translate }}</label>
+      <input [(ngModel)]="model.name" name="name" required />
+    </div>
+
+    <button class="btn-primary" type="submit">
+      {{ 'BUTTON.CREATE' | translate }}
+    </button>
+
+  </form>
+
+</div>
