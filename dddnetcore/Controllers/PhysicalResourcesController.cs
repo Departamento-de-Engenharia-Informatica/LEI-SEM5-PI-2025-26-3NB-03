@@ -25,7 +25,7 @@ namespace DDDSample1.Controllers
             return await _service.GetAllAsync();
         }
 
-        // GET: api/PhysicalResources/5
+        // GET: api/PhysicalResources/id
         [HttpGet("{id}")]
         public async Task<ActionResult<PhysicalResourceDto>> GetById(Guid id)
         {
@@ -43,23 +43,31 @@ namespace DDDSample1.Controllers
         [HttpPost]
         public async Task<ActionResult<PhysicalResourceDto>> Create(CreatingPhysicalResourceDto dto)
         {
-            var resource = await _service.AddAsync(dto);
-
-            return CreatedAtAction(nameof(GetById), new { id = resource.Id }, resource);
-        }
-
-        // PUT: api/PhysicalResources/5
-        [HttpPut("{id}")]
-        public async Task<ActionResult<PhysicalResourceDto>> Update(Guid id, PhysicalResourceDto dto)
-        {
-            if (id != dto.Id)
-            {
-                return BadRequest();
-            }
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
             try
             {
-                var resource = await _service.UpdateAsync(dto);
+                var resource = await _service.AddAsync(dto);
+
+                return CreatedAtAction(nameof(GetById), new { id = resource.Id }, resource);
+            }
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
+
+        // PUT: api/PhysicalResources/id
+        [HttpPut("{id}")]
+        public async Task<ActionResult<PhysicalResourceDto>> Update(Guid id, UpdatingPhysicalResourceDto dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var resource = await _service.UpdateAsync(id, dto);
                 
                 if (resource == null)
                 {
@@ -73,7 +81,7 @@ namespace DDDSample1.Controllers
             }
         }
 
-        // Inactivate: api/PhysicalResources/5
+        // Inactivate: api/PhysicalResources/id
         [HttpDelete("{id}")]
         public async Task<ActionResult<PhysicalResourceDto>> SoftDelete(Guid id)
         {
