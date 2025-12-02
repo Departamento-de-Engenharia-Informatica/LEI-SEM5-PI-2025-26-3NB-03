@@ -40,9 +40,6 @@
     "ADD": "Adicionar",
     "REMOVE": "Remover"
   },
-  "DOCK": {
-    "NO_DOCKS_AVAILABLE": "Não existem docas."
-  },
   "STORAGE_AREA": {
     "TYPE": "Tipo",
     "LOCATION": "Localização",
@@ -63,7 +60,8 @@
     "CREATE_FAILURE": "Erro ao criar a Zona de Armazenamentoa.",
     "UPDATE_SUCCESS": "Zona de Armazenamento atualizada com sucesso.",
     "UPDATE_FAILURE": "Erro ao atualizar a Zona de Armazenamento.",
-    "DOCK_ALREADY_ADDED": "A Doca já tinha sido adicionada."
+    "DOCK_ALREADY_ADDED": "A Doca já tinha sido adicionada.",
+    "NO_DOCKS_AVAILABLE": "Não existem docas."
   },
   "SHIPPING_AGENT_ORGANIZATION": {
     "LEGAL_NAME": "Nome Legal",
@@ -99,7 +97,45 @@
     "CREATE_SUCCESS": "Representante criado com sucesso.",
     "CREATE_FAILURE": "Erro ao criar o Representante.",
     "UPDATE_SUCCESS": "Representante atualizado com sucesso.",
-    "UPDATE_FAILURE": "Erro ao atualizar o Representante."
+    "UPDATE_FAILURE": "Erro ao atualizar o Representante.",
+    "DEACTIVATE": "Tem certeza que deseja desativar este representante?"
+  },
+  "PHYSICAL_RESOURCE": {
+    "CODE": "Código",
+    "TYPE": "Tipo",
+    "DESCRIPTION": "Descrição",
+    "OPERATIONAL_WINDOW": "Janela Operacional",
+    "WEEKDAY_START": "Início à semana",
+    "WEEKDAY_FINISH": "Fim à semana",
+    "OPERATIONAL_CAPACITY": "Capacidade Operacional",
+    "CONTAINER_CAPACITY": "Capacidade de Contentores",
+    "AVERAGE_SPEED": "Velocidade Média",
+    "WEEKEND_START": "Início ao fim de semana",
+    "WEEKEND_FINISH": "Fim ao fim de semana",
+    "SETUP_TIME": "Tempo de arranque",
+    "NO_QUALIFICATIONS_AVAILABLE": "Não existem Qualificações.",
+    "DOCK": "Doca",
+    "CREATE_SUCCESS": "Recurso Físico criado com sucesso.",
+    "CREATE_FAILURE": "Erro ao criar Recurso Físico.",
+    "UPDATE_SUCCESS": "Recurso Físico atualizado com sucesso.",
+    "UPDATE_FAILURE": "Erro ao atualizar Recurso Físico.",
+    "DEACTIVATE": "Tens a certeza que queres desativar este Recurso Físico?",
+    "CODE_REQUIRED": "O Código é de preenchimento obrigatório.",
+    "CODE_ALREADY_EXISTS": "Este Código já existe.",
+    "TYPE_REQUIRED": "O Tipo é de preenchimento obrigatório.",
+    "DESCRIPTION_REQUIRED": "A Descrição é de preenchimento obrigatório.",
+    "QUALIFICATION_REQUIRED": "É obrigatório ter pelo menos uma Qualificação.",
+    "OPERATIONAL_WINDOW_REQUIRED": "Pelo menos uma Janela de Operação tem que ser definida.",
+    "CONTAINER_CAPACITY_HIGHER_THAN_ONE": "A Capacidade de Contentores tem que ser pelo menos 1.",
+    "CONTAINER_CAPACITY_REQUIRED": "A Capacidade de Contentores é de preenchimento obrigatório.",
+    "CONTAINER_CAPACITY_INVALID": "Capacidade de Contentores inválida.",
+    "AVERAGE_SPEED_HIGHER_THAN_ONE": "Um Camião tem que ter uma Velocidade Média de pelo menos 1.",
+    "ONLY_TRUCK_AVERAGE_SPEED": "Só Camiões podem ter Velocidade Média.",
+    "AVERAGE_SPEED_INVALID": "Velocidade Média inválida.",
+    "SETUP_TIME_INVALID": "Tempo de arranque inválido.",
+    "SETUP_TIME_POSITIVE": "O Tempo de arranque tem que ser um número positivo.",
+    "ONLY_STS_DOCK": "Só Gruas Fixas podem ser alocadas a docas.",
+    "STS_DOCK_REQUIRED": "Gruas Fixas precisam de ser alocadas a uma doca."
   },
   "VESSELTYPE":{
     "VIEW_TITLE": "Visualizar de Tipos de Embarcação",
@@ -111,9 +147,6 @@
     "MAXROWS": "Maximo de camadas transversais",
     "MAXBAYS": "Maximo de camadas longitudinal",
     "MAXTIERS": "Maximo de camadas verticais"
-  },
-  "CONFIRM": {
-    "ACTION": "Tem certeza que deseja desativar este representante?"
   },
   "MESSAGE": {
     "CREATE_SUCCESS": "Criado com sucesso.",

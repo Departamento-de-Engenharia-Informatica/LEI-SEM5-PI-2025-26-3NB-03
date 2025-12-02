@@ -28,7 +28,8 @@
   },
   "COMMON": {
     "LOADING": "Loading",
-    "NO_DATA": "No data found"
+    "NO_DATA": "No data found",
+    "NONE": "None"
   },
   "BUTTON": {
     "NEW": "New",
@@ -38,9 +39,6 @@
     "DEACTIVATE": "Deactivate",
     "ADD": "Add",
     "REMOVE": "Remove"
-  },
-  "DOCK": {
-    "NO_DOCKS_AVAILABLE": "No docks available."
   },
   "STORAGE_AREA": {
     "TYPE": "Type",
@@ -62,7 +60,8 @@
     "CREATE_FAILURE": "Error creating Storage Area.",
     "UPDATE_SUCCESS": "Storage Area updated successfully.",
     "UPDATE_FAILURE": "Error updating Storage Area.",
-    "DOCK_ALREADY_ADDED": "Dock already added."
+    "DOCK_ALREADY_ADDED": "Dock already added.",
+    "NO_DOCKS_AVAILABLE": "No docks available."
   },
   "SHIPPING_AGENT_ORGANIZATION": {
     "LEGAL_NAME": "Legal Name",
@@ -98,7 +97,45 @@
     "CREATE_SUCCESS": "Representative created successfully.",
     "CREATE_FAILURE": "Error creating Representative.",
     "UPDATE_SUCCESS": "Representative updated successfully.",
-    "UPDATE_FAILURE": "Error updating Representative."
+    "UPDATE_FAILURE": "Error updating Representative.",
+    "DEACTIVATE": "Are you sure you want to deactivate this representative?"
+  },
+  "PHYSICAL_RESOURCE": {
+    "CODE": "Code",
+    "TYPE": "Type",
+    "DESCRIPTION": "Description",
+    "OPERATIONAL_WINDOW": "Operational Window",
+    "WEEKDAY_START": "Weekday Start",
+    "WEEKDAY_FINISH": "Weekday Finish",
+    "OPERATIONAL_CAPACITY": "Operational Capacity",
+    "CONTAINER_CAPACITY": "Container Capacity",
+    "AVERAGE_SPEED": "Average Speed",
+    "WEEKEND_START": "Weekend Start",
+    "WEEKEND_FINISH": "weekend Finish",
+    "SETUP_TIME": "Setup Time",
+    "NO_QUALIFICATIONS_AVAILABLE": "No Qualifications available.",
+    "DOCK": "Dock",
+    "CREATE_SUCCESS": "Physical Resource created successfully.",
+    "CREATE_FAILURE": "Error creating Physical Resource.",
+    "UPDATE_SUCCESS": "Physical Resource updated successfully.",
+    "UPDATE_FAILURE": "Error updating Physical Resource.",
+    "DEACTIVATE": "Are you sure you want to deactivate this Physical Resource?",
+    "CODE_REQUIRED": "Code is required.",
+    "CODE_ALREADY_EXISTS": "The Code already exists.",
+    "TYPE_REQUIRED": "Type is required.",
+    "DESCRIPTION_REQUIRED": "Description is required.",
+    "QUALIFICATION_REQUIRED": "At least one Qualification is required.",
+    "OPERATIONAL_WINDOW_REQUIRED": "At least one operational window must be defined.",
+    "CONTAINER_CAPACITY_HIGHER_THAN_ONE": "Container Capacity has to be at least 1.",
+    "CONTAINER_CAPACITY_REQUIRED": "Container Capacity is required.",
+    "CONTAINER_CAPACITY_INVALID": "The Container Capacity is invalid.",
+    "AVERAGE_SPEED_HIGHER_THAN_ONE": "A Truck must have an Average Speed of at least 1.",
+    "ONLY_TRUCK_AVERAGE_SPEED": "Only Trucks can have an Average Speed.",
+    "AVERAGE_SPEED_INVALID": "The Average Speed is invalid.",
+    "SETUP_TIME_INVALID": "The Setup Time is invalid.",
+    "SETUP_TIME_POSITIVE": "The Setup Time must be a positive number.",
+    "ONLY_STS_DOCK": "Only Fixed Cranes can be assigned to docks.",
+    "STS_DOCK_REQUIRED": "A Fixed Crane needs to be assigned to a dock."
   },
   "VESSELTYPE":{
     "VIEW_TITLE": "Vessel Type Visualizationo",
@@ -110,9 +147,6 @@
     "MAXROWS": "Max rows",
     "MAXBAYS": "Max Bays",
     "MAXTIERS": "Max Tiers"
-  },
-  "CONFIRM": {
-    "ACTION": "Are you sure you want to deactivate this representative?"
   },
   "MESSAGE": {
     "CREATE_SUCCESS": "Successfully created.",

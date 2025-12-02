@@ -45,8 +45,8 @@ namespace DDDSample1.Domain.PhysicalResources
                     AverageSpeed = resource.AverageSpeed,
                     SetupTime = resource.SetupTime,
                     AvailabilityStatus = resource.AvailabilityStatus,
-                    Qualifications = resource.Qualifications.Select(q => q.Id.AsString()).ToList(),
-                    Dock = resource.AssignedDockId != null ? resource.AssignedDockId.AsGuid() : Guid.Empty
+                    Qualifications = resource.Qualifications.Select(q => q.Code).ToList(),
+                    Dock = resource.AssignedDockId?.AsGuid()
                 };
             });
         }
@@ -74,8 +74,8 @@ namespace DDDSample1.Domain.PhysicalResources
                 AverageSpeed = resource.AverageSpeed,
                 SetupTime = resource.SetupTime,
                 AvailabilityStatus = resource.AvailabilityStatus,
-                Qualifications = resource.Qualifications.Select(q => q.Id.AsString()).ToList(),
-                Dock = resource.AssignedDockId != null ? resource.AssignedDockId.AsGuid() : Guid.Empty
+                Qualifications = resource.Qualifications.Select(q => q.Code).ToList(),
+                Dock = resource.AssignedDockId?.AsGuid()
             };
         }
 
@@ -85,11 +85,11 @@ namespace DDDSample1.Domain.PhysicalResources
                 throw new BusinessRuleValidationException("A Physical Resource needs at least one Qualification.");
 
             var qualifications = new List<Qualification>();
-            foreach (var quaId in dto.Qualifications.Select(id => new QualificationId(id)))
+            foreach (var code in dto.Qualifications)
             {
-                var qualification = await _repQ.GetByIdAsync(quaId);
+                var qualification = await _repQ.GetByCodeAsync(code);
                 if (qualification == null)
-                    throw new BusinessRuleValidationException($"Qualification {quaId.AsString()} doesn't exist.");
+                    throw new BusinessRuleValidationException($"Qualification '{code}' doesn't exist.");
                 qualifications.Add(qualification);
             }
 
@@ -101,6 +101,8 @@ namespace DDDSample1.Domain.PhysicalResources
                 if (dock == null)
                     throw new BusinessRuleValidationException($"Dock {dockId.AsString()} doesn't exist.");
             }
+
+            await EnsureCodeIsUniqueAsync(dto.Code);
 
             var resource = new PhysicalResource(
                 dto.Code,
@@ -134,8 +136,8 @@ namespace DDDSample1.Domain.PhysicalResources
                 AverageSpeed = resource.AverageSpeed,
                 SetupTime = resource.SetupTime,
                 AvailabilityStatus = resource.AvailabilityStatus,
-                Qualifications = resource.Qualifications.Select(q => q.Id.AsString()).ToList(),
-                Dock = resource.AssignedDockId != null ? resource.AssignedDockId.AsGuid() : Guid.Empty
+                Qualifications = resource.Qualifications.Select(q => q.Code).ToList(),
+                Dock = resource.AssignedDockId?.AsGuid()
             };
         }
 
@@ -147,11 +149,11 @@ namespace DDDSample1.Domain.PhysicalResources
                 return null;
 
             var qualifications = new List<Qualification>();
-            foreach (var quaId in dto.Qualifications.Select(id => new QualificationId(id)))
+            foreach (var code in dto.Qualifications)
             {
-                var qualification = await _repQ.GetByIdAsync(quaId);
+                var qualification = await _repQ.GetByCodeAsync(code);
                 if (qualification == null)
-                    throw new BusinessRuleValidationException($"Qualification {quaId.AsString()} doesn't exist.");
+                    throw new BusinessRuleValidationException($"Qualification '{code}' doesn't exist.");
                 qualifications.Add(qualification);
             }
 
@@ -163,6 +165,8 @@ namespace DDDSample1.Domain.PhysicalResources
                 if (dock == null)
                     throw new BusinessRuleValidationException($"Dock {dockId.AsString()} doesn't exist.");
             }
+
+            await EnsureCodeIsUniqueAsync(dto.Code, rId);
 
             resource.ChangeCode(dto.Code);
             resource.ChangeType(dto.Type);
@@ -195,8 +199,8 @@ namespace DDDSample1.Domain.PhysicalResources
                 AverageSpeed = resource.AverageSpeed,
                 SetupTime = resource.SetupTime,
                 AvailabilityStatus = resource.AvailabilityStatus,
-                Qualifications = resource.Qualifications.Select(q => q.Id.AsString()).ToList(),
-                Dock = resource.AssignedDockId != null ? resource.AssignedDockId.AsGuid() : Guid.Empty
+                Qualifications = resource.Qualifications.Select(q => q.Code).ToList(),
+                Dock = resource.AssignedDockId?.AsGuid()
             };
         }
 
@@ -225,9 +229,47 @@ namespace DDDSample1.Domain.PhysicalResources
                 AverageSpeed = resource.AverageSpeed,
                 SetupTime = resource.SetupTime,
                 AvailabilityStatus = resource.AvailabilityStatus,
-                Qualifications = resource.Qualifications.Select(q => q.Id.AsString()).ToList(),
-                Dock = resource.AssignedDockId != null ? resource.AssignedDockId.AsGuid() : Guid.Empty
+                Qualifications = resource.Qualifications.Select(q => q.Code).ToList(),
+                Dock = resource.AssignedDockId?.AsGuid()
             };
+        }
+
+        private async Task EnsureCodeIsUniqueAsync(string code, Guid? existingResourceId = null)
+        {
+            var existing = await _repo.GetByCodeAsync(code);
+
+            if (existing != null)
+            {
+                if (!existingResourceId.HasValue || existing.Id.AsGuid() != existingResourceId.Value)
+                    throw new BusinessRuleValidationException($"A Physical Resource with Code '{code}' already exists.");
+            }
+        }
+
+        public async Task<List<PhysicalResourceDto>> SearchAsync(
+            string code = null, 
+            string description = null, 
+            string type = null, 
+            string availabilityStatus = null)
+        {
+            var list = await _repo.SearchAsync(code, description, type, availabilityStatus);
+
+            return list.ConvertAll(resource => new PhysicalResourceDto
+            {
+                Id = resource.Id.AsGuid(),
+                Code = resource.Code,
+                Type = resource.Type,
+                Description = resource.Description,
+                WeekdayStart = resource.WeekdayStart,
+                WeekdayFinish = resource.WeekdayFinish,
+                WeekendStart = resource.WeekendStart,
+                WeekendFinish = resource.WeekendFinish,
+                ContainerCapacity = resource.ContainerCapacity,
+                AverageSpeed = resource.AverageSpeed,
+                SetupTime = resource.SetupTime,
+                AvailabilityStatus = resource.AvailabilityStatus,
+                Qualifications = resource.Qualifications.Select(q => q.Code).ToList(),
+                Dock = resource.AssignedDockId?.AsGuid()
+            });
         }
     }
 }

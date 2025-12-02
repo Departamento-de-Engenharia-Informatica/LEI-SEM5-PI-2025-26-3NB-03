@@ -130,8 +130,12 @@
                 [innerHTML]="feedbackMessage.text">
             </div>
 
-            <div class="form-actions">
-                <button type="submit" [disabled]="isSubmitting">
+            <div class="form-actions" [class.hidden]="currentFormMode === 'view'">
+                <button 
+                    type="submit" 
+                    *ngIf="currentFormMode !== 'view'" 
+                    [disabled]="isSubmitting"
+                >
                     {{ currentFormMode === 'create' ? 'Create' : 'Update' }}
                 </button>
             </div>

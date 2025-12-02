@@ -10,6 +10,7 @@ import { StaffEdit } from './features/staff/staff-edit';
 import { StorageArea } from './features/storagearea/storagearea';
 import { ShippingAgentOrganization } from './features/shippingagentorganization/shippingagentorganization';
 import { NotFound } from './shared/components/notfound';
+import { PhysicalResource } from './features/physicalresource/physicalresource';
 
 export const routes: Routes = [
   {
@@ -54,6 +55,13 @@ export const routes: Routes = [
         title: 'Representative',
         canActivate: [roleGuard],
         data: { roles: ['PAO'] },
+      },
+      {
+        path: 'physicalresources',
+        component: PhysicalResource,
+        title: 'PhysicalResource',
+        canActivate: [roleGuard],
+        data: { roles: ['LO'] },
       },
       {
         path: 'shippingagentorganizations',

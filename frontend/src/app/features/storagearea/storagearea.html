@@ -157,7 +157,7 @@
                     </button>
                 </div>
                 <div *ngIf="currentFormMode !== 'view' && !availableDocksForAdd.length" class="no-data-docks">
-                    {{ 'DOCK.NO_DOCKS_AVAILABLE' | translate }}
+                    {{ 'STORAGE_AREA.NO_DOCKS_AVAILABLE' | translate }}
                 </div>
             </div>
 
@@ -171,6 +171,7 @@
             <div class="form-actions" [class.hidden]="currentFormMode === 'view'">
                 <button 
                     type="submit" 
+                    *ngIf="currentFormMode !== 'view'" 
                     [disabled]="isSubmitting"
                 >
                     {{ (currentFormMode === 'create' ? 'BUTTON.CREATE' : 'BUTTON.UPDATE') | translate }}
