@@ -68,5 +68,66 @@ namespace DDDSample1.Domain.Docks
             _vesselTypes.Remove(vesselType);
         }
         
+         public void ChangeName(string name)
+        {
+            this.Name = name;
+        }
+        public void ChangeLocationX(float locationX)
+        {
+            this.LocationX = locationX;
+        }
+        public void ChangeLocationZ(float locationZ)
+        {
+            this.LocationZ = locationZ;
+        }
+        public void ChangeLocationOrientation(float locationOrientation)
+        {
+            this.LocationOrientation = locationOrientation;
+        }
+
+
+        public void ChangeLength(int length)
+        {
+            if (length <= 0)
+                throw new BusinessRuleValidationException("Length must be greater than zero.");
+
+            this.Length = length;
+        }
+
+        public void ChangeDepth(int depth)
+        {
+            if (depth <= 0)
+                throw new BusinessRuleValidationException("Depth must be greater than zero.");
+
+            this.Depth = depth;
+        }
+
+        public void ChangeMaxDraft(int maxdraft)
+        {
+            if (maxdraft <= 0)
+                throw new BusinessRuleValidationException("Max Draft must be greater than zero.");
+
+            this.MaxDraft = maxdraft;
+        }
+
+        public void ChangeCapacity(int capacity)
+        {
+            if (capacity <= 0)
+                throw new BusinessRuleValidationException("Capacity must be greater than zero.");
+
+            this.Capacity = capacity;
+        }
+
+        public void ChangeVesselTypes(List<VesselType> vesseltypes)
+        {
+            _vesselTypes.Clear();
+            _vesselTypes.AddRange(vesseltypes ?? new List<VesselType>());
+        }
+
+        public static Dock CreateSubmitted(
+            string name, float locationX, float locationZ, float locationOrientation, int length, int depth, int maxdraft, int capacity,  List<VesselType> vesseltypes)
+            => new(name, locationX, locationZ, locationOrientation, length, depth, maxdraft, capacity, vesseltypes);
+        
+
     }
 }

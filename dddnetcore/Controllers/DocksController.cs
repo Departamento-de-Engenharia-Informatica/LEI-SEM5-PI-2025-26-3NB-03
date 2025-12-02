@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DDDSample1.Domain.Docks;
+using DDDSample1.Domain.Shared;
+
 
 namespace DDDSample1.Controllers
 {
@@ -28,7 +30,7 @@ namespace DDDSample1.Controllers
 
         // POST: api/docks
         [HttpPost]
-        public async Task<ActionResult<DockDto>> CreateDock([FromBody] CreatingDockDto dto)
+        public async Task<ActionResult<DockDto>> Create(CreatingDockDto dto)
         {
             try
             {
@@ -74,6 +76,28 @@ namespace DDDSample1.Controllers
         {
             var docks = await _service.GetByVesselTypeAsync(vesselTypeId);
             return Ok(docks);
+        }
+
+         // PUT: api/StorageAreas/id
+        [HttpPut("{id}")]
+        public async Task<ActionResult<DockDto>> Update(Guid id, UpdateDockDto dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                var dock = await _service.UpdateAsync(id, dto);
+
+                if (dock == null)
+                    return NotFound();
+
+                return Ok(dock);
+            }
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
         }
     }
 }

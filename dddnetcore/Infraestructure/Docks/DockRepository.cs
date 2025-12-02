@@ -40,5 +40,14 @@ namespace DDDSample1.Infrastructure.Docks
                 .Where(d => d.VesselTypes.Any(v => v.Id == vesselTypeId))
                 .ToListAsync();
         }
+
+        
+        public async Task<List<Dock>> GetAllAsync()
+        {
+        return await _context.Docks
+            .Include(d => d.VesselTypes)
+            .ToListAsync();
+        }
+
     }
 }

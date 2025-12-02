@@ -1,0 +1,19 @@
+using System;
+using System.Collections.Generic;
+
+namespace DDDSample1.Domain.Docks
+{
+    public class UpdateDockDto
+    {
+    public string Name { get;  set;} = null!;
+    public float LocationX { get; set; }
+    public float LocationZ { get; set; } 
+    public float LocationOrientation { get; set; }
+    public int Length { get; set; }
+    public int Depth { get; set; }
+    public int MaxDraft { get; set; }
+    public int Capacity { get; set; }
+    public List<Guid> VesselTypes { get; set; } = new();
+
+    }
+}
