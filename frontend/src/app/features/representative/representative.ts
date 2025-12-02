@@ -145,7 +145,7 @@ export class Representative implements OnInit {
 
   deactivation(): void {
     if (this.selectedRepresentative && this.selectedRepresentative.active) {
-      if (!confirm(`${this.translate.instant('CONFIRM.ACTION', { action: 'Desativar' })}`)) {
+      if (!confirm(`${this.translate.instant('REPRESENTATIVE.DEACTIVATE', { action: 'Desativar' })}`)) {
         return;
       }
       
@@ -156,7 +156,7 @@ export class Representative implements OnInit {
           this.selectedRepresentative = null;
         },
         error: (err) => {
-          console.error(`Erro ao desativar`, err);
+          console.error('Erro ao desativar', err);
         }
       });
     }
