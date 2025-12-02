@@ -1,6 +1,5 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router, ActivatedRouteSnapshot } from '@angular/router';
-
 import { Auth, UserRole } from '../services/auth';
 
 export const roleGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
@@ -8,7 +7,7 @@ export const roleGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
   const router = inject(Router);
 
   if (!authService.isLoggedIn()) {
-    return router.parseUrl('/login');
+    return router.parseUrl('/auth/login');
   }
 
   const requiredRoles = route.data['roles'] as UserRole[];

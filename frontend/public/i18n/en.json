@@ -13,9 +13,18 @@
     "DASHBOARD": "Main Dashboard",
     "VESSELTYPES": "Vessel Types",
     "STAFF": "Staff Members",
-    "VVNS": "Vessel Visit Notifications",
+    "CREATE_VVNS": "Create Vessel Visit Notifications",
+    "UPDATE_VVNS": "Update Vessel Visit Notifications",
+    "VIEW_VVNS": "View Vessel Visit Notifications",
     "PORT": "Port",
-    "REPRESENTATIVES": "Representatives"
+    "SHIPPING_AGENT_ORGANIZATIONS": "Shipping Agent Organizations",
+    "REPRESENTATIVES": "Representatives",
+    "QUALIFICATIONS": "Qualifications",
+    "STORAGE_AREAS": "Storage Areas",
+    "DOCKS": "Docks",
+    "VESSELS": "Vessels",
+    "REVIEW_VVNS": "Review Vessel Visit Notifications",
+    "PHYSICAL_RESOURCES": "Physical Resources"
   },
   "COMMON": {
     "LOADING": "Loading",
@@ -24,19 +33,83 @@
   "BUTTON": {
     "NEW": "New",
     "REFRESH": "Refresh",
-    "CREATE": "Add",
+    "CREATE": "Create",
     "UPDATE": "Update",
-    "DEACTIVATE": "Deactivate"
+    "DEACTIVATE": "Deactivate",
+    "ADD": "Add",
+    "REMOVE": "Remove"
+  },
+  "DOCK": {
+    "NO_DOCKS_AVAILABLE": "No docks available."
+  },
+  "STORAGE_AREA": {
+    "TYPE": "Type",
+    "LOCATION": "Location",
+    "ORIENTATION": "Orientation",
+    "MAX_CAPACITY": "Maximum Capacity",
+    "CURRENT_OCCUPANCY": "Current Occupancy",
+    "NO_DOCKS_ASSOCIATED": "Doesn't serve any dock.",
+    "TYPE_REQUIRED": "Type is required.",
+    "LOCATION_X_REQUIRED": "Coordinate X of Location is required.",
+    "LOCATION_Z_REQUIRED": "Coordinate Z of Location is required.",
+    "LOCATION_ORIENTATION_REQUIRED": "Location's Orientation is required.",
+    "MAXIMUM_CAPACITY_REQUIRED": "Maximum Capacity is required.",
+    "CURRENT_OCCUPANCY_REQUIRED": "Current Occupancy is required.",
+    "MAXIMUM_CAPACITY_INVALID": "The Maximum Capacity is invalid.",
+    "CURRENT_OCCUPANCY_INVALID": "The Current Occupancy is invalid.",
+    "OCCUPANCY_EXCEEDS_CAPACITY": "The Current Occupancy cannot exceed the Maximum Capacity.",
+    "CREATE_SUCCESS": "Storage Area created successfully.",
+    "CREATE_FAILURE": "Error creating Storage Area.",
+    "UPDATE_SUCCESS": "Storage Area updated successfully.",
+    "UPDATE_FAILURE": "Error updating Storage Area.",
+    "DOCK_ALREADY_ADDED": "Dock already added."
+  },
+  "SHIPPING_AGENT_ORGANIZATION": {
+    "LEGAL_NAME": "Legal Name",
+    "ALTERNATIVE_NAME": "Alternative Name",
+    "ADDRESS": "Address",
+    "TAX_NUMBER": "Tax Number",
+    "LEGAL_NAME_REQUIRED": "Legal Name is required.",
+    "ALT_NAME_REQUIRED": "Alternative Name is required.",
+    "ADDRESS_REQUIRED": "Address is required.",
+    "TAX_NUMBER_REQUIRED": "Tax Number is required.",
+    "TAX_NUMBER_INVALID": "The Tax Number is invalid.",
+    "REPRESENTATIVE_REQUIRED": "A Shipping Agent Organization requires at least one representative.",
+    "CREATE_SUCCESS": "Organization created successfully.",
+    "CREATE_FAILURE": "Error creating Organization.",
+    "UPDATE_SUCCESS": "Organization updated successfully.",
+    "UPDATE_FAILURE": "Error updating Organization.",
+    "REP_ALREADY_ADDED": "Representative already added."
   },
   "REPRESENTATIVE": {
-    "VIEW_TITLE": "View Representative Details",
-    "CREATE_TITLE": "Add New Representative",
-    "UPDATE_TITLE": "Update Representative",
+    "CITIZEN_ID": "Citizen ID",
     "ORGANIZATION_ID": "Shipping Agent Organization",
     "NAME": "Name",
     "NATIONALITY": "Nationality",
     "EMAIL": "E-mail",
-    "PHONE": "Phone Number"
+    "PHONE": "Phone Number",
+    "ID_REQUIRED": "Citizen ID is required.",
+    "NAME_REQUIRED": "Name is required.",
+    "EMAIL_REQUIRED": "E-mail is required.",
+    "EMAIL_INVALID_FORMAT": "Invalid E-mail format.",
+    "NATIONALITY_REQUIRED": "Nationality is required.",
+    "PHONE_NUMBER_REQUIRED": "Phone Number is required.",
+    "PHONE_NUMBER_INVALID": "The Phone Number is invalid.",
+    "CREATE_SUCCESS": "Representative created successfully.",
+    "CREATE_FAILURE": "Error creating Representative.",
+    "UPDATE_SUCCESS": "Representative updated successfully.",
+    "UPDATE_FAILURE": "Error updating Representative."
+  },
+  "VESSELTYPE":{
+    "VIEW_TITLE": "Vessel Type Visualizationo",
+    "CREATE_TITLE": "Create new Vessel Type",
+    "UPDATE_TITLE": "Update Vessel Type",
+    "NAME": "Name",
+    "DESCRIPTION": "Description",
+    "CAPACITY": "Capacity",
+    "MAXROWS": "Max rows",
+    "MAXBAYS": "Max Bays",
+    "MAXTIERS": "Max Tiers"
   },
   "CONFIRM": {
     "ACTION": "Are you sure you want to deactivate this representative?"
@@ -45,5 +118,43 @@
     "CREATE_SUCCESS": "Successfully created.",
     "UPDATE_SUCCESS": "Successfully updated.",
     "GENERIC_ERROR": "Error."
+  },
+  "VVN": {
+    "TITLE": "Vessel Visit Notifications",
+    "SEARCH": "Search",
+    "IMO": "IMO",
+    "VESSEL_NAME": "Vessel Name",
+    "STATUS": "Status",
+    "DOCKING": "Dock",
+    "REJECTION_REASON": "Rejection Reason",
+    "REPRESENTATIVE": "Representative",
+    "SUBMISSION_DATE": "Submission Date",
+    "CREATE_TITLE": "Create Vessel Visit Notification"
+  },
+  "QUAL": {
+    "TITLE": "Qualifications",
+    "CODE": "Code",
+    "NAME": "Name",
+    "CREATE_TITLE": "Create Qualification",
+    "EDIT_TITLE": "Edit Qualification"
+  },
+  "STAFF": {
+    "TITLE": "Staff Members",
+    "CODE": "Employee ID",
+    "NAME": "Name",
+    "EMAIL": "Email",
+    "PHONE": "Phone",
+    "QUALIFICATIONS": "Qualifications",
+    "STATUS": "Status",
+    "ACTIVE": "Active",
+    "INACTIVE": "Inactive",
+    "CREATE_TITLE": "Create Staff Member",
+    "EDIT_TITLE": "Edit Staff Member",
+    "ACTIONS": "Actions"
+  },
+  "NOT_FOUND": {
+    "TITLE": "404",
+    "MESSAGE": "Page Not Found",
+    "GO_HOME": "Go to Home"
   }
 }

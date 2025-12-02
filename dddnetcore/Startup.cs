@@ -42,6 +42,8 @@ namespace DDDSample1
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -57,6 +59,19 @@ namespace DDDSample1
                     opt.UseInMemoryDatabase("DDDSample1DB");
                     opt.ReplaceService<IValueConverterSelector, StronglyEntityIdValueConverterSelector>();
                 });
+
+            services.AddCors(options =>
+                {
+                    options.AddPolicy( 
+                        name: MyAllowSpecificOrigins,
+                        builder =>
+                            {
+                                builder.AllowAnyOrigin()
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod();
+                            });
+                });
+
             ConfigureMyServices(services);
 
             services.AddControllers().AddNewtonsoftJson();
@@ -79,12 +94,14 @@ namespace DDDSample1
 
             app.UseRouting();
 
+            app.UseCors(MyAllowSpecificOrigins);
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+                {
+                    endpoints.MapControllers();
+                });
 
             var scopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
             using (var scope = app.ApplicationServices.CreateScope())
@@ -120,26 +137,108 @@ namespace DDDSample1
                     ctx.ShippingAgentOrganizations.Add(org);
                     ctx.SaveChanges();
                 }
-                if (!ctx.StorageAreas.Any())
+                if (!ctx.VesselTypes.Any())
                 {
-                    ctx.StorageAreas.AddRange(new[]
-                    {
-                        DDDSample1.Domain.StorageAreas.StorageArea.CreateSubmitted(
-                            "Yard", "Zone A", 30, 1
-                        ),
-                        DDDSample1.Domain.StorageAreas.StorageArea.CreateSubmitted(
-                            "Warehouse", "Zone B", 20, 0
-                        )
-                    });
+                    ctx.VesselTypes.AddRange(new[] { new VesselType("Type1", "Carqueiro Pequeno", 27, 3, 3, 3) });
+                    ctx.VesselTypes.AddRange(new[] { new VesselType("Type2", "Carqueiro Médio", 64, 4, 4, 4) });
                     ctx.SaveChanges();
+                }
+                if (!ctx.Docks.Any())
+                {
+                    var type1 = ctx.VesselTypes.FirstOrDefault(vt => vt.Name == "Type1");
+
+                    if (type1 == null)
+                        throw new Exception("VesselType 'Type1' não foi encontrado na base de dados.");
+
+                    var dock1 = new Dock(
+                        name: "Dock1",
+                        locationx: -3,
+                        locationz: 17,
+                        locationorientation: 90,
+                        length: 7,
+                        depth: 2,
+                        maxDraft: 12,
+                        capacity: 500,
+                        vesselTypes: new List<VesselType> { type1 }
+                    );
+                    
+                    var type2 = ctx.VesselTypes.FirstOrDefault(vt => vt.Name == "Type2");
+
+                    if (type1 == null)
+                        throw new Exception("VesselType 'Type2' não foi encontrado na base de dados.");
+
+                    var dock2 = new Dock(
+                        name: "Dock2",
+                        locationx: 6,
+                        locationz: 17,
+                        locationorientation: 90,
+                        length: 7,
+                        depth: 2,
+                        maxDraft: 12,
+                        capacity: 500,
+                        vesselTypes: new List<VesselType> { type2 }
+                    );
+
+                    ctx.Docks.AddRange(new[] { dock1, dock2 });
+                    ctx.SaveChanges();
+
+                    if (!ctx.StorageAreas.Any())
+                    {
+                        ctx.StorageAreas.AddRange(new[]
+                        {
+                            DDDSample1.Domain.StorageAreas.StorageArea.CreateSubmitted(
+                                "Warehouse", 7.2f, -7.2f, 205.0f, 3000, 1200, new List<Dock>()
+                            ),
+                            DDDSample1.Domain.StorageAreas.StorageArea.CreateSubmitted(
+                                "Warehouse", -10.0f, 2.1f, 0.0f, 1300, 10, new List<Dock> { dock1 }
+                            ),
+                            DDDSample1.Domain.StorageAreas.StorageArea.CreateSubmitted(
+                                "Yard", 10.2f, 5.3f, 90.0f, 4000, 1000, new List<Dock> { dock1 }
+                            )
+                        });
+                        ctx.SaveChanges();
+                    }
                 }
                 if (!ctx.PhysicalResources.Any())
                 {
                     var qualifications = ctx.Qualifications.ToList();
                     ctx.PhysicalResources.AddRange(new[]
                     {
+                        DDDSample1.Domain.PhysicalResources.PhysicalResource.CreateSubmitted( 
+                            "STS001", 
+                            "Fixed Crane", 
+                            "A crane that is fixed to a dock.", 
+                            new TimeSpan(0, 0, 0), new TimeSpan(23, 59, 59), 
+                            new TimeSpan(0, 0, 0), new TimeSpan(23, 59, 59), 
+                            200, 
+                            null, 
+                            0, 
+                            qualifications, 
+                            ctx.Docks.First()
+                        ),
                         DDDSample1.Domain.PhysicalResources.PhysicalResource.CreateSubmitted(
-                            "Descrição 1.", "10", "Active", 0, qualifications
+                            "CR002", 
+                            "Mobile Crane", 
+                            "A crane that is mobile.", 
+                            new TimeSpan(0, 0, 0), new TimeSpan(23, 59, 59), 
+                            new TimeSpan(0, 0, 0), new TimeSpan(23, 59, 59), 
+                            50, 
+                            null, 
+                            5,
+                            qualifications, 
+                            null
+                        ),
+                        DDDSample1.Domain.PhysicalResources.PhysicalResource.CreateSubmitted(
+                            "TR001", 
+                            "Truck", 
+                            "A truck.", 
+                            new TimeSpan(8, 0, 0), new TimeSpan(22, 00, 00), 
+                            null, null, 
+                            50, 
+                            100, 
+                            10, 
+                            qualifications, 
+                            null
                         )
                     });
                     ctx.SaveChanges();

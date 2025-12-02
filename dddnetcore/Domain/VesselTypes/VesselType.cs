@@ -3,7 +3,6 @@ using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.Docks;
 using System.Collections.Generic;
 
-
 namespace DDDSample1.Domain.VesselTypes
 {
     public class VesselType : Entity<VesselTypeId>, IAggregateRoot
@@ -18,7 +17,6 @@ namespace DDDSample1.Domain.VesselTypes
         private readonly List<Dock> _docks = new();
         public IReadOnlyCollection<Dock> Docks => _docks.AsReadOnly();
 
-        // EF Core
         private VesselType() { }
 
         public VesselType(string name, string description, int capacity, int maxrows, int maxbays, int maxtiers)
@@ -50,7 +48,39 @@ namespace DDDSample1.Domain.VesselTypes
             this.MaxTiers = maxtiers;
         }
         
-       
+        public void ChangeName(string name)
+        {
+            this.Name = name;
+        }
+
+        public void ChangeDescription(string description)
+        {
+            this.Description = description; 
+        }
+
+        public void ChangeCapacity(int capacity)
+        {
+            this.Capacity = capacity;
+        }
+
+        public void ChangeMaxBays(int maxbays)
+        {
+            this.MaxBays = maxbays;
+        }
+
+        public void ChangeMaxRows(int maxrows)
+        {
+            this.MaxRows = maxrows;
+        }
+
+        public void ChangeMaxTiers(int maxtiers)
+        {
+            this.MaxTiers = maxtiers;
+        }
+
+        public static VesselType CreateSubmitted(
+            string name, string description, int capacity, int maxrows, int maxbays, int maxtiers)
+            => new(name, description, capacity, maxrows, maxbays, maxtiers);
        
     }
 }

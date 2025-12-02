@@ -1,0 +1,35 @@
+<div class="page-container">
+
+  <h2 class="page-title">{{ 'STAFF.TITLE' | translate }}</h2>
+
+  <a routerLink="/staff/create" class="add-button">
+    {{ 'BUTTON.NEW' | translate }}
+  </a>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>{{ 'STAFF.CODE' | translate }}</th>
+      <th>{{ 'STAFF.NAME' | translate }}</th>
+      <th>{{ 'STAFF.EMAIL' | translate }}</th>
+      <th>{{ 'STAFF.STATUS' | translate }}</th>
+      <th>{{ 'STAFF.ACTIONS' | translate }}</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let s of staff">
+      <td>{{ s.code }}</td>
+      <td>{{ s.name }}</td>
+      <td>{{ s.email }}</td>
+
+      <td>
+        <a class="edit-link" [routerLink]="['/staff', s.code]">
+          {{ 'BUTTON.UPDATE' | translate }}
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
