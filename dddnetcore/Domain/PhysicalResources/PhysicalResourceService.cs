@@ -1,6 +1,7 @@
 using DDDSample1.Domain.Docks;
 using DDDSample1.Domain.Qualifications;
 using DDDSample1.Domain.Shared;
+using DDDSample1.Domain.StorageAreas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace DDDSample1.Domain.PhysicalResources
                     AverageSpeed = resource.AverageSpeed,
                     SetupTime = resource.SetupTime,
                     AvailabilityStatus = resource.AvailabilityStatus,
-                    Qualifications = resource.Qualifications.Select(q => q.Code).ToList(),
+                    Qualifications = resource.PhysicalResourceQualifications.Select(prq => prq.Qualification.Code).ToList(),
                     Dock = resource.AssignedDockId?.AsGuid()
                 };
             });
@@ -74,7 +75,7 @@ namespace DDDSample1.Domain.PhysicalResources
                 AverageSpeed = resource.AverageSpeed,
                 SetupTime = resource.SetupTime,
                 AvailabilityStatus = resource.AvailabilityStatus,
-                Qualifications = resource.Qualifications.Select(q => q.Code).ToList(),
+                Qualifications = resource.PhysicalResourceQualifications.Select(prq => prq.Qualification.Code).ToList(),
                 Dock = resource.AssignedDockId?.AsGuid()
             };
         }
@@ -136,7 +137,7 @@ namespace DDDSample1.Domain.PhysicalResources
                 AverageSpeed = resource.AverageSpeed,
                 SetupTime = resource.SetupTime,
                 AvailabilityStatus = resource.AvailabilityStatus,
-                Qualifications = resource.Qualifications.Select(q => q.Code).ToList(),
+                Qualifications = resource.PhysicalResourceQualifications.Select(prq => prq.Qualification.Code).ToList(),
                 Dock = resource.AssignedDockId?.AsGuid()
             };
         }
@@ -199,7 +200,7 @@ namespace DDDSample1.Domain.PhysicalResources
                 AverageSpeed = resource.AverageSpeed,
                 SetupTime = resource.SetupTime,
                 AvailabilityStatus = resource.AvailabilityStatus,
-                Qualifications = resource.Qualifications.Select(q => q.Code).ToList(),
+                Qualifications = resource.PhysicalResourceQualifications.Select(prq => prq.Qualification.Code).ToList(),
                 Dock = resource.AssignedDockId?.AsGuid()
             };
         }
@@ -229,7 +230,7 @@ namespace DDDSample1.Domain.PhysicalResources
                 AverageSpeed = resource.AverageSpeed,
                 SetupTime = resource.SetupTime,
                 AvailabilityStatus = resource.AvailabilityStatus,
-                Qualifications = resource.Qualifications.Select(q => q.Code).ToList(),
+                Qualifications = resource.PhysicalResourceQualifications.Select(prq => prq.Qualification.Code).ToList(),
                 Dock = resource.AssignedDockId?.AsGuid()
             };
         }
@@ -267,7 +268,7 @@ namespace DDDSample1.Domain.PhysicalResources
                 AverageSpeed = resource.AverageSpeed,
                 SetupTime = resource.SetupTime,
                 AvailabilityStatus = resource.AvailabilityStatus,
-                Qualifications = resource.Qualifications.Select(q => q.Code).ToList(),
+                Qualifications = resource.PhysicalResourceQualifications.Select(prq => prq.Qualification.Code).ToList(),
                 Dock = resource.AssignedDockId?.AsGuid()
             });
         }

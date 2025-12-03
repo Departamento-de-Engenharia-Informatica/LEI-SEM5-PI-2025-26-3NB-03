@@ -1,4 +1,3 @@
-using System;
 using DDDSample1.Domain.Docks;
 
 namespace DDDSample1.Domain.StorageAreas

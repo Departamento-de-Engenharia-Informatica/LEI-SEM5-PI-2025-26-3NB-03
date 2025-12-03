@@ -38,6 +38,7 @@ namespace DDDSample1.Infrastructure
         public DbSet<StorageArea> StorageAreas { get; set; }
         public DbSet<StorageAreaDock> StorageAreaDocks { get; set; }
         public DbSet<PhysicalResource> PhysicalResources { get; set; }
+        public DbSet<PhysicalResourceQualification> PhysicalResourceQualifications { get; set; }
         public DbSet<VesselVisitNotification> VesselVisitNotifications { get; set; }
         public DbSet<StaffMember> StaffMembers { get; set; }
         public DbSet<VesselType> VesselTypes { get; set; }
@@ -48,6 +49,7 @@ namespace DDDSample1.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<StorageAreaDock>();
+            modelBuilder.Entity<PhysicalResourceQualification>();
 
             modelBuilder.ApplyConfiguration(new CategoryEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
@@ -58,6 +60,7 @@ namespace DDDSample1.Infrastructure
             modelBuilder.ApplyConfiguration(new StorageAreaEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new StorageAreaDockConfiguration());
             modelBuilder.ApplyConfiguration(new PhysicalResourceEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PhysicalResourceQualificationConfiguration());
             modelBuilder.ApplyConfiguration(new VvnEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new StaffMemberEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new VesselTypeEntityTypeConfiguration());

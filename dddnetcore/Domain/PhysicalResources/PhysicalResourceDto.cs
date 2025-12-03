@@ -28,7 +28,7 @@ namespace DDDSample1.Domain.PhysicalResources
         public int? AverageSpeed { get; set; }
         public string AvailabilityStatus { get; set; }
         public int SetupTime { get; set; }
-        public List<string> Qualifications { get; set; }
+        public List<string> Qualifications { get; set; } = new();
 
         [Newtonsoft.Json.JsonProperty(NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public Guid? Dock { get; set; }

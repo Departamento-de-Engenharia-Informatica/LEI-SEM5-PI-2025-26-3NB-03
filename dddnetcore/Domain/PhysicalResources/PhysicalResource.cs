@@ -1,8 +1,10 @@
 using DDDSample1.Domain.Docks;
 using DDDSample1.Domain.Qualifications;
 using DDDSample1.Domain.Shared;
+using DDDSample1.Domain.StorageAreas;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DDDSample1.Domain.PhysicalResources
 {
@@ -20,8 +22,8 @@ namespace DDDSample1.Domain.PhysicalResources
         public string AvailabilityStatus { get; private set; }
         public int SetupTime { get; private set; }
 
-        private readonly List<Qualification> _qualifications = new();
-        public IReadOnlyCollection<Qualification> Qualifications => _qualifications.AsReadOnly();
+        private readonly List<PhysicalResourceQualification> _physicalResourceQualifications = new();
+        public IReadOnlyCollection<PhysicalResourceQualification> PhysicalResourceQualifications => _physicalResourceQualifications.AsReadOnly();
 
         public Dock AssignedDock { get; private set; }
         public DockId AssignedDockId { get; private set; }
@@ -101,7 +103,16 @@ namespace DDDSample1.Domain.PhysicalResources
             this.ContainerCapacity = containerCapacity;
             this.AverageSpeed = averageSpeed;
             this.SetupTime = setupTime;
-            _qualifications.AddRange(qualifications);
+            foreach (var qualification in qualifications ?? new List<Qualification>())
+            {
+                _physicalResourceQualifications.Add(new PhysicalResourceQualification
+                {
+                    PhysicalResource = this,
+                    Qualification = qualification,
+                    PhysicalResourceId = this.Id,
+                    QualificationCode = qualification.Code
+                });
+            }
             this.AssignedDock = dock;
             this.AssignedDockId = dock?.Id;
             this.AvailabilityStatus = "Active";
@@ -189,9 +200,42 @@ namespace DDDSample1.Domain.PhysicalResources
             if (qualifications == null || qualifications.Count == 0)
                 throw new BusinessRuleValidationException("A Physical Resource needs at least one Qualification.");
 
-            _qualifications.Clear();
-            _qualifications.AddRange(qualifications);
+            qualifications = qualifications ?? new List<Qualification>();
+
+            var newQualificationCodes = qualifications.Select(q => q.Code).ToHashSet();
+
+            var toRemove = _physicalResourceQualifications
+                .Where(prq => !newQualificationCodes.Contains(prq.Qualification.Code))
+                .ToList();
+
+            foreach (var prq in toRemove)
+            {
+                _physicalResourceQualifications.Remove(prq);
+            }
+
+            foreach (var qualification in qualifications)
+            {
+                if (!_physicalResourceQualifications.Any(prq => prq.Qualification.Code == qualification.Code))
+                {
+                    _physicalResourceQualifications.Add(new PhysicalResourceQualification
+                    {
+                        PhysicalResource = this,
+                        Qualification = qualification,
+                        PhysicalResourceId = this.Id,
+                        QualificationCode = qualification.Code
+                    });
+                }
+            }
         }
+
+        public void AddQualification(PhysicalResourceQualification qualification)
+        {
+            if (qualification == null) throw new ArgumentNullException(nameof(qualification));
+
+            if (!_physicalResourceQualifications.Any(q => q.QualificationCode == qualification.QualificationCode))
+                _physicalResourceQualifications.Add(qualification);
+        }
+
         public void ChangeAvailabilityStatus(string status)
         {
             this.AvailabilityStatus = status;
