@@ -1,6 +1,6 @@
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using DDDSample1.Domain.Shared;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DDDSample1.Domain.Representatives
 {
@@ -15,55 +15,79 @@ namespace DDDSample1.Domain.Representatives
             this._repo = repo;
         }
 
-        public async Task<List<RepresentativeDto>> GetAllAsync()
+        public async Task<List<RepresentativeGetDto>> GetAllAsync()
         {
-            var list = await this._repo.GetAllAsync();
-            
-            List<RepresentativeDto> listDto = list.ConvertAll<RepresentativeDto>(representative => new RepresentativeDto { Id = representative.Id.AsGuid(), Name = representative.Name, Nationality = representative.Nationality, Email = representative.Email, PhoneNumber = representative.PhoneNumber });
+            var list = await _repo.GetAllAsync();
 
-            return listDto;
+            return list.ConvertAll(rep => new RepresentativeGetDto
+            {
+                Id = rep.Id.AsString(),
+                Name = rep.Name,
+                Nationality = rep.Nationality,
+                Email = rep.Email,
+                PhoneNumber = rep.PhoneNumber,
+                ShippingAgentOrganizationId = rep.ShippingAgentOrganizationId?.AsString(),
+                Active = rep.Active
+            });
         }
 
-        public async Task<RepresentativeDto> GetByIdAsync(RepresentativeId id)
+        public async Task<RepresentativeGetDto> GetByIdAsync(RepresentativeId id)
         {
-            var representative = await this._repo.GetByIdAsync(id);
-            
-            if(representative == null)
-                return null;
+            var rep = await _repo.GetByIdAsync(id);
 
-            return new RepresentativeDto { Id = representative.Id.AsGuid(), Name = representative.Name, Nationality = representative.Nationality, Email = representative.Email, PhoneNumber = representative.PhoneNumber };
+            if (rep == null) return null;
+
+            return new RepresentativeGetDto
+            {
+                Id = rep.Id.AsString(),
+                Name = rep.Name,
+                Nationality = rep.Nationality,
+                Email = rep.Email,
+                PhoneNumber = rep.PhoneNumber,
+                ShippingAgentOrganizationId = rep.ShippingAgentOrganizationId?.AsString(),
+                Active = rep.Active
+            };
         }
 
-        public async Task<RepresentativeDto> AddAsync(CreatingRepresentativeDto dto)
+        public async Task<RepresentativeGetDto> AddAsync(CreatingRepresentativeDto dto)
         {
-            var representative = new Representative(dto.Name, dto.Nationality, dto.Email, dto.PhoneNumber);
+            var repId = new RepresentativeId(dto.Id);
+            var representative = new Representative(repId, dto.Name, dto.Nationality, dto.Email, dto.PhoneNumber);
 
             await this._repo.AddAsync(representative);
 
             await this._unitOfWork.CommitAsync();
 
-            return new RepresentativeDto { Id = representative.Id.AsGuid(), Name = representative.Name, Nationality = representative.Nationality, Email = representative.Email, PhoneNumber = representative.PhoneNumber };
+            return new RepresentativeGetDto { Id = representative.Id.AsString(), Name = representative.Name, Nationality = representative.Nationality, Email = representative.Email, PhoneNumber = representative.PhoneNumber };
         }
 
-        public async Task<RepresentativeDto> UpdateAsync(RepresentativeDto dto)
+        public async Task<RepresentativeGetDto> UpdateAsync(string id, RepresentativeUpdateDto dto)
         {
-            var representative = await this._repo.GetByIdAsync(new RepresentativeId(dto.Id)); 
+            var representative = await _repo.GetByIdAsync(new RepresentativeId(id));
 
             if (representative == null)
                 return null;
 
-            // change all field
             representative.ChangeName(dto.Name);
             representative.ChangeNationality(dto.Nationality);
             representative.ChangeEmail(dto.Email);
             representative.ChangePhoneNumber(dto.PhoneNumber);
 
-            await this._unitOfWork.CommitAsync();
+            await _unitOfWork.CommitAsync();
 
-            return new RepresentativeDto { Id = representative.Id.AsGuid(), Name = representative.Name, Nationality = representative.Nationality, Email = representative.Email, PhoneNumber = representative.PhoneNumber };
+            return new RepresentativeGetDto
+            {
+                Id = representative.Id.AsString(),
+                Name = representative.Name,
+                Nationality = representative.Nationality,
+                Email = representative.Email,
+                PhoneNumber = representative.PhoneNumber,
+                ShippingAgentOrganizationId = representative.ShippingAgentOrganizationId?.AsString(),
+                Active = representative.Active
+            };
         }
 
-        public async Task<RepresentativeDto> InactivateAsync(RepresentativeId id)
+        public async Task<RepresentativeGetDto> InactivateAsync(RepresentativeId id)
         {
             var representative = await this._repo.GetByIdAsync(id); 
 
@@ -75,7 +99,7 @@ namespace DDDSample1.Domain.Representatives
             
             await this._unitOfWork.CommitAsync();
 
-            return new RepresentativeDto { Id = representative.Id.AsGuid(), Name = representative.Name, Nationality = representative.Nationality, Email = representative.Email, PhoneNumber = representative.PhoneNumber };
+            return new RepresentativeGetDto { Id = representative.Id.AsString(), Name = representative.Name, Nationality = representative.Nationality, Email = representative.Email, PhoneNumber = representative.PhoneNumber };
         }
     }
 }

@@ -1,0 +1,31 @@
+<div class="page-container">
+
+  <h2 class="page-title">{{ 'QUAL.TITLE' | translate }}</h2>
+
+  <a routerLink="/qualifications/create" class="add-button">
+    {{ 'BUTTON.NEW' | translate }}
+  </a>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>{{ 'QUAL.CODE' | translate }}</th>
+      <th>{{ 'QUAL.NAME' | translate }}</th>
+      <th>{{ 'STAFF.ACTIONS' | translate }}</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr *ngFor="let q of qualifications">
+      <td>{{ q.code }}</td>
+      <td>{{ q.name }}</td>
+      <td>
+        <a class="edit-link" [routerLink]="['/qualifications', q.code]">
+          {{ 'BUTTON.UPDATE' | translate }}
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>

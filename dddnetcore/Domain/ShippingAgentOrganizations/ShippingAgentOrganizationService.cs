@@ -1,8 +1,10 @@
 using DDDSample1.Domain.Representatives;
 using DDDSample1.Domain.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DDDSample1.Domain.ShippingAgentOrganizations;
 
 namespace DDDSample1.Domain.ShippingAgentOrganizations
 {
@@ -30,7 +32,7 @@ namespace DDDSample1.Domain.ShippingAgentOrganizations
                 AltName = organization.AltName,
                 Address = organization.Address,
                 TaxNumber = organization.TaxNumber,
-                Representatives = organization.Representatives.Select(r => r.Id.AsGuid()).ToList()
+                Representatives = organization.Representatives.Select(r => r.Id.AsString()).ToList()
             });
         }
 
@@ -48,7 +50,7 @@ namespace DDDSample1.Domain.ShippingAgentOrganizations
                 AltName = organization.AltName,
                 Address = organization.Address,
                 TaxNumber = organization.TaxNumber,
-                Representatives = organization.Representatives.Select(r => r.Id.AsGuid()).ToList()
+                Representatives = organization.Representatives.Select(r => r.Id.AsString()).ToList()
             };
         }
 
@@ -57,19 +59,12 @@ namespace DDDSample1.Domain.ShippingAgentOrganizations
             if (dto.Representatives == null || dto.Representatives.Count == 0)
                 throw new BusinessRuleValidationException("A Shipping Agent Organization needs at least one Representative.");
 
-            /*var representativeIds = dto.Representatives.Select(id => new RepresentativeId(id)).ToList();
-            foreach (var repId in representativeIds)
-            {
-                var rep = await _repRepo.GetByIdAsync(repId);
-                if (rep == null)
-                    throw new BusinessRuleValidationException($"Representative {repId.AsGuid()} doesn't exist.");
-            }*/
             var representatives = new List<Representative>();
             foreach (var repId in dto.Representatives.Select(id => new RepresentativeId(id)))
             {
                 var rep = await _repRepo.GetByIdAsync(repId);
                 if (rep == null)
-                    throw new BusinessRuleValidationException($"Representative {repId.AsGuid()} doesn't exist.");
+                    throw new BusinessRuleValidationException($"Representative {repId.AsString()} doesn't exist.");
                 representatives.Add(rep);
             }
 
@@ -92,34 +87,26 @@ namespace DDDSample1.Domain.ShippingAgentOrganizations
                 AltName = organization.AltName,
                 Address = organization.Address,
                 TaxNumber = organization.TaxNumber,
-                Representatives = organization.Representatives.Select(r => r.Id.AsGuid()).ToList()
+                Representatives = organization.Representatives.Select(r => r.Id.AsString()).ToList()
             };
         }
 
-        public async Task<ShippingAgentOrganizationDto> UpdateAsync(ShippingAgentOrganizationDto dto)
+        public async Task<ShippingAgentOrganizationDto> UpdateAsync(Guid id, UpdateShippingAgentOrganizationDto dto)
         {
-            var organization = await this._repo.GetByIdAsync(new ShippingAgentOrganizationId(dto.Id)); 
+            var organization = await this._repo.GetByIdAsync(new ShippingAgentOrganizationId(id)); 
 
             if (organization == null)
                 return null;
 
-            /*var representativeIds = dto.Representatives.Select(r => new RepresentativeId(r)).ToList();
-            foreach (var repId in representativeIds)
-            {
-                var rep = await _repRepo.GetByIdAsync(repId);
-                if (rep == null)
-                    throw new BusinessRuleValidationException($"Representative {repId.AsGuid()} doesn't exist.");
-            }*/
             var representatives = new List<Representative>();
             foreach (var repId in dto.Representatives.Select(id => new RepresentativeId(id)))
             {
                 var rep = await _repRepo.GetByIdAsync(repId);
                 if (rep == null)
-                    throw new BusinessRuleValidationException($"Representative {repId.AsGuid()} doesn't exist.");
+                    throw new BusinessRuleValidationException($"Representative {repId.AsString()} doesn't exist.");
                 representatives.Add(rep);
             }
 
-            // change all field
             organization.ChangeLegalName(dto.LegalName);
             organization.ChangeAltName(dto.AltName);
             organization.ChangeAddress(dto.Address);
@@ -135,7 +122,7 @@ namespace DDDSample1.Domain.ShippingAgentOrganizations
                 AltName = organization.AltName,
                 Address = organization.Address,
                 TaxNumber = organization.TaxNumber,
-                Representatives = organization.Representatives.Select(r => r.Id.AsGuid()).ToList()
+                Representatives = organization.Representatives.Select(r => r.Id.AsString()).ToList()
             };
         }
     }

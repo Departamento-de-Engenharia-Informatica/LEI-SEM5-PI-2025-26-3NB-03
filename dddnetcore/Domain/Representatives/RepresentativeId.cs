@@ -1,4 +1,3 @@
-using System;
 using DDDSample1.Domain.Shared;
 using Newtonsoft.Json;
 
@@ -7,27 +6,20 @@ namespace DDDSample1.Domain.Representatives
     public class RepresentativeId : EntityId
     {
         [JsonConstructor]
-        public RepresentativeId(Guid value) : base(value)
-        {
-        }
-
-        public RepresentativeId(String value) : base(value)
+        public RepresentativeId(string value) : base(value)
         {
         }
 
         override
-        protected  Object createFromString(String text){
-            return new Guid(text);
+        protected object createFromString(string text)
+        {
+            return text;
         }
 
         override
-        public String AsString(){
-            Guid obj = (Guid) base.ObjValue;
-            return obj.ToString();
-        }
-        
-        public Guid AsGuid(){
-            return (Guid) base.ObjValue;
+        public string AsString()
+        {
+            return base.ObjValue.ToString();
         }
     }
 }

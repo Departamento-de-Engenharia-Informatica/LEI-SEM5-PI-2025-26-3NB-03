@@ -23,7 +23,7 @@ namespace DDDSample1.Controllers
             [FromQuery] int size = 20,
             [FromQuery] string sort = "-submittedAt")
         {
-            // RBAC & org-scope (simplificado por headers, alinhado com SD)
+
             var roles = Request?.Headers["X-Roles"].ToString() ?? string.Empty;
             var orgId = Request?.Headers["X-Org-Id"].ToString();
 
@@ -45,6 +45,19 @@ namespace DDDSample1.Controllers
             {
                 return BadRequest(new { message = "Invalid status." });
             }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create([FromBody] CreateVvnDto dto)
+        {
+            var roles = Request?.Headers["X-Roles"].ToString();
+            var orgId = Request?.Headers["X-Org-Id"].ToString();
+
+            if (string.IsNullOrWhiteSpace(orgId) || !roles.Contains("SHIPPING_AGENT_REP"))
+                return Forbid();
+
+            var created = await _service.CreateAsync(orgId, dto);
+            return Created(string.Empty, created);
         }
     }
 }

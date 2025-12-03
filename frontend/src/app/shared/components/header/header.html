@@ -1,0 +1,25 @@
+<header class="app-header">
+  <div class="logo-area">
+    <button (click)="onMenuClick()" class="hamburger-button" *ngIf="showMenuButton">
+      &#9776; 
+    </button>
+
+    <img src="/logo.png" alt="logo" class="app-logo">
+    <h1>{{ 'APP.NAME' | translate }}</h1> 
+  </div>
+
+  <div class="controls">
+    <button 
+      (click)="changeLang('pt')" 
+      [class.active]="currentLang === 'pt'"
+      title="Mudar para Português">
+      PT
+    </button>
+    <button 
+      (click)="changeLang('en')" 
+      [class.active]="currentLang === 'en'"
+      title="Switch to English">
+      EN
+    </button>
+  </div>
+</header>

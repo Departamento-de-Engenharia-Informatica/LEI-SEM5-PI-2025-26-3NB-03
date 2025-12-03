@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System;
 using System.Threading.Tasks;
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.Representatives;
@@ -20,14 +19,14 @@ namespace DDDSample1.Controllers
 
         // GET: api/Representatives
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RepresentativeDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<RepresentativeGetDto>>> GetAll()
         {
             return await _service.GetAllAsync();
         }
 
-        // GET: api/Representatives/5
+        // GET: api/Representatives/id
         [HttpGet("{id}")]
-        public async Task<ActionResult<RepresentativeDto>> GetGetById(Guid id)
+        public async Task<ActionResult<RepresentativeGetDto>> GetById(string id)
         {
             var representative = await _service.GetByIdAsync(new RepresentativeId(id));
 
@@ -41,41 +40,35 @@ namespace DDDSample1.Controllers
 
         // POST: api/Representatives
         [HttpPost]
-        public async Task<ActionResult<RepresentativeDto>> Create(CreatingRepresentativeDto dto)
+        public async Task<ActionResult<RepresentativeGetDto>> Create(CreatingRepresentativeDto dto)
         {
             var representative = await _service.AddAsync(dto);
 
-            return CreatedAtAction(nameof(GetGetById), new { id = representative.Id }, representative);
+            return CreatedAtAction(nameof(GetById), new { id = representative.Id }, representative);
         }
 
-        // PUT: api/Representatives/5
+        // PUT: api/Representatives/id
         [HttpPut("{id}")]
-        public async Task<ActionResult<RepresentativeDto>> Update(Guid id, RepresentativeDto dto)
+        public async Task<ActionResult<RepresentativeGetDto>> Update(string id, RepresentativeUpdateDto dto)
         {
-            if (id != dto.Id)
-            {
-                return BadRequest();
-            }
-
             try
             {
-                var representative = await _service.UpdateAsync(dto);
-                
-                if (representative == null)
-                {
+                var updated = await _service.UpdateAsync(id, dto);
+
+                if (updated == null)
                     return NotFound();
-                }
-                return Ok(representative);
+
+                return Ok(updated);
             }
-            catch(BusinessRuleValidationException ex)
+            catch (BusinessRuleValidationException ex)
             {
-                return BadRequest(new {Message = ex.Message});
+                return BadRequest(new { Message = ex.Message });
             }
         }
 
-        // Inactivate: api/Representatives/5
+        // Inactivate: api/Representatives/id
         [HttpDelete("{id}")]
-        public async Task<ActionResult<RepresentativeDto>> SoftDelete(Guid id)
+        public async Task<ActionResult<RepresentativeGetDto>> SoftDelete(string id)
         {
             var representative = await _service.InactivateAsync(new RepresentativeId(id));
 

@@ -1,3 +1,4 @@
+using DDDSample1.Domain.Docks;
 using DDDSample1.Domain.StorageAreas;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -15,12 +16,22 @@ namespace DDDSample1.Infrastructure.StorageAreas
             //builder.Property<bool>("_active").HasColumnName("Active");
             builder.Property(b => b.Type)
                 .IsRequired();
-            builder.Property(b => b.Location)
+            builder.Property(b => b.LocationX)
+                .IsRequired();
+            builder.Property(b => b.LocationZ)
+                .IsRequired();
+            builder.Property(b => b.LocationOrientation)
                 .IsRequired();
             builder.Property(b => b.MaximumCapacity)
                 .IsRequired();
             builder.Property(b => b.CurrentOccupancy)
                 .IsRequired();
+
+            builder.HasMany<Dock>("_docks")
+                   .WithOne()
+                   .IsRequired(false)
+                   .HasForeignKey("StorageAreaId");
+
         }
     }
 }

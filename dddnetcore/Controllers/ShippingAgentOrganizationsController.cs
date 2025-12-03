@@ -1,9 +1,9 @@
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System;
-using System.Threading.Tasks;
 using DDDSample1.Domain.Shared;
 using DDDSample1.Domain.ShippingAgentOrganizations;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DDDSample1.Controllers
 {
@@ -18,16 +18,16 @@ namespace DDDSample1.Controllers
             _service = service;
         }
 
-        // GET: api/ShippingAgentOrganization
+        // GET: api/ShippingAgentOrganizations
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ShippingAgentOrganizationDto>>> GetAll()
         {
             return await _service.GetAllAsync();
         }
 
-        // GET: api/ShippingAgentOrganizations/5
+        // GET: api/ShippingAgentOrganizations/id
         [HttpGet("{id}")]
-        public async Task<ActionResult<ShippingAgentOrganizationDto>> GetGetById(Guid id)
+        public async Task<ActionResult<ShippingAgentOrganizationDto>> GetById(Guid id)
         {
             var organization = await _service.GetByIdAsync(new ShippingAgentOrganizationId(id));
 
@@ -43,33 +43,34 @@ namespace DDDSample1.Controllers
         [HttpPost]
         public async Task<ActionResult<ShippingAgentOrganizationDto>> Create(CreatingShippingAgentOrganizationDto dto)
         {
-            var organization = await _service.AddAsync(dto);
-
-            return CreatedAtAction(nameof(GetGetById), new { id = organization.Id }, organization);
-        }
-
-        // PUT: api/ShippingAgentOrganizations/5
-        [HttpPut("{id}")]
-        public async Task<ActionResult<ShippingAgentOrganizationDto>> Update(Guid id, ShippingAgentOrganizationDto dto)
-        {
-            if (id != dto.Id)
-            {
-                return BadRequest();
-            }
-
             try
             {
-                var organization = await _service.UpdateAsync(dto);
-                
-                if (organization == null)
-                {
-                    return NotFound();
-                }
-                return Ok(organization);
+                var organization = await _service.AddAsync(dto);
+
+                return CreatedAtAction(nameof(GetById), new { id = organization.Id }, organization);
             }
-            catch(BusinessRuleValidationException ex)
+            catch (BusinessRuleValidationException ex)
             {
-                return BadRequest(new {Message = ex.Message});
+                return BadRequest(new { message = ex.Message });
+            }
+
+        }
+
+        // PUT: api/ShippingAgentOrganizations/id
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(Guid id, [FromBody] UpdateShippingAgentOrganizationDto dto)
+        {
+            try
+            {
+                var updatedOrg = await _service.UpdateAsync(id, dto);
+                if (updatedOrg == null)
+                    return NotFound();
+
+                return Ok(updatedOrg);
+            }
+            catch (BusinessRuleValidationException ex)
+            {
+                return BadRequest(new { message = ex.Message });
             }
         }
     }

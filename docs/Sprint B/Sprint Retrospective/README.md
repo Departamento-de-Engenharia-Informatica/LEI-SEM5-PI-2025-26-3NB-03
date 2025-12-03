@@ -1,0 +1,5 @@
+## Sprint B Retrospective
+
+| <span style="display:inline-flex; align-items:center;"><img src="../../Sprint A/Sprint Retrospective/icons/keep.png" width="15" height="15">&nbsp;Keep</span> | <span style="display:inline-flex; align-items:center;"><img src="../../Sprint A/Sprint Retrospective/icons/start.png" width="15" height="15">&nbsp;Start</span> | <span style="display:inline-flex; align-items:center;"><img src="../../Sprint A/Sprint Retrospective/icons/stop.png" width="15" height="15">&nbsp;Stop</span> |
+|------|-------|------|
+| ...Weekly Meetings in person during ARQSI PL classes.<hr> ...using Whatsapp for more frequent meetings.<hr> ...making issues for every task and sub-issues if needed.<hr> ...following priorities and dependencies for a good workflow.<hr> ...code reviews by different team members.<hr> ...Sprint Planning as soon as possible. | ...spreading the work better between the weeks.<hr> ...tracking Burndown and Velocity charts better.<hr> ...using an external IAM provider for authentication. | ...leaving too much work for the last days of the Sprint.<hr>...using InMemory Database. |

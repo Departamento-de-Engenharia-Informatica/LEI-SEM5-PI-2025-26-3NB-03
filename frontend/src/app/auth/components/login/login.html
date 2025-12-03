@@ -1,0 +1,22 @@
+<app-header [showMenuButton]="false" class="header-fixed"></app-header>
+
+<div class="login-container">
+  <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+    
+    <div class="form-group">
+      <label for="email">{{ 'LOGIN.EMAIL' | translate }}:</label>
+      <input type="email" id="email" name="email" [(ngModel)]="email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="password">{{ 'LOGIN.PASSWORD' | translate }}:</label>
+      <input type="password" id="password" name="password" [(ngModel)]="password" required>
+    </div>
+
+    <div *ngIf="loginError" class="error-message">
+      {{ 'LOGIN.INVALIDCRED' | translate }}
+    </div>
+
+    <button type="submit" [disabled]="!loginForm.valid">{{ 'LOGIN.BUTTON' | translate }}</button>
+  </form>
+</div>

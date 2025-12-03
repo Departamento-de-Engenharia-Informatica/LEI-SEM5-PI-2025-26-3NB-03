@@ -15,10 +15,6 @@
 User: Port Authority Officer<br>
 x: Vessel Type
 
-### SD Level 2
-
-N/A
-
-### SD Level 3
+### SD Other Levels
 
 N/A

@@ -1,0 +1,267 @@
+<div class="management-container">
+
+    <div class="sidebar-list">
+        <div class="filter-bar">
+            <input type="text" placeholder="Code" [(ngModel)]="filter.code" (ngModelChange)="applyFilter()" />
+            <input type="text" placeholder="Description" [(ngModel)]="filter.description" (ngModelChange)="applyFilter()" />
+            <select [(ngModel)]="filter.type" (ngModelChange)="applyFilter()">
+                <option value="">All Types</option>
+                <option value="Fixed Crane">Fixed Crane</option>
+                <option value="Mobile Crane">Mobile Crane</option>
+                <option value="Truck">Truck</option>
+            </select>
+            <select [(ngModel)]="filter.status" (ngModelChange)="applyFilter()">
+                <option value="">All Status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+                <option value="Maintenance">Maintenance</option>
+            </select>
+        </div>
+
+        <div class="list-header">
+            <h3>{{ 'MENU.PHYSICAL_RESOURCES' | translate }}</h3>
+            <div class="actions">
+                <button (click)="startCreate()" title="{{ 'BUTTON.NEW' | translate }}">+</button>
+                <button (click)="loadPhysicalResources()" [disabled]="isLoading" title="{{ 'BUTTON.REFRESH' | translate }}">
+                    <span *ngIf="!isLoading">↻</span>
+                    <span *ngIf="isLoading">...</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="list-items">
+            <div *ngIf="isLoading" class="loading-message">
+                {{ 'COMMON.LOADING' | translate }}...
+            </div>
+
+            <div
+                *ngFor="let pr of filteredPhysicalResources" 
+                [class.selected]="selectedPhysicalResource?.id === pr.id" 
+                (click)="selectPhysicalResource(pr)" 
+                class="active-pr"
+                [ngClass]="{'inactive-pr': pr.availabilityStatus === 'Inactive'}"
+            >
+                [{{ pr.code }}]{{ pr.availabilityStatus === 'Maintenance' ? ': Maintenance' : pr.availabilityStatus === 'Inactive' ? ': Inactive' : '' }}
+            </div>
+
+            <div *ngIf="!physicalResources.length && !isLoading" class="no-data">
+                {{ 'COMMON.NO_DATA' | translate }}
+            </div>
+        </div>
+    </div>
+
+    <div class="details-form">
+        <form (ngSubmit)="savePhysicalResource()">
+
+            <div class="form-group" [ngClass]="{ 'has-error': errorField.includes('code') }">
+                <label>{{ 'PHYSICAL_RESOURCE.CODE' | translate }}:</label>
+                <input 
+                    type="string" 
+                    [(ngModel)]="formModel.code" 
+                    name="code" 
+                    [disabled]="currentFormMode === 'view'" 
+                    required>
+            </div>
+
+            <div class="form-group" [ngClass]="{ 'has-error': errorField.includes('type') }">
+                <label>{{ 'PHYSICAL_RESOURCE.TYPE' | translate }}:</label>
+                <select 
+                    [(ngModel)]="formModel.type" 
+                    name="type" 
+                    [disabled]="currentFormMode === 'view'" 
+                    required 
+                    class="block w-full"
+                >
+                    <option value="" disabled></option>
+                    <option value="Fixed Crane">Fixed Crane</option>
+                    <option value="Mobile Crane">Mobile Crane</option>
+                    <option value="Truck">Truck</option>
+                </select>
+            </div>
+
+            <div class="form-group" [ngClass]="{ 'has-error': errorField.includes('description') }">
+                <label>{{ 'PHYSICAL_RESOURCE.DESCRIPTION' | translate }}:</label>
+                <input 
+                    type="string" 
+                    [(ngModel)]="formModel.description" 
+                    name="description" 
+                    [disabled]="currentFormMode === 'view'" 
+                    required>
+            </div>
+
+            <div class="form-group-operational-window-group" [ngClass]="{ 'has-error': errorField.includes('operationalWindow') }">
+                <label class="group-label">{{ 'PHYSICAL_RESOURCE.OPERATIONAL_WINDOW' | translate }}</label>
+
+                <div class="operational-window-field" [ngClass]="{ 'has-error': errorField.includes('weekdayStart') }">
+                    <label>{{ 'PHYSICAL_RESOURCE.WEEKDAY_START' | translate }}</label>
+                    <input 
+                        type="string" 
+                        [(ngModel)]="formModel.weekdayStart" 
+                        name="weekdayStart" 
+                        [disabled]="currentFormMode === 'view'" 
+                        required>
+                </div>
+
+                <div class="operational-window-field" [ngClass]="{ 'has-error': errorField.includes('weekdayFinish') }">
+                    <label>{{ 'PHYSICAL_RESOURCE.WEEKDAY_FINISH' | translate }}</label>
+                    <input 
+                        type="string" 
+                        [(ngModel)]="formModel.weekdayFinish" 
+                        name="weekdayFinish" 
+                        [disabled]="currentFormMode === 'view'" 
+                        required>
+                </div>
+
+                <div class="operational-window-field" [ngClass]="{ 'has-error': errorField.includes('weekendStart') }">
+                    <label>{{ 'PHYSICAL_RESOURCE.WEEKEND_START' | translate }}</label>
+                    <input 
+                        type="string" 
+                        [(ngModel)]="formModel.weekendStart" 
+                        name="weekendStart" 
+                        [disabled]="currentFormMode === 'view'" 
+                        required>
+                </div>
+
+                <div class="operational-window-field" [ngClass]="{ 'has-error': errorField.includes('weekendFinish') }">
+                    <label>{{ 'PHYSICAL_RESOURCE.WEEKEND_FINISH' | translate }}</label>
+                    <input 
+                        type="string" 
+                        [(ngModel)]="formModel.weekendFinish" 
+                        name="weekendFinish" 
+                        [disabled]="currentFormMode === 'view'" 
+                        required>
+                </div>
+            </div>
+
+            <div class="form-group-operational-capacity-group">
+                <label class="group-label">{{ 'PHYSICAL_RESOURCE.OPERATIONAL_CAPACITY' | translate }}</label>
+
+                <div class="operational-capacity-field" [ngClass]="{ 'has-error': errorField.includes('containerCapacity') }">
+                    <label>{{ 'PHYSICAL_RESOURCE.CONTAINER_CAPACITY' | translate }}</label>
+                    <input 
+                        type="number" 
+                        [(ngModel)]="formModel.containerCapacity" 
+                        name="containerCapacity" 
+                        [disabled]="currentFormMode === 'view'" 
+                        required>
+                </div>
+
+                <div class="operational-capacity-field" [ngClass]="{ 'has-error': errorField.includes('averageSpeed') }">
+                    <label>{{ 'PHYSICAL_RESOURCE.AVERAGE_SPEED' | translate }}</label>
+                    <input 
+                        type="number" 
+                        [(ngModel)]="formModel.averageSpeed" 
+                        name="averageSpeed" 
+                        [disabled]="currentFormMode === 'view'" 
+                        required>
+                </div>
+            </div>
+
+            <div class="form-group" [ngClass]="{ 'has-error': errorField.includes('setupTime') }">
+                <label>{{ 'PHYSICAL_RESOURCE.SETUP_TIME' | translate }}:</label>
+                <input 
+                    type="number" 
+                    [(ngModel)]="formModel.setupTime" 
+                    name="setupTime" 
+                    [disabled]="currentFormMode === 'view'" 
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label>{{ 'MENU.QUALIFICATIONS' | translate }}:</label>
+
+                <div class="qualification-management-row" [ngClass]="{ 'has-error': errorField.includes('qualifications') }">
+                    <select 
+                        [(ngModel)]="selectedQualificationIdInResource" 
+                        name="associatedQualifications" 
+                        [disabled]="currentFormMode === 'view' || !(formModel.qualifications && formModel.qualifications.length)" 
+                        class="qualification-list-select" 
+                        size="3"
+                    >
+                        <option 
+                            *ngFor="let qualificationCode of formModel.qualifications" 
+                            [value]="qualificationCode"
+                        >
+                            {{ getQualificationName(qualificationCode) }}
+                        </option>
+                    </select>
+
+                    <button 
+                        type="button" 
+                        (click)="removeSelectedQualification()" 
+                        [disabled]="currentFormMode === 'view' || !selectedQualificationIdInResource" 
+                        class="remove-qualification-button"
+                    >
+                        {{ 'BUTTON.REMOVE' | translate }}
+                    </button>
+                </div>
+
+                <div class="qualification-management-row qualification-add-control">
+                    <select 
+                        [(ngModel)]="qualificationToAddId" 
+                        name="qualificationToAdd" 
+                        [disabled]="currentFormMode === 'view' || !availableQualificationsForAdd.length"
+                    >
+                        <option [ngValue]="null" disabled></option>
+                        <option *ngFor="let qualification of availableQualificationsForAdd" [ngValue]="qualification.code">
+                            {{ qualification.name }}
+                        </option>
+                    </select>
+                    <button 
+                        type="button" 
+                        (click)="addQualification()" 
+                        [disabled]="currentFormMode === 'view' || !qualificationToAddId" 
+                        class="add-qualification-button"
+                    >
+                        {{ 'BUTTON.ADD' | translate }}
+                    </button>
+                </div>
+                <div *ngIf="currentFormMode !== 'view' && !availableQualificationsForAdd.length" class="no-data-qualifications">
+                    {{ 'PHYSICAL_RESOURCE.NO_QUALIFICATIONS_AVAILABLE' | translate }}
+                </div>
+            </div>
+
+            <div class="form-group" [ngClass]="{ 'has-error': errorField.includes('dock') }">
+                <label>{{ 'PHYSICAL_RESOURCE.DOCK' | translate }}:</label>
+
+                <select 
+                    [(ngModel)]="formModel.dock"
+                    name="dock"
+                    [disabled]="currentFormMode === 'view'"
+                >
+                    <option [ngValue]="null">{{ 'COMMON.NONE' | translate }}</option>
+
+                    <option *ngFor="let dock of availableDocks" [ngValue]="dock.id">
+                        {{ dock.name }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="feedback-message" 
+                *ngIf="feedbackMessage.text" 
+                [class.success]="feedbackMessage.type === 'success'" 
+                [class.error]="feedbackMessage.type === 'error'" 
+                [innerHTML]="feedbackMessage.text">
+            </div>
+
+            <div class="form-actions" [class.hidden]="currentFormMode === 'view'">
+                <button 
+                    type="submit" 
+                    *ngIf="currentFormMode !== 'view'" 
+                    [disabled]="isSubmitting"
+                >
+                    {{ (currentFormMode === 'create' ? 'BUTTON.CREATE' : 'BUTTON.UPDATE') | translate }}
+                </button>
+
+                <button 
+                    type="button" 
+                    (click)="deactivatePhysicalResource()" 
+                    *ngIf="currentFormMode === 'update' && selectedPhysicalResource && selectedPhysicalResource.availabilityStatus != 'Inactive'" 
+                    class="deactivate"
+                >
+                    {{ 'BUTTON.DEACTIVATE' | translate }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
