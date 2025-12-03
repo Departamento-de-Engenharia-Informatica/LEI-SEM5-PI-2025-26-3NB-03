@@ -1,4 +1,3 @@
-using DDDSample1.Domain.Docks;
 using DDDSample1.Domain.StorageAreas;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -27,11 +26,10 @@ namespace DDDSample1.Infrastructure.StorageAreas
             builder.Property(b => b.CurrentOccupancy)
                 .IsRequired();
 
-            builder.HasMany<Dock>("_docks")
-                   .WithOne()
-                   .IsRequired(false)
-                   .HasForeignKey("StorageAreaId");
-
+            builder.HasMany<StorageAreaDock>("_storageAreaDocks")
+                .WithOne(sad => sad.StorageArea)
+                .HasForeignKey(sad => sad.StorageAreaId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

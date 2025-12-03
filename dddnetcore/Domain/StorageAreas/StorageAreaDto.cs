@@ -1,4 +1,3 @@
-using DDDSample1.Domain.Docks;
 using System;
 using System.Collections.Generic;
 
@@ -15,6 +14,6 @@ namespace DDDSample1.Domain.StorageAreas
         public int MaximumCapacity { get; set; }
         public int CurrentOccupancy { get; set; }
 
-        public List<Guid> Docks { get; set; }
+        public List<Guid> Docks { get; set; } = new();
     }
 }

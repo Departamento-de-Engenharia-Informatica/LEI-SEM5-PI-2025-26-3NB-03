@@ -31,7 +31,7 @@ namespace DDDSample1.Domain.StorageAreas
                 LocationOrientation = storageArea.LocationOrientation,
                 MaximumCapacity = storageArea.MaximumCapacity,
                 CurrentOccupancy = storageArea.CurrentOccupancy,
-                Docks = storageArea.Docks.Select(d => d.Id.AsGuid()).ToList()
+                Docks = storageArea.StorageAreaDocks.Select(sad => sad.Dock.Id.AsGuid()).ToList()
             };
         }
 
