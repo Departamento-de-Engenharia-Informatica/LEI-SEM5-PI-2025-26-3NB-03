@@ -1,4 +1,8 @@
+import { of } from 'rxjs';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { Api } from '../../core/services/api';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { Representative } from './representative';
 
@@ -6,14 +10,36 @@ describe('Representative', () => {
   let component: Representative;
   let fixture: ComponentFixture<Representative>;
 
+  const mockApi = {
+    getAll: jasmine.createSpy('getAll').and.returnValue(of([])),
+    create: jasmine.createSpy('create').and.returnValue(of({})),
+    update: jasmine.createSpy('update').and.returnValue(of({})),
+  };
+
+  const mockTranslateService = {
+    instant: (key: string) => key,
+    get: (key: string | string[]) => of(typeof key === 'string' ? key : key[0]),
+    onLangChange: of({}),
+    onDefaultLangChange: of({}),
+    onTranslationChange: of({})
+  };
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Representative]
+      imports: [
+        Representative,
+        TranslateModule.forRoot()
+      ],
+      providers: [
+        { provide: Api, useValue: mockApi },
+        provideHttpClientTesting()
+      ]
     })
     .compileComponents();
 
     fixture = TestBed.createComponent(Representative);
     component = fixture.componentInstance;
+    component.feedbackMessage = { text: null, type: null };
     fixture.detectChanges();
   });
 
