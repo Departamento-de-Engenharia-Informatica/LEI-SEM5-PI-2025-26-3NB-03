@@ -1,0 +1,185 @@
+<div class="management-container">
+
+    <div class="sidebar-list">
+        <div class="list-header">
+            <h3>{{ 'MENU.DOCKS' | translate }}</h3>
+            <div class="actions">
+                <button (click)="startCreate()" title="{{ 'BUTTON.NEW' | translate }}">+</button>
+                <button (click)="loadDocks()" [disabled]="isLoading" title="{{ 'BUTTON.REFRESH' | translate }}">
+                    <span *ngIf="!isLoading">↻</span>
+                    <span *ngIf="isLoading">...</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="list-items">
+            <div *ngIf="isLoading" class="loading-message">
+                {{ 'COMMON.LOADING' | translate }}...
+            </div>
+
+            <div 
+                *ngFor="let dc of docks" 
+                [class.selected]="selectedDock?.id === dc.id" 
+                (click)="selectDock(dc)" 
+                class="active-dc"
+            >
+                {{ dc.name }}
+            </div>
+
+            <div *ngIf="!docks.length && !isLoading" class="no-data">
+                {{ 'COMMON.NO_DATA' | translate }}
+            </div>
+        </div>
+    </div>
+
+    <div class="details-form">
+        <form (ngSubmit)="saveDock()">
+
+            <div class="form-group">
+                <label>{{ 'DOCK.NAME' | translate }}:</label>
+                <input type="text" [(ngModel)]="formModel.name" name="name" [disabled]="currentFormMode === 'view'" required>
+            </div>
+
+           <div class="form-group-location-group">
+                <label class="group-label">{{ 'STORAGE_AREA.LOCATION' | translate }}</label>
+
+                <div class="location-field" [ngClass]="{ 'has-error': errorField.includes('locationX') }">
+                    <label>X:</label>
+                    <input 
+                        type="number" 
+                        [(ngModel)]="formModel.locationX" 
+                        name="locationX" 
+                        [disabled]="currentFormMode === 'view'" 
+                        required>
+                </div>
+
+                <div class="location-field" [ngClass]="{ 'has-error': errorField.includes('locationZ') }">
+                    <label>Z:</label>
+                    <input 
+                        type="number" 
+                        [(ngModel)]="formModel.locationZ" 
+                        name="locationZ" 
+                        [disabled]="currentFormMode === 'view'" 
+                        required>
+                </div>
+
+                <div class="location-field" [ngClass]="{ 'has-error': errorField.includes('locationOrientation') }">
+                    <label>{{ 'STORAGE_AREA.ORIENTATION' | translate }}:</label>
+                    <input 
+                        type="number" 
+                        [(ngModel)]="formModel.locationOrientation" 
+                        name="locationOrientation" 
+                        [disabled]="currentFormMode === 'view'" 
+                        required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>{{ 'DOCK.LENGTH' | translate }}:</label>
+                <input type="number" [(ngModel)]="formModel.length" name="length" [disabled]="currentFormMode === 'view'" required>
+            </div>
+
+             <div class="form-group">
+                <label>{{ 'DOCK.DEPTH' | translate }}:</label>
+                <input type="number" [(ngModel)]="formModel.depth" name="depth" [disabled]="currentFormMode === 'view'" required>
+            </div>
+
+            <div class="form-group">
+                <label>{{ 'DOCK.MAXDRAFT' | translate }}:</label>
+                <input type="number" [(ngModel)]="formModel.maxDraft" name="maxDraft" [disabled]="currentFormMode === 'view'" required>
+            </div>
+
+            <div class="form-group">
+                <label>{{ 'DOCK.CAPACITY' | translate }}:</label>
+                <input type="number" [(ngModel)]="formModel.capacity" name="capacity" [disabled]="currentFormMode === 'view'" required>
+            </div>
+
+            <div class="form-group">
+                <label>{{ 'DOCK.VESSELTYPES' | translate }}:</label>
+              <div class="dock-management-row">
+                    <select 
+                        [(ngModel)]="selectedVesselType" 
+                        name="associatedVesselTypes" 
+                        [disabled]="currentFormMode === 'view' || !(formModel.vesselTypeIds)" 
+                        class="dock-list-select" 
+                        size="3"
+                    >
+                        <option 
+                            *ngFor="let VesselTypeId of formModel.vesselTypeIds" 
+                            [value]="VesselTypeId"
+                        >
+                            {{ getVesselTypeName(VesselTypeId) }}
+                        </option>
+                    </select>
+
+                    <button 
+                        type="button" 
+                        (click)="removeSelectedVesselType()" 
+                        [disabled]="currentFormMode === 'view' || !selectedVesselType" 
+                        class="remove-dock-button"
+                    >
+                        {{ 'BUTTON.REMOVE' | translate }}
+                    </button>
+                </div>
+                <div *ngIf="formModel.vesselTypeIds && !formModel.vesselTypeIds.length" class="no-data-docks">
+                    {{ 'DOCKS.NO_DOCKS_ASSOCIATED' | translate }}
+                </div>
+
+                <div class="dock-management-row dock-add-control">
+                    <select 
+                        [(ngModel)]="vesselTypeToAddId" 
+                        name="vesselTypeToAdd" 
+                        [disabled]="currentFormMode === 'view' || !availableVesselTypesForAdd.length"
+                    >
+                        <option [ngValue]="null" disabled></option>
+                        <option *ngFor="let vesselType of availableVesselTypesForAdd" [ngValue]="vesselType.id">
+                            {{ vesselType.name }}
+                        </option>
+                    </select>
+                    <button 
+                        type="button" 
+                        (click)="addVesselType()" 
+                        [disabled]="currentFormMode === 'view' || !vesselTypeToAddId" 
+                        class="add-dock-button"
+                    >
+                        {{ 'BUTTON.ADD' | translate }}
+                    </button>
+                </div>
+                <div *ngIf="currentFormMode !== 'view' && !availableVesselTypesForAdd.length" class="no-data-docks">
+                    {{ 'DOCKS.NO_DOCKS_AVAILABLE' | translate }}
+                </div>
+            </div>
+
+            <div class="feedback-message" 
+                *ngIf="feedbackMessage.text" 
+                [class.success]="feedbackMessage.type === 'success'" 
+                [class.error]="feedbackMessage.type === 'error'"
+            >
+                <p>{{ feedbackMessage.text }}</p>
+            </div>
+
+            <div class="form-actions" [class.hidden]="currentFormMode === 'view'">
+
+                <button 
+                    type="submit" 
+                    *ngIf="currentFormMode !== 'view'"
+                    [disabled]="(currentFormMode === 'update' && selectedDock) || isSubmitting"
+                >
+                    {{ (currentFormMode === 'create' ? 'BUTTON.CREATE' : 'BUTTON.UPDATE') | translate }}
+                </button>
+
+                
+                <button 
+                    type="button" 
+                    disabled
+                    *ngIf="currentFormMode === 'update' && selectedDock"
+                    class="inactive-disabled"
+                >
+                    {{ 'BUTTON.INACTIVE' | translate }}
+                </button>
+
+                </div>
+            
+            </form>
+    </div>
+</div>

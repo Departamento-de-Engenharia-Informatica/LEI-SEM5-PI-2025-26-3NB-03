@@ -3,6 +3,7 @@ import { roleGuard } from './core/guards/role-guard';
 import { Layout } from './core/components/layout/layout';
 import { Representative } from './features/representative/representative';
 import { VesselType } from './features/vesseltype/vesseltype';
+import { Dock } from './features/dock/dock';
 import { AuthResolver } from './core/resolvers/auth-resolver';
 import { StaffList } from './features/staff/staff-list';
 import { StaffCreate } from './features/staff/staff-create';
@@ -46,6 +47,13 @@ export const routes: Routes = [
         path: 'storageareas',
         component: StorageArea,
         title: 'Storage Areas',
+        canActivate: [roleGuard],
+        data: { roles: ['PAO'] },
+      },
+      {
+        path: 'docks',
+        component: Dock,
+        title: 'Docks',
         canActivate: [roleGuard],
         data: { roles: ['PAO'] },
       },
