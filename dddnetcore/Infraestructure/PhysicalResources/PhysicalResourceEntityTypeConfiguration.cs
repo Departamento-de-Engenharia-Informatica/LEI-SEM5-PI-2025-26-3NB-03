@@ -33,6 +33,11 @@ namespace DDDSample1.Infrastructure.PhysicalResources
 
             builder.Property(o => o.SetupTime);
 
+            builder.HasMany<PhysicalResourceQualification>("_physicalResourceQualifications")
+                .WithOne(prq => prq.PhysicalResource)
+                .HasForeignKey(prq => prq.PhysicalResourceId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             builder.Property(o => o.AvailabilityStatus);
             builder.Property(o => o.Active);
         }
