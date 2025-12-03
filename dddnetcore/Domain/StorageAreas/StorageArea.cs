@@ -2,6 +2,7 @@ using DDDSample1.Domain.Docks;
 using DDDSample1.Domain.Shared;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DDDSample1.Domain.StorageAreas
 {
@@ -14,8 +15,8 @@ namespace DDDSample1.Domain.StorageAreas
         public int MaximumCapacity { get; private set; }
         public int CurrentOccupancy { get; private set; }
 
-        private readonly List<Dock> _docks = new();
-        public IReadOnlyCollection<Dock> Docks => _docks.AsReadOnly();
+        private readonly List<StorageAreaDock> _storageAreaDocks = new();
+        public IReadOnlyCollection<StorageAreaDock> StorageAreaDocks => _storageAreaDocks.AsReadOnly();
 
         private StorageArea() { }
 
@@ -40,7 +41,16 @@ namespace DDDSample1.Domain.StorageAreas
             this.MaximumCapacity = maximumCapacity;
             this.CurrentOccupancy = currentOccupancy;
 
-            _docks.AddRange(docks ?? new List<Dock>());
+            foreach (var dock in docks ?? new List<Dock>())
+            {
+                _storageAreaDocks.Add(new StorageAreaDock
+                {
+                    StorageArea = this,
+                    Dock = dock,
+                    StorageAreaId = this.Id,
+                    DockId = new DockId(dock.Id.AsGuid())
+                });
+            }
         }
 
         public void ChangeType(string type)
@@ -78,8 +88,40 @@ namespace DDDSample1.Domain.StorageAreas
 
         public void ChangeDocks(List<Dock> docks)
         {
-            _docks.Clear();
-            _docks.AddRange(docks ?? new List<Dock>());
+            docks = docks ?? new List<Dock>();
+
+            var newDockIds = docks.Select(d => d.Id).ToHashSet();
+
+            var toRemove = _storageAreaDocks
+                .Where(sad => !newDockIds.Contains(sad.Dock.Id))
+                .ToList();
+
+            foreach (var sad in toRemove)
+            {
+                _storageAreaDocks.Remove(sad);
+            }
+
+            foreach (var dock in docks)
+            {
+                if (!_storageAreaDocks.Any(sad => sad.Dock.Id == dock.Id))
+                {
+                    _storageAreaDocks.Add(new StorageAreaDock
+                    {
+                        StorageArea = this,
+                        Dock = dock,
+                        StorageAreaId = this.Id,
+                        DockId = new DockId(dock.Id.AsGuid())
+                    });
+                }
+            }
+        }
+
+        public void AddDock(StorageAreaDock dock)
+        {
+            if (dock == null) throw new ArgumentNullException(nameof(dock));
+
+            if (!_storageAreaDocks.Any(d => d.DockId == dock.DockId))
+                _storageAreaDocks.Add(dock);
         }
 
         public static StorageArea CreateSubmitted(
