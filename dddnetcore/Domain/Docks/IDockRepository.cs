@@ -8,9 +8,7 @@ namespace DDDSample1.Domain.Docks
 {
     public interface IDockRepository : IRepository<Dock, DockId>
         {
-            Task<List<Dock>> GetByNameAsync(string name);
-            
-            //Task<List<Dock>> GetByLocationAsync(string location);
+            Task<List<Dock>> GetByNameAsync(string name);      
             Task<List<Dock>> GetByVesselTypeAsync(VesselTypeId vesselTypeId);
        
     }

@@ -15,6 +15,8 @@ namespace DDDSample1.Infrastructure.PhysicalResources
 
             builder.Property(o => o.Code)
                 .IsRequired();
+            builder.HasIndex(o => o.Code)
+                .IsUnique();
             builder.Property(o => o.Type)
                 .IsRequired();
             builder.Property(o => o.Description)

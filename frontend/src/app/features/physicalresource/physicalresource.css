@@ -50,7 +50,7 @@
     flex-grow: 1;
 }
 
-.active-sa {
+.active-pr {
     padding: 12px 15px;
     border-bottom: 1px solid #f3f4f6;
     cursor: pointer;
@@ -58,11 +58,11 @@
     color: #374151;
 }
 
-.active-sa:hover {
+.active-pr:hover {
     background-color: #f3f4f6;
 }
 
-.active-sa.selected {
+.active-pr.selected {
     background-color: #eef2ff;
     border-left: 4px solid #4f46e5;
     font-weight: 600;
@@ -117,7 +117,8 @@
     cursor: not-allowed;
 }
 
-.form-group-location-group {
+.form-group-operational-window-group,
+.form-group-operational-capacity-group {
     margin-bottom: 15px;
     padding: 15px;
     border: 1px solid #d1d5db;
@@ -125,7 +126,8 @@
     background-color: #fcfcfd;
 }
 
-.form-group-location-group .group-label {
+.form-group-operational-window-group .group-label,
+.form-group-operational-capacity-group .group-label {
     display: block;
     font-weight: 600;
     margin-bottom: 10px;
@@ -134,22 +136,26 @@
     padding-bottom: 5px;
 }
 
-.form-group-location-group {
+.form-group-operational-window-group,
+.form-group-operational-capacity-group {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
 }
 
-.form-group-location-group .location-field {
+.form-group-operational-window-group .operational-window-field,
+.form-group-operational-capacity-group .operational-capacity-field {
     flex: 1 1 10%;
     min-width: 120px;
 }
 
-.form-group-location-group .group-label {
+.form-group-operational-window-group .group-label,
+.form-group-operational-capacity-group .group-label {
     flex: 1 1 100%;
 }
 
-.location-field label {
+.operational-window-field label,
+.operational-capacity-field label {
     display: block;
     font-weight: 500;
     margin-bottom: 5px;
@@ -157,7 +163,8 @@
     font-size: 0.875rem;
 }
 
-.location-field input {
+.operational-window-field input,
+.operational-capacity-field input {
     width: 100%;
     padding: 8px;
     border: 1px solid #d1d5db;
@@ -235,7 +242,8 @@
         margin-bottom: 20px;
     }
 
-    .form-group-location-group .location-field {
+    .form-group-operational-window-group .operational-window-field,
+    .form-group-operational-capacity-group .operational-capacity-field {
         flex: 1 1 100%;
     }
 }
@@ -246,17 +254,17 @@
     flex-wrap: nowrap;
 }
 
-.dock-management-row {
+.qualification-management-row {
     display: flex;
     gap: 10px;
     align-items: flex-start;
 }
 
-.dock-add-control {
+.qualification-add-control {
     margin-top: 10px;
 }
 
-.dock-management-row select {
+.qualification-management-row select {
     flex-grow: 1;
     padding: 8px;
     border: 1px solid #d1d5db;
@@ -264,16 +272,16 @@
     box-sizing: border-box;
 }
 
-.dock-list-select {
+.qualification-list-select {
     min-height: 30px;
 }
 
-.dock-add-control select {
+.qualification-add-control select {
     min-height: 40px;
 }
 
-.remove-dock-button,
-.add-dock-button {
+.remove-qualification-button,
+.add-qualification-button {
     flex-shrink: 0;
     min-width: 80px;
     padding: 10px 15px;
@@ -285,29 +293,29 @@
     transition: background-color 0.2s;
 }
 
-.remove-dock-button {
+.remove-qualification-button {
     background-color: #ef4444;
 }
 
-.remove-dock-button:hover:not(:disabled) {
+.remove-qualification-button:hover:not(:disabled) {
     background-color: #dc2626;
 }
 
-.add-dock-button {
+.add-qualification-button {
     background-color: #10b981;
 }
 
-.add-dock-button:hover:not(:disabled) {
+.add-qualification-button:hover:not(:disabled) {
     background-color: #059669;
 }
 
-.remove-dock-button:disabled,
-.add-dock-button:disabled {
+.remove-qualification-button:disabled,
+.add-qualification-button:disabled {
     background-color: #d1d5db;
     cursor: not-allowed;
 }
 
-.no-data-docks {
+.no-data-qualifications {
     padding-top: 5px;
     color: #9ca3af;
     font-size: 0.875rem;
@@ -318,4 +326,39 @@
 .has-error select{
   border: 2px solid red !important;
   background: #ffe5e5;
+}
+
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 15px;
+    border-bottom: 1px solid #e5e7eb;
+    background-color: #ffffff;
+}
+
+.filter-bar input,
+.filter-bar select {
+    flex: 1 1 120px;
+    padding: 8px 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.filter-bar input:focus,
+.filter-bar select:focus {
+    border-color: #4f46e5;
+    outline: none;
+    box-shadow: 0 0 0 1px #4f46e5;
+}
+
+.deactivate {
+  background-color: #dc3545;
+  color: white;
+}
+
+.inactive-pr {
+    color: #9ca3af;
 }

@@ -20,7 +20,7 @@ type StorageAreaFormModel = StorageAreaDto | (CreatingStorageAreaDto & { docks: 
 })
 export class StorageArea implements OnInit {
   private readonly endpoint = 'StorageAreas';
-  private readonly dockEndpoint = 'Docks';
+  private readonly docksEndpoint = 'Docks';
   errorField: string[] = [];
 
   storageAreas: StorageAreaDto[] = [];
@@ -49,7 +49,7 @@ export class StorageArea implements OnInit {
   }
 
   loadDocks(): void {
-    this.api.getAll<DockDto>(this.dockEndpoint).subscribe({
+    this.api.getAll<DockDto>(this.docksEndpoint).subscribe({
       next: (data) => {
         this.availableDocks = data;
       },
@@ -75,8 +75,8 @@ export class StorageArea implements OnInit {
 
   selectStorageArea(storageArea: StorageAreaDto): void {
     this.clearFeedback();
-    this.selectedDockIdInArea = null; 
-    this.dockToAddId = null; 
+    this.selectedDockIdInArea = null;
+    this.dockToAddId = null;
 
     this.selectedStorageArea = storageArea;
     this.formModel = { ...storageArea, docks: [...(storageArea.docks || [])] } as StorageAreaFormModel;
@@ -86,37 +86,37 @@ export class StorageArea implements OnInit {
 
   startCreate(): void {
     this.clearFeedback();
-    this.selectedDockIdInArea = null; 
-    this.dockToAddId = null; 
+    this.selectedDockIdInArea = null;
+    this.dockToAddId = null;
 
     this.selectedStorageArea = null;
     this.currentFormMode = 'create';
-    this.formModel = { 
-        type: '',
-        locationX: 0,
-        locationZ: 0,
-        locationOrientation: 0,
-        maximumCapacity: 0,
-        currentOccupancy: 0,
+    this.formModel = {
+        type: '', 
+        locationX: 0, 
+        locationZ: 0, 
+        locationOrientation: 0, 
+        maximumCapacity: 0, 
+        currentOccupancy: 0, 
         docks: []
     } as StorageAreaFormModel;
   }
 
   getDockName(id: string): string {
     const dock = this.availableDocks.find(d => d.id === id);
-    return dock ? dock.name : `ID: ${id}`;
+    return dock ? dock.name : 'ID: ${id}';
   }
 
   addDock(): void {
     if (this.currentFormMode !== 'view' && this.dockToAddId) {
-      const docks = (this.formModel as StorageAreaFormModel).docks; 
+      const docks = (this.formModel as StorageAreaFormModel).docks;
 
       if (!docks.includes(this.dockToAddId)) {
         docks.push(this.dockToAddId);
         this.dockToAddId = null;
         this.clearFeedback();
       } else {
-        this.feedbackMessage = { 
+        this.feedbackMessage = {
           type: 'error', 
           text: this.translate.instant('STORAGE_AREA.DOCK_ALREADY_ADDED')
         };
@@ -150,13 +150,13 @@ export class StorageArea implements OnInit {
 
     if (this.currentFormMode === 'create') {
       const creatingDto: CreatingStorageAreaDto = {
-        ...dtoBase,
-        docks: (this.formModel as StorageAreaFormModel).docks 
+        ...dtoBase, 
+        docks: (this.formModel as StorageAreaFormModel).docks
       };
       this.createStorageArea(creatingDto);
     } else if (this.currentFormMode === 'update') {
       const updateDto: UpdateStorageAreaDto = {
-        ...dtoBase,
+        ...dtoBase, 
         docks: (this.formModel as StorageAreaFormModel).docks
       };
       this.updateStorageArea(this.selectedStorageArea!.id, updateDto);
@@ -171,7 +171,7 @@ export class StorageArea implements OnInit {
         this.selectedStorageArea = newStorageArea;
 
         this.feedbackMessage = {
-          type: 'success',
+          type: 'success', 
           text: this.translate.instant('STORAGE_AREA.CREATE_SUCCESS')
         };
       },
@@ -202,7 +202,7 @@ export class StorageArea implements OnInit {
         this.selectedStorageArea = updatedStorageArea;
 
         this.feedbackMessage = {
-          type: 'success',
+          type: 'success', 
           text: this.translate.instant('STORAGE_AREA.UPDATE_SUCCESS')
         };
       },
@@ -223,59 +223,59 @@ export class StorageArea implements OnInit {
   private handleErrorMessage(errorMessage: string) {
     const errorMap: Record<string, { field: string, translateKey: string }> = {
       "The Type field is required.": {
-        field: "type",
+        field: "type", 
         translateKey: "STORAGE_AREA.TYPE_REQUIRED"
       },
       "Error converting value {null} to type 'System.Single'. Path 'locationX'": {
-        field: "locationX",
+        field: "locationX", 
         translateKey: "STORAGE_AREA.LOCATION_X_REQUIRED"
       },
       "Error converting value {null} to type 'System.Single'. Path 'locationZ'": {
-        field: "locationZ",
+        field: "locationZ", 
         translateKey: "STORAGE_AREA.LOCATION_Z_REQUIRED"
       },
       "Error converting value {null} to type 'System.Single'. Path 'locationOrientation'": {
-        field: "locationOrientation",
+        field: "locationOrientation", 
         translateKey: "STORAGE_AREA.LOCATION_ORIENTATION_REQUIRED"
       },
       "Error converting value {null} to type 'System.Int32'. Path 'maximumCapacity'": {
-        field: "maximumCapacity",
+        field: "maximumCapacity", 
         translateKey: "STORAGE_AREA.MAXIMUM_CAPACITY_REQUIRED"
       },
       "Error converting value {null} to type 'System.Int32'. Path 'currentOccupancy'": {
-        field: "currentOccupancy",
+        field: "currentOccupancy", 
         translateKey: "STORAGE_AREA.CURRENT_OCCUPANCY_REQUIRED"
       },
       "is too large or small for an Int32. Path 'maximumCapacity'": {
-        field: "maximumCapacity",
+        field: "maximumCapacity", 
         translateKey: "STORAGE_AREA.MAXIMUM_CAPACITY_INVALID"
       },
       "is too large or small for an Int32. Path 'currentOccupancy'": {
-        field: "currentOccupancy",
+        field: "currentOccupancy", 
         translateKey: "STORAGE_AREA.CURRENT_OCCUPANCY_INVALID"
       },
       "is not a valid integer. Path 'maximumCapacity'": {
-        field: "maximumCapacity",
+        field: "maximumCapacity", 
         translateKey: "STORAGE_AREA.MAXIMUM_CAPACITY_INVALID"
       },
       "is not a valid integer. Path 'currentOccupancy'": {
-        field: "currentOccupancy",
+        field: "currentOccupancy", 
         translateKey: "STORAGE_AREA.CURRENT_OCCUPANCY_INVALID"
       },
       "The field MaximumCapacity must be between 1 and 2147483647.": {
-        field: "maximumCapacity",
+        field: "maximumCapacity", 
         translateKey: "STORAGE_AREA.MAXIMUM_CAPACITY_INVALID"
       },
       "Current occupancy cannot exceed maximum capacity.": {
-        field: "currentOccupancy",
+        field: "currentOccupancy", 
         translateKey: "STORAGE_AREA.OCCUPANCY_EXCEEDS_CAPACITY"
       },
       "Maximum capacity must be greater than zero.": {
-        field: "maximumCapacity",
+        field: "maximumCapacity", 
         translateKey: "STORAGE_AREA.MAXIMUM_CAPACITY_INVALID"
       },
       "Current occupancy cannot be negative.": {
-        field: "currentOccupancy",
+        field: "currentOccupancy", 
         translateKey: "STORAGE_AREA.CURRENT_OCCUPANCY_INVALID"
       }
     };
@@ -292,12 +292,12 @@ export class StorageArea implements OnInit {
 
     if (foundTranslations.length > 0) {
       this.feedbackMessage = {
-        type: "error",
+        type: "error", 
         text: foundTranslations.join('<br>')
       };
     } else {
       this.feedbackMessage = {
-        type: "error",
+        type: "error", 
         text: errorMessage
       };
     }

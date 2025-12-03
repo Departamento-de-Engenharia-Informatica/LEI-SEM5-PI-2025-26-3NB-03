@@ -1,5 +1,6 @@
 export interface DockDto {
   id: string;
+  name: string; 
   locationX: number;
   locationZ: number;
   locationOrientation: number;
@@ -7,12 +8,13 @@ export interface DockDto {
   depth: number;
   maxDraft: number;
   capacity: number; 
-  vesselTypes: string[];
+  vesselTypeIds: string[];
 
 }
 
 export interface UpdateDockDto {
   id?: string;
+  name: string; 
   locationX: number;
   locationZ: number;
   locationOrientation: number;
@@ -20,11 +22,12 @@ export interface UpdateDockDto {
   depth: number;
   maxDraft: number;
   capacity: number; 
-  vesselTypes: string[];
+  vesselTypeIds: string[];
 }
 
 export interface CreatingDockDto {
   id?: string;
+  name: string; 
   locationX: number;
   locationZ: number;
   locationOrientation: number;
@@ -32,5 +35,10 @@ export interface CreatingDockDto {
   depth: number;
   maxDraft: number;
   capacity: number; 
-  vesselTypes: string[];
+  vesselTypeIds: string[];
+}
+
+export interface VesselTypeDto {
+  id: string;
+  name: string;
 }
