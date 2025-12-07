@@ -28,6 +28,11 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
   private resizeObserver!: ResizeObserver;
   private animationId: number | null = null;
 
+  private raycaster: THREE.Raycaster = new THREE.Raycaster();
+  private mouse: THREE.Vector2 = new THREE.Vector2();
+  private highlightedType: string | null = null;
+  private highlightedID: string | null = null;
+
   constructor(private apiService: Api) { }
 
   ngAfterViewInit(): void {
@@ -35,6 +40,8 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
       .then(([storageAreas, docks]) => {
         this.initThree(storageAreas, docks);
         this.renderScene();
+
+        window.addEventListener('click', this.onMouseClick.bind(this));
 
         window.addEventListener('resize', this.onWindowResize.bind(this));
         this.setupResizeObserver();
@@ -145,9 +152,67 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     this.renderer.render(this.scene, this.camera);
   }
 
+  private onMouseClick(event: MouseEvent): void {
+    const rect = this.renderer.domElement.getBoundingClientRect();
+    this.mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    this.mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+    this.raycaster.ray.origin.setFromMatrixPosition(this.camera.matrixWorld);
+    this.raycaster.ray.direction.set(this.mouse.x, this.mouse.y, 1)
+      .unproject(this.camera)
+      .sub(this.camera.position)
+      .normalize();
+
+    const intersects = this.raycaster.intersectObjects(this.scene.children, true);
+
+    if (intersects.length > 0) {
+      const object = intersects[0].object;
+
+      let group: THREE.Object3D | null = object;
+      if (object instanceof THREE.Mesh) {
+        group = object.parent;
+      }
+      if (group && group.userData) {
+        if ((group.userData as any).type === 'Warehouse') {
+          this.highlightedType = "Warehouse";
+          this.highlightedID = group.userData['id'];
+          this.moveCamera(group);
+        }
+        else if ((group.userData as any).type === 'Yard') {
+          this.highlightedType = "Yard";
+          this.highlightedID = group.userData['id'];
+          this.moveCamera(group);
+        }
+        else if ((group.userData as any).type === 'Dock') {
+          this.highlightedType = "Dock";
+          this.highlightedID = group.userData['id'];
+          this.moveCamera(group);
+        }
+      }
+    }
+  }
+
+  private moveCamera(object: THREE.Object3D): void {
+    const targetX = object.userData['locationX'];
+    const targetZ = object.userData['locationZ'];
+
+    const cameraDirection = new THREE.Vector3().subVectors(this.camera.position, this.controls.target);
+
+    this.camera.position.copy(new THREE.Vector3(
+      targetX + cameraDirection.x,
+      this.camera.position.y,
+      targetZ + cameraDirection.z
+    ));
+
+    this.controls.target.set(targetX, 0, targetZ);
+    this.controls.update();
+
+    this.renderer.render(this.scene, this.camera);
+  }
+
   private initThree(storageAreas: StorageAreaDto[], docks: DockDto[]): void {
     const container = this.canvasContainer.nativeElement as HTMLElement;
-    
+
     const width = container.clientWidth;
     const height = container.clientHeight;
 
@@ -156,7 +221,7 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     setupBackground(this.scene);
 
     this.camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
-    this.camera.position.set(10, 8, 15);
+    this.camera.position.set(20, 10, 20);
     this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
     setupGround(this.scene);
@@ -170,13 +235,13 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     docks.forEach((area: DockDto) => createDock(this.scene, area));
 
     setupLighting(this.scene);
-    
+
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setSize(width, height);
 
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    
+
     container.appendChild(this.renderer.domElement);
 
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
