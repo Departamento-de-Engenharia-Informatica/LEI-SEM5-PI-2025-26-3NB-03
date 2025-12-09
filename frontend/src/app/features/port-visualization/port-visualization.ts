@@ -42,6 +42,7 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
 
   private onClickHandler = this.onMouseClick.bind(this);
   private onResizeHandler = this.onWindowResize.bind(this);
+  private onKeyDownHandler = this.onKeyDown.bind(this);
 
   constructor(private apiService: Api) { }
 
@@ -52,6 +53,8 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
         this.renderScene();
 
         this.renderer.domElement.addEventListener('click', this.onClickHandler);
+
+        window.addEventListener('keydown', this.onKeyDownHandler);
 
         window.addEventListener('resize', this.onResizeHandler);
         this.setupResizeObserver();
@@ -105,6 +108,8 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
         this.renderer.domElement.parentElement.removeChild(this.renderer.domElement);
       }
     }
+
+    window.removeEventListener('keydown', this.onKeyDownHandler);
 
     window.removeEventListener('resize', this.onResizeHandler);
     if (this.resizeObserver) {
@@ -217,6 +222,15 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
         this.highlightedObject = group;
         moveCamera(group, this.camera, this.controls, this.renderer, this.scene);
       }
+    }
+  }
+
+  private onKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'r' || event.key === 'R') {
+      initialCamera(this.camera, this.controls);
+
+      this.outlinePass.selectedObjects = [];
+      this.highlightedObject = null;
     }
   }
 
