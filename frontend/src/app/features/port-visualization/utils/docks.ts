@@ -70,3 +70,14 @@ export function createDock(scene: THREE.Scene, dockData: DockDto): void {
     });
   });
 }
+
+/**
+ * Verifica se um objeto é uma doca.
+ * @param object O objeto a verificar.
+ */
+export function isDock(object: THREE.Object3D): boolean {
+  if (object.userData && (object.userData as any).type === 'Dock')
+    return true;
+
+  return false;
+}

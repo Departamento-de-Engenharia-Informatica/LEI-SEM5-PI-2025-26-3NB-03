@@ -157,3 +157,25 @@ export function createYard(scene: THREE.Scene, storageArea: StorageAreaDto): voi
     yardHeight
   );
 }
+
+/**
+ * Verifica se um objeto é um armazém.
+ * @param object O objeto a verificar.
+ */
+export function isWarehouse(object: THREE.Object3D): boolean {
+  if (object.userData && (object.userData as any).type === 'Warehouse')
+    return true;
+
+  return false;
+}
+
+/**
+ * Verifica se um objeto é um parque.
+ * @param object O objeto a verificar.
+ */
+export function isYard(object: THREE.Object3D): boolean {
+  if (object.userData && (object.userData as any).type === 'Yard')
+    return true;
+
+  return false;
+}

@@ -8,10 +8,11 @@ export function setupBackground(scene: THREE.Scene): void {
     // Céu
     const skyColor = 0x87CEEB;
     scene.background = new THREE.Color(skyColor);
+
     // Nevoeiro
-    const near = 0.1;
-    const far = 80;
-    const fogColor = 0x97DEFB;
+    const near = 10;
+    const far = 200;
+    const fogColor = 0xCFEFFF;
     scene.fog = new THREE.Fog(fogColor, near, far);
 }
 
@@ -57,4 +58,29 @@ export function setupGround(scene: THREE.Scene): void {
     land.position.y = -0.01;
     land.receiveShadow = true;
     scene.add(land);
+}
+
+/**
+ * Configura e adiciona a iluminação à cena.
+ * @param scene A cena Three.js onde a luz deve ser adicionada.
+ */
+export function setupLighting(scene: THREE.Scene): void {
+    // Luz Solar
+    const sunLight = new THREE.DirectionalLight(0xffffff, 3); 
+    sunLight.position.set(10, 15, 10); 
+    sunLight.target.position.set(0, 0, 0);
+    scene.add(sunLight);
+    sunLight.shadow.mapSize.width = 2048;
+    sunLight.shadow.mapSize.height = 2048;
+    sunLight.castShadow = true;
+    sunLight.shadow.camera.left = -22;
+    sunLight.shadow.camera.right = 22;
+    sunLight.shadow.camera.top = 16;
+    sunLight.shadow.camera.bottom = -16;
+    sunLight.shadow.camera.near = 0.1;
+    sunLight.shadow.camera.far = 50;
+
+    // Luz Ambiente
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    scene.add(ambientLight);
 }

@@ -6,10 +6,16 @@ import { firstValueFrom } from 'rxjs';
 import { StorageAreaDto } from '../../core/models/storagearea';
 import { DockDto } from '../../core/models/dock';
 import { Api } from '../../core/services/api';
-import { createWarehouse, createYard } from './utils/storageareas';
-import { createDock} from './utils/docks';
-import { setupLighting } from './utils/lighting';
-import { setupBackground, setupGround } from './utils/environment';
+import { createWarehouse, createYard, isWarehouse, isYard } from './utils/storageareas';
+import { createDock, isDock} from './utils/docks';
+import { setupBackground, setupGround, setupLighting } from './utils/environment';
+import { FOV, setupControls, initialCamera, moveCamera } from './utils/controls';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
+import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 
 @Component({
   selector: 'app-port-visualization',
@@ -30,8 +36,12 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
 
   private raycaster: THREE.Raycaster = new THREE.Raycaster();
   private mouse: THREE.Vector2 = new THREE.Vector2();
-  private highlightedType: string | null = null;
-  private highlightedID: string | null = null;
+  private highlightedObject: THREE.Object3D | null = null;
+  private composer!: EffectComposer;
+  private outlinePass!: OutlinePass;
+
+  private onClickHandler = this.onMouseClick.bind(this);
+  private onResizeHandler = this.onWindowResize.bind(this);
 
   constructor(private apiService: Api) { }
 
@@ -41,9 +51,9 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
         this.initThree(storageAreas, docks);
         this.renderScene();
 
-        window.addEventListener('click', this.onMouseClick.bind(this));
+        this.renderer.domElement.addEventListener('click', this.onClickHandler);
 
-        window.addEventListener('resize', this.onWindowResize.bind(this));
+        window.addEventListener('resize', this.onResizeHandler);
         this.setupResizeObserver();
       })
       .catch(error => {
@@ -56,6 +66,20 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
 
     if (this.controls) {
       this.controls.dispose();
+    }
+
+    if (this.outlinePass) {
+      (this.outlinePass as any).renderTargetMaskBuffer?.dispose();
+      (this.outlinePass as any).renderTargetDepthBuffer?.dispose();
+      (this.outlinePass as any).renderTargetEdgeBuffer1?.dispose();
+      (this.outlinePass as any).renderTargetEdgeBuffer2?.dispose();
+      (this.outlinePass as any).renderTargetBlurBuffer1?.dispose();
+      (this.outlinePass as any).renderTargetBlurBuffer2?.dispose();
+    }
+
+    if (this.composer) {
+      this.composer.renderTarget1.dispose();
+      this.composer.renderTarget2.dispose();
     }
 
     this.renderer.forceContextLoss();
@@ -75,13 +99,14 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     }
 
     if (this.renderer) {
+      this.renderer.domElement.removeEventListener('click', this.onClickHandler);
       this.renderer.dispose();
       if (this.renderer.domElement && this.renderer.domElement.parentElement) {
         this.renderer.domElement.parentElement.removeChild(this.renderer.domElement);
       }
     }
 
-    window.removeEventListener('resize', this.onWindowResize.bind(this));
+    window.removeEventListener('resize', this.onResizeHandler);
     if (this.resizeObserver) {
       this.resizeObserver.disconnect();
     }
@@ -149,7 +174,7 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     if (this.controls) {
       this.controls.update();
     }
-    this.renderer.render(this.scene, this.camera);
+    this.composer.render();
   }
 
   private onMouseClick(event: MouseEvent): void {
@@ -165,6 +190,9 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
 
     const intersects = this.raycaster.intersectObjects(this.scene.children, true);
 
+    this.outlinePass.selectedObjects = [];
+    this.highlightedObject = null;
+
     if (intersects.length > 0) {
       const object = intersects[0].object;
 
@@ -172,90 +200,78 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
       if (object instanceof THREE.Mesh) {
         group = object.parent;
       }
-      if (group && group.userData) {
-        if ((group.userData as any).type === 'Warehouse') {
-          this.highlightedType = "Warehouse";
-          this.highlightedID = group.userData['id'];
-          this.moveCamera(group);
+      if (group && (isWarehouse(group) || isYard(group) || isDock(group))) {
+        if (isWarehouse(group)) {
+          this.outlinePass.visibleEdgeColor.set('#FFA500');
+          this.outlinePass.hiddenEdgeColor.set('#FFA500');
         }
-        else if ((group.userData as any).type === 'Yard') {
-          this.highlightedType = "Yard";
-          this.highlightedID = group.userData['id'];
-          this.moveCamera(group);
+        else if (isYard(group)) {
+          this.outlinePass.visibleEdgeColor.set('#7CE40D');
+          this.outlinePass.hiddenEdgeColor.set('#7CE40D');
         }
-        else if ((group.userData as any).type === 'Dock') {
-          this.highlightedType = "Dock";
-          this.highlightedID = group.userData['id'];
-          this.moveCamera(group);
+        else if (isDock(group)) {
+          this.outlinePass.visibleEdgeColor.set('#159AD3');
+          this.outlinePass.hiddenEdgeColor.set('#159AD3');
         }
+        this.outlinePass.selectedObjects = [group];
+        this.highlightedObject = group;
+        moveCamera(group, this.camera, this.controls, this.renderer, this.scene);
       }
     }
   }
 
-  private moveCamera(object: THREE.Object3D): void {
-    const targetX = object.userData['locationX'];
-    const targetZ = object.userData['locationZ'];
-
-    const cameraDirection = new THREE.Vector3().subVectors(this.camera.position, this.controls.target);
-
-    this.camera.position.copy(new THREE.Vector3(
-      targetX + cameraDirection.x,
-      this.camera.position.y,
-      targetZ + cameraDirection.z
-    ));
-
-    this.controls.target.set(targetX, 0, targetZ);
-    this.controls.update();
-
-    this.renderer.render(this.scene, this.camera);
-  }
-
   private initThree(storageAreas: StorageAreaDto[], docks: DockDto[]): void {
     const container = this.canvasContainer.nativeElement as HTMLElement;
-
     const width = container.clientWidth;
     const height = container.clientHeight;
 
     this.scene = new THREE.Scene();
-
     setupBackground(this.scene);
-
-    this.camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
-    this.camera.position.set(20, 10, 20);
-    this.camera.lookAt(new THREE.Vector3(0, 0, 0));
-
     setupGround(this.scene);
-
-    const warehouses = storageAreas.filter(area => area.type === 'Warehouse');
-    warehouses.forEach((area: StorageAreaDto) => createWarehouse(this.scene, area));
-
-    const yards = storageAreas.filter(area => area.type === 'Yard');
-    yards.forEach((area: StorageAreaDto) => createYard(this.scene, area));
-
-    docks.forEach((area: DockDto) => createDock(this.scene, area));
-
     setupLighting(this.scene);
+
+    const warehouses = storageAreas.filter(storageArea => storageArea.type === 'Warehouse');
+    warehouses.forEach((storageArea: StorageAreaDto) => createWarehouse(this.scene, storageArea));
+
+    const yards = storageAreas.filter(storageArea => storageArea.type === 'Yard');
+    yards.forEach((storageArea: StorageAreaDto) => createYard(this.scene, storageArea));
+
+    docks.forEach((dock: DockDto) => createDock(this.scene, dock));
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setSize(width, height);
-
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
     container.appendChild(this.renderer.domElement);
 
+    this.camera = new THREE.PerspectiveCamera(FOV, width / height, 0.1, 1000);
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-    this.controls.mouseButtons = {
-      LEFT: THREE.MOUSE.PAN,
-      MIDDLE: THREE.MOUSE.DOLLY,
-      RIGHT: THREE.MOUSE.ROTATE
-    };
-    this.controls.enableDamping = true;
-    this.controls.dampingFactor = 0.05;
-    this.controls.screenSpacePanning = false;
-    this.controls.minDistance = 1;
-    this.controls.maxDistance = 30;
-    this.controls.maxPolarAngle = Math.PI / 2 - 0.1;
-    this.controls.update();
+    setupControls(this.controls);
+    initialCamera(this.camera, this.controls);
+
+    this.composer = new EffectComposer(this.renderer);
+    this.composer.addPass(new RenderPass(this.scene, this.camera));
+    this.outlinePass = new OutlinePass(
+      new THREE.Vector2(this.renderer.domElement.width, this.renderer.domElement.height),
+      this.scene,
+      this.camera
+    );
+    this.outlinePass.usePatternTexture = false;
+    this.outlinePass.edgeStrength = 3.0;
+    this.outlinePass.edgeGlow = 0.3;
+    this.outlinePass.edgeThickness = 1.8;
+    this.outlinePass.pulsePeriod = 0;
+    this.outlinePass.visibleEdgeColor.set('#FFA500');
+    this.outlinePass.hiddenEdgeColor.set('#FFA500');
+    this.outlinePass.selectedObjects = [];
+    this.composer.addPass(this.outlinePass);
+    const fxaaPass = new ShaderPass(FXAAShader);
+    fxaaPass.material.uniforms['resolution'].value.set(
+      1 / this.renderer.domElement.width,
+      1 / this.renderer.domElement.height
+    );
+    this.composer.addPass(fxaaPass);
+    const outputPass = new OutputPass();
+    this.composer.addPass(outputPass);
   }
 }
