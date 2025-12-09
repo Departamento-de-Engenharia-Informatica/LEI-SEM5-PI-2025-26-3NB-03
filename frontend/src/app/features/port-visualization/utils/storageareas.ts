@@ -24,6 +24,12 @@ export function createWarehouse(scene: THREE.Scene, storageArea: StorageAreaDto)
   const extDepth = internalDepth + wallThickness * 2;
 
   const warehouseGroup = new THREE.Group();
+  warehouseGroup.userData = {
+    type: storageArea.type,
+    id: storageArea.id,
+    locationX: storageArea.locationX,
+    locationZ: storageArea.locationZ,
+  };
   warehouseGroup.position.set(storageArea.locationX, 0, storageArea.locationZ);
   warehouseGroup.rotation.y = storageArea.locationOrientation * (Math.PI / 180);
   scene.add(warehouseGroup);
@@ -122,6 +128,17 @@ export function createYard(scene: THREE.Scene, storageArea: StorageAreaDto): voi
   const yardDepth = yardWidth;
   const yardHeight = 0.1;
 
+  const yardGroup = new THREE.Group();
+  yardGroup.userData = {
+    type: storageArea.type,
+    id: storageArea.id,
+    locationX: storageArea.locationX,
+    locationZ: storageArea.locationZ,
+  };
+  yardGroup.position.set(storageArea.locationX, 0, storageArea.locationZ);
+  yardGroup.rotation.y = storageArea.locationOrientation * (Math.PI / 180);
+  scene.add(yardGroup);
+
   const yardGeometry = new THREE.BoxGeometry(yardWidth, yardHeight, yardDepth);
   const yardMaterial = new THREE.MeshStandardMaterial({ color: 0x899AA5 });
   const yard = new THREE.Mesh(yardGeometry, yardMaterial);
@@ -129,10 +146,8 @@ export function createYard(scene: THREE.Scene, storageArea: StorageAreaDto): voi
   yard.castShadow = true;
   yard.receiveShadow = true;
 
-  yard.position.set(storageArea.locationX, yardHeight / 2, storageArea.locationZ);
-  yard.rotation.y = storageArea.locationOrientation * (Math.PI / 180);
-
-  scene.add(yard);
+  yard.position.set(0, yardHeight / 2, 0);
+  yardGroup.add(yard);
 
   createTeusInArea(
     scene,
@@ -141,4 +156,26 @@ export function createYard(scene: THREE.Scene, storageArea: StorageAreaDto): voi
     yardDepth - 1,
     yardHeight
   );
+}
+
+/**
+ * Verifica se um objeto é um armazém.
+ * @param object O objeto a verificar.
+ */
+export function isWarehouse(object: THREE.Object3D): boolean {
+  if (object.userData && (object.userData as any).type === 'Warehouse')
+    return true;
+
+  return false;
+}
+
+/**
+ * Verifica se um objeto é um parque.
+ * @param object O objeto a verificar.
+ */
+export function isYard(object: THREE.Object3D): boolean {
+  if (object.userData && (object.userData as any).type === 'Yard')
+    return true;
+
+  return false;
 }

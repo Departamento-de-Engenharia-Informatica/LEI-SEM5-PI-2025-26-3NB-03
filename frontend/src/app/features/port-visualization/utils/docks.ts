@@ -12,14 +12,23 @@ export function createDock(scene: THREE.Scene, dockData: DockDto): void {
   const dockLength = dockData.length;
   const dockHeight = 0.3;
   const dockDepth = dockData.depth;
-  
-  // 1. Carregar textura da dock
+
   const textureLoader = new THREE.TextureLoader();
   const dockTexture = textureLoader.load('textures/rock.jpg');
   dockTexture.wrapS = dockTexture.wrapT = THREE.RepeatWrapping;
   dockTexture.repeat.set(dockLength / 2, dockDepth / 2);
 
-  // 2. Criar geometria e material
+  const dockGroup = new THREE.Group();
+  dockGroup.userData = {
+    type: "Dock",
+    id: dockData.id,
+    locationX: dockData.locationX,
+    locationZ: dockData.locationZ,
+  };
+  dockGroup.position.set(dockData.locationX, 0, dockData.locationZ);
+  dockGroup.rotation.y = dockData.locationOrientation * (Math.PI / 180);
+  scene.add(dockGroup);
+
   const dockGeometry = new THREE.BoxGeometry(dockLength, dockHeight, dockDepth);
   const dockMaterial = new THREE.MeshStandardMaterial({
     map: dockTexture,
@@ -31,26 +40,24 @@ export function createDock(scene: THREE.Scene, dockData: DockDto): void {
   dock.castShadow = true;
   dock.receiveShadow = true;
 
-  // 3. Posicionar dock na cena
-  dock.position.set(dockData.locationX, dockHeight / 2, dockData.locationZ);
-  dock.rotation.y = dockData.locationOrientation * (Math.PI / 180);
+  dock.position.set(0, dockHeight / 2, 0);
+  dockGroup.add(dock);
 
-  // 4. Carregar materiais e objeto
   const mtlLoader = new MTLLoader();
   mtlLoader.setPath('models/');
   mtlLoader.setResourcePath('models/textures/');
-  
+
   mtlLoader.load('SurreyQuaysMooringFeature2_01_decimated.mtl', (materials) => {
     materials.preload();
-    
+
     const objLoader = new OBJLoader();
     objLoader.setMaterials(materials);
     objLoader.setPath('models/');
-    
+
     objLoader.load('SurreyQuaysMooringFeature2_01_decimated.obj', (object) => {
       object.scale.set(0.05, 0.05, 0.05);
       object.rotation.x = -Math.PI / 2; 
-      object.position.set(-dockLength / 2 + 0.4, dockHeight / 2, 0);
+      object.position.set(-dockLength / 2 + 0.4, dockHeight - 0.022, 0);
 
       object.traverse((child) => {
             if ((child as THREE.Mesh).isMesh) {
@@ -59,10 +66,18 @@ export function createDock(scene: THREE.Scene, dockData: DockDto): void {
             }
       });
 
-      dock.add(object);
+      dockGroup.add(object);
     });
   });
+}
 
-  // 5. Adicionar dock à cena principal
-  scene.add(dock);
+/**
+ * Verifica se um objeto é uma doca.
+ * @param object O objeto a verificar.
+ */
+export function isDock(object: THREE.Object3D): boolean {
+  if (object.userData && (object.userData as any).type === 'Dock')
+    return true;
+
+  return false;
 }

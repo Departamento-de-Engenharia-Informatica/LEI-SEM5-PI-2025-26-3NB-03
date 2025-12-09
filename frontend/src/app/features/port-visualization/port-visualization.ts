@@ -6,10 +6,16 @@ import { firstValueFrom } from 'rxjs';
 import { StorageAreaDto } from '../../core/models/storagearea';
 import { DockDto } from '../../core/models/dock';
 import { Api } from '../../core/services/api';
-import { createWarehouse, createYard } from './utils/storageareas';
-import { createDock} from './utils/docks';
-import { setupLighting } from './utils/lighting';
-import { setupBackground, setupGround } from './utils/environment';
+import { createWarehouse, createYard, isWarehouse, isYard } from './utils/storageareas';
+import { createDock, isDock} from './utils/docks';
+import { setupBackground, setupGround, setupLighting } from './utils/environment';
+import { FOV, setupControls, initialCamera, moveCamera } from './utils/controls';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
+import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
+import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 
 @Component({
   selector: 'app-port-visualization',
@@ -28,6 +34,16 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
   private resizeObserver!: ResizeObserver;
   private animationId: number | null = null;
 
+  private raycaster: THREE.Raycaster = new THREE.Raycaster();
+  private mouse: THREE.Vector2 = new THREE.Vector2();
+  private highlightedObject: THREE.Object3D | null = null;
+  private composer!: EffectComposer;
+  private outlinePass!: OutlinePass;
+
+  private onClickHandler = this.onMouseClick.bind(this);
+  private onResizeHandler = this.onWindowResize.bind(this);
+  private onKeyDownHandler = this.onKeyDown.bind(this);
+
   constructor(private apiService: Api) { }
 
   ngAfterViewInit(): void {
@@ -36,7 +52,11 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
         this.initThree(storageAreas, docks);
         this.renderScene();
 
-        window.addEventListener('resize', this.onWindowResize.bind(this));
+        this.renderer.domElement.addEventListener('click', this.onClickHandler);
+
+        window.addEventListener('keydown', this.onKeyDownHandler);
+
+        window.addEventListener('resize', this.onResizeHandler);
         this.setupResizeObserver();
       })
       .catch(error => {
@@ -49,6 +69,20 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
 
     if (this.controls) {
       this.controls.dispose();
+    }
+
+    if (this.outlinePass) {
+      (this.outlinePass as any).renderTargetMaskBuffer?.dispose();
+      (this.outlinePass as any).renderTargetDepthBuffer?.dispose();
+      (this.outlinePass as any).renderTargetEdgeBuffer1?.dispose();
+      (this.outlinePass as any).renderTargetEdgeBuffer2?.dispose();
+      (this.outlinePass as any).renderTargetBlurBuffer1?.dispose();
+      (this.outlinePass as any).renderTargetBlurBuffer2?.dispose();
+    }
+
+    if (this.composer) {
+      this.composer.renderTarget1.dispose();
+      this.composer.renderTarget2.dispose();
     }
 
     this.renderer.forceContextLoss();
@@ -68,13 +102,16 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     }
 
     if (this.renderer) {
+      this.renderer.domElement.removeEventListener('click', this.onClickHandler);
       this.renderer.dispose();
       if (this.renderer.domElement && this.renderer.domElement.parentElement) {
         this.renderer.domElement.parentElement.removeChild(this.renderer.domElement);
       }
     }
 
-    window.removeEventListener('resize', this.onWindowResize.bind(this));
+    window.removeEventListener('keydown', this.onKeyDownHandler);
+
+    window.removeEventListener('resize', this.onResizeHandler);
     if (this.resizeObserver) {
       this.resizeObserver.disconnect();
     }
@@ -142,55 +179,113 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     if (this.controls) {
       this.controls.update();
     }
-    this.renderer.render(this.scene, this.camera);
+    this.composer.render();
+  }
+
+  private onMouseClick(event: MouseEvent): void {
+    const rect = this.renderer.domElement.getBoundingClientRect();
+    this.mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    this.mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+    this.raycaster.ray.origin.setFromMatrixPosition(this.camera.matrixWorld);
+    this.raycaster.ray.direction.set(this.mouse.x, this.mouse.y, 1)
+      .unproject(this.camera)
+      .sub(this.camera.position)
+      .normalize();
+
+    const intersects = this.raycaster.intersectObjects(this.scene.children, true);
+
+    this.outlinePass.selectedObjects = [];
+    this.highlightedObject = null;
+
+    if (intersects.length > 0) {
+      const object = intersects[0].object;
+
+      let group: THREE.Object3D | null = object;
+      if (object instanceof THREE.Mesh) {
+        group = object.parent;
+      }
+      if (group && (isWarehouse(group) || isYard(group) || isDock(group))) {
+        if (isWarehouse(group)) {
+          this.outlinePass.visibleEdgeColor.set('#FFA500');
+          this.outlinePass.hiddenEdgeColor.set('#FFA500');
+        }
+        else if (isYard(group)) {
+          this.outlinePass.visibleEdgeColor.set('#7CE40D');
+          this.outlinePass.hiddenEdgeColor.set('#7CE40D');
+        }
+        else if (isDock(group)) {
+          this.outlinePass.visibleEdgeColor.set('#159AD3');
+          this.outlinePass.hiddenEdgeColor.set('#159AD3');
+        }
+        this.outlinePass.selectedObjects = [group];
+        this.highlightedObject = group;
+        moveCamera(group, this.camera, this.controls, this.renderer, this.scene);
+      }
+    }
+  }
+
+  private onKeyDown(event: KeyboardEvent): void {
+    if (event.key === 'r' || event.key === 'R') {
+      initialCamera(this.camera, this.controls);
+
+      this.outlinePass.selectedObjects = [];
+      this.highlightedObject = null;
+    }
   }
 
   private initThree(storageAreas: StorageAreaDto[], docks: DockDto[]): void {
     const container = this.canvasContainer.nativeElement as HTMLElement;
-    
     const width = container.clientWidth;
     const height = container.clientHeight;
 
     this.scene = new THREE.Scene();
-
     setupBackground(this.scene);
-
-    this.camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000);
-    this.camera.position.set(10, 8, 15);
-    this.camera.lookAt(new THREE.Vector3(0, 0, 0));
-
     setupGround(this.scene);
-
-    const warehouses = storageAreas.filter(area => area.type === 'Warehouse');
-    warehouses.forEach((area: StorageAreaDto) => createWarehouse(this.scene, area));
-
-    const yards = storageAreas.filter(area => area.type === 'Yard');
-    yards.forEach((area: StorageAreaDto) => createYard(this.scene, area));
-
-    docks.forEach((area: DockDto) => createDock(this.scene, area));
-
     setupLighting(this.scene);
-    
+
+    const warehouses = storageAreas.filter(storageArea => storageArea.type === 'Warehouse');
+    warehouses.forEach((storageArea: StorageAreaDto) => createWarehouse(this.scene, storageArea));
+
+    const yards = storageAreas.filter(storageArea => storageArea.type === 'Yard');
+    yards.forEach((storageArea: StorageAreaDto) => createYard(this.scene, storageArea));
+
+    docks.forEach((dock: DockDto) => createDock(this.scene, dock));
+
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setSize(width, height);
-
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    
     container.appendChild(this.renderer.domElement);
 
+    this.camera = new THREE.PerspectiveCamera(FOV, width / height, 0.1, 1000);
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-    this.controls.mouseButtons = {
-      LEFT: THREE.MOUSE.PAN,
-      MIDDLE: THREE.MOUSE.DOLLY,
-      RIGHT: THREE.MOUSE.ROTATE
-    };
-    this.controls.enableDamping = true;
-    this.controls.dampingFactor = 0.05;
-    this.controls.screenSpacePanning = false;
-    this.controls.minDistance = 1;
-    this.controls.maxDistance = 30;
-    this.controls.maxPolarAngle = Math.PI / 2 - 0.1;
-    this.controls.update();
+    setupControls(this.controls);
+    initialCamera(this.camera, this.controls);
+
+    this.composer = new EffectComposer(this.renderer);
+    this.composer.addPass(new RenderPass(this.scene, this.camera));
+    this.outlinePass = new OutlinePass(
+      new THREE.Vector2(this.renderer.domElement.width, this.renderer.domElement.height),
+      this.scene,
+      this.camera
+    );
+    this.outlinePass.usePatternTexture = false;
+    this.outlinePass.edgeStrength = 3.0;
+    this.outlinePass.edgeGlow = 0.3;
+    this.outlinePass.edgeThickness = 1.8;
+    this.outlinePass.pulsePeriod = 0;
+    this.outlinePass.visibleEdgeColor.set('#FFA500');
+    this.outlinePass.hiddenEdgeColor.set('#FFA500');
+    this.outlinePass.selectedObjects = [];
+    this.composer.addPass(this.outlinePass);
+    const fxaaPass = new ShaderPass(FXAAShader);
+    fxaaPass.material.uniforms['resolution'].value.set(
+      1 / this.renderer.domElement.width,
+      1 / this.renderer.domElement.height
+    );
+    this.composer.addPass(fxaaPass);
+    const outputPass = new OutputPass();
+    this.composer.addPass(outputPass);
   }
 }
