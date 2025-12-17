@@ -8,6 +8,7 @@ import { DockDto } from '../../core/models/dock';
 import { Api } from '../../core/services/api';
 import { createWarehouse, createYard, isWarehouse, isYard } from './utils/storageareas';
 import { createDock, isDock} from './utils/docks';
+import { createFixedCrane, isFixedCrane} from './utils/physicalresources';
 import { setupBackground, setupGround, setupLighting } from './utils/environment';
 import { FOV, setupControls, initialCamera, moveCamera } from './utils/controls';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
@@ -16,6 +17,7 @@ import { OutlinePass } from 'three/examples/jsm/postprocessing/OutlinePass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
+import { PhysicalResourceDto } from '../../core/models/physicalresource';
 
 @Component({
   selector: 'app-port-visualization',
@@ -47,9 +49,9 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
   constructor(private apiService: Api) { }
 
   ngAfterViewInit(): void {
-    Promise.all([this.loadStorageAreas(), this.loadDocks()])
-      .then(([storageAreas, docks]) => {
-        this.initThree(storageAreas, docks);
+    Promise.all([this.loadStorageAreas(), this.loadDocks(), this.loadPhysicalResources()])
+      .then(([storageAreas, docks, physicalResources]) => {
+        this.initThree(storageAreas, docks, physicalResources);
         this.renderScene();
 
         this.renderer.domElement.addEventListener('click', this.onClickHandler);
@@ -139,6 +141,17 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     }
   }
 
+  private async loadPhysicalResources(): Promise<PhysicalResourceDto[]> {
+    try {
+      const physicalResourcesObservable = this.apiService.getAll<PhysicalResourceDto>('physicalResources');
+      const physicalResources = await firstValueFrom(physicalResourcesObservable);
+      return physicalResources || [];
+    } catch (error) {
+      console.error('Falha ao buscar Physical Resources:', error);
+      return [];
+    }
+  }
+
   private setupResizeObserver(): void {
     const container = this.canvasContainer.nativeElement as HTMLElement;
 
@@ -205,7 +218,7 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
       if (object instanceof THREE.Mesh) {
         group = object.parent;
       }
-      if (group && (isWarehouse(group) || isYard(group) || isDock(group))) {
+      if (group && (isWarehouse(group) || isYard(group) || isDock(group) || isFixedCrane(group))) {
         if (isWarehouse(group)) {
           this.outlinePass.visibleEdgeColor.set('#FFA500');
           this.outlinePass.hiddenEdgeColor.set('#FFA500');
@@ -218,11 +231,16 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
           this.outlinePass.visibleEdgeColor.set('#159AD3');
           this.outlinePass.hiddenEdgeColor.set('#159AD3');
         }
+        else if (isFixedCrane(group)) {
+          this.outlinePass.visibleEdgeColor.set('#3B06CA');
+          this.outlinePass.hiddenEdgeColor.set('#3B06CA');
+        }
         this.outlinePass.selectedObjects = [group];
         this.highlightedObject = group;
         moveCamera(group, this.camera, this.controls, this.renderer, this.scene);
       }
     }
+    console.log(this.highlightedObject?.userData['type'], " and ", this.highlightedObject?.userData['id']);
   }
 
   private onKeyDown(event: KeyboardEvent): void {
@@ -234,7 +252,7 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     }
   }
 
-  private initThree(storageAreas: StorageAreaDto[], docks: DockDto[]): void {
+  private initThree(storageAreas: StorageAreaDto[], docks: DockDto[], physicalResources: PhysicalResourceDto[]): void {
     const container = this.canvasContainer.nativeElement as HTMLElement;
     const width = container.clientWidth;
     const height = container.clientHeight;
@@ -251,6 +269,16 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     yards.forEach((storageArea: StorageAreaDto) => createYard(this.scene, storageArea));
 
     docks.forEach((dock: DockDto) => createDock(this.scene, dock));
+
+    const fixedCranes = physicalResources.filter(physicalResource => physicalResource.type === 'Fixed Crane');
+    fixedCranes.forEach((physicalResource: PhysicalResourceDto) => {
+      const dock = docks.find(d => d.id === physicalResource.dock);
+      if (!dock) {
+        console.warn('Dock não encontrado para Fixed Crane ${physicalResource.id}');
+        return;
+      }
+      createFixedCrane(this.scene, physicalResource, dock);
+    });
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
     this.renderer.setSize(width, height);
