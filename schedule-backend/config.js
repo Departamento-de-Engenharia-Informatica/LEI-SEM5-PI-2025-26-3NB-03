@@ -44,7 +44,11 @@ export default {
     role: {
       name: "RoleController",
       path: "../controllers/roleController"
-    }
+    },
+      complementaryTaskCategory: {
+          name: "ComplementaryTaskCategoryController",
+          path: "../controllers/complementaryTaskCategoryController"
+      }
   },
 
   repos: {
@@ -55,13 +59,21 @@ export default {
     user: {
       name: "UserRepo",
       path: "../repos/userRepo"
-    }
+    },
+      complementaryTaskCategory: {
+          name: "ComplementaryTaskCategoryRepo",
+          path: "../repos/complementaryTaskCategoryRepo"
+      }
   },
 
   services: {
     role: {
       name: "RoleService",
       path: "../services/roleService"
-    }
+    },
+      complementaryTaskCategory: {
+          name: "ComplementaryTaskCategoryService",
+          path: "../services/complementaryTaskCategoryService"
+      }
   },
 };
