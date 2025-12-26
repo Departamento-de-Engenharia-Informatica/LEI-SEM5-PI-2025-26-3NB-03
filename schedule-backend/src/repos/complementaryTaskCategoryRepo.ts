@@ -41,9 +41,15 @@ export default class ComplementaryTaskCategoryRepo implements IComplementaryTask
     }
 
     public async findByDomainId(categoryId: UniqueEntityID | string): Promise<ComplementaryTaskCategory> {
-        const query = { domainId: categoryId };
+
+        const idX = categoryId instanceof UniqueEntityID ? (<UniqueEntityID>categoryId).toValue() : categoryId;
+
+        const query = { domainId: idX };
         const categoryRecord = await this.categorySchema.findOne(query as any);
-        if(categoryRecord != null) return ComplementaryTaskCategoryMap.toDomain(categoryRecord);
+
+        if(categoryRecord != null) {
+            return ComplementaryTaskCategoryMap.toDomain(categoryRecord);
+        }
         return null;
     }
 
