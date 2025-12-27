@@ -30,6 +30,12 @@ export default async ({ expressApp }) => {
         schema: '../persistence/schemas/complementaryTaskSchema',
     };
 
+    const visitExecutionSchema = {
+        name: 'visitExecutionSchema',
+        schema: '../persistence/schemas/visitExecutionSchema',
+    };
+
+
     // --- CONTROLLERS ---
     const roleController = {
         name: config.controllers.role.name,
@@ -44,6 +50,11 @@ export default async ({ expressApp }) => {
     const complementaryTaskController = {
         name: 'ComplementaryTaskController',
         path: '../controllers/complementaryTaskController'
+    };
+
+    const visitExecutionController = {
+        name: 'VisitExecutionController',
+        path: '../controllers/visitExecutionController'
     };
 
     // --- REPOS ---
@@ -67,6 +78,11 @@ export default async ({ expressApp }) => {
         path: '../repos/complementaryTaskRepo'
     };
 
+    const visitExecutionRepo = {
+        name: 'VisitExecutionRepo',
+        path: '../repos/visitExecutionRepo'
+    };
+
     // --- SERVICES ---
     const roleService = {
         name: config.services.role.name,
@@ -83,29 +99,38 @@ export default async ({ expressApp }) => {
         path: '../services/complementaryTaskService'
     };
 
+    const visitExecutionService = {
+        name: 'VisitExecutionService',
+        path: '../services/visitExecutionService'
+    };
+
     await dependencyInjectorLoader({
         mongoConnection,
         schemas: [
             userSchema,
             roleSchema,
             complementaryTaskCategorySchema,
-            complementaryTaskSchema
+            complementaryTaskSchema,
+            visitExecutionSchema
         ],
         controllers: [
             roleController,
             complementaryTaskCategoryController,
-            complementaryTaskController
+            complementaryTaskController,
+            visitExecutionController
         ],
         repos: [
             roleRepo,
             userRepo,
             complementaryTaskCategoryRepo,
-            complementaryTaskRepo
+            complementaryTaskRepo,
+            visitExecutionRepo
         ],
         services: [
             roleService,
             complementaryTaskCategoryService,
-            complementaryTaskService
+            complementaryTaskService,
+            visitExecutionService
         ]
     });
 
