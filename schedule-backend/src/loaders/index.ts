@@ -25,6 +25,11 @@ export default async ({ expressApp }) => {
         schema: '../persistence/schemas/complementaryTaskCategorySchema', // <--- CORREÇÃO AQUI
     };
 
+    const complementaryTaskSchema = {
+        name: 'complementaryTaskSchema',
+        schema: '../persistence/schemas/complementaryTaskSchema',
+    };
+
     // --- CONTROLLERS ---
     const roleController = {
         name: config.controllers.role.name,
@@ -34,6 +39,11 @@ export default async ({ expressApp }) => {
     const complementaryTaskCategoryController = {
         name: config.controllers.complementaryTaskCategory.name,
         path: config.controllers.complementaryTaskCategory.path
+    };
+
+    const complementaryTaskController = {
+        name: 'ComplementaryTaskController',
+        path: '../controllers/complementaryTaskController'
     };
 
     // --- REPOS ---
@@ -52,6 +62,11 @@ export default async ({ expressApp }) => {
         path: config.repos.complementaryTaskCategory.path
     };
 
+    const complementaryTaskRepo = {
+        name: 'ComplementaryTaskRepo',
+        path: '../repos/complementaryTaskRepo'
+    };
+
     // --- SERVICES ---
     const roleService = {
         name: config.services.role.name,
@@ -63,25 +78,34 @@ export default async ({ expressApp }) => {
         path: config.services.complementaryTaskCategory.path
     };
 
+    const complementaryTaskService = {
+        name: 'ComplementaryTaskService',
+        path: '../services/complementaryTaskService'
+    };
+
     await dependencyInjectorLoader({
         mongoConnection,
         schemas: [
             userSchema,
             roleSchema,
-            complementaryTaskCategorySchema
+            complementaryTaskCategorySchema,
+            complementaryTaskSchema
         ],
         controllers: [
             roleController,
-            complementaryTaskCategoryController
+            complementaryTaskCategoryController,
+            complementaryTaskController
         ],
         repos: [
             roleRepo,
             userRepo,
-            complementaryTaskCategoryRepo
+            complementaryTaskCategoryRepo,
+            complementaryTaskRepo
         ],
         services: [
             roleService,
-            complementaryTaskCategoryService
+            complementaryTaskCategoryService,
+            complementaryTaskService
         ]
     });
 

@@ -13,3 +13,14 @@ obj/
 *.vsidx
 /dddnetcore/bin/
 /dddnetcore/.vs/
+
+# Ignorar dependências
+node_modules/
+**/node_modules/
+
+# Ignorar builds
+dist/
+build/
+
+# Ignorar variáveis de ambiente (SEGURANÇA!)
+.env
