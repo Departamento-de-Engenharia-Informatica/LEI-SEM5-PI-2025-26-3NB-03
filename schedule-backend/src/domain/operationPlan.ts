@@ -49,4 +49,16 @@ export class OperationPlan extends AggregateRoot<OperationPlanProps> {
 
         return Result.ok<OperationPlan>(operationPlan);
     }
+
+    public updateDate(date: Date): void {
+        this.props.date = date;
+    }
+
+    public updateVessel(vesselId: string): void {
+        this.props.vesselId = vesselId;
+    }
+
+    public updateStatus(status: string): void {
+        this.props.status = status;
+    }
 }

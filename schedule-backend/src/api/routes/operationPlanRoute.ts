@@ -26,4 +26,15 @@ export default (app: Router) => {
     route.get('',
         (req, res, next) => ctrl.getOperationPlans(req, res, next)
     );
+
+    route.patch('/:id',
+        celebrate({
+            body: Joi.object({
+                date: Joi.string(),
+                vesselId: Joi.string(),
+                status: Joi.string()
+            }),
+        }),
+        (req, res, next) => ctrl.updateOperationPlan(req, res, next)
+    );
 };

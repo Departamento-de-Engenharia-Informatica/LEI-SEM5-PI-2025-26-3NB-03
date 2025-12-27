@@ -12,3 +12,10 @@ export interface IOperationPlanFiltersDTO {
     date?: string;
     vesselId?: string;
 }
+
+export interface IUpdateOperationPlanDTO {
+    id: string;
+    date?: string;
+    vesselId?: string;
+    status?: string;
+}
