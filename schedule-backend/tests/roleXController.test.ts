@@ -46,7 +46,7 @@ describe('role controller', function () {
 		const ctrl = new RoleController(roleServiceInstance as IRoleService);
 
 		// Act
-		await ctrl.createRole(<Request>req, <Response>res, <NextFunction>next);
+        await ctrl.createRole(req as Request, res as Response, next as NextFunction);
 
 		// Assert
 		sinon.assert.calledOnce(res.json);
@@ -77,7 +77,7 @@ describe('role controller', function () {
 		const ctrl = new RoleController(roleServiceInstance as IRoleService);
 
 		// Act
-		await ctrl.createRole(<Request>req, <Response>res, <NextFunction>next);
+        await ctrl.createRole(req as Request, res as Response, next as NextFunction);
 
 		// Assert
 		sinon.assert.calledOnce(res.json);
@@ -107,7 +107,7 @@ describe('role controller', function () {
 		const ctrl = new RoleController(roleServiceInstance as IRoleService);
 
 		// Act
-		await ctrl.createRole(<Request>req, <Response>res, <NextFunction>next);
+        await ctrl.createRole(req as Request, res as Response, next as NextFunction);
 
 		// Assert
 		sinon.assert.calledOnce(res.json);
@@ -139,7 +139,7 @@ describe('role controller', function () {
 		const ctrl = new RoleController(roleServiceInstance as IRoleService);
 
 		// Act
-		await ctrl.createRole(<Request>req, <Response>res, <NextFunction>next);
+        await ctrl.createRole(req as Request, res as Response, next as NextFunction);
 
 		// Assert
 		roleServiceMock.verify();
