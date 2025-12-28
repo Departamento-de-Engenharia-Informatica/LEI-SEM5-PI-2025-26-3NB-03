@@ -5,6 +5,7 @@ import role from './routes/roleRoute';
 import complementaryTaskCategory from './routes/complementaryTaskCategoryRoute';
 import complementaryTaskRoute from './routes/complementaryTaskRoute';
 import visitExecutionRoute from './routes/visitExecutionRoute';
+import operationPlanRoute from './routes/operationPlanRoute';
 
 export default () => {
 	const app = Router();
@@ -15,5 +16,6 @@ export default () => {
     complementaryTaskCategory(app);
     complementaryTaskRoute(app);
     visitExecutionRoute(app);
+    operationPlanRoute(app);
 	return app
 }

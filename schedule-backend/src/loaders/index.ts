@@ -35,6 +35,11 @@ export default async ({ expressApp }) => {
         schema: '../persistence/schemas/visitExecutionSchema',
     };
 
+    const operationPlanSchema = {
+        name: 'operationPlanSchema',
+        schema: '../persistence/schemas/operationPlanSchema',
+    };
+
 
     // --- CONTROLLERS ---
     const roleController = {
@@ -56,6 +61,12 @@ export default async ({ expressApp }) => {
         name: 'VisitExecutionController',
         path: '../controllers/visitExecutionController'
     };
+
+    const operationPlanController = {
+        name: 'OperationPlanController',
+        path: '../controllers/operationPlanController'
+    };
+
 
     // --- REPOS ---
     const roleRepo = {
@@ -83,6 +94,11 @@ export default async ({ expressApp }) => {
         path: '../repos/visitExecutionRepo'
     };
 
+    const operationPlanRepo = {
+        name: 'OperationPlanRepo',
+        path: '../repos/operationPlanRepo'
+    };
+
     // --- SERVICES ---
     const roleService = {
         name: config.services.role.name,
@@ -104,6 +120,11 @@ export default async ({ expressApp }) => {
         path: '../services/visitExecutionService'
     };
 
+    const operationPlanService = {
+        name: 'OperationPlanService',
+        path: '../services/operationPlanService'
+    };
+
     await dependencyInjectorLoader({
         mongoConnection,
         schemas: [
@@ -111,26 +132,31 @@ export default async ({ expressApp }) => {
             roleSchema,
             complementaryTaskCategorySchema,
             complementaryTaskSchema,
-            visitExecutionSchema
+            visitExecutionSchema,
+            operationPlanSchema
         ],
         controllers: [
             roleController,
             complementaryTaskCategoryController,
             complementaryTaskController,
-            visitExecutionController
+            visitExecutionController,
+            operationPlanController,
+            operationPlanController
         ],
         repos: [
             roleRepo,
             userRepo,
             complementaryTaskCategoryRepo,
             complementaryTaskRepo,
-            visitExecutionRepo
+            visitExecutionRepo,
+            operationPlanRepo
         ],
         services: [
             roleService,
             complementaryTaskCategoryService,
             complementaryTaskService,
-            visitExecutionService
+            visitExecutionService,
+            operationPlanService
         ]
     });
 
