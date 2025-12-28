@@ -48,6 +48,10 @@ export default {
       complementaryTaskCategory: {
           name: "ComplementaryTaskCategoryController",
           path: "../controllers/complementaryTaskCategoryController"
+      },
+      complementaryTask: {
+          name: "ComplementaryTaskController",
+          path: "../controllers/complementaryTaskController"
       }
   },
 
@@ -74,6 +78,10 @@ export default {
       complementaryTaskCategory: {
           name: "ComplementaryTaskCategoryService",
           path: "../services/complementaryTaskCategoryService"
+      },
+      complementaryTask: {
+          name: "ComplementaryTaskService",
+          path: "../services/complementaryTaskService"
       }
   },
 };

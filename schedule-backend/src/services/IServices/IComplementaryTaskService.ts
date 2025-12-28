@@ -3,4 +3,5 @@ import { ICreateComplementaryTaskDTO, IComplementaryTaskDTO } from "../../dto/IC
 
 export default interface IComplementaryTaskService {
     createTask(taskDTO: ICreateComplementaryTaskDTO): Promise<Result<IComplementaryTaskDTO>>;
+    getAllTasks(): Promise<Result<any[]>>;
 }

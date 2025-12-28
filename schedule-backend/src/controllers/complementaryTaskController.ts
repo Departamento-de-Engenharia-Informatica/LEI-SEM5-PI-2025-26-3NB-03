@@ -26,4 +26,17 @@ export default class ComplementaryTaskController implements IComplementaryTaskCo
             return next(e);
         }
     }
+    public async getAllTasks(req: Request, res: Response, next: NextFunction) {
+        try {
+
+            const result = await this.taskService.getAllTasks();
+
+            if (result.isFailure) {
+                return res.status(400).send(result.errorValue());
+            }
+            return res.status(200).json(result.getValue());
+        } catch (e) {
+            return next(e);
+        }
+    }
 }
