@@ -8,3 +8,43 @@
     height: 100%;
     background-color: #AAAAAA;
 }
+
+.dock-info-panel {
+  position: absolute;
+  display: inline-block;   /* importante */
+  width: 260px;            /* largura fixa  */
+  max-width: 300px;
+  background: rgba(20, 20, 20, 0.9);
+  color: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+  z-index: 20;
+}
+.dock-info-panel h3 {
+  margin: 0 0 6px 0;
+  font-size: 14px;
+}
+.dock-info-panel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.dock-info-panel li {
+  margin-bottom: 4px;
+}
+
+.component-label {
+  position: absolute;       /* necessário para posicionamento sobre o canvas */
+  pointer-events: none;     /* evita que clique interfira */
+  background-color: rgba(255, 255, 255, 0.75); 
+  color: black;
+  font-size: 12px;          /* menor que o painel de info */
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+  white-space: nowrap;      /* evita quebra de linha */
+  transform: translate(-50%, -120%); /* posiciona acima do ponto */
+  z-index: 10;              /* acima do canvas */
+}

@@ -29,6 +29,10 @@ export function createWarehouse(scene: THREE.Scene, storageArea: StorageAreaDto)
     id: storageArea.id,
     locationX: storageArea.locationX,
     locationZ: storageArea.locationZ,
+    locationOrientation: storageArea.locationOrientation,
+    maximumCapacity: storageArea.maximumCapacity,
+    currentOccupancy: storageArea.currentOccupancy,
+    docks: storageArea.docks
   };
   warehouseGroup.position.set(storageArea.locationX, 0, storageArea.locationZ);
   warehouseGroup.rotation.y = storageArea.locationOrientation * (Math.PI / 180);
@@ -134,6 +138,10 @@ export function createYard(scene: THREE.Scene, storageArea: StorageAreaDto): voi
     id: storageArea.id,
     locationX: storageArea.locationX,
     locationZ: storageArea.locationZ,
+    locationOrientation: storageArea.locationOrientation,
+    maximumCapacity: storageArea.maximumCapacity,
+    currentOccupancy: storageArea.currentOccupancy,
+    docks: storageArea.docks
   };
   yardGroup.position.set(storageArea.locationX, 0, storageArea.locationZ);
   yardGroup.rotation.y = storageArea.locationOrientation * (Math.PI / 180);

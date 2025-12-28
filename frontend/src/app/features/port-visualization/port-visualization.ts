@@ -40,9 +40,20 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
   private composer!: EffectComposer;
   private outlinePass!: OutlinePass;
 
+  // Variáveis para mostrar informações das docks e storage areas
+selectedDock: DockDto | null = null;
+selectedStorageArea: StorageAreaDto | null = null;
+infoVisible = false;
+labelVisible = false;
+labelText = '';
+labelX = 0;
+labelY = 0;
+
   private onClickHandler = this.onMouseClick.bind(this);
   private onResizeHandler = this.onWindowResize.bind(this);
   private onKeyDownHandler = this.onKeyDown.bind(this);
+
+
 
   constructor(private apiService: Api) { }
 
@@ -179,10 +190,20 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     if (this.controls) {
       this.controls.update();
     }
+     // Atualiza posição da label se houver algo selecionado
+    if (this.labelVisible && this.highlightedObject) {
+      this.updateLabelPosition(this.highlightedObject);
+    }
     this.composer.render();
   }
 
   private onMouseClick(event: MouseEvent): void {
+    
+    // Reset visual state on any click
+    this.labelVisible = false;
+    this.infoVisible = false;
+    this.selectedDock = null;
+    this.selectedStorageArea = null;
     const rect = this.renderer.domElement.getBoundingClientRect();
     this.mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
     this.mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
@@ -207,22 +228,94 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
       }
       if (group && (isWarehouse(group) || isYard(group) || isDock(group))) {
         if (isWarehouse(group)) {
+           //Mostra sublinhado
           this.outlinePass.visibleEdgeColor.set('#FFA500');
           this.outlinePass.hiddenEdgeColor.set('#FFA500');
+          
+          // Mostra label
+          this.labelText = group.userData['type'];
+          this.labelVisible = true;
+
+          // Armazena a storagearea selecionada
+          this.selectedStorageArea = {
+          id: group.userData['id'],
+          type: group.userData['type'],
+          locationX: group.userData['locationX'],
+          locationZ: group.userData['locationZ'],
+          locationOrientation: group.userData['locationOrientation'],
+          maximumCapacity: group.userData['maximumCapacity'],
+          currentOccupancy: group.userData['currentOccupancy'],
+          docks: group.userData['docks']
+          };
+          this.infoVisible = false; // painel só aparece ao pressionar 'i'
+
         }
         else if (isYard(group)) {
           this.outlinePass.visibleEdgeColor.set('#7CE40D');
           this.outlinePass.hiddenEdgeColor.set('#7CE40D');
+          // Mostra label
+          this.labelText = group.userData['type'];
+          this.labelVisible = true;
+
+          // Armazena a storagearea selecionada
+          this.selectedStorageArea = {
+          id: group.userData['id'],
+          type: group.userData['type'],
+          locationX: group.userData['locationX'],
+          locationZ: group.userData['locationZ'],
+          locationOrientation: group.userData['locationOrientation'],
+          maximumCapacity: group.userData['maximumCapacity'],
+          currentOccupancy: group.userData['currentOccupancy'],
+          docks: group.userData['docks']
+          };
+          this.infoVisible = false; // painel só aparece ao pressionar 'i'
+  
         }
         else if (isDock(group)) {
+
+          //Mostra sublinhado
           this.outlinePass.visibleEdgeColor.set('#159AD3');
           this.outlinePass.hiddenEdgeColor.set('#159AD3');
+
+          // Mostra label
+          this.labelText = group.userData['name'];
+          this.labelVisible = true;
+
+          // Armazena a dock selecionada
+          this.selectedDock = {
+          id: group.userData['id'],
+          name: group.userData['name'],
+          locationX: group.userData['locationX'],
+          locationZ: group.userData['locationZ'],
+          locationOrientation: group.userData['locationOrientation'],
+          length: group.userData['length'],
+          depth: group.userData['depth'],
+          maxDraft: group.userData['maxDraft'],
+          capacity: group.userData['capacity'],
+          vesselTypeIds: group.userData['vesselTypeIds'],
+          };
+          this.infoVisible = false; // painel só aparece ao pressionar 'i'
+
+         
         }
         this.outlinePass.selectedObjects = [group];
         this.highlightedObject = group;
         moveCamera(group, this.camera, this.controls, this.renderer, this.scene);
       }
     }
+  
+  }
+
+  private updateLabelPosition(object: THREE.Object3D): void {
+    const vector = new THREE.Vector3();
+    object.getWorldPosition(vector);
+    vector.project(this.camera);
+
+    const container = this.canvasContainer.nativeElement as HTMLElement;
+    const rect = container.getBoundingClientRect();
+
+    this.labelX = ((vector.x + 1) / 2) * rect.width;
+    this.labelY = ((-vector.y + 1) / 2) * rect.height;
   }
 
   private onKeyDown(event: KeyboardEvent): void {
@@ -232,7 +325,11 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
       this.outlinePass.selectedObjects = [];
       this.highlightedObject = null;
     }
+
+    if ((event.key === 'i' || event.key === 'I') && (this.selectedDock || this.selectedStorageArea)) {
+    this.infoVisible = !this.infoVisible; // alterna visibilidade do painel
   }
+}
 
   private initThree(storageAreas: StorageAreaDto[], docks: DockDto[]): void {
     const container = this.canvasContainer.nativeElement as HTMLElement;

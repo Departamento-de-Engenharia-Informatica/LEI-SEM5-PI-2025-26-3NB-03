@@ -154,7 +154,7 @@ namespace DDDSample1
                     var dock1 = new Dock(
                         name: "Dock1",
                         locationx: -3,
-                        locationz: 17,
+                        locationz: 14,
                         locationorientation: 90,
                         length: 7,
                         depth: 2,
@@ -171,9 +171,9 @@ namespace DDDSample1
                     var dock2 = new Dock(
                         name: "Dock2",
                         locationx: 6,
-                        locationz: 17,
+                        locationz: 14,
                         locationorientation: 90,
-                        length: 7,
+                        length: 10, 
                         depth: 2,
                         maxDraft: 12,
                         capacity: 500,
