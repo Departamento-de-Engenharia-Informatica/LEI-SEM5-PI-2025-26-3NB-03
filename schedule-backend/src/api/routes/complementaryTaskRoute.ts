@@ -14,9 +14,15 @@ export default (app: Router) => {
             body: Joi.object({
                 name: Joi.string().required(),
                 description: Joi.string().required(),
-                categoryId: Joi.string().required() // Obrigatório passar o ID da categoria
+                categoryId: Joi.string().required(), // Obrigatório passar o ID da categoria
+                active: Joi.boolean()
             }),
         }),
         (req, res, next) => ctrl.createTask(req, res, next)
     );
+    route.get('', (req, res, next) => {
+        const ctrl = Container.get('ComplementaryTaskController') as any;
+        return ctrl.getAllTasks(req, res, next);
+    });
+
 };

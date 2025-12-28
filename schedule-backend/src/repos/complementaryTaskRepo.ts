@@ -66,4 +66,12 @@ export default class ComplementaryTaskRepo implements IComplementaryTaskRepo {
         }
         return null;
     }
+
+    public async findAll(): Promise<ComplementaryTask[]> {
+
+        const taskRecords = await this.taskSchema.find();
+
+
+        return taskRecords.map((record) => ComplementaryTaskMap.toDomain(record));
+    }
 }

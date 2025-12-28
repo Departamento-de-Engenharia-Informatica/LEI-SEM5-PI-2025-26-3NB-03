@@ -17,19 +17,19 @@ export default class ComplementaryTaskService implements IComplementaryTaskServi
 
     public async createTask(taskDTO: ICreateComplementaryTaskDTO): Promise<Result<IComplementaryTaskDTO>> {
         try {
-            // 1. Verificar se a Categoria existe (Integridade Referencial)
+
             const categoryExists = await this.categoryRepo.findByDomainId(taskDTO.categoryId);
             if (!categoryExists) {
                 return Result.fail<IComplementaryTaskDTO>("Category not found. Cannot create task.");
             }
 
-            // 2. Verificar se o Nome da Tarefa já existe (Unicidade)
+
             const taskExists = await this.taskRepo.findByName(taskDTO.name);
             if (taskExists) {
                 return Result.fail<IComplementaryTaskDTO>("Task with this name already exists.");
             }
 
-            // 3. Criar a Entidade de Domínio
+
             const taskOrError = ComplementaryTask.create({
                 name: taskDTO.name,
                 description: taskDTO.description,
@@ -43,13 +43,32 @@ export default class ComplementaryTaskService implements IComplementaryTaskServi
 
             const taskResult = taskOrError.getValue();
 
-            // 4. Guardar na Base de Dados
+
             await this.taskRepo.save(taskResult);
 
             const taskDTOResult = ComplementaryTaskMap.toDTO(taskResult) as IComplementaryTaskDTO;
             return Result.ok<IComplementaryTaskDTO>(taskDTOResult);
         } catch (e) {
             throw e;
+        }
+    }
+    public async getAllTasks(): Promise<Result<IComplementaryTaskDTO[]>> {
+        try {
+
+            const tasks = await this.taskRepo.findAll();
+
+
+            if (tasks === null) {
+                return Result.fail<IComplementaryTaskDTO[]>("Nenhuma tarefa encontrada.");
+            }
+
+
+            const tasksDTO = tasks.map((task) => ComplementaryTaskMap.toDTO(task)) as IComplementaryTaskDTO[];
+
+
+            return Result.ok<IComplementaryTaskDTO[]>(tasksDTO);
+        } catch (e) {
+            return Result.fail<IComplementaryTaskDTO[]>(e);
         }
     }
 }

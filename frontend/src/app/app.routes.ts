@@ -126,6 +126,27 @@ export const routes: Routes = [
         data: { roles: ['PAO'] }
       },
       {
+        path: 'tasks/create',
+        loadComponent: () =>
+          import('./features/task/task-create/task-create.component')
+            .then(m => m.TaskCreateComponent),
+        title: 'Criar Tarefa',
+        canActivate: [roleGuard],
+        data: { roles: ['LO'] }
+      },
+      {
+        path: 'tasks',
+        loadComponent: () => import('./features/task/task-list/task-list.component').then(m => m.TaskListComponent),
+        title: 'Tarefas',
+        canActivate: [roleGuard], data: { roles: ['PAO', 'LO'] }
+      },
+      {
+        path: 'categories',
+        loadComponent: () => import('./features/task-category/category-list/category-list.component').then(m => m.CategoryListComponent),
+        title: 'Categorias',
+        canActivate: [roleGuard], data: { roles: ['PAO', 'LO'] }
+      },
+      {
         path: 'port',
         loadComponent: () => import('./features/port-visualization/port-visualization').then(m => m.PortVisualization),
         canMatch: [roleGuard],

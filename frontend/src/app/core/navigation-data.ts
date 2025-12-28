@@ -29,6 +29,7 @@ export const MENU_ITEMS: MenuItem[] = [
   { label: 'MENU.SHIPPING_AGENT_ORGANIZATIONS', link: '/shippingagentorganizations', requiredRoles: ['PAO'] },
   { label: 'MENU.REPRESENTATIVES', link: '/representatives', requiredRoles: ['PAO'] },
   { label: 'MENU.REVIEW_VVNS', link: '/reviewvvns', requiredRoles: ['PAO'] },
+  { label: 'MENU.CREATE_CATEGORY', link: '/categories/create', requiredRoles: ['PAO'] },
 
   /*
     Logistics Operator (lo@pm.pt / admin)
@@ -42,6 +43,7 @@ export const MENU_ITEMS: MenuItem[] = [
   { label: 'MENU.STAFF', link: '/staff', requiredRoles: ['LO'] },
   { label: 'MENU.PHYSICAL_RESOURCES', link: '/physicalresources', requiredRoles: ['LO'] },
   { label: 'MENU.QUALIFICATIONS', link: '/qualifications', requiredRoles: ['LO'] },
+  { label: 'MENU.CREATE_TASK', link: '/tasks/create', requiredRoles: ['LO'] },
 
   /*
     Representative (qualquer email / rep)
@@ -60,6 +62,15 @@ export const MENU_ITEMS: MenuItem[] = [
     Pages: 3.3.2. 3D Representation of Port Structure
            3.3.4. Render 3D Models Appropriatelly
   */
-  { label: 'MENU.CREATE_CATEGORY', link: '/categories/create', requiredRoles: ['PAO'] },
+  {
+    label: 'MENU.TASKS_LIST',
+    link: '/tasks',
+    requiredRoles: ['PAO', 'LO']
+  },
+  {
+    label: 'MENU.CATEGORIES_LIST',
+    link: '/categories',
+    requiredRoles: ['PAO', 'LO']
+  },
   { label: 'MENU.PORT', link: '/port', requiredRoles: ['PAO', 'LO', 'Rep', 'Staff'] },
 ];

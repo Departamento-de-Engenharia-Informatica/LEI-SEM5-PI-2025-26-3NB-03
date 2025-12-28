@@ -1,0 +1,40 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>{{ 'TASK_LIST.TITLE' | translate }}</h2>
+
+    <a routerLink="/tasks/create" class="btn btn-primary">
+      {{ 'TASK_LIST.NEW_BUTTON' | translate }}
+    </a>
+  </div>
+
+  <div *ngIf="isLoading" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">{{ 'TASK_LIST.LOADING' | translate }}</span>
+    </div>
+  </div>
+
+  <table class="table table-hover shadow-sm" *ngIf="!isLoading && tasks.length > 0">
+    <thead class="table-dark">
+    <tr>
+      <th>{{ 'TASK_LIST.HEADER_NAME' | translate }}</th>
+      <th>{{ 'TASK_LIST.HEADER_DESC' | translate }}</th>
+      <th>{{ 'TASK_LIST.HEADER_STATUS' | translate }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let task of tasks">
+      <td>{{ task.name }}</td>
+      <td>{{ task.description }}</td>
+      <td>
+          <span class="badge" [ngClass]="task.active ? 'bg-success' : 'bg-secondary'">
+            {{ (task.active ? 'TASK_LIST.STATUS_ACTIVE' : 'TASK_LIST.STATUS_INACTIVE') | translate }}
+          </span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!isLoading && tasks.length === 0" class="alert alert-warning">
+    {{ 'TASK_LIST.EMPTY' | translate }}
+  </div>
+</div>

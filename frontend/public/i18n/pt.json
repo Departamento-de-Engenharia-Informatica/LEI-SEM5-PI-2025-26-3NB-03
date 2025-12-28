@@ -26,7 +26,10 @@
     "VESSELS": "Navios",
     "CREATE_CATEGORY": "Criar Categoria",
     "REVIEW_VVNS": "Analise a Notificações de Visita de Embarcação",
-    "PHYSICAL_RESOURCES": "Recursos Físicos"
+    "PHYSICAL_RESOURCES": "Recursos Físicos",
+    "CREATE_TASK": "Criar Tarefa",
+    "TASKS_LIST": "Lista de Tarefas",
+    "CATEGORIES_LIST": "Categorias"
   },
   "COMMON": {
     "LOADING": "A carregar",
@@ -227,5 +230,29 @@
     "CREATE_BUTTON": "Criar",
     "SUCCESS": "Categoria criada com sucesso!",
     "ERROR": "Erro ao criar categoria."
+  },
+  "TASKS": {
+    "CREATE_TITLE": "Criar Tarefa Complementar",
+    "NAME": "Nome da Tarefa",
+    "DESCRIPTION": "Descrição",
+    "CATEGORY": "Categoria",
+    "ACTIVE": "Ativa?",
+    "CREATE_BUTTON": "Criar Tarefa",
+    "SUCCESS": "Tarefa criada com sucesso!"
+  },
+  "TASK_LIST": {
+    "TITLE": "Lista de Tarefas",
+    "NEW_BUTTON": "+ Nova Tarefa",
+    "HEADER_NAME": "Nome",
+    "HEADER_DESC": "Descrição",
+    "HEADER_STATUS": "Estado",
+    "STATUS_ACTIVE": "Ativa",
+    "STATUS_INACTIVE": "Inativa",
+    "EMPTY": "Não há tarefas criadas.",
+    "LOADING": "A carregar..."
+  },
+  "CATEGORY_LIST": {
+    "TITLE": "Categorias de Tarefa",
+    "ID": "ID"
   }
 }
