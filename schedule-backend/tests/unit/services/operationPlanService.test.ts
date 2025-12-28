@@ -27,7 +27,10 @@ describe('OperationPlan Service', () => {
             save: sinon.stub().resolves(dummyPlan),
 
 
-            findByFilters: sinon.stub().resolves([dummyPlan])
+            findByFilters: sinon.stub().resolves([dummyPlan]),
+
+
+            findByDomainId: sinon.stub().resolves(dummyPlan)
         };
 
         service = new OperationPlanService(
@@ -60,5 +63,20 @@ describe('OperationPlan Service', () => {
 
         expect(result.isFailure).to.be.true;
         expect(result.error).to.equal("Invalid Date format.");
+    });
+
+    it('deve atualizar um plano existente', async () => {
+
+        (planRepoStub.findByDomainId as sinon.SinonStub).resolves(OperationPlan.create(dummyPlanProps).getValue());
+
+        const updateDTO = {
+            id: '123',
+            status: 'COMPLETED'
+        };
+
+        const result = await service.updateOperationPlan(updateDTO);
+
+        expect(result.isSuccess).to.be.true;
+        expect(result.getValue().status).to.equal('COMPLETED');
     });
 });
