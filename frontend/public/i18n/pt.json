@@ -24,6 +24,7 @@
     "STORAGE_AREAS": "Zonas de Armazenamento",
     "DOCKS": "Docas",
     "VESSELS": "Navios",
+    "CREATE_CATEGORY": "Criar Categoria",
     "REVIEW_VVNS": "Analise a Notificações de Visita de Embarcação",
     "PHYSICAL_RESOURCES": "Recursos Físicos"
   },
@@ -218,5 +219,13 @@
     "TITLE": "404",
     "MESSAGE": "Página Não Encontrada",
     "GO_HOME": "Ir para a Página Inicial"
+  },
+  "CATEGORIES": {
+    "CREATE_TITLE": "Criar Categoria de Tarefa",
+    "NAME": "Nome",
+    "DESCRIPTION": "Descrição",
+    "CREATE_BUTTON": "Criar",
+    "SUCCESS": "Categoria criada com sucesso!",
+    "ERROR": "Erro ao criar categoria."
   }
 }

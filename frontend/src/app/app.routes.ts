@@ -117,6 +117,15 @@ export const routes: Routes = [
         data: { roles: ['Rep'] }
       },
       {
+        path: 'categories/create',
+        loadComponent: () =>
+          import('./features/task-category/category-create/category-create.component')
+            .then(m => m.CategoryCreateComponent),
+        title: 'Criar Categoria de Tarefa',
+        canActivate: [roleGuard],
+        data: { roles: ['PAO'] }
+      },
+      {
         path: 'port',
         loadComponent: () => import('./features/port-visualization/port-visualization').then(m => m.PortVisualization),
         canMatch: [roleGuard],
