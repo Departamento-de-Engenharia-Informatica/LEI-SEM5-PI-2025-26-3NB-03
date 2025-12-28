@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { StorageAreaDto } from '../../../core/models/storagearea';
 import { createTeusInArea, TEU_WIDTH, TEU_HEIGHT, TEU_DEPTH, MAX_FLOORS } from './teus';
 import { RectAreaLight } from 'three';
-import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
+import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib';
 
 /**
  * Cria e adiciona um Warehouse à cena.
@@ -35,7 +35,7 @@ export function createWarehouse(scene: THREE.Scene, storageArea: StorageAreaDto)
   scene.add(warehouseGroup);
 
   const floorGeometry = new THREE.BoxGeometry(extWidth, floorHeight, extDepth);
-  const floorMaterial = new THREE.MeshStandardMaterial({ 
+  const floorMaterial = new THREE.MeshStandardMaterial({
     color: 0x808080,
     metalness: 0.2,
     roughness: 0.6
