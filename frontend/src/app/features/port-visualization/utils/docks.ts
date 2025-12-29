@@ -14,6 +14,7 @@ export function createDock(scene: THREE.Scene, dockData: DockDto): void {
   const dockLength = dockData.length;
   const dockDepth = dockData.depth;
 
+
   const textureLoader = new THREE.TextureLoader();
   const dockTexture = textureLoader.load('textures/rock.jpg');
   dockTexture.wrapS = dockTexture.wrapT = THREE.RepeatWrapping;
@@ -22,11 +23,19 @@ export function createDock(scene: THREE.Scene, dockData: DockDto): void {
   const dockGroup = new THREE.Group();
   dockGroup.userData = {
     type: "Dock",
-    id: dockData.id,
-    locationX: dockData.locationX,
-    locationZ: dockData.locationZ,
+  id: dockData.id,
+  name: dockData.name,
+  locationX: dockData.locationX,
+  locationZ: dockData.locationZ,
+  locationOrientation: dockData.locationOrientation,
+  length: dockData.length,
+  depth: dockData.depth,
+  maxDraft: dockData.maxDraft,
+  capacity: dockData.capacity,
+  vesselTypeIds: dockData.vesselTypeIds,
   };
-  dockGroup.position.set(dockData.locationX, 0, dockData.locationZ);
+  
+  dockGroup.position.set(dockData.locationX, 0, dockData.locationZ+dockLength/2);
   dockGroup.rotation.y = dockData.locationOrientation * (Math.PI / 180);
   scene.add(dockGroup);
 

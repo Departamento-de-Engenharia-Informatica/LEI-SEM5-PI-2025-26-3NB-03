@@ -1,3 +1,52 @@
-<div class="canvas-container">
-    <div #canvasContainer class="render-area"></div>
+<div #canvasContainer class="canvas-container" style="position: relative; width: 100%; height: 100%;">
+  
+  <!-- Canvas será inserido dinamicamente -->
+  
+  <!-- Label Docks-->
+  <div class="component-label"
+        [style.left.px]="labelX + 10"
+       [style.top.px]="labelY + 10"
+       *ngIf="labelVisible">
+    {{ labelText }}
+  </div>
+
+  <!-- Painel de info Docks -->
+  <div class="dock-info-panel"
+       *ngIf="infoVisible && selectedDock"
+       [style.left.px]="labelX + 10"
+       [style.top.px]="labelY + 20">
+    <h3>{{ selectedDock?.name }}</h3>
+    <ul>
+      
+      <li><strong>Location X:</strong> {{ selectedDock?.locationX }}</li>
+      <li><strong>Location Z:</strong> {{ selectedDock?.locationZ }}</li>
+      <li><strong>Orientation:</strong> {{ selectedDock?.locationOrientation }}°</li>
+      <li><strong>Length:</strong> {{ selectedDock?.length }} m</li>
+      <li><strong>Depth:</strong> {{ selectedDock?.depth }} m</li>
+      <li><strong>Max Draft:</strong> {{ selectedDock?.maxDraft }} m</li>
+      <li><strong>Capacity:</strong> {{ selectedDock?.capacity }} cranes</li>
+      <li><strong>Vessel Types:</strong> {{ selectedDock?.vesselTypeIds?.join(', ') }}</li>
+    </ul>
+  </div>
+
+  <!-- Painel de info Stprageareas -->
+  <div class="dock-info-panel"
+       *ngIf="infoVisible && selectedStorageArea"
+       [style.left.px]="labelX + 10"
+       [style.top.px]="labelY + 20">
+    <h3>{{ selectedStorageArea?.type }}</h3>
+    <ul>
+      <li><strong>Location X:</strong> {{ selectedStorageArea?.locationX }}</li>
+      <li><strong>Location Z:</strong> {{ selectedStorageArea?.locationZ }}</li>
+      <li><strong>Orientation:</strong> {{ selectedStorageArea?.locationOrientation }}°</li>
+      <li><strong>Maximum Capacity:</strong> {{ selectedStorageArea?.maximumCapacity }} cranes</li>
+      <li><strong>Current Occupancy:</strong> {{ selectedStorageArea?.currentOccupancy }} cranes</li>
+      <li><strong>Docks:</strong> {{ selectedStorageArea?.docks?.join(', ') }}</li>
+    </ul>
+  </div>
+
+
+
+
+
 </div>
