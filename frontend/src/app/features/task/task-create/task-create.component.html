@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="card p-4" style="max-width: 600px; margin: 20px auto;">
+    <h2>{{ 'TASKS.CREATE_TITLE' | translate }}</h2>
+
+    <div *ngIf="message" class="alert" [ngClass]="{'alert-success': !isError, 'alert-danger': isError}">
+      {{ message | translate }} </div>
+
+    <form (ngSubmit)="onSubmit()" #taskForm="ngForm">
+
+      <div class="mb-3">
+        <label class="form-label">{{ 'TASKS.NAME' | translate }}</label>
+        <input type="text" class="form-control" [(ngModel)]="task.name" name="name" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">{{ 'TASKS.DESCRIPTION' | translate }}</label>
+        <input type="text" class="form-control" [(ngModel)]="task.description" name="description" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">{{ 'TASKS.CATEGORY' | translate }}</label>
+        <select class="form-select" [(ngModel)]="task.categoryId" name="categoryId" required>
+          <option value="" disabled selected>-- Selecione --</option>
+          <option *ngFor="let cat of categories" [value]="cat.id">
+            {{ cat.name }}
+          </option>
+        </select>
+        <small *ngIf="categories.length === 0" class="text-danger">
+          ⚠️ Nenhuma categoria encontrada. (US 14 necessária)
+        </small>
+      </div>
+
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" [(ngModel)]="task.active" name="active" id="activeCheck">
+        <label class="form-check-label" for="activeCheck">
+          {{ 'TASKS.ACTIVE' | translate }}
+        </label>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100" [disabled]="!taskForm.form.valid">
+        {{ 'TASKS.CREATE_BUTTON' | translate }}
+      </button>
+    </form>
+  </div>
+</div>

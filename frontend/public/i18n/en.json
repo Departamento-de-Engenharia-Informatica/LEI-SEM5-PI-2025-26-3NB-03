@@ -23,8 +23,12 @@
     "STORAGE_AREAS": "Storage Areas",
     "DOCKS": "Docks",
     "VESSELS": "Vessels",
+    "CREATE_CATEGORY": "Create Category",
     "REVIEW_VVNS": "Review Vessel Visit Notifications",
-    "PHYSICAL_RESOURCES": "Physical Resources"
+    "PHYSICAL_RESOURCES": "Physical Resources",
+    "CREATE_TASK": "Create Task",
+    "TASKS_LIST": "Task List",
+    "CATEGORIES_LIST": "Categories"
   },
   "COMMON": {
     "LOADING": "Loading",
@@ -217,5 +221,37 @@
     "TITLE": "404",
     "MESSAGE": "Page Not Found",
     "GO_HOME": "Go to Home"
+  },
+  "CATEGORIES": {
+    "CREATE_TITLE": "Create Task Category",
+    "NAME": "Name",
+    "DESCRIPTION": "Description",
+    "CREATE_BUTTON": "Create",
+    "SUCCESS": "Category created successfully!",
+    "ERROR": "Error creating category."
+  },
+  "TASKS": {
+  "CREATE_TITLE": "Create Complementary Task",
+  "NAME": "Task Name",
+  "DESCRIPTION": "Description",
+  "CATEGORY": "Category",
+  "ACTIVE": "Is Active?",
+  "CREATE_BUTTON": "Create Task",
+  "SUCCESS": "Task created successfully!"
+},
+  "TASK_LIST": {
+    "TITLE": "Task List",
+    "NEW_BUTTON": "+ New Task",
+    "HEADER_NAME": "Name",
+    "HEADER_DESC": "Description",
+    "HEADER_STATUS": "Status",
+    "STATUS_ACTIVE": "Active",
+    "STATUS_INACTIVE": "Inactive",
+    "EMPTY": "No tasks created yet.",
+    "LOADING": "Loading..."
+  },
+  "CATEGORY_LIST": {
+    "TITLE": "🗂Task Categories",
+    "ID": "ID"
   }
 }
