@@ -12,7 +12,7 @@ import {
 })
 export class QualificationsService {
 
-  private endpoint = 'qualifications'; // backend usa lowercase
+  private endpoint = 'qualifications';
 
   constructor(private http: HttpClient) {}
 

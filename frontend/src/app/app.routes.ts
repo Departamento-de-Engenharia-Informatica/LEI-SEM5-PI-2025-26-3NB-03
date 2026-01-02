@@ -147,6 +147,12 @@ export const routes: Routes = [
         canActivate: [roleGuard], data: { roles: ['PAO', 'LO'] }
       },
       {
+        path: 'visit-executions/create',
+        loadComponent: () => import('./features/visit-execution/vve-create/vve-create.component').then(m => m.VveCreateComponent),
+        title: 'Registar Chegada',
+        canActivate: [roleGuard], data: { roles: ['LO'] }
+      },
+      {
         path: 'port',
         loadComponent: () => import('./features/port-visualization/port-visualization').then(m => m.PortVisualization),
         canMatch: [roleGuard],

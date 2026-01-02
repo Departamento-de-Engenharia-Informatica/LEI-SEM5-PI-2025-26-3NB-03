@@ -28,7 +28,8 @@
     "PHYSICAL_RESOURCES": "Physical Resources",
     "CREATE_TASK": "Create Task",
     "TASKS_LIST": "Task List",
-    "CATEGORIES_LIST": "Categories"
+    "CATEGORIES_LIST": "Categories",
+    "VVE_CREATE": "Register Vessel Arrival"
   },
   "COMMON": {
     "LOADING": "Loading",
@@ -253,5 +254,12 @@
   "CATEGORY_LIST": {
     "TITLE": "🗂Task Categories",
     "ID": "ID"
+  },
+  "VVE": {
+    "TITLE": "Register Vessel Arrival",
+    "VVN_ID": "Visit ID (VVN)",
+    "VESSEL_ID": "Vessel ID",
+    "ARRIVAL_TIME": "Arrival Time",
+    "BUTTON_CREATE": "Register Arrival"
   }
 }
