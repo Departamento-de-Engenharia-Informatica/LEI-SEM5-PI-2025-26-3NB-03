@@ -38,4 +38,14 @@ export default class VisitExecutionService implements IVisitExecutionService {
             throw e;
         }
     }
+
+    public async getAll(): Promise<Result<IVisitExecutionDTO[]>> {
+        try {
+            const visits = await this.visitExecutionRepo.findAll();
+            const visitsDTO = visits.map((visit) => VisitExecutionMap.toDTO(visit));
+            return Result.ok<IVisitExecutionDTO[]>(visitsDTO);
+        } catch (e) {
+            return Result.fail<IVisitExecutionDTO[]>(e);
+        }
+    }
 }

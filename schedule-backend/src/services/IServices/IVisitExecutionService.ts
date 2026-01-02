@@ -3,4 +3,5 @@ import { ICreateVisitExecutionDTO, IVisitExecutionDTO } from "../../dto/IVisitEx
 
 export default interface IVisitExecutionService {
     createVisitExecution(dto: ICreateVisitExecutionDTO): Promise<Result<IVisitExecutionDTO>>;
+    getAll(): Promise<Result<IVisitExecutionDTO[]>>;
 }

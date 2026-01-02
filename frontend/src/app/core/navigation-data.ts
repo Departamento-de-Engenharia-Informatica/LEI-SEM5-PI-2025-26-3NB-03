@@ -72,5 +72,10 @@ export const MENU_ITEMS: MenuItem[] = [
     link: '/categories',
     requiredRoles: ['PAO', 'LO']
   },
+  {
+    label: 'MENU.VVE_CREATE',
+    link: '/visit-executions/create',
+    requiredRoles: ['LO']
+  },
   { label: 'MENU.PORT', link: '/port', requiredRoles: ['PAO', 'LO', 'Rep', 'Staff'] },
 ];

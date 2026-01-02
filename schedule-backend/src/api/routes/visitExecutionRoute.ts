@@ -14,10 +14,11 @@ export default (app: Router) => {
             body: Joi.object({
                 vvnId: Joi.string().required(),
                 vesselId: Joi.string().required(),
-                arrivalTime: Joi.string().required(), // Formato ISO Date
+                arrivalTime: Joi.string().required(),
                 creatorId: Joi.string().required()
             }),
         }),
         (req, res, next) => ctrl.createVisitExecution(req, res, next)
     );
+    route.get('', (req, res, next) => ctrl.getAll(req, res, next));
 };
