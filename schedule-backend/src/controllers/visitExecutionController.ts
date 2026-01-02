@@ -24,4 +24,16 @@ export default class VisitExecutionController implements IVisitExecutionControll
             return next(e);
         }
     }
+
+    public async getAll(req: Request, res: Response, next: NextFunction) {
+        try {
+            const result = await this.visitExecutionService.getAll();
+            if (result.isFailure) {
+                return res.status(400).json(result.errorValue());
+            }
+            return res.status(200).json(result.getValue());
+        } catch (e) {
+            return next(e);
+        }
+    }
 }

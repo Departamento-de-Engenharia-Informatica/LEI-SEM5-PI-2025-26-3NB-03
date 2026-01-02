@@ -1,0 +1,41 @@
+<div class="container mt-5">
+  <div class="card shadow-lg">
+    <div class="card-header bg-primary text-white">
+      <h3 class="mb-0">🚢 Registar Chegada de Navio (VVE)</h3>
+    </div>
+    <div class="card-body">
+
+      <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+      <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+      <form (ngSubmit)="onSubmit()" #form="ngForm">
+
+        <div class="mb-3">
+          <label for="vvnId" class="form-label">ID da Visita Planeada (VVN)</label>
+          <input type="text" class="form-control" id="vvnId"
+                 [(ngModel)]="formData.vvnId" name="vvnId" required
+                 placeholder="Ex: VVN-12345">
+        </div>
+
+        <div class="mb-3">
+          <label for="vesselId" class="form-label">ID do Navio (IMO)</label>
+          <input type="text" class="form-control" id="vesselId"
+                 [(ngModel)]="formData.vesselId" name="vesselId" required
+                 placeholder="Ex: IMO9876543">
+        </div>
+
+        <div class="mb-3">
+          <label for="arrivalTime" class="form-label">Data e Hora Real de Chegada</label>
+          <input type="datetime-local" class="form-control" id="arrivalTime"
+                 [(ngModel)]="formData.arrivalTime" name="arrivalTime" required>
+        </div>
+
+        <div class="d-flex justify-content-end gap-2">
+          <button type="button" class="btn btn-secondary" routerLink="/dashboard">Cancelar</button>
+          <button type="submit" class="btn btn-success" [disabled]="!form.valid">Confirmar Chegada</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

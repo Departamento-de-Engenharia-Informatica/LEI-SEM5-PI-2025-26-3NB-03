@@ -37,7 +37,7 @@ export default class VisitExecutionRepo implements IVisitExecutionRepo {
                 const visitCreated = await this.visitExecutionSchema.create(rawVisit);
                 return VisitExecutionMap.toDomain(visitCreated);
             } else {
-                // Atualização (caso seja necessário no futuro)
+
                 visitDocument.status = t.status;
                 await visitDocument.save();
                 return t;
@@ -54,5 +54,11 @@ export default class VisitExecutionRepo implements IVisitExecutionRepo {
             return VisitExecutionMap.toDomain(visitRecord);
         }
         return null;
+    }
+
+    public async findAll(): Promise<VisitExecution[]> {
+        const query = {};
+        const visitRecords = await this.visitExecutionSchema.find(query);
+        return visitRecords.map((record) => VisitExecutionMap.toDomain(record));
     }
 }
