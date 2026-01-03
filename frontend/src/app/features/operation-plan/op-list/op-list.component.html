@@ -1,0 +1,38 @@
+<div class="container">
+  <h2>{{ 'OP_PLAN.TITLE_LIST' | translate }}</h2>
+
+  <div class="filters-bar">
+    <input type="text" [(ngModel)]="filterVesselId" [placeholder]="'VVE.VESSEL_ID' | translate" class="form-control">
+    <input type="date" [(ngModel)]="filterDate" class="form-control">
+    <button (click)="loadPlans()" class="btn-search">{{ 'OP_PLAN.BTN_SEARCH' | translate }}</button>
+
+    <button routerLink="/operation-plans/generate" class="btn-create">+ {{ 'OP_PLAN.BTN_GENERATE' | translate }}</button>
+  </div>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th>{{ 'OP_PLAN.DATE' | translate }}</th>
+      <th>{{ 'OP_PLAN.VESSEL' | translate }}</th>
+      <th>VVN</th>
+      <th>{{ 'OP_PLAN.STEPS' | translate }}</th>
+      <th>{{ 'OP_PLAN.STATUS' | translate }}</th>
+      <th>{{ 'OP_PLAN.ACTIONS' | translate }}</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let plan of plans">
+      <td>{{ plan.date | date:'shortDate' }}</td>
+      <td>{{ plan.vesselId }}</td>
+      <td>{{ plan.vvnId }}</td>
+      <td>{{ getOperationCount(plan) }}</td>
+      <td><span [class]="'badge ' + plan.status">{{ plan.status }}</span></td>
+      <td>
+        <button [routerLink]="['/operation-plans/edit', plan.id]" class="btn-edit">
+          {{ 'OP_PLAN.BTN_EDIT' | translate }}
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

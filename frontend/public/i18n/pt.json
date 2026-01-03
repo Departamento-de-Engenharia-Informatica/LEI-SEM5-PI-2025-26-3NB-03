@@ -30,7 +30,8 @@
     "CREATE_TASK": "Criar Tarefa",
     "TASKS_LIST": "Lista de Tarefas",
     "CATEGORIES_LIST": "Categorias",
-    "VVE_CREATE": "Registar Chegada Navio"
+    "VVE_CREATE": "Registar Chegada Navio",
+    "OP_PLANS": "Planos de Operação"
   },
   "COMMON": {
     "LOADING": "A carregar",
@@ -262,5 +263,26 @@
     "VESSEL_ID": "ID do Navio",
     "ARRIVAL_TIME": "Hora de Chegada",
     "BUTTON_CREATE": "Registar Chegada"
+  },
+  "OP_PLAN": {
+    "TITLE_LIST": "Planos de Operação",
+    "TITLE_GENERATE": "Gerar Plano de Operação",
+    "TITLE_EDIT": "Editar Plano de Operação",
+    "DATE": "Data",
+    "VESSEL": "Navio",
+    "STEPS": "Passos",
+    "STATUS": "Estado",
+    "ACTIONS": "Ações",
+    "BTN_SEARCH": "Pesquisar",
+    "BTN_GENERATE": "Gerar Plano",
+    "BTN_EDIT": "Editar",
+    "BTN_SAVE": "Guardar Alterações",
+    "BTN_CANCEL": "Cancelar",
+    "LBL_ALGORITHM": "Algoritmo de Escalonamento",
+    "LBL_OPERATIONS": "Operações do Plano",
+    "TH_TYPE": "Tipo",
+    "TH_RESOURCE": "Recurso",
+    "TH_START": "Início",
+    "TH_END": "Fim"
   }
 }

@@ -1,0 +1,67 @@
+<div class="container" *ngIf="plan">
+  <h2>{{ 'OP_PLAN.TITLE_EDIT' | translate }}</h2>
+
+  <div *ngIf="message" [class.success]="!isError" [class.error]="isError" class="alert">
+    {{ message }}
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #editForm="ngForm">
+
+    <div class="row">
+      <div class="form-group half">
+        <label>ID:</label>
+        <input type="text" [value]="plan.id" disabled class="form-control">
+      </div>
+      <div class="form-group half">
+        <label>VVN:</label>
+        <input type="text" [value]="plan.vvnId" disabled class="form-control">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group half">
+        <label>{{ 'OP_PLAN.STATUS' | translate }}:</label>
+        <select [(ngModel)]="plan.status" name="status" class="form-control">
+          <option value="PLANNED">PLANNED</option>
+          <option value="IN_PROGRESS">IN_PROGRESS</option>
+          <option value="COMPLETED">COMPLETED</option>
+        </select>
+      </div>
+      <div class="form-group half">
+        <label>{{ 'OP_PLAN.DATE' | translate }}:</label>
+        <input type="text" [(ngModel)]="plan.date" name="date" class="form-control">
+      </div>
+    </div>
+
+    <h3 class="mt-4">{{ 'OP_PLAN.LBL_OPERATIONS' | translate }}</h3>
+    <table class="table-ops">
+      <thead>
+      <tr>
+        <th>{{ 'OP_PLAN.TH_TYPE' | translate }}</th>
+        <th>{{ 'OP_PLAN.TH_RESOURCE' | translate }}</th>
+        <th>{{ 'OP_PLAN.TH_START' | translate }}</th>
+        <th>{{ 'OP_PLAN.TH_END' | translate }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let op of plan.operations; let i = index">
+        <td>{{ op.type }}</td>
+        <td>
+          <input type="text" [(ngModel)]="op.resourceId" [name]="'res'+i" class="form-control small">
+        </td>
+        <td>
+          <input type="text" [(ngModel)]="op.startTime" [name]="'start'+i" class="form-control small">
+        </td>
+        <td>
+          <input type="text" [(ngModel)]="op.endTime" [name]="'end'+i" class="form-control small">
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="actions mt-4">
+      <button type="button" class="btn-cancel" routerLink="/operation-plans">{{ 'OP_PLAN.BTN_CANCEL' | translate }}</button>
+      <button type="submit">{{ 'OP_PLAN.BTN_SAVE' | translate }}</button>
+    </div>
+  </form>
+</div>

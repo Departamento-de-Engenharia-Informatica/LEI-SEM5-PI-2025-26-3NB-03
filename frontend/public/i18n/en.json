@@ -29,7 +29,8 @@
     "CREATE_TASK": "Create Task",
     "TASKS_LIST": "Task List",
     "CATEGORIES_LIST": "Categories",
-    "VVE_CREATE": "Register Vessel Arrival"
+    "VVE_CREATE": "Register Vessel Arrival",
+    "OP_PLANS": "Operation Plans"
   },
   "COMMON": {
     "LOADING": "Loading",
@@ -261,5 +262,26 @@
     "VESSEL_ID": "Vessel ID",
     "ARRIVAL_TIME": "Arrival Time",
     "BUTTON_CREATE": "Register Arrival"
+  },
+  "OP_PLAN": {
+    "TITLE_LIST": "Operation Plans",
+    "TITLE_GENERATE": "Generate Operation Plan",
+    "TITLE_EDIT": "Edit Operation Plan",
+    "DATE": "Date",
+    "VESSEL": "Vessel",
+    "STEPS": "Steps",
+    "STATUS": "Status",
+    "ACTIONS": "Actions",
+    "BTN_SEARCH": "Search",
+    "BTN_GENERATE": "Generate Plan",
+    "BTN_EDIT": "Edit",
+    "BTN_SAVE": "Save Changes",
+    "BTN_CANCEL": "Cancel",
+    "LBL_ALGORITHM": "Scheduling Algorithm",
+    "LBL_OPERATIONS": "Plan Operations",
+    "TH_TYPE": "Type",
+    "TH_RESOURCE": "Resource",
+    "TH_START": "Start",
+    "TH_END": "End"
   }
 }

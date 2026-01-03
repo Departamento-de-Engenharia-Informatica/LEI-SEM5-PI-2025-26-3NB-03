@@ -12,6 +12,9 @@ import { StorageArea } from './features/storagearea/storagearea';
 import { ShippingAgentOrganization } from './features/shippingagentorganization/shippingagentorganization';
 import { NotFound } from './shared/components/notfound';
 import { PhysicalResource } from './features/physicalresource/physicalresource';
+import { OpListComponent } from './features/operation-plan/op-list/op-list.component';
+import { OpGenerateComponent } from './features/operation-plan/op-generate/op-generate.component';
+import { OpEditComponent } from './features/operation-plan/op-edit/op-edit.component';
 
 export const routes: Routes = [
   {
@@ -151,6 +154,18 @@ export const routes: Routes = [
         loadComponent: () => import('./features/visit-execution/vve-create/vve-create.component').then(m => m.VveCreateComponent),
         title: 'Registar Chegada',
         canActivate: [roleGuard], data: { roles: ['LO'] }
+      },
+      {
+        path: 'operation-plans',
+        component: OpListComponent
+      },
+      {
+        path: 'operation-plans/generate',
+        component: OpGenerateComponent
+      },
+      {
+        path: 'operation-plans/edit/:id',
+        component: OpEditComponent
       },
       {
         path: 'port',
