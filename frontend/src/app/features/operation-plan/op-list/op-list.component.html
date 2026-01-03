@@ -31,6 +31,10 @@
         <button [routerLink]="['/operation-plans/edit', plan.id]" class="btn-edit">
           {{ 'OP_PLAN.BTN_EDIT' | translate }}
         </button>
+
+        <button (click)="deletePlan(plan)" class="btn-delete" style="margin-left: 5px; background-color: #dc3545; color: white;">
+          🗑️
+        </button>
       </td>
     </tr>
     </tbody>

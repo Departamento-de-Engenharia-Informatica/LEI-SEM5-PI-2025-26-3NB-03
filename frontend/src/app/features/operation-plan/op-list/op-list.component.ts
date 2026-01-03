@@ -32,4 +32,16 @@ export class OpListComponent implements OnInit {
   getOperationCount(plan: OperationPlan): number {
     return plan.operations ? plan.operations.length : 0;
   }
+
+  deletePlan(plan: OperationPlan) {
+    if (confirm('Tem a certeza que quer eliminar este plano?')) {
+      this.service.delete(plan.id).subscribe({
+        next: () => {
+
+          this.loadPlans();
+        },
+        error: (err) => alert('Erro ao eliminar: ' + err.message)
+      });
+    }
+  }
 }

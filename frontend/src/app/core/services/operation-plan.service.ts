@@ -23,4 +23,9 @@ export class OperationPlanService {
   update(id: string, dto: UpdateOperationPlanDto): Observable<OperationPlan> {
     return this.http.patch<OperationPlan>(`${this.apiUrl}/${id}`, dto);
   }
+
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
+
 }
