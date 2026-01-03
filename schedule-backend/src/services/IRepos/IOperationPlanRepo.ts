@@ -7,4 +7,5 @@ export default interface IOperationPlanRepo extends Repo<OperationPlan> {
     findByDomainId(planId: UniqueEntityID | string): Promise<OperationPlan>;
     findAll(): Promise<OperationPlan[]>;
     findByFilters(vesselId?: string, date?: Date): Promise<OperationPlan[]>;
+    delete(id: string): Promise<boolean>;
 }

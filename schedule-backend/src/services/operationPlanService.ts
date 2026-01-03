@@ -100,4 +100,17 @@ export default class OperationPlanService implements IOperationPlanService {
             return Result.fail<IOperationPlanDTO>(String(e));
         }
     }
+    public async deleteOperationPlan(id: string): Promise<Result<void>> {
+        try {
+            const exists = await this.planRepo.findByDomainId(id);
+            if (exists === null) {
+                return Result.fail<void>("Plan not found");
+            }
+
+            await this.planRepo.delete(id);
+            return Result.ok<void>();
+        } catch (e) {
+            return Result.fail<void>(String(e));
+        }
+    }
 }

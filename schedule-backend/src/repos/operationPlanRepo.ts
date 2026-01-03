@@ -87,4 +87,9 @@ export default class OperationPlanRepo implements IOperationPlanRepo {
         const planRecords = await this.planSchema.find(query);
         return planRecords.map(record => OperationPlanMap.toDomain(record));
     }
+    public async delete(planId: string): Promise<boolean> {
+        const query = { domainId: planId };
+        const res = await this.planSchema.deleteOne(query as any);
+        return res.deletedCount === 1;
+    }
 }

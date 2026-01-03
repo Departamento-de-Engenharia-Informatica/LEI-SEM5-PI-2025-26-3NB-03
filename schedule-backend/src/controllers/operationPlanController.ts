@@ -41,4 +41,19 @@ export default class OperationPlanController implements IOperationPlanController
             return res.status(200).json(result.getValue());
         } catch (e) { return next(e); }
     }
+
+    public async deleteOperationPlan(req: Request, res: Response, next: NextFunction) {
+        try {
+            const id = req.params.id;
+            const result = await this.planService.deleteOperationPlan(id);
+
+            if (result.isFailure) {
+                return res.status(404).json({ message: result.errorValue() });
+            }
+
+            return res.status(200).json({ message: "Deleted successfully" });
+        } catch (e) {
+            return next(e);
+        }
+    }
 }

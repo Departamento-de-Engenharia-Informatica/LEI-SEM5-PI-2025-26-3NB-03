@@ -6,4 +6,5 @@ export default interface IOperationPlanService {
     getAll(): Promise<Result<IOperationPlanDTO[]>>;
     getOperationPlans(vesselId?: string, date?: string): Promise<Result<IOperationPlanDTO[]>>;
     updateOperationPlan(dto: IUpdateOperationPlanDTO): Promise<Result<IOperationPlanDTO>>;
+    deleteOperationPlan(id: string): Promise<Result<void>>;
 }

@@ -48,4 +48,5 @@ export default (app: Router) => {
         }),
         (req, res, next) => ctrl.updateOperationPlan(req, res, next)
     );
+    route.delete('/:id', (req, res, next) => ctrl.deleteOperationPlan(req, res, next));
 };
