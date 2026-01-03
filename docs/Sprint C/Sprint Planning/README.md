@@ -40,3 +40,59 @@
 - Since we only have 3 team members now in ARQSI, our initial goal, so that the team can realistically complete the User Stories, is to only do the ones in the Mandatory OEM User Stories from member 1 to 3. So, **10 of the 15 (ARQSI) Operations & Execution Management User Stories**.
 - Since we only have 2 team members now in SGRAI, our initial goal is to ignore the User Stories and criterias that state that are only for groups with four or more elements. So, the goal is to do **5 of the 7 (SGRAI) 3D Visualization User Stories**, and the last of those 5 with **one less criteria**.
 - Complete the **4 (LAPR5) GDPR Awareness & Data Impact Understanding User Stories**.
+
+## User Stories
+
+### Names
+
+User Stories are already numbered, but we gave them a short name so that they are more easily identifiable.
+
+| Number  | Short Name                           |
+|---------|--------------------------------------|
+| 4.1.1.  | Create Schedule Back-end             |
+| 4.1.2.  | Create Operation Plans               |
+| 4.1.3.  | List Operation Plans                 |
+| 4.1.4.  | Update Operation Plan                |
+| 4.1.7.  | Create Vessel Visit Execution        |
+| 4.1.8.  | Update Berth Time and Dock Used      |
+| 4.1.9.  | Update Executed Operations           |
+| 4.1.12. | Manage Incident Types                |
+| 4.1.13. | Manage Incidents                     |
+| 4.1.14. | Manage Complementary Task Categories |
+| 4.2.1.  | Select Facilities                    |
+| 4.2.2.  | Select Resources                     |
+| 4.2.3.  | Toggle Information                   |
+| 4.2.4.  | View Vessel Status                   |
+| 4.2.7.  | Reset Camera                         |
+| 4.5.1.  | Manage Privacy Policy                |
+| 4.5.2.  | Personal Data Collection             |
+| 4.5.3.  | User Personal Data Rights            |
+| 4.5.4.  | Non-User Personal Data Rights        |
+
+### Tasks
+
+The team member that does a User Story, does the backend and then the corresponding frontend.
+
+## Priorities and dependencies
+
+#### ARQSI
+
+1. All is dependent on **4.1.1.** being done first.
+
+2. Operation Plans, Incident Types and Complementary Task Categories can be created with dependencies.
+
+3. User Stories to list and update those can be done after.
+
+4. Vessel Visit Execution can be created after that.
+
+5. Update Berth Time, Dock Used and Executed Operations and create Incidents should be the last User stories.
+
+#### SGRAI
+
+1. User Stories regarding selection should be done first.
+
+2. After that, everything else can be done.
+
+#### LAPR5
+
+1. Every User Story should be accounted for when doing the Privacy Policy.
