@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { StorageAreaDto } from '../../../core/models/storagearea';
 import { createTeusInArea, TEU_WIDTH, TEU_HEIGHT, TEU_DEPTH, MAX_FLOORS } from './teus';
 import { RectAreaLight } from 'three';
-import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib';
+import { RectAreaLightUniformsLib } from 'three/examples/jsm/lights/RectAreaLightUniformsLib.js';
 
 /**
  * Cria e adiciona um Warehouse à cena.
