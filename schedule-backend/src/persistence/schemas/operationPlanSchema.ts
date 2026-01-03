@@ -7,8 +7,17 @@ const OperationPlanSchema = new mongoose.Schema(
         vvnId: { type: String, required: true },
         vesselId: { type: String, required: true },
         date: { type: Date, required: true },
-        operationType: { type: String, required: true },
-        status: { type: String, required: true }
+
+        operations: [{
+            operationId: String,
+            type: { type: String, enum: ['LOADING', 'UNLOADING'] },
+            containerNumber: String,
+            resourceId: String,
+            startTime: Date,
+            endTime: Date
+        }],
+
+        status: { type: String, default: 'PLANNED' }
     },
     {
         timestamps: true

@@ -3,6 +3,13 @@ export interface IOperationPlanPersistence {
     vvnId: string;
     vesselId: string;
     date: Date;
-    operationType: string;
     status: string;
+    operations: Array<{
+        operationId: string;
+        type: string;
+        containerNumber: string;
+        resourceId: string;
+        startTime: Date;
+        endTime: Date;
+    }>;
 }

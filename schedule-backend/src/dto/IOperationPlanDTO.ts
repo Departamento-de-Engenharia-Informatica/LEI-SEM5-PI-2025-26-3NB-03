@@ -1,16 +1,26 @@
+export interface IOperationStepDTO {
+    operationId: string;
+    type: string;
+    containerNumber: string;
+    resourceId: string;
+    startTime: string;
+    endTime: string;
+}
+
 export interface IOperationPlanDTO {
     id: string;
     vvnId: string;
     vesselId: string;
     date: string;
-    operationType: string;
     status: string;
+    operations: IOperationStepDTO[];
 }
 
-
-export interface IOperationPlanFiltersDTO {
-    date?: string;
-    vesselId?: string;
+export interface ICreateOperationPlanDto {
+    vvnId: string;
+    vesselId: string;
+    date: string;
+    algorithm?: string;
 }
 
 export interface IUpdateOperationPlanDTO {
@@ -18,4 +28,5 @@ export interface IUpdateOperationPlanDTO {
     date?: string;
     vesselId?: string;
     status?: string;
+    operations?: IOperationStepDTO[];
 }
