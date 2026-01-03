@@ -21,4 +21,5 @@ export default (app: Router) => {
         (req, res, next) => ctrl.createVisitExecution(req, res, next)
     );
     route.get('', (req, res, next) => ctrl.getAll(req, res, next));
+    route.patch('/:id', (req, res, next) => ctrl.updateVisitExecution(req, res, next));
 };

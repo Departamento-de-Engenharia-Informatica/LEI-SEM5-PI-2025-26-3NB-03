@@ -39,6 +39,7 @@ export default class VisitExecutionRepo implements IVisitExecutionRepo {
             } else {
 
                 visitDocument.status = t.status;
+                visitDocument.arrivalTime = t.arrivalTime;
                 await visitDocument.save();
                 return t;
             }
@@ -51,7 +52,7 @@ export default class VisitExecutionRepo implements IVisitExecutionRepo {
         const query = { domainId: visitExecutionId };
         const visitRecord = await this.visitExecutionSchema.findOne(query as any);
         if (visitRecord != null) {
-            return VisitExecutionMap.toDomain(visitRecord);
+            return VisitExecutionMap.toDomain(visitRecord.toObject());
         }
         return null;
     }
@@ -59,6 +60,6 @@ export default class VisitExecutionRepo implements IVisitExecutionRepo {
     public async findAll(): Promise<VisitExecution[]> {
         const query = {};
         const visitRecords = await this.visitExecutionSchema.find(query);
-        return visitRecords.map((record) => VisitExecutionMap.toDomain(record));
+        return visitRecords.map((record) => VisitExecutionMap.toDomain(record.toObject()));
     }
 }
