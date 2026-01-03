@@ -1,6 +1,8 @@
+using DDDSample1.Domain.Docks;
 using DDDSample1.Domain.Qualifications;
-using DDDSample1.Domain.Representatives;
 using DDDSample1.Domain.Shared;
+using DDDSample1.Domain.StorageAreas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,44 +14,69 @@ namespace DDDSample1.Domain.PhysicalResources
         private readonly IUnitOfWork _unitOfWork;
         private readonly IPhysicalResourceRepository _repo;
         private readonly IQualificationRepository _repQ;
+        private readonly IDockRepository _repD;
 
-        public PhysicalResourceService(IUnitOfWork unitOfWork, IPhysicalResourceRepository repo, IQualificationRepository repQ)
+        public PhysicalResourceService(IUnitOfWork unitOfWork, IPhysicalResourceRepository repo, IQualificationRepository repQ, IDockRepository repD)
         {
             this._unitOfWork = unitOfWork;
             this._repo = repo;
             this._repQ = repQ;
+            this._repD = repD;
         }
 
         public async Task<List<PhysicalResourceDto>> GetAllAsync()
         {
             var list = await this._repo.GetAllAsync();
 
-            return list.ConvertAll<PhysicalResourceDto>(resource => new PhysicalResourceDto
+            return list.ConvertAll<PhysicalResourceDto>(resource =>
             {
-                Id = resource.Id.AsGuid(),
-                Description = resource.Description,
-                OperationalCapacity = resource.OperationalCapacity,
-                AvailabilityStatus = resource.AvailabilityStatus,
-                SetupTime = resource.SetupTime,
-                Qualifications = resource.Qualifications.Select(q => q.Id.AsString()).ToList()
+                resource.CheckAvailability();
+
+                return new PhysicalResourceDto
+                {
+                    Id = resource.Id.AsGuid(),
+                    Code = resource.Code,
+                    Type = resource.Type,
+                    Description = resource.Description,
+                    WeekdayStart = resource.WeekdayStart,
+                    WeekdayFinish = resource.WeekdayFinish,
+                    WeekendStart = resource.WeekendStart,
+                    WeekendFinish = resource.WeekendFinish,
+                    ContainerCapacity = resource.ContainerCapacity,
+                    AverageSpeed = resource.AverageSpeed,
+                    SetupTime = resource.SetupTime,
+                    AvailabilityStatus = resource.AvailabilityStatus,
+                    Qualifications = resource.PhysicalResourceQualifications.Select(prq => prq.Qualification.Code).ToList(),
+                    Dock = resource.AssignedDockId?.AsGuid()
+                };
             });
         }
 
         public async Task<PhysicalResourceDto> GetByIdAsync(PhysicalResourceId id)
         {
             var resource = await this._repo.GetByIdAsync(id);
-            
-            if(resource == null)
+
+            if (resource == null)
                 return null;
+
+            resource.CheckAvailability();
 
             return new PhysicalResourceDto
             {
                 Id = resource.Id.AsGuid(),
+                Code = resource.Code,
+                Type = resource.Type,
                 Description = resource.Description,
-                OperationalCapacity = resource.OperationalCapacity,
-                AvailabilityStatus = resource.AvailabilityStatus,
+                WeekdayStart = resource.WeekdayStart,
+                WeekdayFinish = resource.WeekdayFinish,
+                WeekendStart = resource.WeekendStart,
+                WeekendFinish = resource.WeekendFinish,
+                ContainerCapacity = resource.ContainerCapacity,
+                AverageSpeed = resource.AverageSpeed,
                 SetupTime = resource.SetupTime,
-                Qualifications = resource.Qualifications.Select(q => q.Id.AsString()).ToList()
+                AvailabilityStatus = resource.AvailabilityStatus,
+                Qualifications = resource.PhysicalResourceQualifications.Select(prq => prq.Qualification.Code).ToList(),
+                Dock = resource.AssignedDockId?.AsGuid()
             };
         }
 
@@ -59,20 +86,38 @@ namespace DDDSample1.Domain.PhysicalResources
                 throw new BusinessRuleValidationException("A Physical Resource needs at least one Qualification.");
 
             var qualifications = new List<Qualification>();
-            foreach (var quaId in dto.Qualifications.Select(id => new QualificationId(id)))
+            foreach (var code in dto.Qualifications)
             {
-                var qualification = await _repQ.GetByIdAsync(quaId);
+                var qualification = await _repQ.GetByCodeAsync(code);
                 if (qualification == null)
-                    throw new BusinessRuleValidationException($"Qualification {quaId.AsString()} doesn't exist.");
+                    throw new BusinessRuleValidationException($"Qualification '{code}' doesn't exist.");
                 qualifications.Add(qualification);
             }
 
+            Dock dock = null;
+            if (dto.Dock.HasValue && dto.Dock.Value != Guid.Empty)
+            {
+                var dockId = new DockId(dto.Dock.Value);
+                dock = await _repD.GetByIdAsync(dockId);
+                if (dock == null)
+                    throw new BusinessRuleValidationException($"Dock {dockId.AsString()} doesn't exist.");
+            }
+
+            await EnsureCodeIsUniqueAsync(dto.Code);
+
             var resource = new PhysicalResource(
+                dto.Code,
+                dto.Type,
                 dto.Description,
-                dto.OperationalCapacity,
-                dto.AvailabilityStatus,
+                dto.WeekdayStart,
+                dto.WeekdayFinish,
+                dto.WeekendStart,
+                dto.WeekendFinish,
+                dto.ContainerCapacity,
+                dto.AverageSpeed,
                 dto.SetupTime,
-                qualifications
+                qualifications,
+                dock
             );
 
             await this._repo.AddAsync(resource);
@@ -81,47 +126,82 @@ namespace DDDSample1.Domain.PhysicalResources
             return new PhysicalResourceDto
             {
                 Id = resource.Id.AsGuid(),
+                Code = resource.Code,
+                Type = resource.Type,
                 Description = resource.Description,
-                OperationalCapacity = resource.OperationalCapacity,
-                AvailabilityStatus = resource.AvailabilityStatus,
+                WeekdayStart = resource.WeekdayStart,
+                WeekdayFinish = resource.WeekdayFinish,
+                WeekendStart = resource.WeekendStart,
+                WeekendFinish = resource.WeekendFinish,
+                ContainerCapacity = resource.ContainerCapacity,
+                AverageSpeed = resource.AverageSpeed,
                 SetupTime = resource.SetupTime,
-                Qualifications = resource.Qualifications.Select(q => q.Id.AsString()).ToList()
+                AvailabilityStatus = resource.AvailabilityStatus,
+                Qualifications = resource.PhysicalResourceQualifications.Select(prq => prq.Qualification.Code).ToList(),
+                Dock = resource.AssignedDockId?.AsGuid()
             };
         }
 
-        public async Task<PhysicalResourceDto> UpdateAsync(PhysicalResourceDto dto)
+        public async Task<PhysicalResourceDto> UpdateAsync(Guid rId, UpdatingPhysicalResourceDto dto)
         {
-            var resource = await this._repo.GetByIdAsync(new PhysicalResourceId(dto.Id)); 
+            var resource = await this._repo.GetByIdAsync(new PhysicalResourceId(rId)); 
 
             if (resource == null)
                 return null;
 
             var qualifications = new List<Qualification>();
-            foreach (var quaId in dto.Qualifications.Select(id => new QualificationId(id)))
+            foreach (var code in dto.Qualifications)
             {
-                var qualification = await _repQ.GetByIdAsync(quaId);
+                var qualification = await _repQ.GetByCodeAsync(code);
                 if (qualification == null)
-                    throw new BusinessRuleValidationException($"Qualification {quaId.AsString()} doesn't exist.");
+                    throw new BusinessRuleValidationException($"Qualification '{code}' doesn't exist.");
                 qualifications.Add(qualification);
             }
 
-            // change all field
+            Dock dock = null;
+            if (dto.Dock.HasValue && dto.Dock.Value != Guid.Empty)
+            {
+                var dockId = new DockId(dto.Dock.Value);
+                dock = await _repD.GetByIdAsync(dockId);
+                if (dock == null)
+                    throw new BusinessRuleValidationException($"Dock {dockId.AsString()} doesn't exist.");
+            }
+
+            await EnsureCodeIsUniqueAsync(dto.Code, rId);
+
+            resource.ChangeCode(dto.Code);
+            resource.ChangeType(dto.Type);
             resource.ChangeDescription(dto.Description);
-            resource.ChangeOperationalCapacity(dto.OperationalCapacity);
-            resource.ChangeAvailabilityStatus(dto.AvailabilityStatus);
+            resource.ChangeWeekdayStart(dto.WeekdayStart);
+            resource.ChangeWeekdayFinish(dto.WeekdayFinish);
+            resource.ChangeWeekendStart(dto.WeekendStart);
+            resource.ChangeWeekendFinish(dto.WeekendFinish);
+            resource.ChangeContainerCapacity(dto.ContainerCapacity);
+            resource.ChangeAverageSpeed(dto.AverageSpeed);
             resource.ChangeSetupTime(dto.SetupTime);
             resource.ChangeQualifications(qualifications);
+            resource.ChangeAssignedDock(dock);
 
             await this._unitOfWork.CommitAsync();
+
+            resource.CheckAvailability();
 
             return new PhysicalResourceDto
             {
                 Id = resource.Id.AsGuid(),
+                Code = resource.Code,
+                Type = resource.Type,
                 Description = resource.Description,
-                OperationalCapacity = resource.OperationalCapacity,
-                AvailabilityStatus = resource.AvailabilityStatus,
+                WeekdayStart = resource.WeekdayStart,
+                WeekdayFinish = resource.WeekdayFinish,
+                WeekendStart = resource.WeekendStart,
+                WeekendFinish = resource.WeekendFinish,
+                ContainerCapacity = resource.ContainerCapacity,
+                AverageSpeed = resource.AverageSpeed,
                 SetupTime = resource.SetupTime,
-                Qualifications = resource.Qualifications.Select(q => q.Id.AsString()).ToList()
+                AvailabilityStatus = resource.AvailabilityStatus,
+                Qualifications = resource.PhysicalResourceQualifications.Select(prq => prq.Qualification.Code).ToList(),
+                Dock = resource.AssignedDockId?.AsGuid()
             };
         }
 
@@ -132,7 +212,6 @@ namespace DDDSample1.Domain.PhysicalResources
             if (resource == null)
                 return null;
 
-            // change all fields
             resource.MarkAsInative();
 
             await this._unitOfWork.CommitAsync();
@@ -140,12 +219,58 @@ namespace DDDSample1.Domain.PhysicalResources
             return new PhysicalResourceDto
             {
                 Id = resource.Id.AsGuid(),
+                Code = resource.Code,
+                Type = resource.Type,
                 Description = resource.Description,
-                OperationalCapacity = resource.OperationalCapacity,
-                AvailabilityStatus = resource.AvailabilityStatus,
+                WeekdayStart = resource.WeekdayStart,
+                WeekdayFinish = resource.WeekdayFinish,
+                WeekendStart = resource.WeekendStart,
+                WeekendFinish = resource.WeekendFinish,
+                ContainerCapacity = resource.ContainerCapacity,
+                AverageSpeed = resource.AverageSpeed,
                 SetupTime = resource.SetupTime,
-                Qualifications = resource.Qualifications.Select(q => q.Id.AsString()).ToList()
+                AvailabilityStatus = resource.AvailabilityStatus,
+                Qualifications = resource.PhysicalResourceQualifications.Select(prq => prq.Qualification.Code).ToList(),
+                Dock = resource.AssignedDockId?.AsGuid()
             };
+        }
+
+        private async Task EnsureCodeIsUniqueAsync(string code, Guid? existingResourceId = null)
+        {
+            var existing = await _repo.GetByCodeAsync(code);
+
+            if (existing != null)
+            {
+                if (!existingResourceId.HasValue || existing.Id.AsGuid() != existingResourceId.Value)
+                    throw new BusinessRuleValidationException($"A Physical Resource with Code '{code}' already exists.");
+            }
+        }
+
+        public async Task<List<PhysicalResourceDto>> SearchAsync(
+            string code = null, 
+            string description = null, 
+            string type = null, 
+            string availabilityStatus = null)
+        {
+            var list = await _repo.SearchAsync(code, description, type, availabilityStatus);
+
+            return list.ConvertAll(resource => new PhysicalResourceDto
+            {
+                Id = resource.Id.AsGuid(),
+                Code = resource.Code,
+                Type = resource.Type,
+                Description = resource.Description,
+                WeekdayStart = resource.WeekdayStart,
+                WeekdayFinish = resource.WeekdayFinish,
+                WeekendStart = resource.WeekendStart,
+                WeekendFinish = resource.WeekendFinish,
+                ContainerCapacity = resource.ContainerCapacity,
+                AverageSpeed = resource.AverageSpeed,
+                SetupTime = resource.SetupTime,
+                AvailabilityStatus = resource.AvailabilityStatus,
+                Qualifications = resource.PhysicalResourceQualifications.Select(prq => prq.Qualification.Code).ToList(),
+                Dock = resource.AssignedDockId?.AsGuid()
+            });
         }
     }
 }

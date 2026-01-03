@@ -23,12 +23,18 @@
     "STORAGE_AREAS": "Storage Areas",
     "DOCKS": "Docks",
     "VESSELS": "Vessels",
+    "CREATE_CATEGORY": "Create Category",
     "REVIEW_VVNS": "Review Vessel Visit Notifications",
-    "PHYSICAL_RESOURCES": "Physical Resources"
+    "PHYSICAL_RESOURCES": "Physical Resources",
+    "CREATE_TASK": "Create Task",
+    "TASKS_LIST": "Task List",
+    "CATEGORIES_LIST": "Categories",
+    "VVE_CREATE": "Register Vessel Arrival"
   },
   "COMMON": {
     "LOADING": "Loading",
-    "NO_DATA": "No data found"
+    "NO_DATA": "No data found",
+    "NONE": "None"
   },
   "BUTTON": {
     "NEW": "New",
@@ -39,32 +45,102 @@
     "ADD": "Add",
     "REMOVE": "Remove"
   },
-  "DOCK": {
-    "NO_DOCKS_AVAILABLE": "No docks available."
-  },
   "STORAGE_AREA": {
     "TYPE": "Type",
     "LOCATION": "Location",
     "ORIENTATION": "Orientation",
     "MAX_CAPACITY": "Maximum Capacity",
     "CURRENT_OCCUPANCY": "Current Occupancy",
-    "NO_DOCKS_ASSOCIATED": "Doesn't serve any dock."
+    "NO_DOCKS_ASSOCIATED": "Doesn't serve any dock.",
+    "TYPE_REQUIRED": "Type is required.",
+    "LOCATION_X_REQUIRED": "Coordinate X of Location is required.",
+    "LOCATION_Z_REQUIRED": "Coordinate Z of Location is required.",
+    "LOCATION_ORIENTATION_REQUIRED": "Location's Orientation is required.",
+    "MAXIMUM_CAPACITY_REQUIRED": "Maximum Capacity is required.",
+    "CURRENT_OCCUPANCY_REQUIRED": "Current Occupancy is required.",
+    "MAXIMUM_CAPACITY_INVALID": "The Maximum Capacity is invalid.",
+    "CURRENT_OCCUPANCY_INVALID": "The Current Occupancy is invalid.",
+    "OCCUPANCY_EXCEEDS_CAPACITY": "The Current Occupancy cannot exceed the Maximum Capacity.",
+    "CREATE_SUCCESS": "Storage Area created successfully.",
+    "CREATE_FAILURE": "Error creating Storage Area.",
+    "UPDATE_SUCCESS": "Storage Area updated successfully.",
+    "UPDATE_FAILURE": "Error updating Storage Area.",
+    "DOCK_ALREADY_ADDED": "Dock already added.",
+    "NO_DOCKS_AVAILABLE": "No docks available."
   },
   "SHIPPING_AGENT_ORGANIZATION": {
     "LEGAL_NAME": "Legal Name",
     "ALTERNATIVE_NAME": "Alternative Name",
     "ADDRESS": "Address",
-    "TAX_NUMBER": "Tax Number"
+    "TAX_NUMBER": "Tax Number",
+    "LEGAL_NAME_REQUIRED": "Legal Name is required.",
+    "ALT_NAME_REQUIRED": "Alternative Name is required.",
+    "ADDRESS_REQUIRED": "Address is required.",
+    "TAX_NUMBER_REQUIRED": "Tax Number is required.",
+    "TAX_NUMBER_INVALID": "The Tax Number is invalid.",
+    "REPRESENTATIVE_REQUIRED": "A Shipping Agent Organization requires at least one representative.",
+    "CREATE_SUCCESS": "Organization created successfully.",
+    "CREATE_FAILURE": "Error creating Organization.",
+    "UPDATE_SUCCESS": "Organization updated successfully.",
+    "UPDATE_FAILURE": "Error updating Organization.",
+    "REP_ALREADY_ADDED": "Representative already added."
   },
   "REPRESENTATIVE": {
-    "VIEW_TITLE": "View Representative Details",
-    "CREATE_TITLE": "Add New Representative",
-    "UPDATE_TITLE": "Update Representative",
+    "CITIZEN_ID": "Citizen ID",
     "ORGANIZATION_ID": "Shipping Agent Organization",
     "NAME": "Name",
     "NATIONALITY": "Nationality",
     "EMAIL": "E-mail",
-    "PHONE": "Phone Number"
+    "PHONE": "Phone Number",
+    "ID_REQUIRED": "Citizen ID is required.",
+    "NAME_REQUIRED": "Name is required.",
+    "EMAIL_REQUIRED": "E-mail is required.",
+    "EMAIL_INVALID_FORMAT": "Invalid E-mail format.",
+    "NATIONALITY_REQUIRED": "Nationality is required.",
+    "PHONE_NUMBER_REQUIRED": "Phone Number is required.",
+    "PHONE_NUMBER_INVALID": "The Phone Number is invalid.",
+    "CREATE_SUCCESS": "Representative created successfully.",
+    "CREATE_FAILURE": "Error creating Representative.",
+    "UPDATE_SUCCESS": "Representative updated successfully.",
+    "UPDATE_FAILURE": "Error updating Representative.",
+    "DEACTIVATE": "Are you sure you want to deactivate this representative?"
+  },
+  "PHYSICAL_RESOURCE": {
+    "CODE": "Code",
+    "TYPE": "Type",
+    "DESCRIPTION": "Description",
+    "OPERATIONAL_WINDOW": "Operational Window",
+    "WEEKDAY_START": "Weekday Start",
+    "WEEKDAY_FINISH": "Weekday Finish",
+    "OPERATIONAL_CAPACITY": "Operational Capacity",
+    "CONTAINER_CAPACITY": "Container Capacity",
+    "AVERAGE_SPEED": "Average Speed",
+    "WEEKEND_START": "Weekend Start",
+    "WEEKEND_FINISH": "weekend Finish",
+    "SETUP_TIME": "Setup Time",
+    "NO_QUALIFICATIONS_AVAILABLE": "No Qualifications available.",
+    "DOCK": "Dock",
+    "CREATE_SUCCESS": "Physical Resource created successfully.",
+    "CREATE_FAILURE": "Error creating Physical Resource.",
+    "UPDATE_SUCCESS": "Physical Resource updated successfully.",
+    "UPDATE_FAILURE": "Error updating Physical Resource.",
+    "DEACTIVATE": "Are you sure you want to deactivate this Physical Resource?",
+    "CODE_REQUIRED": "Code is required.",
+    "CODE_ALREADY_EXISTS": "The Code already exists.",
+    "TYPE_REQUIRED": "Type is required.",
+    "DESCRIPTION_REQUIRED": "Description is required.",
+    "QUALIFICATION_REQUIRED": "At least one Qualification is required.",
+    "OPERATIONAL_WINDOW_REQUIRED": "At least one operational window must be defined.",
+    "CONTAINER_CAPACITY_HIGHER_THAN_ONE": "Container Capacity has to be at least 1.",
+    "CONTAINER_CAPACITY_REQUIRED": "Container Capacity is required.",
+    "CONTAINER_CAPACITY_INVALID": "The Container Capacity is invalid.",
+    "AVERAGE_SPEED_HIGHER_THAN_ONE": "A Truck must have an Average Speed of at least 1.",
+    "ONLY_TRUCK_AVERAGE_SPEED": "Only Trucks can have an Average Speed.",
+    "AVERAGE_SPEED_INVALID": "The Average Speed is invalid.",
+    "SETUP_TIME_INVALID": "The Setup Time is invalid.",
+    "SETUP_TIME_POSITIVE": "The Setup Time must be a positive number.",
+    "ONLY_STS_DOCK": "Only Fixed Cranes can be assigned to docks.",
+    "STS_DOCK_REQUIRED": "A Fixed Crane needs to be assigned to a dock."
   },
   "VESSELTYPE":{
     "VIEW_TITLE": "Vessel Type Visualizationo",
@@ -77,14 +153,10 @@
     "MAXBAYS": "Max Bays",
     "MAXTIERS": "Max Tiers"
   },
-  "CONFIRM": {
-    "ACTION": "Are you sure you want to deactivate this representative?"
-  },
   "MESSAGE": {
     "CREATE_SUCCESS": "Successfully created.",
     "UPDATE_SUCCESS": "Successfully updated.",
-    "GENERIC_ERROR": "Error.",
-    "DOCK_ALREADY_ADDED": "Dock already added."
+    "GENERIC_ERROR": "Error."
   },
   "VVN": {
     "TITLE": "Vessel Visit Notifications",
@@ -119,9 +191,75 @@
     "EDIT_TITLE": "Edit Staff Member",
     "ACTIONS": "Actions"
   },
+  "DOCK":{
+    "TITLE": "Docks",
+    "VIEW_TITLE": "Dock Visualizationo",
+    "CREATE_TITLE": "Create new Dock",
+    "UPDATE_TITLE": "Update Dock",
+    "NAME": "Name",
+    "LOCATIONX": "Location X",
+    "LOCATIONZ": "Location Z",
+    "LOCATIONORIENTATION": "Orientation",
+    "LENGTH": "Length",
+    "DEPTH": "Depth",
+    "MAXDRAFT": "Max Draft",
+    "CAPACITY": "Capacity",
+    "VESSELTYPES": "Vessel Types",
+    "VESSELTYPE_ALREADY_ADDED": "VesselType already added",
+    "CREATE_SUCCESS": "Dock created successfully.",
+    "DOCK.CREATE_FAILURE": "Error Creating Dock",
+    "UPDATE_SUCCESS": "Dock Updated Successefully",
+    "UPDATE_FAILURE": "Error Updating Dock",
+    "NAME_REQUIRED": "Name is required.",
+    "LOCATION_X_REQUIRED" : "The X coordinate is required",
+    "LOCATION_Z_REQUIRED" : "The Z coordinate is required",
+    "LOCATION_ORIENTATION_REQUIRED" :"Location's Orientation is required.",
+    "LENGTH_REQUIRED": "Length is required",
+    "MAXDRAFT_INVALID": "Max Draft is required",
+    "DOCK.CAPACITY_INVALID": "Invalid Capacity"
+  },
   "NOT_FOUND": {
     "TITLE": "404",
     "MESSAGE": "Page Not Found",
     "GO_HOME": "Go to Home"
+  },
+  "CATEGORIES": {
+    "CREATE_TITLE": "Create Task Category",
+    "NAME": "Name",
+    "DESCRIPTION": "Description",
+    "CREATE_BUTTON": "Create",
+    "SUCCESS": "Category created successfully!",
+    "ERROR": "Error creating category."
+  },
+  "TASKS": {
+  "CREATE_TITLE": "Create Complementary Task",
+  "NAME": "Task Name",
+  "DESCRIPTION": "Description",
+  "CATEGORY": "Category",
+  "ACTIVE": "Is Active?",
+  "CREATE_BUTTON": "Create Task",
+  "SUCCESS": "Task created successfully!"
+},
+  "TASK_LIST": {
+    "TITLE": "Task List",
+    "NEW_BUTTON": "+ New Task",
+    "HEADER_NAME": "Name",
+    "HEADER_DESC": "Description",
+    "HEADER_STATUS": "Status",
+    "STATUS_ACTIVE": "Active",
+    "STATUS_INACTIVE": "Inactive",
+    "EMPTY": "No tasks created yet.",
+    "LOADING": "Loading..."
+  },
+  "CATEGORY_LIST": {
+    "TITLE": "🗂Task Categories",
+    "ID": "ID"
+  },
+  "VVE": {
+    "TITLE": "Register Vessel Arrival",
+    "VVN_ID": "Visit ID (VVN)",
+    "VESSEL_ID": "Vessel ID",
+    "ARRIVAL_TIME": "Arrival Time",
+    "BUTTON_CREATE": "Register Arrival"
   }
 }

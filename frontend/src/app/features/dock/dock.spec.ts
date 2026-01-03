@@ -1,0 +1,49 @@
+import { of } from 'rxjs';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { Api } from '../../core/services/api';
+import { TranslateModule } from '@ngx-translate/core';
+
+import { Dock } from './dock';
+
+describe('Dock', () => {
+  let component: Dock;
+  let fixture: ComponentFixture<Dock>;
+
+  const mockApi = {
+    getAll: jasmine.createSpy('getAll').and.returnValue(of([])),
+    create: jasmine.createSpy('create').and.returnValue(of({})),
+    update: jasmine.createSpy('update').and.returnValue(of({})),
+  };
+
+  const mockTranslateService = {
+    instant: (key: string) => key,
+    get: (key: string | string[]) => of(typeof key === 'string' ? key : key[0]),
+    onLangChange: of({}),
+    onDefaultLangChange: of({}),
+    onTranslationChange: of({})
+  };
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [
+        Dock,
+        TranslateModule.forRoot()
+      ],
+      providers: [
+        { provide: Api, useValue: mockApi },
+        provideHttpClientTesting()
+      ]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(Dock);
+    component = fixture.componentInstance;
+    component.feedbackMessage = { text: null, type: null };
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

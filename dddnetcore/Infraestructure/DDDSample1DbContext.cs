@@ -11,7 +11,6 @@ using DDDSample1.Domain.VesselTypes;
 using DDDSample1.Domain.Docks;
 
 using DDDSample1.Infrastructure.Categories;
-using DDDSample1.Infrastructure.PhysicalResources;
 using DDDSample1.Infrastructure.Products;
 using DDDSample1.Infrastructure.Qualifications;
 using DDDSample1.Infrastructure.Representatives;
@@ -21,7 +20,6 @@ using DDDSample1.Infrastructure.PhysicalResources;
 using DDDSample1.Infrastructure.VesselVisitNotifications;
 using DDDSample1.Infrastructure.VesselTypes;
 using DDDSample1.Infrastructure.Docks;
-
 
 using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Staff;
@@ -38,20 +36,21 @@ namespace DDDSample1.Infrastructure
         public DbSet<Representative> Representatives { get; set; }
         public DbSet<ShippingAgentOrganization> ShippingAgentOrganizations { get; set; }
         public DbSet<StorageArea> StorageAreas { get; set; }
+        public DbSet<StorageAreaDock> StorageAreaDocks { get; set; }
         public DbSet<PhysicalResource> PhysicalResources { get; set; }
+        public DbSet<PhysicalResourceQualification> PhysicalResourceQualifications { get; set; }
         public DbSet<VesselVisitNotification> VesselVisitNotifications { get; set; }
         public DbSet<StaffMember> StaffMembers { get; set; }
         public DbSet<VesselType> VesselTypes { get; set; }
         public DbSet<Dock> Docks { get; set; }
         
-
-        public DDDSample1DbContext(DbContextOptions options) : base(options)
-        {
-
-        }
+        public DDDSample1DbContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<StorageAreaDock>();
+            modelBuilder.Entity<PhysicalResourceQualification>();
+
             modelBuilder.ApplyConfiguration(new CategoryEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProductEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new FamilyEntityTypeConfiguration());
@@ -59,7 +58,9 @@ namespace DDDSample1.Infrastructure
             modelBuilder.ApplyConfiguration(new RepresentativeEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ShippingAgentOrganizationEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new StorageAreaEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new StorageAreaDockConfiguration());
             modelBuilder.ApplyConfiguration(new PhysicalResourceEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new PhysicalResourceQualificationConfiguration());
             modelBuilder.ApplyConfiguration(new VvnEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new StaffMemberEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new VesselTypeEntityTypeConfiguration());

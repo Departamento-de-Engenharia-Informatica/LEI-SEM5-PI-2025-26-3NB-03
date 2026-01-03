@@ -3,6 +3,7 @@ import { roleGuard } from './core/guards/role-guard';
 import { Layout } from './core/components/layout/layout';
 import { Representative } from './features/representative/representative';
 import { VesselType } from './features/vesseltype/vesseltype';
+import { Dock } from './features/dock/dock';
 import { AuthResolver } from './core/resolvers/auth-resolver';
 import { StaffList } from './features/staff/staff-list';
 import { StaffCreate } from './features/staff/staff-create';
@@ -10,6 +11,7 @@ import { StaffEdit } from './features/staff/staff-edit';
 import { StorageArea } from './features/storagearea/storagearea';
 import { ShippingAgentOrganization } from './features/shippingagentorganization/shippingagentorganization';
 import { NotFound } from './shared/components/notfound';
+import { PhysicalResource } from './features/physicalresource/physicalresource';
 
 export const routes: Routes = [
   {
@@ -49,11 +51,25 @@ export const routes: Routes = [
         data: { roles: ['PAO'] },
       },
       {
+        path: 'docks',
+        component: Dock,
+        title: 'Docks',
+        canActivate: [roleGuard],
+        data: { roles: ['PAO'] },
+      },
+      {
         path: 'representatives',
         component: Representative,
         title: 'Representative',
         canActivate: [roleGuard],
         data: { roles: ['PAO'] },
+      },
+      {
+        path: 'physicalresources',
+        component: PhysicalResource,
+        title: 'PhysicalResource',
+        canActivate: [roleGuard],
+        data: { roles: ['LO'] },
       },
       {
         path: 'shippingagentorganizations',
@@ -99,6 +115,42 @@ export const routes: Routes = [
           .then(m => m.VvnsCreateComponent),
         canActivate: [roleGuard],
         data: { roles: ['Rep'] }
+      },
+      {
+        path: 'categories/create',
+        loadComponent: () =>
+          import('./features/task-category/category-create/category-create.component')
+            .then(m => m.CategoryCreateComponent),
+        title: 'Criar Categoria de Tarefa',
+        canActivate: [roleGuard],
+        data: { roles: ['PAO'] }
+      },
+      {
+        path: 'tasks/create',
+        loadComponent: () =>
+          import('./features/task/task-create/task-create.component')
+            .then(m => m.TaskCreateComponent),
+        title: 'Criar Tarefa',
+        canActivate: [roleGuard],
+        data: { roles: ['LO'] }
+      },
+      {
+        path: 'tasks',
+        loadComponent: () => import('./features/task/task-list/task-list.component').then(m => m.TaskListComponent),
+        title: 'Tarefas',
+        canActivate: [roleGuard], data: { roles: ['PAO', 'LO'] }
+      },
+      {
+        path: 'categories',
+        loadComponent: () => import('./features/task-category/category-list/category-list.component').then(m => m.CategoryListComponent),
+        title: 'Categorias',
+        canActivate: [roleGuard], data: { roles: ['PAO', 'LO'] }
+      },
+      {
+        path: 'visit-executions/create',
+        loadComponent: () => import('./features/visit-execution/vve-create/vve-create.component').then(m => m.VveCreateComponent),
+        title: 'Registar Chegada',
+        canActivate: [roleGuard], data: { roles: ['LO'] }
       },
       {
         path: 'port',

@@ -18,6 +18,7 @@ type OrgFormModel = ShippingAgentOrganizationDto | (CreatingShippingAgentOrganiz
 export class ShippingAgentOrganization implements OnInit {
   private readonly endpoint = 'ShippingAgentOrganizations';
   private readonly repEndpoint = 'Representatives';
+  errorField: string[] = [];
 
   organizations: ShippingAgentOrganizationDto[] = [];
   representatives: RepresentativeDto[] = [];
@@ -30,7 +31,7 @@ export class ShippingAgentOrganization implements OnInit {
 
   formModel: OrgFormModel = {} as OrgFormModel;
 
-  repToAddId: string | null = null;
+  repToAdd: string | null = null;
   selectedRepInOrg: string | null = null;
 
   feedbackMessage = { type: null as 'success' | 'error' | null, text: null as string | null };
@@ -44,6 +45,7 @@ export class ShippingAgentOrganization implements OnInit {
 
   clearFeedback() {
     this.feedbackMessage = { type: null, text: null };
+    this.errorField = [];
   }
 
   loadRepresentatives() {
@@ -104,17 +106,17 @@ export class ShippingAgentOrganization implements OnInit {
   }
 
   addRepresentative() {
-    if (this.currentFormMode === 'view' || !this.repToAddId) return;
+    if (this.currentFormMode === 'view' || !this.repToAdd) return;
 
     const reps = this.formModel.representatives;
 
-    if (!reps.includes(this.repToAddId)) {
-      reps.push(this.repToAddId);
-      this.repToAddId = null;
+    if (!reps.includes(this.repToAdd)) {
+      reps.push(this.repToAdd);
+      this.repToAdd = null;
     } else {
       this.feedbackMessage = { 
         type: 'error',
-        text: 'Representative already added.'
+        text: this.translate.instant('SHIPPING_AGENT_ORGANIZATION.REP_ALREADY_ADDED')
       };
     }
   }
@@ -131,7 +133,7 @@ export class ShippingAgentOrganization implements OnInit {
     }
   }
 
-  save() {
+  saveOrganization() {
     this.isSubmitting = true;
     this.clearFeedback();
 
@@ -140,14 +142,14 @@ export class ShippingAgentOrganization implements OnInit {
         next: created => {
           this.feedbackMessage = {
             type: 'success',
-            text: 'Organization created successfully.'
+            text: this.translate.instant('SHIPPING_AGENT_ORGANIZATION.CREATE_SUCCESS')
           };
           this.loadOrganizations();
           this.selectedOrganization = created;
           this.currentFormMode = 'update';
         },
         error: err => {
-          let text = 'Error creating organization.';
+          let text = this.translate.instant('SHIPPING_AGENT_ORGANIZATION.CREATE_FAILURE')
 
           if (err.error?.message) {
             text = err.error.message;
@@ -155,27 +157,22 @@ export class ShippingAgentOrganization implements OnInit {
             const allErrors = Object.values(err.error.errors).flat();
             text = allErrors.join(' ');
           }
-
-          this.feedbackMessage = {
-            type: 'error',
-            text: text
-          };
+          this.handleErrorMessage(text);
         }
       }).add(() => this.isSubmitting = false);
     }
-
     else if (this.currentFormMode === 'update') {
       this.api.update<ShippingAgentOrganizationDto>(this.endpoint, this.selectedOrganization!.id, this.formModel).subscribe({
         next: updated => {
           this.feedbackMessage = {
             type: 'success',
-            text: 'Organization updated successfully.'
+            text: this.translate.instant('SHIPPING_AGENT_ORGANIZATION.UPDATE_SUCCESS')
           };
           this.loadOrganizations();
           this.selectedOrganization = updated;
         },
         error: err => {
-          let text = 'Error updating organization.';
+          let text = this.translate.instant('SHIPPING_AGENT_ORGANIZATION.UPDATE_FAILURE')
 
           if (err.error?.message) {
             text = err.error.message;
@@ -183,13 +180,68 @@ export class ShippingAgentOrganization implements OnInit {
             const allErrors = Object.values(err.error.errors).flat();
             text = allErrors.join(' ');
           }
-
-          this.feedbackMessage = {
-            type: 'error',
-            text: text
-          };
+          this.handleErrorMessage(text);
         }
       }).add(() => this.isSubmitting = false);
+    }
+  }
+
+  private handleErrorMessage(errorMessage: string) {
+    const errorMap: Record<string, { field: string, translateKey: string }> = {
+      "The LegalName field is required.": {
+        field: "legalName",
+        translateKey: "SHIPPING_AGENT_ORGANIZATION.LEGAL_NAME_REQUIRED"
+      },
+      "The AltName field is required.": {
+        field: "altName",
+        translateKey: "SHIPPING_AGENT_ORGANIZATION.ALT_NAME_REQUIRED"
+      },
+      "The Address field is required.": {
+        field: "address",
+        translateKey: "SHIPPING_AGENT_ORGANIZATION.ADDRESS_REQUIRED"
+      },
+      "Error converting value {null} to type 'System.Int32'. Path 'taxNumber'": {
+        field: "taxNumber",
+        translateKey: "SHIPPING_AGENT_ORGANIZATION.TAX_NUMBER_REQUIRED"
+      },
+      "is too large or small for an Int32. Path 'taxNumber'": {
+        field: "taxNumber",
+        translateKey: "SHIPPING_AGENT_ORGANIZATION.TAX_NUMBER_INVALID"
+      },
+      "is not a valid integer. Path 'taxNumber'": {
+        field: "taxNumber",
+        translateKey: "SHIPPING_AGENT_ORGANIZATION.TAX_NUMBER_INVALID"
+      },
+      "Tax number must be a positive integer.": {
+        field: "taxNumber",
+        translateKey: "SHIPPING_AGENT_ORGANIZATION.TAX_NUMBER_INVALID"
+      },
+      "A Shipping Agent Organization needs at least one Representative.": {
+        field: "representatives",
+        translateKey: "SHIPPING_AGENT_ORGANIZATION.REPRESENTATIVE_REQUIRED"
+      }
+    };
+
+    const foundTranslations: string[] = [];
+    Object.keys(errorMap).forEach(key => {
+      if (errorMessage.includes(key)) {
+        const mapped = errorMap[key];
+        this.errorField.push(mapped.field);
+
+        foundTranslations.push(this.translate.instant(mapped.translateKey));
+      }
+    });
+
+    if (foundTranslations.length > 0) {
+      this.feedbackMessage = {
+        type: "error",
+        text: foundTranslations.join('<br>')
+      };
+    } else {
+      this.feedbackMessage = {
+        type: "error",
+        text: errorMessage
+      };
     }
   }
 }

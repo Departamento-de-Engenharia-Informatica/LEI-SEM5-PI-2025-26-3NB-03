@@ -19,6 +19,7 @@ import { Api } from '../../core/services/api';
 })
 export class Representative implements OnInit {
   private readonly endpoint = 'Representatives';
+  errorField: string[] = [];
   representatives: RepresentativeDto[] = [];
   selectedRepresentative: RepresentativeDto | null = null;
   currentFormMode: 'view' | 'create' | 'update' = 'view';
@@ -37,6 +38,7 @@ export class Representative implements OnInit {
 
   clearFeedback(): void {
     this.feedbackMessage = { type: null, text: null };
+    this.errorField = [];
   }
 
   loadRepresentatives(): void {
@@ -97,15 +99,19 @@ export class Representative implements OnInit {
         
         this.feedbackMessage = { 
           type: 'success', 
-          text: this.translate.instant('MESSAGE.CREATE_SUCCESS', { name: newRepresentative.name })
+          text: this.translate.instant('REPRESENTATIVE.CREATE_SUCCESS')
         };
       },
       error: (err) => {
-        console.error('Erro ao criar representante', err);
-        this.feedbackMessage = { 
-          type: 'error', 
-          text: this.extractErrorMessage(err)
-        };
+        let text = this.translate.instant('REPRESENTATIVE.CREATE_FAILURE')
+
+        if (err.error?.message) {
+          text = err.error.message;
+        } else if (err.error?.errors) {
+          const allErrors = Object.values(err.error.errors).flat();
+          text = allErrors.join(' ');
+        }
+        this.handleErrorMessage(text);
       }
     }).add(() => this.isSubmitting = false);
   }
@@ -120,40 +126,26 @@ export class Representative implements OnInit {
         
         this.feedbackMessage = { 
           type: 'success', 
-          text: this.translate.instant('MESSAGE.UPDATE_SUCCESS', { name: updatedRepresentative.name })
+          text: this.translate.instant('REPRESENTATIVE.UPDATE_SUCCESS')
         };
       },
       error: (err) => {
-        console.error('Erro ao atualizar representante', err);
-        this.feedbackMessage = { 
-          type: 'error', 
-          text: this.extractErrorMessage(err)
-        };
+        let text = this.translate.instant('REPRESENTATIVE.UPDATE_FAILURE')
+
+        if (err.error?.message) {
+          text = err.error.message;
+        } else if (err.error?.errors) {
+          const allErrors = Object.values(err.error.errors).flat();
+          text = allErrors.join(' ');
+        }
+        this.handleErrorMessage(text);
       }
     }).add(() => this.isSubmitting = false);
   }
 
-  extractErrorMessage(error: any): string {
-    if (error?.error?.Message) {
-      return error.error.Message;
-    }
-    if (error?.error?.errors) {
-      const modelErrors = error.error.errors;
-      let messages: string[] = [];
-      for (const key in modelErrors) {
-        if (modelErrors.hasOwnProperty(key)) {
-          messages = messages.concat(modelErrors[key]);
-        }
-      }
-      return messages.join('; ');
-    }
-    
-    return this.translate.instant('MESSAGE.GENERIC_ERROR');
-  }
-
   deactivation(): void {
     if (this.selectedRepresentative && this.selectedRepresentative.active) {
-      if (!confirm(`${this.translate.instant('CONFIRM.ACTION', { action: 'Desativar' })}`)) {
+      if (!confirm(`${this.translate.instant('REPRESENTATIVE.DEACTIVATE', { action: 'Desativar' })}`)) {
         return;
       }
       
@@ -164,7 +156,7 @@ export class Representative implements OnInit {
           this.selectedRepresentative = null;
         },
         error: (err) => {
-          console.error(`Erro ao desativar`, err);
+          console.error('Erro ao desativar', err);
         }
       });
     }
@@ -189,5 +181,60 @@ export class Representative implements OnInit {
   getOrganizationName(id?: string): string {
     if (!id) return '';
     return this.organizationNames[id] || this.translate.instant('COMMON.LOADING');
+  }
+
+  private handleErrorMessage(errorMessage: string) {
+    const errorMap: Record<string, { field: string, translateKey: string }> = {
+      "Citizen ID is required.": {
+        field: "citizenId",
+        translateKey: "REPRESENTATIVE.ID_REQUIRED"
+      },
+      "Name is required.": {
+        field: "name",
+        translateKey: "REPRESENTATIVE.NAME_REQUIRED"
+      },
+      "E-mail is required.": {
+        field: "email",
+        translateKey: "REPRESENTATIVE.EMAIL_REQUIRED"
+      },
+      "Invalid E-mail format.": {
+        field: "email",
+        translateKey: "REPRESENTATIVE.EMAIL_INVALID_FORMAT"
+      },
+      "Nationality is required.": {
+        field: "nationality",
+        translateKey: "REPRESENTATIVE.NATIONALITY_REQUIRED"
+      },
+      "Phone number must be a positive integer.": {
+        field: "phoneNumber",
+        translateKey: "REPRESENTATIVE.PHONE_NUMBER_INVALID"
+      },
+      "Error converting value {null} to type 'System.Int32'. Path 'phoneNumber'": {
+        field: "phoneNumber",
+        translateKey: "REPRESENTATIVE.PHONE_NUMBER_REQUIRED"
+      }
+    };
+
+    const foundTranslations: string[] = [];
+    Object.keys(errorMap).forEach(key => {
+      if (errorMessage.includes(key)) {
+        const mapped = errorMap[key];
+        this.errorField.push(mapped.field);
+
+        foundTranslations.push(this.translate.instant(mapped.translateKey));
+      }
+    });
+
+    if (foundTranslations.length > 0) {
+      this.feedbackMessage = {
+        type: "error",
+        text: foundTranslations.join('<br>')
+      };
+    } else {
+      this.feedbackMessage = {
+        type: "error",
+        text: errorMessage
+      };
+    }
   }
 }

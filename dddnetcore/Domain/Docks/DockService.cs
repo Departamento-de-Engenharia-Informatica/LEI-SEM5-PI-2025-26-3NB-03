@@ -93,6 +93,39 @@ namespace DDDSample1.Domain.Docks
             return docks.Select(ToDto).ToList();
         }
 
+        public async Task<DockDto> UpdateAsync(Guid id, UpdateDockDto dto)
+        {
+            var dock = await _dockRepo.GetByIdAsync(new DockId(id));
+
+            if (dock == null)
+                return null;
+
+            //var newDockIds = dto.Docks?.Select(d => new DockId(d)).ToList() ?? new List<DockId>();
+            //var newDocks = await _dockRepo.GetByIdsAsync(newDockIds);
+
+            var newVesselTypeIds = dto.VesselTypes?.Select(d => new VesselTypeId(d)).ToList() ?? new List<VesselTypeId>();
+            var newVesselTypes = await _vesselTypeRepo.GetByIdsAsync(newVesselTypeIds);
+
+            if (dto.VesselTypes != null && dto.VesselTypes.Count != newVesselTypeIds.Count)
+            {
+                throw new BusinessRuleValidationException("One or more Vessel Types IDs provided are invalid or do not exist.");
+            }
+
+        // Atualizar propriedades simples do Dock
+        dock.ChangeName(dto.Name);
+        dock.ChangeLocationX(dto.LocationX);
+        dock.ChangeLocationZ(dto.LocationZ);
+        dock.ChangeLocationOrientation(dto.LocationOrientation);
+        dock.ChangeLength(dto.Length);
+        dock.ChangeDepth(dto.Depth);
+        dock.ChangeCapacity(dto.Capacity);
+        dock.ChangeVesselTypes(newVesselTypes);
+
+            await _unitOfWork.CommitAsync();
+
+            return ToDto(dock);
+        }
+
         // Converter Dock para DockDto
         private static DockDto ToDto(Dock dock)
         {
@@ -110,5 +143,6 @@ namespace DDDSample1.Domain.Docks
                 VesselTypeIds = dock.VesselTypes.Select(v => v.Id.AsGuid()).ToList()
             };
         }
+
     }
 }

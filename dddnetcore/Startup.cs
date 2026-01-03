@@ -141,6 +141,7 @@ namespace DDDSample1
                 {
                     ctx.VesselTypes.AddRange(new[] { new VesselType("Type1", "Carqueiro Pequeno", 27, 3, 3, 3) });
                     ctx.VesselTypes.AddRange(new[] { new VesselType("Type2", "Carqueiro Médio", 64, 4, 4, 4) });
+                    ctx.VesselTypes.AddRange(new[] { new VesselType("Type3", "Carqueiro Grande", 125, 5, 5, 5) });
                     ctx.SaveChanges();
                 }
                 if (!ctx.Docks.Any())
@@ -153,7 +154,7 @@ namespace DDDSample1
                     var dock1 = new Dock(
                         name: "Dock1",
                         locationx: -3,
-                        locationz: 17,
+                        locationz: 14,
                         locationorientation: 90,
                         length: 7,
                         depth: 2,
@@ -163,20 +164,20 @@ namespace DDDSample1
                     );
                     
                     var type2 = ctx.VesselTypes.FirstOrDefault(vt => vt.Name == "Type2");
-
-                    if (type1 == null)
-                        throw new Exception("VesselType 'Type2' não foi encontrado na base de dados.");
+                    var type3 = ctx.VesselTypes.FirstOrDefault(vt => vt.Name == "Type3");
+                    if (type2 == null || type3 == null  )
+                        throw new Exception("VesselType não foi encontrado na base de dados.");
 
                     var dock2 = new Dock(
                         name: "Dock2",
                         locationx: 6,
-                        locationz: 17,
+                        locationz: 14,
                         locationorientation: 90,
-                        length: 7,
+                        length: 10, 
                         depth: 2,
                         maxDraft: 12,
                         capacity: 500,
-                        vesselTypes: new List<VesselType> { type2 }
+                        vesselTypes: new List<VesselType> { type2, type3 }
                     );
 
                     ctx.Docks.AddRange(new[] { dock1, dock2 });
@@ -204,8 +205,41 @@ namespace DDDSample1
                     var qualifications = ctx.Qualifications.ToList();
                     ctx.PhysicalResources.AddRange(new[]
                     {
+                        DDDSample1.Domain.PhysicalResources.PhysicalResource.CreateSubmitted( 
+                            "STS001", 
+                            "Fixed Crane", 
+                            "A crane that is fixed to a dock.", 
+                            new TimeSpan(0, 0, 0), new TimeSpan(23, 59, 59), 
+                            new TimeSpan(0, 0, 0), new TimeSpan(23, 59, 59), 
+                            200, 
+                            null, 
+                            0, 
+                            qualifications, 
+                            ctx.Docks.First()
+                        ),
                         DDDSample1.Domain.PhysicalResources.PhysicalResource.CreateSubmitted(
-                            "Descrição 1.", "10", "Active", 0, qualifications
+                            "CR002", 
+                            "Mobile Crane", 
+                            "A crane that is mobile.", 
+                            new TimeSpan(0, 0, 0), new TimeSpan(23, 59, 59), 
+                            new TimeSpan(0, 0, 0), new TimeSpan(23, 59, 59), 
+                            50, 
+                            null, 
+                            5,
+                            qualifications, 
+                            null
+                        ),
+                        DDDSample1.Domain.PhysicalResources.PhysicalResource.CreateSubmitted(
+                            "TR001", 
+                            "Truck", 
+                            "A truck.", 
+                            new TimeSpan(8, 0, 0), new TimeSpan(22, 00, 00), 
+                            null, null, 
+                            50, 
+                            100, 
+                            10, 
+                            qualifications, 
+                            null
                         )
                     });
                     ctx.SaveChanges();

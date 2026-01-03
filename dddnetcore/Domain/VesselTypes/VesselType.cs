@@ -14,8 +14,13 @@ namespace DDDSample1.Domain.VesselTypes
         public int MaxBays { get; private set; }
         public int MaxTiers { get; private set; }
 
-        private readonly List<Dock> _docks = new();
-        public IReadOnlyCollection<Dock> Docks => _docks.AsReadOnly();
+        //private readonly List<Dock> _docks = new();
+        //public IReadOnlyCollection<Dock> Docks => _docks.AsReadOnly();
+        // FK para Dock
+        public DockId DockId { get; private set; }   // tem de ser DockId, não Guid
+        public Dock Dock { get; private set; }
+
+
 
         private VesselType() { }
 

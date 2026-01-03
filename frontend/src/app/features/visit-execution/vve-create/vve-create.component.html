@@ -1,0 +1,29 @@
+<div class="container">
+  <h2>{{ 'VVE.TITLE' | translate }} (US 4.1.7)</h2>
+
+  <div *ngIf="message" [class.success]="!isError" [class.error]="isError" class="alert">
+    {{ message }}
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #vveForm="ngForm">
+
+    <div class="form-group">
+      <label>{{ 'VVE.VVN_ID' | translate }}:</label>
+      <input type="text" [(ngModel)]="formData.vvnId" name="vvnId" required class="form-control" placeholder="Ex: VVN-12345">
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'VVE.VESSEL_ID' | translate }}:</label>
+      <input type="text" [(ngModel)]="formData.vesselId" name="vesselId" required class="form-control" placeholder="Ex: IMO9876543">
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'VVE.ARRIVAL_TIME' | translate }}:</label>
+      <input type="datetime-local" [(ngModel)]="formData.arrivalTime" name="arrivalTime" required class="form-control">
+    </div>
+
+    <button type="submit" [disabled]="!vveForm.form.valid">
+      {{ 'VVE.BUTTON_CREATE' | translate }}
+    </button>
+  </form>
+</div>

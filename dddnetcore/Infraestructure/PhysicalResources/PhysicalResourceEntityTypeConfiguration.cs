@@ -12,12 +12,34 @@ namespace DDDSample1.Infrastructure.PhysicalResources
 
             //builder.ToTable("PhysicalResources", SchemaNames.DDDSample1);
             builder.HasKey(b => b.Id);
+
+            builder.Property(o => o.Code)
+                .IsRequired();
+            builder.HasIndex(o => o.Code)
+                .IsUnique();
+            builder.Property(o => o.Type)
+                .IsRequired();
             builder.Property(o => o.Description)
                 .IsRequired();
-            builder.Property(o => o.OperationalCapacity)
+
+            builder.Property(o => o.WeekdayStart);
+            builder.Property(o => o.WeekdayFinish);
+            builder.Property(o => o.WeekendStart);
+            builder.Property(o => o.WeekendFinish);
+
+            builder.Property(o => o.ContainerCapacity)
                 .IsRequired();
-            builder.Property(o => o.AvailabilityStatus)
-                .IsRequired();
+            builder.Property(o => o.AverageSpeed);
+
+            builder.Property(o => o.SetupTime);
+
+            builder.HasMany<PhysicalResourceQualification>("_physicalResourceQualifications")
+                .WithOne(prq => prq.PhysicalResource)
+                .HasForeignKey(prq => prq.PhysicalResourceId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Property(o => o.AvailabilityStatus);
+            builder.Property(o => o.Active);
         }
     }
 }
