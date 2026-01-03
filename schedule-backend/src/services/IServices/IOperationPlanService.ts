@@ -3,6 +3,8 @@ import {IOperationPlanDTO, IUpdateOperationPlanDTO} from "../../dto/IOperationPl
 
 export default interface IOperationPlanService {
     createOperationPlan(dto: any): Promise<Result<IOperationPlanDTO>>;
+    getAll(): Promise<Result<IOperationPlanDTO[]>>;
     getOperationPlans(vesselId?: string, date?: string): Promise<Result<IOperationPlanDTO[]>>;
     updateOperationPlan(dto: IUpdateOperationPlanDTO): Promise<Result<IOperationPlanDTO>>;
+    deleteOperationPlan(id: string): Promise<Result<void>>;
 }

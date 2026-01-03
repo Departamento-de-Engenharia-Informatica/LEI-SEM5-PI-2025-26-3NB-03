@@ -1,0 +1,39 @@
+<div class="container">
+  <h2>{{ 'OP_PLAN.TITLE_GENERATE' | translate }}</h2>
+
+  <div *ngIf="message" [class.success]="!isError" [class.error]="isError" class="alert">
+    {{ message }}
+  </div>
+
+  <form (ngSubmit)="onSubmit()" #genForm="ngForm">
+
+    <div class="form-group">
+      <label>VVN ID:</label>
+      <input type="text" [(ngModel)]="dto.vvnId" name="vvnId" required class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'OP_PLAN.VESSEL' | translate }} ID:</label>
+      <input type="text" [(ngModel)]="dto.vesselId" name="vesselId" required class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'OP_PLAN.DATE' | translate }}:</label>
+      <input type="date" [(ngModel)]="dto.date" name="date" required class="form-control">
+    </div>
+
+    <div class="form-group">
+      <label>{{ 'OP_PLAN.LBL_ALGORITHM' | translate }}:</label>
+      <select [(ngModel)]="dto.algorithm" name="algorithm" class="form-control">
+        <option value="SJF">Shortest Job First (SJF)</option>
+        <option value="FIFO">First In First Out (FIFO)</option>
+        <option value="EDD">Earliest Due Date (EDD)</option>
+      </select>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn-cancel" routerLink="/operation-plans">{{ 'OP_PLAN.BTN_CANCEL' | translate }}</button>
+      <button type="submit" [disabled]="!genForm.valid">{{ 'OP_PLAN.BTN_GENERATE' | translate }}</button>
+    </div>
+  </form>
+</div>

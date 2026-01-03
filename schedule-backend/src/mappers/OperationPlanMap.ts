@@ -1,43 +1,62 @@
 import { Mapper } from "../core/infra/Mapper";
-import { IOperationPlanDTO } from "../dto/IOperationPlanDTO";
 import { OperationPlan } from "../domain/operationPlan";
+import { IOperationPlanDTO, IOperationStepDTO } from "../dto/IOperationPlanDTO";
 import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 
 export class OperationPlanMap extends Mapper<OperationPlan> {
 
-    public static toDTO(t: OperationPlan): IOperationPlanDTO {
+    public static toDTO(plan: OperationPlan): IOperationPlanDTO {
         return {
-            id: t.id.toString(),
-            vvnId: t.vvnId,
-            vesselId: t.vesselId,
-            date: t.date.toISOString(),
-            operationType: t.operationType,
-            status: t.status
+            id: plan.id.toString(),
+            vvnId: plan.vvnId,
+            vesselId: plan.vesselId,
+            date: plan.date.toISOString(),
+            status: plan.status,
+            operations: plan.operations.map(op => ({
+                operationId: op.operationId,
+                type: op.type,
+                containerNumber: op.containerNumber,
+                resourceId: op.resourceId,
+                startTime: op.startTime.toISOString(),
+                endTime: op.endTime.toISOString()
+            }))
         } as IOperationPlanDTO;
     }
 
-    public static toDomain(t: any): OperationPlan {
-        const operationPlanOrError = OperationPlan.create({
-            vvnId: t.vvnId,
-            vesselId: t.vesselId,
-            date: t.date,
-            operationType: t.operationType,
-            status: t.status
-        }, new UniqueEntityID(t.domainId));
+    public static toDomain(raw: any): OperationPlan | null {
+        const planOrError = OperationPlan.create({
+            vvnId: raw.vvnId,
+            vesselId: raw.vesselId,
+            date: raw.date,
+            status: raw.status,
+            operations: raw.operations ? raw.operations.map((op: any) => ({
+                operationId: op.operationId,
+                type: op.type,
+                containerNumber: op.containerNumber,
+                resourceId: op.resourceId,
+                startTime: op.startTime,
+                endTime: op.endTime
+            })) : []
+        }, new UniqueEntityID(raw.domainId));
 
-        operationPlanOrError.isFailure ? console.log(operationPlanOrError.error) : '';
-
-        return operationPlanOrError.isSuccess ? operationPlanOrError.getValue() : null;
+        return planOrError.isSuccess ? planOrError.getValue() : null;
     }
 
-    public static toPersistence(t: OperationPlan): any {
+    public static toPersistence(plan: OperationPlan): any {
         return {
-            domainId: t.id.toString(),
-            vvnId: t.vvnId,
-            vesselId: t.vesselId,
-            date: t.date,
-            operationType: t.operationType,
-            status: t.status
-        }
+            domainId: plan.id.toString(),
+            vvnId: plan.vvnId,
+            vesselId: plan.vesselId,
+            date: plan.date,
+            status: plan.status,
+            operations: plan.operations.map(op => ({
+                operationId: op.operationId,
+                type: op.type,
+                containerNumber: op.containerNumber,
+                resourceId: op.resourceId,
+                startTime: op.startTime,
+                endTime: op.endTime
+            }))
+        };
     }
 }

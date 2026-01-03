@@ -1,0 +1,16 @@
+.container { width: 90%; margin: 20px auto; font-family: sans-serif; }
+.filters-bar { display: flex; gap: 10px; margin-bottom: 20px; }
+.form-control { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+.btn-search { background-color: #007bff; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 4px;}
+.btn-create { background-color: #28a745; color: white; border: none; padding: 8px 15px; cursor: pointer; margin-left: auto; border-radius: 4px;}
+.btn-edit { background-color: #ffc107; color: black; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px;}
+
+table { width: 100%; border-collapse: collapse; }
+th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+th { background-color: #f2f2f2; }
+
+/* Status Badges */
+.badge { padding: 4px 8px; border-radius: 12px; font-size: 0.85em; font-weight: bold; }
+.PLANNED { background-color: #b8daff; color: #004085; }
+.IN_PROGRESS { background-color: #ffeeba; color: #856404; }
+.COMPLETED { background-color: #c3e6cb; color: #155724; }

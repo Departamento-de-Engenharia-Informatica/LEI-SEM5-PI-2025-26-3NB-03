@@ -3,53 +3,35 @@ import { UniqueEntityID } from "../core/domain/UniqueEntityID";
 import { Result } from "../core/logic/Result";
 import { Guard } from "../core/logic/Guard";
 
+interface OperationStepProps {
+    operationId: string;
+    type: string;
+    containerNumber: string;
+    resourceId: string;
+    startTime: Date;
+    endTime: Date;
+}
+
 interface OperationPlanProps {
     vvnId: string;
     vesselId: string;
     date: Date;
-    operationType: string;
+    operations: OperationStepProps[];
     status: string;
 }
 
 export class OperationPlan extends AggregateRoot<OperationPlanProps> {
-    get id(): UniqueEntityID { return this._id; }
+    get id(): UniqueEntityID {
+        return this._id;
+    }
+
     get vvnId(): string { return this.props.vvnId; }
     get vesselId(): string { return this.props.vesselId; }
     get date(): Date { return this.props.date; }
-    get operationType(): string { return this.props.operationType; }
+    get operations(): OperationStepProps[] { return this.props.operations; }
     get status(): string { return this.props.status; }
 
-    private constructor(props: OperationPlanProps, id?: UniqueEntityID) {
-        super(props, id);
-    }
-
-    public static create(props: { vvnId: string; vesselId: string; date: string; operationType: string; status?: string }, id?: UniqueEntityID): Result<OperationPlan> {
-        const guardedProps = [
-            { argument: props.vvnId, argumentName: 'vvnId' },
-            { argument: props.vesselId, argumentName: 'vesselId' },
-            { argument: props.date, argumentName: 'date' },
-            { argument: props.operationType, argumentName: 'operationType' }
-        ];
-
-        const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);
-
-        if (!guardResult.succeeded) {
-            return Result.fail<OperationPlan>(guardResult.message);
-        }
-
-        const planDate = new Date(props.date);
-
-        const operationPlan = new OperationPlan({
-            vvnId: props.vvnId,
-            vesselId: props.vesselId,
-            date: planDate,
-            operationType: props.operationType,
-            status: props.status || "PLANNED"
-        }, id);
-
-        return Result.ok<OperationPlan>(operationPlan);
-    }
-
+    // Setters para Update
     public updateDate(date: Date): void {
         this.props.date = date;
     }
@@ -60,5 +42,33 @@ export class OperationPlan extends AggregateRoot<OperationPlanProps> {
 
     public updateStatus(status: string): void {
         this.props.status = status;
+    }
+
+    public updateOperations(ops: OperationStepProps[]): void {
+        this.props.operations = ops;
+    }
+
+    private constructor(props: OperationPlanProps, id?: UniqueEntityID) {
+        super(props, id);
+    }
+
+    public static create(props: OperationPlanProps, id?: UniqueEntityID): Result<OperationPlan> {
+        const guardedProps = [
+            { argument: props.vvnId, argumentName: 'vvnId' },
+            { argument: props.vesselId, argumentName: 'vesselId' },
+            { argument: props.date, argumentName: 'date' }
+        ];
+
+        const guardResult = Guard.againstNullOrUndefinedBulk(guardedProps);
+
+        if (!guardResult.succeeded) {
+            return Result.fail<OperationPlan>(guardResult.message);
+        }
+
+        if (!props.status) props.status = "PLANNED";
+        if (!props.operations) props.operations = [];
+
+        const plan = new OperationPlan({ ...props }, id);
+        return Result.ok<OperationPlan>(plan);
     }
 }

@@ -29,10 +29,20 @@ export default class OperationPlanRepo implements IOperationPlanRepo {
                 const planCreated = await this.planSchema.create(rawPlan);
                 return OperationPlanMap.toDomain(planCreated);
             } else {
-
                 planDocument.date = t.date;
                 planDocument.vesselId = t.vesselId;
                 planDocument.status = t.status;
+
+
+                planDocument.operations = t.operations.map(op => ({
+                    operationId: op.operationId,
+                    type: op.type,
+                    containerNumber: op.containerNumber,
+                    resourceId: op.resourceId,
+                    startTime: op.startTime,
+                    endTime: op.endTime
+                }));
+
                 await planDocument.save();
                 return t;
             }
@@ -50,6 +60,10 @@ export default class OperationPlanRepo implements IOperationPlanRepo {
         return null;
     }
 
+    public async findAll(): Promise<OperationPlan[]> {
+        const planRecords = await this.planSchema.find();
+        return planRecords.map(record => OperationPlanMap.toDomain(record));
+    }
 
     public async findByFilters(vesselId?: string, date?: Date): Promise<OperationPlan[]> {
         const query: any = {};
@@ -59,10 +73,8 @@ export default class OperationPlanRepo implements IOperationPlanRepo {
         }
 
         if (date) {
-
             const startDate = new Date(date);
             startDate.setHours(0, 0, 0, 0);
-
             const endDate = new Date(date);
             endDate.setHours(23, 59, 59, 999);
 
@@ -74,5 +86,10 @@ export default class OperationPlanRepo implements IOperationPlanRepo {
 
         const planRecords = await this.planSchema.find(query);
         return planRecords.map(record => OperationPlanMap.toDomain(record));
+    }
+    public async delete(planId: string): Promise<boolean> {
+        const query = { domainId: planId };
+        const res = await this.planSchema.deleteOne(query as any);
+        return res.deletedCount === 1;
     }
 }

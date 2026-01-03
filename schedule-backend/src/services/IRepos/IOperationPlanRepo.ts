@@ -5,6 +5,7 @@ import { UniqueEntityID } from "../../core/domain/UniqueEntityID";
 export default interface IOperationPlanRepo extends Repo<OperationPlan> {
     save(operationPlan: OperationPlan): Promise<OperationPlan>;
     findByDomainId(planId: UniqueEntityID | string): Promise<OperationPlan>;
-
+    findAll(): Promise<OperationPlan[]>;
     findByFilters(vesselId?: string, date?: Date): Promise<OperationPlan[]>;
+    delete(id: string): Promise<boolean>;
 }
