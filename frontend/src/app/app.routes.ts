@@ -15,6 +15,8 @@ import { PhysicalResource } from './features/physicalresource/physicalresource';
 import { OpListComponent } from './features/operation-plan/op-list/op-list.component';
 import { OpGenerateComponent } from './features/operation-plan/op-generate/op-generate.component';
 import { OpEditComponent } from './features/operation-plan/op-edit/op-edit.component';
+import {PrivacyPolicyComponent} from './features/privacy/privacy-policy/privacy-policy.component';
+import {UserProfileComponent} from './features/user/user-profile/user-profile.component';
 
 export const routes: Routes = [
   {
@@ -167,6 +169,8 @@ export const routes: Routes = [
         path: 'operation-plans/edit/:id',
         component: OpEditComponent
       },
+      { path: 'privacy-policy', component: PrivacyPolicyComponent },
+      { path: 'user-profile', component: UserProfileComponent },
       {
         path: 'port',
         loadComponent: () => import('./features/port-visualization/port-visualization').then(m => m.PortVisualization),
