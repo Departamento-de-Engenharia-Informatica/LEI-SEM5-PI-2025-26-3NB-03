@@ -1,7 +1,11 @@
-﻿using DDDNetCore.Domain.Vessels.ValueObjects;
+﻿using DDDSample1.Domain.Vessels.ValueObjects;
 using System;
+using System.Linq;
+using System.Collections.Generic;
+using DDDSample1.Domain.Shared;
 
-namespace DDDNetCore.Domain.Vessels
+
+namespace DDDSample1.Domain.Vessels
 {
     public class Vessel
     {

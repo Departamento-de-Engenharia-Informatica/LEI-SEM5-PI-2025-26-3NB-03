@@ -47,8 +47,16 @@ export function moveCamera(
     renderer: THREE.WebGLRenderer, 
     scene: THREE.Scene
 ): void {
-    const targetX = object.userData['locationX'];
-    const targetZ = object.userData['locationZ'];
+    let targetX = object.userData['locationX'];
+    let targetZ = object.userData['locationZ'];
+
+    // 2) se não existirem (caso do Vessel/OBJ), usa world position
+    if (!Number.isFinite(targetX) || !Number.isFinite(targetZ)) {
+    const worldPos = new THREE.Vector3();
+    object.getWorldPosition(worldPos);
+    targetX = worldPos.x;
+    targetZ = worldPos.z;
+    }
 
     const cameraDirection = new THREE.Vector3().subVectors(camera.position, controls.target);
 

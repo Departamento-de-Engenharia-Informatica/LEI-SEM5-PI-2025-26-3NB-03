@@ -25,8 +25,9 @@ using DDDSample1.Domain.Representatives;
 using DDDSample1.Infrastructure.Representatives;
 using DDDSample1.Domain.Docks;
 using DDDSample1.Infrastructure.Docks;
-using DDDNetCore.Domain.Vessels;
-using DDDNetCore.Infraestructure.Vessels;
+using DDDSample1.Domain.Vessels;
+using DDDSample1.Domain.Vessels.ValueObjects;
+using DDDSample1.Infrastructure.Vessels;
 using DDDSample1.Domain.Staff;
 using DDDSample1.Infrastructure.Staff;
 using DDDSample1.Domain.ShippingAgentOrganizations;
@@ -142,6 +143,11 @@ namespace DDDSample1
                     ctx.VesselTypes.AddRange(new[] { new VesselType("Type1", "Carqueiro Pequeno", 27, 3, 3, 3) });
                     ctx.VesselTypes.AddRange(new[] { new VesselType("Type2", "Carqueiro Médio", 64, 4, 4, 4) });
                     ctx.VesselTypes.AddRange(new[] { new VesselType("Type3", "Carqueiro Grande", 125, 5, 5, 5) });
+                    ctx.SaveChanges();
+                }
+                if (!ctx.Vessels.Any())
+                {
+                    ctx.Vessels.AddRange(new[] { new Vessel(new ImoNumber("IMO 9375989"), "SGRAI SHIP", "Type2", "Nuno Cesar") });
                     ctx.SaveChanges();
                 }
                 if (!ctx.Docks.Any())

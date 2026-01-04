@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace DDDNetCore.Domain.Vessels.ValueObjects
+namespace DDDSample1.Domain.Vessels.ValueObjects
 {
     public class ImoNumber
     {
