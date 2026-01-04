@@ -241,7 +241,7 @@
   "ACTIVE": "Is Active?",
   "CREATE_BUTTON": "Create Task",
   "SUCCESS": "Task created successfully!"
-},
+  },
   "TASK_LIST": {
     "TITLE": "Task List",
     "NEW_BUTTON": "+ New Task",
@@ -254,13 +254,14 @@
     "LOADING": "Loading..."
   },
   "CATEGORY_LIST": {
-    "TITLE": "🗂Task Categories",
+    "TITLE": "Task Categories",
     "ID": "ID"
   },
   "VVE": {
     "TITLE": "Register Vessel Arrival",
     "VVN_ID": "Visit ID (VVN)",
     "VESSEL_ID": "Vessel ID",
+    "DOCK_ID": "Dock ID",
     "ARRIVAL_TIME": "Arrival Time",
     "BUTTON_CREATE": "Register Arrival"
   },

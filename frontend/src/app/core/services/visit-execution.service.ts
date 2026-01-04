@@ -7,8 +7,6 @@ import { VisitExecution, CreateVisitExecutionDto } from '../models/visit-executi
   providedIn: 'root'
 })
 export class VisitExecutionService {
-
-
   private apiUrl = 'http://localhost:4000/api';
 
   constructor(private http: HttpClient) { }

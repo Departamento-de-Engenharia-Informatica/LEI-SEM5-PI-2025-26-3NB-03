@@ -16,6 +16,7 @@ export class VveCreateComponent {
   formData: CreateVisitExecutionDto = {
     vvnId: '',
     vesselId: '',
+    dockId: '',
     arrivalTime: '',
     creatorId: 'operador_logistico_01'
   };
@@ -27,7 +28,6 @@ export class VveCreateComponent {
 
   onSubmit() {
     this.message = '';
-
 
     if (this.formData.arrivalTime) {
       this.formData.arrivalTime = new Date(this.formData.arrivalTime).toISOString();
@@ -41,6 +41,7 @@ export class VveCreateComponent {
         this.formData = {
           vvnId: '',
           vesselId: '',
+          dockId: '',
           arrivalTime: '',
           creatorId: 'operador_logistico_01'
         };

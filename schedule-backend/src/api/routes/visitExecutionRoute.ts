@@ -14,6 +14,7 @@ export default (app: Router) => {
             body: Joi.object({
                 vvnId: Joi.string().required(),
                 vesselId: Joi.string().required(),
+                dockId: Joi.string().required(),
                 arrivalTime: Joi.string().required(),
                 creatorId: Joi.string().required()
             }),
@@ -22,4 +23,13 @@ export default (app: Router) => {
     );
     route.get('', (req, res, next) => ctrl.getAll(req, res, next));
     route.patch('/:id', (req, res, next) => ctrl.updateVisitExecution(req, res, next));
+    route.patch('/:id/berth-dock',
+        celebrate({
+            body: Joi.object({
+            arrivalTime: Joi.string().optional(),
+            dockId: Joi.string().optional()
+            }).min(1)
+        }),
+        (req, res, next) => ctrl.updateBerthAndDock(req, res, next)
+    );
 };
