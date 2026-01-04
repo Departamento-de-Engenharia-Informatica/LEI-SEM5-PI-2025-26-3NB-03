@@ -40,38 +40,37 @@
   </div>
 
   <div class="dock-info-panel"
-    *ngIf="infoVisible && selectedVessel"
-    [style.left.px]="labelX + 10"
-    [style.top.px]="labelY + 20">
-  <h3>{{ selectedVessel.name }}</h3>
-  <ul>
-    <li><strong>IMO Number:</strong> IMO {{ selectedVessel.imoNumber }}</li>
-    <li><strong>Vessel Type:</strong> {{ selectedVessel.vesselType }}</li>
-    <li><strong>Operator:</strong> {{ selectedVessel.operator }}</li>
-    <li><strong>ID:</strong> {{ selectedVessel.id }}</li>
-  </ul>
-</div>
+      *ngIf="infoVisible && selectedVessel"
+      [style.left.px]="labelX + 10"
+      [style.top.px]="labelY + 20">
+    <h3>{{ selectedVessel.name }}</h3>
+    <ul>
+      <li><strong>IMO Number:</strong> IMO {{ selectedVessel.imoNumber }}</li>
+      <li><strong>Vessel Type:</strong> {{ selectedVessel.vesselType }}</li>
+      <li><strong>Operator:</strong> {{ selectedVessel.operator }}</li>
+      <li><strong>ID:</strong> {{ selectedVessel.id }}</li>
+    </ul>
+  </div>
 
-<div class="dock-info-panel"
-    *ngIf="infoVisible && selectedPhysicalResource"
-    [style.left.px]="labelX + 10"
-    [style.top.px]="labelY + 20">
-  <h3>{{ selectedPhysicalResource.type }} — {{ selectedPhysicalResource.code }}</h3>
-  <ul>
-    <li><strong>ID:</strong> {{ selectedPhysicalResource.id }}</li>
-    <li><strong>Description:</strong> {{ selectedPhysicalResource.description }}</li>
-    <li><strong>Status:</strong> {{ selectedPhysicalResource.availabilityStatus }}</li>
-    <li><strong>Setup Time:</strong> {{ selectedPhysicalResource.setupTime }}</li>
-    <li><strong>Container Capacity:</strong> {{ selectedPhysicalResource.containerCapacity }}</li>
-    <li *ngIf="selectedPhysicalResource.averageSpeed != null"><strong>Average Speed:</strong> {{ selectedPhysicalResource.averageSpeed }}</li>
+  <div class="dock-info-panel"
+      *ngIf="infoVisible && selectedPhysicalResource"
+      [style.left.px]="labelX + 10"
+      [style.top.px]="labelY + 20">
+    <h3>{{ selectedPhysicalResource.type }} — {{ selectedPhysicalResource.code }}</h3>
+    <ul>
+      <li><strong>ID:</strong> {{ selectedPhysicalResource.id }}</li>
+      <li><strong>Description:</strong> {{ selectedPhysicalResource.description }}</li>
+      <li><strong>Status:</strong> {{ selectedPhysicalResource.availabilityStatus }}</li>
+      <li><strong>Setup Time:</strong> {{ selectedPhysicalResource.setupTime }}</li>
+      <li><strong>Container Capacity:</strong> {{ selectedPhysicalResource.containerCapacity }}</li>
+      <li *ngIf="selectedPhysicalResource.averageSpeed != null"><strong>Average Speed:</strong> {{ selectedPhysicalResource.averageSpeed }}</li>
 
-    <li *ngIf="selectedPhysicalResource.weekdayStart"><strong>Weekday:</strong> {{ selectedPhysicalResource.weekdayStart }} - {{ selectedPhysicalResource.weekdayFinish }}</li>
-    <li *ngIf="selectedPhysicalResource.weekendStart"><strong>Weekend:</strong> {{ selectedPhysicalResource.weekendStart }} - {{ selectedPhysicalResource.weekendFinish }}</li>
+      <li *ngIf="selectedPhysicalResource.weekdayStart"><strong>Weekday:</strong> {{ selectedPhysicalResource.weekdayStart }} - {{ selectedPhysicalResource.weekdayFinish }}</li>
+      <li *ngIf="selectedPhysicalResource.weekendStart"><strong>Weekend:</strong> {{ selectedPhysicalResource.weekendStart }} - {{ selectedPhysicalResource.weekendFinish }}</li>
 
-    <li><strong>Qualifications:</strong> {{ selectedPhysicalResource.qualifications?.join(', ') }}</li>
-    <li *ngIf="selectedPhysicalResource.dock"><strong>Dock:</strong> {{ selectedPhysicalResource.dock }}</li>
-  </ul>
-</div>
-
+      <li><strong>Qualifications:</strong> {{ selectedPhysicalResource.qualifications.join(', ') }}</li>
+      <li *ngIf="selectedPhysicalResource.dock"><strong>Dock:</strong> {{ selectedPhysicalResource.dock }}</li>
+    </ul>
+  </div>
 
 </div>

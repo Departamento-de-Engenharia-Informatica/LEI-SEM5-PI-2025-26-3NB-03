@@ -18,9 +18,9 @@ export function createFixedCrane(scene: THREE.Scene, physicalResource: PhysicalR
     resource: physicalResource,
     dockId: dock.id,
     locationX: dock.locationX,
-    locationZ: dock.locationZ,
+    locationZ: dock.locationZ + 3,
   };
-  fixedCraneGroup.position.set(dock.locationX, 0, dock.locationZ);
+  fixedCraneGroup.position.set(dock.locationX, 0, dock.locationZ + 3);
   fixedCraneGroup.rotation.y = dock.locationOrientation * (Math.PI / 180);
   scene.add(fixedCraneGroup);
 
@@ -43,7 +43,7 @@ export function createFixedCrane(scene: THREE.Scene, physicalResource: PhysicalR
         fixedCraneGroup.add(child);
       });
     });
-    fixedCraneGroup.rotation.y = -Math.PI / 2;
+    fixedCraneGroup.rotation.y = Math.PI / 2;
   });
 }
 

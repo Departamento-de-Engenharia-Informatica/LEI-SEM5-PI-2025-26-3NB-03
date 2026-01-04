@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { isDock} from './docks';
 
 export const FOV = 60;
 
@@ -49,13 +50,13 @@ export function moveCamera(
 ): void {
     let targetX = object.userData['locationX'];
     let targetZ = object.userData['locationZ'];
+    if (isDock(object)) targetZ = targetZ + (object.userData['lenght'] / 2);
 
-    // 2) se não existirem (caso do Vessel/OBJ), usa world position
     if (!Number.isFinite(targetX) || !Number.isFinite(targetZ)) {
-    const worldPos = new THREE.Vector3();
-    object.getWorldPosition(worldPos);
-    targetX = worldPos.x;
-    targetZ = worldPos.z;
+        const worldPos = new THREE.Vector3();
+        object.getWorldPosition(worldPos);
+        targetX = worldPos.x;
+        targetZ = worldPos.z;
     }
 
     const cameraDirection = new THREE.Vector3().subVectors(camera.position, controls.target);
