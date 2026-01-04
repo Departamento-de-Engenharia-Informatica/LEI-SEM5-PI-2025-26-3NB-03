@@ -16,9 +16,7 @@
 ## Metrics and Progress
 
 ### Burndown
-
-N/A
+![BD](Burndown.png)
 
 ### Velocity
-
-N/A
+![V](Velocity.png)
