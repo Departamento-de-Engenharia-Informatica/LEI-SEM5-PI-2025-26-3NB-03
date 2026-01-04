@@ -15,6 +15,8 @@ export function createFixedCrane(scene: THREE.Scene, physicalResource: PhysicalR
   fixedCraneGroup.userData = {
     type: physicalResource.type,
     id: physicalResource.id,
+    resource: physicalResource,
+    dockId: dock.id,
     locationX: dock.locationX,
     locationZ: dock.locationZ,
   };

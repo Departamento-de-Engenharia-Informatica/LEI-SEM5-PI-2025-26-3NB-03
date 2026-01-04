@@ -1,7 +1,7 @@
 ﻿
-using DDDNetCore.Controllers.Vessels;
-using DDDNetCore.Domain.Vessels;
-using DDDNetCore.Domain.Vessels.ValueObjects;
+using DDDSample1.Controllers.Vessels;
+using DDDSample1.Domain.Vessels;
+using DDDSample1.Domain.Vessels.ValueObjects;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

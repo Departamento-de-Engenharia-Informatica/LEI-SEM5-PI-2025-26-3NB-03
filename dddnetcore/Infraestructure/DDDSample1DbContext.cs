@@ -9,7 +9,7 @@ using DDDSample1.Domain.PhysicalResources;
 using DDDSample1.Domain.VesselVisitNotifications;
 using DDDSample1.Domain.VesselTypes;
 using DDDSample1.Domain.Docks;
-
+using DDDSample1.Domain.Vessels;
 using DDDSample1.Infrastructure.Categories;
 using DDDSample1.Infrastructure.Products;
 using DDDSample1.Infrastructure.Qualifications;
@@ -20,7 +20,7 @@ using DDDSample1.Infrastructure.PhysicalResources;
 using DDDSample1.Infrastructure.VesselVisitNotifications;
 using DDDSample1.Infrastructure.VesselTypes;
 using DDDSample1.Infrastructure.Docks;
-
+using DDDSample1.Infrastructure.Vessels;
 using Microsoft.EntityFrameworkCore;
 using DDDSample1.Domain.Staff;
 using DDDSample1.Infrastructure.Staff;
@@ -43,6 +43,7 @@ namespace DDDSample1.Infrastructure
         public DbSet<StaffMember> StaffMembers { get; set; }
         public DbSet<VesselType> VesselTypes { get; set; }
         public DbSet<Dock> Docks { get; set; }
+        public DbSet<Vessel> Vessels { get; set; }
         
         public DDDSample1DbContext(DbContextOptions options) : base(options) { }
 
@@ -65,6 +66,7 @@ namespace DDDSample1.Infrastructure
             modelBuilder.ApplyConfiguration(new StaffMemberEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new VesselTypeEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new DockEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new VesselEntityTypeConfiguration());
         }
     }
 }
