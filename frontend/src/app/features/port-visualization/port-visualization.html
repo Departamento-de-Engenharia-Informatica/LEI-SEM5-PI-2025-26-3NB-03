@@ -73,4 +73,12 @@
     </ul>
   </div>
 
+  <div class="component-label"
+     *ngIf="vesselStatusVisible"
+     [style.left.px]="vesselStatusX + 10"
+     [style.top.px]="vesselStatusY + 10"
+     [style.color]="vesselStatusColor">
+  {{ vesselStatusText }}
+</div>
+
 </div>

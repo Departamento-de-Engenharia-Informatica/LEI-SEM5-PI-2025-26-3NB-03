@@ -55,6 +55,20 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
   labelX = 0;
   labelY = 0;
 
+  // --- VESSEL ANIMATION UI ---
+vesselStatusVisible = false;
+vesselStatusText = '';
+vesselStatusColor = '#FFFFFF';
+vesselStatusX = 0;
+vesselStatusY = 0;
+
+private vesselStatusTarget: THREE.Object3D | null = null;
+
+// --- VESSEL ANIMATION TIMERS ---
+private vesselAnimIntervalId: number | null = null;
+private vesselAnimTimeoutId: number | null = null;
+
+
   private onClickHandler = this.onMouseClick.bind(this);
   private onResizeHandler = this.onWindowResize.bind(this);
   private onKeyDownHandler = this.onKeyDown.bind(this);
@@ -80,6 +94,16 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+
+    if (this.vesselAnimIntervalId !== null) {
+      clearInterval(this.vesselAnimIntervalId);
+      this.vesselAnimIntervalId = null;
+    }
+    if (this.vesselAnimTimeoutId !== null) {
+      clearTimeout(this.vesselAnimTimeoutId);
+      this.vesselAnimTimeoutId = null;
+    }
+
     if (this.animationId !== null) cancelAnimationFrame(this.animationId);
 
     if (this.controls) {
@@ -203,7 +227,7 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
 
     this.renderer.setSize(width, height);
 
-    this.renderScene(); 
+    //this.renderScene(); 
   }
 
   private onWindowResize(): void {
@@ -221,8 +245,144 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     if (this.labelVisible && this.highlightedObject) {
       this.updateLabelPosition(this.highlightedObject);
     }
+    if (this.vesselStatusVisible && this.vesselStatusTarget) {
+      this.updateVesselStatusPosition(this.vesselStatusTarget);
+    }
     this.composer.render();
   }
+
+  private updateVesselStatusPosition(object: THREE.Object3D): void {
+  const vector = new THREE.Vector3();
+  object.getWorldPosition(vector);
+
+  // sobe um pouco acima do navio
+  vector.y += 1.5;
+
+  vector.project(this.camera);
+
+  const container = this.canvasContainer.nativeElement as HTMLElement;
+  const rect = container.getBoundingClientRect();
+
+  this.vesselStatusX = ((vector.x + 1) / 2) * rect.width;
+  this.vesselStatusY = ((-vector.y + 1) / 2) * rect.height;
+}
+
+private startVesselAnimation(vesselGroup: THREE.Object3D): void {
+  // evita iniciar 2 vezes
+  if (this.vesselAnimIntervalId !== null || this.vesselAnimTimeoutId !== null) return;
+
+  this.vesselStatusTarget = vesselGroup;
+  this.vesselStatusVisible = true;
+
+  // ---- CONFIG (ajusta aqui a velocidade) ----
+  const STEP_MS = 2000;  // 0.8s por contentor (mais rápido)
+  const WAIT_MS = 4000; // 2s em "Waiting..."
+
+  const setStatus = (text: string, color: string) => {
+    this.vesselStatusText = text;
+    this.vesselStatusColor = color;
+  };
+
+  // grupo de contentores preso ao navio
+  let containersGroup = vesselGroup.getObjectByName('containers') as THREE.Group | null;
+  if (!containersGroup) {
+    containersGroup = new THREE.Group();
+    containersGroup.name = 'containers';
+    vesselGroup.add(containersGroup);
+  }
+
+  // --- POOL: cria 10 contentores 1 vez ---
+  const containerGeo = new THREE.BoxGeometry(0.4, 0.2, 0.2);
+  const containerMat = new THREE.MeshStandardMaterial({ color: new THREE.Color('#8B2E1A'), roughness: 0.35, metalness: 0.85 });
+
+  const containerPool: THREE.Mesh[] = [];
+  for (let i = 0; i < 10; i++) {
+    const m = new THREE.Mesh(containerGeo, containerMat);
+    m.castShadow = false;      // ganho de performance
+    m.receiveShadow = false;   // ganho de performance
+    m.visible = false;
+    containersGroup.add(m);
+    containerPool.push(m);
+  }
+
+  // posicionamento: 2 filas lado a lado (X) × 5 ao longo do navio (Z)
+  const positionContainer = (index: number) => {
+    const perRow = 5;
+    const row = Math.floor(index / perRow); // 0 ou 1
+    const posInRow = index % perRow;        // 0..4
+
+    const spacingZ = 0.45;
+
+    // gap lateral entre filas
+    const containerWidth = 0.4;
+    const gapX = 0.05;
+    const spacingX = containerWidth + gapX;
+
+    const startZ = -spacingZ * 2;
+
+    containerPool[index].position.set(
+      row === 0 ? -spacingX / 2 : spacingX / 2,
+      0.8,
+      startZ + posInRow * spacingZ
+    );
+  };
+
+  const showContainer = (index: number) => {
+    if (!containerPool[index]) return;
+    positionContainer(index);
+    containerPool[index].visible = true;
+  };
+
+  const hideContainer = (index: number) => {
+    if (!containerPool[index]) return;
+    containerPool[index].visible = false;
+  };
+
+  type Phase = 'loading' | 'unloading' | 'waiting';
+  let phase: Phase = 'loading';
+  let idx = 0;
+
+  // start em loading
+  setStatus('Loading...', '#02a602ff');
+
+  const tick = () => {
+    if (phase === 'loading') {
+      showContainer(idx);
+      idx++;
+
+      if (idx >= 10) {
+        phase = 'unloading';
+        idx = 9;
+        setStatus('Unloading...', '#FF0000'); // ✅ vermelho
+      }
+    }
+    else if (phase === 'unloading') {
+      hideContainer(idx);
+      idx--;
+
+      if (idx < 0) {
+        phase = 'waiting';
+        setStatus('Waiting...', '#FFFFFF'); // branco
+
+        if (this.vesselAnimIntervalId !== null) {
+          clearInterval(this.vesselAnimIntervalId);
+          this.vesselAnimIntervalId = null;
+        }
+
+        this.vesselAnimTimeoutId = window.setTimeout(() => {
+          phase = 'loading';
+          idx = 0;
+          setStatus('Loading...', '#00FF00');
+          this.vesselAnimIntervalId = window.setInterval(tick, STEP_MS);
+          this.vesselAnimTimeoutId = null;
+        }, WAIT_MS);
+      }
+    }
+  };
+
+  this.vesselAnimIntervalId = window.setInterval(tick, STEP_MS);
+}
+
 
   private onMouseClick(event: MouseEvent): void {
     this.labelVisible = false;
@@ -400,9 +560,15 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
     docks.forEach((dock: DockDto) => createDock(this.scene, dock));
 
     vessels.forEach((v, idx) => {
-      const dock = docks[idx % Math.max(docks.length, 1)];
+  const dock = docks[idx % Math.max(docks.length, 1)];
 
-      createVessel(this.scene, v, { dock, clearance: 1, side: 1, alongOffset: 0.5 })
+  createVessel(this.scene, v, { dock, clearance: 1, side: 1, alongOffset: 0.5 })
+    .then((vesselGroup) => {
+      // inicia no primeiro navio (se tiveres vários, decide qual)
+      if (!this.vesselStatusTarget) {
+        this.startVesselAnimation(vesselGroup);
+      }
+    })
         .catch(err => console.error('Erro a carregar Ship.obj/mtl:', err));
     });
 
