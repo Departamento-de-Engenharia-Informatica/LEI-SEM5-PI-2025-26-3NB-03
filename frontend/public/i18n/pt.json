@@ -31,7 +31,8 @@
     "TASKS_LIST": "Lista de Tarefas",
     "CATEGORIES_LIST": "Categorias",
     "VVE_CREATE": "Registar Chegada Navio",
-    "OP_PLANS": "Planos de Operação"
+    "OP_PLANS": "Planos de Operação",
+    "INCIDENTS": "Gestão de Incidentes"
   },
   "COMMON": {
     "LOADING": "A carregar",
@@ -284,5 +285,52 @@
     "TH_RESOURCE": "Recurso",
     "TH_START": "Início",
     "TH_END": "Fim"
+  },
+  "INCIDENTS": {
+    "TITLE": "Gestão de Incidentes",
+    "CREATE_TITLE": "Registar Novo Incidente",
+    "FILTER_STATUS": "Filtrar por Estado:",
+    "ALL": "Todos",
+    "ACTIVE": "Ativos (Em Curso)",
+    "RESOLVED": "Resolvidos",
+    "BTN_CREATE": "+ Registar Incidente",
+    "BTN_RESOLVE": "✓ Resolver",
+    "BTN_SAVE": "Guardar Incidente",
+    "BTN_CANCEL": "Cancelar",
+    "TABLE": {
+      "TITLE": "Título",
+      "TYPE": "Tipo",
+      "SEVERITY": "Severidade",
+      "STATUS": "Estado",
+      "START": "Início",
+      "DURATION": "Duração",
+      "ACTIONS": "Ações",
+      "EMPTY": "Não existem incidentes registados com os filtros atuais."
+    },
+    "FORM": {
+      "TITLE_LABEL": "Título",
+      "TYPE_LABEL": "Tipo de Incidente",
+      "SEVERITY_LABEL": "Severidade",
+      "START_LABEL": "Data/Hora Início",
+      "AFFECTED_LABEL": "Execuções Afetadas (IDs separados por vírgula)",
+      "DESC_LABEL": "Descrição Detalhada",
+      "PLACEHOLDER_VVE": "Ex: VVE-101, VVE-102"
+    },
+    "TYPES": {
+      "MECHANICAL": "Avaria Mecânica",
+      "WEATHER": "Condições Meteorológicas",
+      "STRIKE": "Greve",
+      "ACCIDENT": "Acidente",
+      "OTHER": "Outro"
+    },
+    "SEVERITY": {
+      "MINOR": "Menor",
+      "MAJOR": "Grave",
+      "CRITICAL": "Crítica"
+    },
+    "STATUS_LABEL": {
+      "ACTIVE": "EM CURSO",
+      "RESOLVED": "RESOLVIDO"
+    }
   }
 }

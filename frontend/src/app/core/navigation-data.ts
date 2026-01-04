@@ -82,5 +82,10 @@ export const MENU_ITEMS: MenuItem[] = [
     link: '/operation-plans',
     requiredRoles: ['LO']
   },
+  {
+    label: 'MENU.INCIDENTS',
+    link: '/incidents',
+    requiredRoles: ['LO']
+  },
   { label: 'MENU.PORT', link: '/port', requiredRoles: ['PAO', 'LO', 'Rep', 'Staff'] },
 ];

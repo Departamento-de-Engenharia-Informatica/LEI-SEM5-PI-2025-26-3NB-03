@@ -1,0 +1,128 @@
+/* Container principal */
+.container {
+  padding: 2rem;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+/* Área de Filtros e Botão Superior */
+.filters {
+  display: flex;
+  justify-content: space-between; /* Separa o filtro do botão */
+  align-items: center;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  margin-bottom: 20px;
+}
+
+.filters select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.btn-create {
+  background-color: #28a745; /* Verde igual ao "Gerar Plano" */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.btn-create:hover {
+  background-color: #218838;
+}
+
+/* Tabela */
+.table-container {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  overflow: hidden; /* Para os cantos arredondados */
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+thead {
+  background-color: #f1f3f5;
+  border-bottom: 2px solid #dee2e6;
+}
+
+th {
+  padding: 15px;
+  color: #495057;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+td {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+  color: #333;
+}
+
+/* Destaque para Incidentes ATIVOS (Requisito da US) */
+.active-incident {
+  background-color: #fff8e1; /* Fundo amarelo claro */
+  border-left: 5px solid #ffc107; /* Barra lateral amarela */
+}
+
+/* Badges de Severidade */
+.badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: white;
+  display: inline-block;
+  min-width: 80px;
+  text-align: center;
+}
+
+.badge.minor { background-color: #17a2b8; }   /* Azul claro */
+.badge.major { background-color: #fd7e14; }   /* Laranja */
+.badge.critical { background-color: #dc3545; } /* Vermelho */
+
+/* Estado */
+.status-text {
+  font-weight: bold;
+}
+.status-active { color: #d68910; }
+.status-resolved { color: #28a745; }
+
+/* Botão de Resolver na tabela */
+.btn-resolve {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.btn-resolve:hover {
+  background-color: #5a6268;
+}

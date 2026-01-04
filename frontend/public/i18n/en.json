@@ -30,7 +30,8 @@
     "TASKS_LIST": "Task List",
     "CATEGORIES_LIST": "Categories",
     "VVE_CREATE": "Register Vessel Arrival",
-    "OP_PLANS": "Operation Plans"
+    "OP_PLANS": "Operation Plans",
+    "INCIDENTS": "Incident Management"
   },
   "COMMON": {
     "LOADING": "Loading",
@@ -283,5 +284,52 @@
     "TH_RESOURCE": "Resource",
     "TH_START": "Start",
     "TH_END": "End"
+  },
+  "INCIDENTS": {
+    "TITLE": "Incident Management",
+    "CREATE_TITLE": "Register New Incident",
+    "FILTER_STATUS": "Filter by Status:",
+    "ALL": "All",
+    "ACTIVE": "Active (Ongoing)",
+    "RESOLVED": "Resolved",
+    "BTN_CREATE": "+ Register Incident",
+    "BTN_RESOLVE": "✓ Resolve",
+    "BTN_SAVE": "Save Incident",
+    "BTN_CANCEL": "Cancel",
+    "TABLE": {
+      "TITLE": "Title",
+      "TYPE": "Type",
+      "SEVERITY": "Severity",
+      "STATUS": "Status",
+      "START": "Start Time",
+      "DURATION": "Duration",
+      "ACTIONS": "Actions",
+      "EMPTY": "No incidents found with current filters."
+    },
+    "FORM": {
+      "TITLE_LABEL": "Title",
+      "TYPE_LABEL": "Incident Type",
+      "SEVERITY_LABEL": "Severity",
+      "START_LABEL": "Start Date/Time",
+      "AFFECTED_LABEL": "Affected Executions (IDs separated by comma)",
+      "DESC_LABEL": "Detailed Description",
+      "PLACEHOLDER_VVE": "Ex: VVE-101, VVE-102"
+    },
+    "TYPES": {
+      "MECHANICAL": "Mechanical Failure",
+      "WEATHER": "Weather Conditions",
+      "STRIKE": "Strike",
+      "ACCIDENT": "Accident",
+      "OTHER": "Other"
+    },
+    "SEVERITY": {
+      "MINOR": "Minor",
+      "MAJOR": "Major",
+      "CRITICAL": "Critical"
+    },
+    "STATUS_LABEL": {
+      "ACTIVE": "ONGOING",
+      "RESOLVED": "RESOLVED"
+    }
   }
 }
