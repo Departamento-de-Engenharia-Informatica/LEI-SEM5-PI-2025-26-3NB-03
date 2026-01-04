@@ -1,0 +1,40 @@
+<div class="container" style="padding: 2rem; max-width: 800px; margin: 0 auto;">
+
+  <h1>Política de Privacidade</h1>
+
+  <div *ngIf="loading">A carregar política...</div>
+
+  <div *ngIf="policy">
+    <p class="text-muted">
+      <strong>Versão:</strong> {{ policy.version }} <br>
+      <strong>Data de Publicação:</strong> {{ policy.publishedDate | date:'longDate' }}
+    </p>
+
+    <hr>
+
+    <div [innerHTML]="policy.content" class="policy-content"></div>
+  </div>
+
+  <div class="static-info" style="margin-top: 3rem; border-top: 1px solid #ccc; padding-top: 1rem;">
+    <h3>Informação Legal Adicional (RGPD)</h3>
+
+    <h4>Recolha de Dados de Não-Utilizadores (Ex: Tripulação)</h4>
+    <p>
+      Informamos que recolhemos dados pessoais de tripulantes e pessoal de bordo através dos manifestos dos navios.
+      A base legal para este tratamento é a <strong>Obrigação Legal</strong> de segurança portuária e controlo de fronteiras.
+    </p>
+
+    <h4>Exercício de Direitos (Como proceder?)</h4>
+    <ul>
+      <li>
+        <strong>Utilizadores Registados:</strong> Podem descarregar ou eliminar os seus dados diretamente na sua área de
+        <a routerLink="/user-profile" style="cursor: pointer; color: blue; text-decoration: underline;">Perfil de Utilizador</a>.
+      </li>
+      <li>
+        <strong>Não-Utilizadores (Tripulação/Outros):</strong> Devem enviar um email para
+        <a href="mailto:dpo@projeto-lapr.com">dpo@projeto-lapr.com</a> identificando-se e solicitando o acesso, retificação ou apagamento dos seus dados.
+      </li>
+    </ul>
+  </div>
+
+</div>

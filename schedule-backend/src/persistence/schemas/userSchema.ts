@@ -26,6 +26,7 @@ const User = new mongoose.Schema(
       unique: true,
       index: true,
     },
+      lastAcceptedPolicyVersion: { type: String, default: '' },
 
     password: String,
 
@@ -37,6 +38,7 @@ const User = new mongoose.Schema(
     },
   },
   { timestamps: true },
+
 );
 
 export default mongoose.model<IUserPersistence & mongoose.Document>('User', User);

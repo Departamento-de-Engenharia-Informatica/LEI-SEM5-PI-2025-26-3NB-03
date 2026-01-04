@@ -1,0 +1,25 @@
+<div class="profile-container" style="padding: 2rem; max-width: 800px; margin: 0 auto;">
+  <h1>O Meu Perfil</h1>
+
+  <div class="user-info-card" style="border: 1px solid #ddd; padding: 20px; border-radius: 8px; margin-bottom: 2rem;">
+    <h3>Dados da Conta</h3>
+    <p><strong>ID:</strong> {{ currentUserId }}</p>
+    <p><strong>Nome:</strong> Utilizador Exemplo</p>
+    <p><strong>Email:</strong> user@exemplo.com</p>
+  </div>
+
+  <div class="gdpr-section" style="border: 1px solid #007bff; padding: 20px; border-radius: 8px; background-color: #f0f8ff;">
+    <h3 style="color: #0056b3;">Privacidade e Dados (RGPD)</h3>
+    <p>Gerencie os seus direitos de acesso e esquecimento.</p>
+
+    <div class="actions" style="margin-top: 15px;">
+      <button (click)="downloadMyData()" class="btn-download" style="padding: 10px 20px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 4px; margin-right: 10px;">
+        📂 Descarregar os meus dados (JSON)
+      </button>
+
+      <button (click)="deleteMyAccount()" class="btn-delete" style="padding: 10px 20px; cursor: pointer; background-color: #dc3545; color: white; border: none; border-radius: 4px;">
+        🗑️ Eliminar a minha conta
+      </button>
+    </div>
+  </div>
+</div>

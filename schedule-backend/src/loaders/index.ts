@@ -40,6 +40,11 @@ export default async ({ expressApp }) => {
         schema: '../persistence/schemas/operationPlanSchema',
     };
 
+    const privacyPolicySchema = {
+        name: 'privacyPolicySchema',
+        schema: '../persistence/schemas/privacyPolicySchema'
+    };
+
 
     // --- CONTROLLERS ---
     const roleController = {
@@ -133,7 +138,8 @@ export default async ({ expressApp }) => {
             complementaryTaskCategorySchema,
             complementaryTaskSchema,
             visitExecutionSchema,
-            operationPlanSchema
+            operationPlanSchema,
+            privacyPolicySchema
         ],
         controllers: [
             roleController,
