@@ -1,0 +1,79 @@
+<div class="container">
+  <h2>⚠️ {{ 'INCIDENTS.TITLE' | translate }}</h2>
+
+  <div class="filters">
+    <div class="filter-group">
+      <label for="statusFilter" style="margin-right: 10px; font-weight: bold;">
+        {{ 'INCIDENTS.FILTER_STATUS' | translate }}
+      </label>
+      <select id="statusFilter" (change)="filterStatus($event)">
+        <option value="">{{ 'INCIDENTS.ALL' | translate }}</option>
+        <option value="ACTIVE">{{ 'INCIDENTS.ACTIVE' | translate }}</option>
+        <option value="RESOLVED">{{ 'INCIDENTS.RESOLVED' | translate }}</option>
+      </select>
+    </div>
+
+    <button (click)="openCreateModal()" class="btn-create">
+      {{ 'INCIDENTS.BTN_CREATE' | translate }}
+    </button>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+      <tr>
+        <th>{{ 'INCIDENTS.TABLE.TITLE' | translate }}</th>
+        <th>{{ 'INCIDENTS.TABLE.TYPE' | translate }}</th>
+        <th>{{ 'INCIDENTS.TABLE.SEVERITY' | translate }}</th>
+        <th>{{ 'INCIDENTS.TABLE.STATUS' | translate }}</th>
+        <th>{{ 'INCIDENTS.TABLE.START' | translate }}</th>
+        <th>{{ 'INCIDENTS.TABLE.DURATION' | translate }}</th>
+        <th>{{ 'INCIDENTS.TABLE.ACTIONS' | translate }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let inc of incidents" [class.active-incident]="inc.status === 'ACTIVE'">
+
+        <td><strong>{{ inc.title }}</strong></td>
+
+        <td>
+          {{ 'INCIDENTS.TYPES.' + (inc.incidentType | uppercase) | translate }}
+        </td>
+
+        <td>
+            <span [class]="'badge ' + inc.severity.toLowerCase()">
+              {{ 'INCIDENTS.SEVERITY.' + inc.severity | translate }}
+            </span>
+        </td>
+
+        <td>
+            <span [class]="inc.status === 'ACTIVE' ? 'status-active' : 'status-resolved'">
+              {{ 'INCIDENTS.STATUS_LABEL.' + inc.status | translate }}
+            </span>
+        </td>
+
+        <td>{{ inc.startTime | date:'short' }}</td>
+
+        <td>
+          <span *ngIf="inc.durationMinutes">{{ inc.durationMinutes }} min</span>
+          <span *ngIf="!inc.durationMinutes" style="color: #999;">-</span>
+        </td>
+
+        <td>
+          <button *ngIf="inc.status === 'ACTIVE'" (click)="resolveIncident(inc)" class="btn-resolve">
+            {{ 'INCIDENTS.BTN_RESOLVE' | translate }}
+          </button>
+        </td>
+
+      </tr>
+
+      <tr *ngIf="incidents.length === 0">
+        <td colspan="7" style="text-align: center; padding: 30px; color: #777;">
+          {{ 'INCIDENTS.TABLE.EMPTY' | translate }}
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>

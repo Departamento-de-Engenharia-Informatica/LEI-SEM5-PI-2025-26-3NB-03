@@ -17,6 +17,8 @@ import { OpGenerateComponent } from './features/operation-plan/op-generate/op-ge
 import { OpEditComponent } from './features/operation-plan/op-edit/op-edit.component';
 import {PrivacyPolicyComponent} from './features/privacy/privacy-policy/privacy-policy.component';
 import {UserProfileComponent} from './features/user/user-profile/user-profile.component';
+import {IncidentListComponent} from './features/incidents/incident-list/incident-list.component';
+import {IncidentCreateComponent} from './features/incidents/incident-create/incident-create.component';
 
 export const routes: Routes = [
   {
@@ -171,6 +173,8 @@ export const routes: Routes = [
       },
       { path: 'privacy-policy', component: PrivacyPolicyComponent },
       { path: 'user-profile', component: UserProfileComponent },
+      { path: 'incidents', component: IncidentListComponent },
+      { path: 'incidents/create', component: IncidentCreateComponent },
       {
         path: 'port',
         loadComponent: () => import('./features/port-visualization/port-visualization').then(m => m.PortVisualization),
