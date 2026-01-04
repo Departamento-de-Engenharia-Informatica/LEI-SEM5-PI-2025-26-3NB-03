@@ -22,7 +22,6 @@ import { PhysicalResourceDto } from '../../core/models/physicalresource';
 import { VesselDto } from '../../core/models/vessel';
 import { isVessel } from './utils/vessels';
 
-
 @Component({
   selector: 'app-port-visualization',
   standalone: true,
@@ -46,22 +45,19 @@ export class PortVisualization implements AfterViewInit, OnDestroy {
   private composer!: EffectComposer;
   private outlinePass!: OutlinePass;
 
-  // Variáveis para mostrar informações das docks e storage areas
-selectedDock: DockDto | null = null;
-selectedStorageArea: StorageAreaDto | null = null;
-selectedVessel: VesselDto | null = null;
-selectedPhysicalResource: PhysicalResourceDto | null = null;
-infoVisible = false;
-labelVisible = false;
-labelText = '';
-labelX = 0;
-labelY = 0;
+  selectedDock: DockDto | null = null;
+  selectedStorageArea: StorageAreaDto | null = null;
+  selectedVessel: VesselDto | null = null;
+  selectedPhysicalResource: PhysicalResourceDto | null = null;
+  infoVisible = false;
+  labelVisible = false;
+  labelText = '';
+  labelX = 0;
+  labelY = 0;
 
   private onClickHandler = this.onMouseClick.bind(this);
   private onResizeHandler = this.onWindowResize.bind(this);
   private onKeyDownHandler = this.onKeyDown.bind(this);
-
-
 
   constructor(private apiService: Api) { }
 
@@ -221,7 +217,7 @@ labelY = 0;
     if (this.controls) {
       this.controls.update();
     }
-     // Atualiza posição da label se houver algo selecionado
+
     if (this.labelVisible && this.highlightedObject) {
       this.updateLabelPosition(this.highlightedObject);
     }
@@ -229,8 +225,6 @@ labelY = 0;
   }
 
   private onMouseClick(event: MouseEvent): void {
-    
-    // Reset visual state on any click
     this.labelVisible = false;
     this.infoVisible = false;
     this.selectedDock = null;
@@ -256,82 +250,72 @@ labelY = 0;
       const object = intersects[0].object;
 
       let group: THREE.Object3D | null = object;
-      // sobe na hierarquia até encontrar um objeto com userData.type
-    while (group && !(isWarehouse(group) || isYard(group) || isDock(group) || isFixedCrane(group) || isVessel(group))) {
-    group = group.parent;
+      
+      while (group && !(isWarehouse(group) || isYard(group) || isDock(group) || isFixedCrane(group) || isVessel(group))) {
+        group = group.parent;
       }
 
-      if (!group) return; // nada selecionável
+      if (!group) return;
 
       if (group && (isWarehouse(group) || isYard(group) || isDock(group) || isFixedCrane(group) || isVessel(group))) {
         if (isWarehouse(group)) {
-           //Mostra sublinhado
           this.outlinePass.visibleEdgeColor.set('#FFA500');
           this.outlinePass.hiddenEdgeColor.set('#FFA500');
           
-          // Mostra label
           this.labelText = group.userData['type'];
           this.labelVisible = true;
 
-          // Armazena a storagearea selecionada
           this.selectedStorageArea = {
-          id: group.userData['id'],
-          type: group.userData['type'],
-          locationX: group.userData['locationX'],
-          locationZ: group.userData['locationZ'],
-          locationOrientation: group.userData['locationOrientation'],
-          maximumCapacity: group.userData['maximumCapacity'],
-          currentOccupancy: group.userData['currentOccupancy'],
-          docks: group.userData['docks']
+            id: group.userData['id'],
+            type: group.userData['type'],
+            locationX: group.userData['locationX'],
+            locationZ: group.userData['locationZ'],
+            locationOrientation: group.userData['locationOrientation'],
+            maximumCapacity: group.userData['maximumCapacity'],
+            currentOccupancy: group.userData['currentOccupancy'],
+            docks: group.userData['docks']
           };
-          this.infoVisible = false; // painel só aparece ao pressionar 'i'
-
+          this.infoVisible = false;
         }
         else if (isYard(group)) {
           this.outlinePass.visibleEdgeColor.set('#7CE40D');
           this.outlinePass.hiddenEdgeColor.set('#7CE40D');
-          // Mostra label
+
           this.labelText = group.userData['type'];
           this.labelVisible = true;
 
-          // Armazena a storagearea selecionada
           this.selectedStorageArea = {
-          id: group.userData['id'],
-          type: group.userData['type'],
-          locationX: group.userData['locationX'],
-          locationZ: group.userData['locationZ'],
-          locationOrientation: group.userData['locationOrientation'],
-          maximumCapacity: group.userData['maximumCapacity'],
-          currentOccupancy: group.userData['currentOccupancy'],
-          docks: group.userData['docks']
+            id: group.userData['id'],
+            type: group.userData['type'],
+            locationX: group.userData['locationX'],
+            locationZ: group.userData['locationZ'],
+            locationOrientation: group.userData['locationOrientation'],
+            maximumCapacity: group.userData['maximumCapacity'],
+            currentOccupancy: group.userData['currentOccupancy'],
+            docks: group.userData['docks']
           };
-          this.infoVisible = false; // painel só aparece ao pressionar 'i'
-  
+          this.infoVisible = false;
         }
         else if (isDock(group)) {
-
-          //Mostra sublinhado
           this.outlinePass.visibleEdgeColor.set('#159AD3');
           this.outlinePass.hiddenEdgeColor.set('#159AD3');
 
-          // Mostra label
           this.labelText = group.userData['name'];
           this.labelVisible = true;
 
-          // Armazena a dock selecionada
           this.selectedDock = {
-          id: group.userData['id'],
-          name: group.userData['name'],
-          locationX: group.userData['locationX'],
-          locationZ: group.userData['locationZ'],
-          locationOrientation: group.userData['locationOrientation'],
-          length: group.userData['length'],
-          depth: group.userData['depth'],
-          maxDraft: group.userData['maxDraft'],
-          capacity: group.userData['capacity'],
-          vesselTypeIds: group.userData['vesselTypeIds'],
+            id: group.userData['id'],
+            name: group.userData['name'],
+            locationX: group.userData['locationX'],
+            locationZ: group.userData['locationZ'],
+            locationOrientation: group.userData['locationOrientation'],
+            length: group.userData['length'],
+            depth: group.userData['depth'],
+            maxDraft: group.userData['maxDraft'],
+            capacity: group.userData['capacity'],
+            vesselTypeIds: group.userData['vesselTypeIds'],
           };
-          this.infoVisible = false; // painel só aparece ao pressionar 'i'
+          this.infoVisible = false;
         }
         else if (isVessel(group)) {
           this.outlinePass.visibleEdgeColor.set('#FF3B3B');
@@ -347,7 +331,7 @@ labelY = 0;
             vesselType: group.userData['vesselType'],
             operator: group.userData['operator'],
           };
-          this.infoVisible = false; // painel só aparece ao pressionar 'i'
+          this.infoVisible = false;
         }
         else if (isFixedCrane(group)) {
           this.outlinePass.visibleEdgeColor.set('#3B06CA');
@@ -360,14 +344,13 @@ labelY = 0;
           this.labelText = this.selectedPhysicalResource?.code ?? this.selectedPhysicalResource?.id ?? 'Fixed Crane';
           this.labelVisible = true;
 
-          this.infoVisible = false; // painel só aparece ao pressionar 'i'
+          this.infoVisible = false;
         }
-        this.outlinePass.selectedObjects = [group];        
+        this.outlinePass.selectedObjects = [group];
         this.highlightedObject = group;
         moveCamera(group, this.camera, this.controls, this.renderer, this.scene);
       }
     }
-  
   }
 
   private updateLabelPosition(object: THREE.Object3D): void {
@@ -388,12 +371,15 @@ labelY = 0;
 
       this.outlinePass.selectedObjects = [];
       this.highlightedObject = null;
+
+      this.labelVisible = false;
+      this.infoVisible = false;
     }
 
     if ((event.key === 'i' || event.key === 'I') && (this.selectedDock || this.selectedStorageArea || this.selectedVessel || this.selectedPhysicalResource)) {
-    this.infoVisible = !this.infoVisible; // alterna visibilidade do painel
+      this.infoVisible = !this.infoVisible;
+    }
   }
-}
 
   private initThree(storageAreas: StorageAreaDto[], docks: DockDto[], vessels: VesselDto[], physicalResources: PhysicalResourceDto[]): void {
     const container = this.canvasContainer.nativeElement as HTMLElement;
@@ -413,14 +399,12 @@ labelY = 0;
 
     docks.forEach((dock: DockDto) => createDock(this.scene, dock));
 
-    // --- VESSELS ---
     vessels.forEach((v, idx) => {
       const dock = docks[idx % Math.max(docks.length, 1)];
 
-      createVessel(this.scene, v, { dock, clearance: 1, side: 1, alongOffset: 0.5   })
+      createVessel(this.scene, v, { dock, clearance: 1, side: 1, alongOffset: 0.5 })
         .catch(err => console.error('Erro a carregar Ship.obj/mtl:', err));
     });
-
 
     const fixedCranes = physicalResources.filter(physicalResource => physicalResource.type === 'Fixed Crane');
     fixedCranes.forEach((physicalResource: PhysicalResourceDto) => {
