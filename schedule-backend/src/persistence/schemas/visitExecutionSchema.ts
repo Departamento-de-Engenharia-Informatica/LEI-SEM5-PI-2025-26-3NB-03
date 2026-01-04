@@ -4,8 +4,9 @@ import { IVisitExecutionPersistence } from '../../dataschema/IVisitExecutionPers
 const VisitExecutionSchema = new mongoose.Schema(
     {
         domainId: { type: String, unique: true },
-        vvnId: { type: String, required: true }, // Referência ao VVN
+        vvnId: { type: String, required: true },
         vesselId: { type: String, required: true },
+        dockId: { type: String, required: true },
         arrivalTime: { type: Date, required: true },
         status: { type: String, required: true },
         creatorId: { type: String, required: true }

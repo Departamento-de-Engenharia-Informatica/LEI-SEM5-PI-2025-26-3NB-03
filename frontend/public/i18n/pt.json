@@ -262,6 +262,7 @@
     "TITLE": "Registar Chegada de Navio",
     "VVN_ID": "ID da Visita (VVN)",
     "VESSEL_ID": "ID do Navio",
+    "DOCK_ID": "ID da Doca",
     "ARRIVAL_TIME": "Hora de Chegada",
     "BUTTON_CREATE": "Registar Chegada"
   },

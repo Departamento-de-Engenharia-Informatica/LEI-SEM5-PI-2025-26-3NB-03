@@ -37,9 +37,9 @@ export default class VisitExecutionRepo implements IVisitExecutionRepo {
                 const visitCreated = await this.visitExecutionSchema.create(rawVisit);
                 return VisitExecutionMap.toDomain(visitCreated);
             } else {
-
                 visitDocument.status = t.status;
                 visitDocument.arrivalTime = t.arrivalTime;
+                visitDocument.dockId = t.dockId;
                 await visitDocument.save();
                 return t;
             }
