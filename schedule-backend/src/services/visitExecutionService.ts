@@ -1,10 +1,11 @@
 import { Service, Inject } from 'typedi';
 import { Result } from "../core/logic/Result";
 import IVisitExecutionService from './IServices/IVisitExecutionService';
-import { ICreateVisitExecutionDTO, IVisitExecutionDTO } from '../dto/IVisitExecutionDTO';
+import { ICreateVisitExecutionDTO, IVisitExecutionDTO, IUpdateVisitExecutionDTO } from '../dto/IVisitExecutionDTO';
 import IVisitExecutionRepo from '../services/IRepos/IVisitExecutionRepo';
 import { VisitExecution } from '../domain/visitExecution';
 import { VisitExecutionMap } from '../mappers/VisitExecutionMap';
+
 
 @Service()
 export default class VisitExecutionService implements IVisitExecutionService {
@@ -48,4 +49,38 @@ export default class VisitExecutionService implements IVisitExecutionService {
             return Result.fail<IVisitExecutionDTO[]>(e);
         }
     }
+
+    public async updateVisitExecution(
+  id: string,
+  dto: IUpdateVisitExecutionDTO
+): Promise<Result<IVisitExecutionDTO>> {
+  try {
+    const visit = await this.visitExecutionRepo.findByDomainId(id);
+
+    console.log('proto has update:', typeof (VisitExecution as any).prototype.update);
+    console.log('instance has update:', typeof (visit as any)?.update);
+    console.log('ctor:', (visit as any)?.constructor?.name);
+
+    if (!visit) {
+      return Result.fail<IVisitExecutionDTO>('VisitExecution not found.');
+    }
+
+    const updateResult = visit.update({
+      arrivalTime: dto.arrivalTime,
+      status: dto.status
+    });
+
+    if (updateResult.isFailure) {
+      return Result.fail<IVisitExecutionDTO>(updateResult.errorValue());
+    }
+
+    const savedVisit = await this.visitExecutionRepo.save(visit);
+
+    const visitDTOResult = VisitExecutionMap.toDTO(savedVisit) as IVisitExecutionDTO;
+    return Result.ok<IVisitExecutionDTO>(visitDTOResult);
+  } catch (e) {
+    throw e;
+  }
+}
+
 }

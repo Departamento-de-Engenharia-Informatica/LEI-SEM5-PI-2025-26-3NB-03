@@ -12,3 +12,8 @@ export interface ICreateVisitExecutionDTO {
     arrivalTime: string;
     creatorId: string;
 }
+
+export interface IUpdateVisitExecutionDTO {
+  arrivalTime?: string;
+  status?: string;
+}

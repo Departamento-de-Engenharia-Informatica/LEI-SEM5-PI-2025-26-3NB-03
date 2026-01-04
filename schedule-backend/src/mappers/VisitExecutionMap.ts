@@ -15,23 +15,32 @@ export class VisitExecutionMap extends Mapper<VisitExecution> {
         } as IVisitExecutionDTO;
     }
 
-    public static toDomain(t: any): VisitExecution {
-        const visitExecutionOrError = VisitExecution.create({
-            vvnId: t.vvnId,
-            vesselId: t.vesselId,
-            arrivalTime: t.arrivalTime,
-            creatorId: t.creatorId
-        }, new UniqueEntityID(t.domainId));
+   public static toDomain(t: any): VisitExecution {
+  const arrivalIso =
+    t.arrivalTime instanceof Date ? t.arrivalTime.toISOString() : t.arrivalTime;
 
-        visitExecutionOrError.isFailure ? console.log(visitExecutionOrError.error) : '';
+  const visitExecutionOrError = VisitExecution.create(
+    {
+      vvnId: t.vvnId,
+      vesselId: t.vesselId,
+      arrivalTime: arrivalIso,
+      creatorId: t.creatorId
+    },
+    new UniqueEntityID(t.domainId)
+  );
 
+  if (visitExecutionOrError.isFailure) {
+    const err = visitExecutionOrError.errorValue();
+    throw new Error(typeof err === 'string' ? err : JSON.stringify(err));
+  }
 
-        const execution = visitExecutionOrError.getValue();
+  const execution = visitExecutionOrError.getValue();
 
+  // repor status vindo da BD (create força IN_PROGRESS)
+  (execution as any).props.status = t.status;
 
-
-        return execution;
-    }
+  return execution;
+}   
 
     public static toPersistence(t: VisitExecution): any {
         return {
@@ -40,7 +49,7 @@ export class VisitExecutionMap extends Mapper<VisitExecution> {
             vesselId: t.vesselId,
             arrivalTime: t.arrivalTime,
             status: t.status,
-            creatorId: "user-placeholder"
+            creatorId: (t as any).props.creatorId
         }
     }
 }

@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "dev": "concurrently -k \"npm:dev:apis\" \"npm:dev:angular:after\"",
+    "dev:apis": "concurrently -k \"npm:dev:node\" \"npm:dev:dotnet\"",
+    "dev:node": "npm run start --prefix schedule-backend",
+    "dev:dotnet": "dotnet watch --project dddnetcore/DDDNetCore.csproj run --no-hot-reload",
+    "dev:angular:after": "wait-on tcp:4000 tcp:5000 && npm start --prefix frontend"
+  }
+}

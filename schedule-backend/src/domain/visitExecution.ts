@@ -11,6 +11,8 @@ interface VisitExecutionProps {
     creatorId: string;
 }
 
+//console.log("LOADED visitExecution.ts WITH UPDATE MARKER");
+
 export class VisitExecution extends AggregateRoot<VisitExecutionProps> {
     get id(): UniqueEntityID { return this._id; }
     get vvnId(): string { return this.props.vvnId; }
@@ -64,4 +66,31 @@ export class VisitExecution extends AggregateRoot<VisitExecutionProps> {
 
         return Result.ok<VisitExecution>(visitExecution);
     }
+
+    public update(props: { arrivalTime?: string; status?: string }): Result<void> {
+      //console.log(">>> VisitExecution.update CALLED");
+
+  if (props.arrivalTime !== undefined) {
+    const arrival = new Date(props.arrivalTime);
+
+    if (isNaN(arrival.getTime())) {
+      return Result.fail<void>("Invalid arrivalTime.");
+    }
+
+    this.props.arrivalTime = arrival;
+  }
+
+  if (props.status !== undefined) {
+    const allowedStatuses = ["IN_PROGRESS", "COMPLETED", "DELAYED"];
+
+    if (!allowedStatuses.includes(props.status)) {
+      return Result.fail<void>("Invalid status.");
+    }
+
+    this.props.status = props.status;
+  }
+
+  return Result.ok<void>();
+}
+
 }
