@@ -15,10 +15,11 @@ import { PhysicalResource } from './features/physicalresource/physicalresource';
 import { OpListComponent } from './features/operation-plan/op-list/op-list.component';
 import { OpGenerateComponent } from './features/operation-plan/op-generate/op-generate.component';
 import { OpEditComponent } from './features/operation-plan/op-edit/op-edit.component';
-import {PrivacyPolicyComponent} from './features/privacy/privacy-policy/privacy-policy.component';
-import {UserProfileComponent} from './features/user/user-profile/user-profile.component';
-import {IncidentListComponent} from './features/incidents/incident-list/incident-list.component';
-import {IncidentCreateComponent} from './features/incidents/incident-create/incident-create.component';
+import { PrivacyPolicyComponent } from './features/privacy/privacy-policy/privacy-policy.component';
+import { UserProfileComponent } from './features/user/user-profile/user-profile.component';
+import { IncidentListComponent } from './features/incidents/incident-list/incident-list.component';
+import { IncidentCreateComponent } from './features/incidents/incident-create/incident-create.component';
+import { UpdateBerthDock } from './features/visit-execution/vve-update-berth-dock/update-berth-dock/update-berth-dock';
 
 export const routes: Routes = [
   {
@@ -158,6 +159,13 @@ export const routes: Routes = [
         loadComponent: () => import('./features/visit-execution/vve-create/vve-create.component').then(m => m.VveCreateComponent),
         title: 'Registar Chegada',
         canActivate: [roleGuard], data: { roles: ['LO'] }
+      },
+      {
+        path: 'visit-executions/update-berth-dock',
+        component: UpdateBerthDock,
+        title: 'UpdateBerthDock',
+        canActivate: [roleGuard],
+        data: { roles: ['LO'] },
       },
       {
         path: 'operation-plans',

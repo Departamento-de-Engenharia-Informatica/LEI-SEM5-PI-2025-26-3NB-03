@@ -32,7 +32,8 @@
     "CATEGORIES_LIST": "Categorias",
     "VVE_CREATE": "Registar Chegada Navio",
     "OP_PLANS": "Planos de Operação",
-    "INCIDENTS": "Gestão de Incidentes"
+    "INCIDENTS": "Gestão de Incidentes",
+    "VVE_UPDATE_BERTH_DOCK": "Atualizar Hora de Chegada e Doca"
   },
   "COMMON": {
     "LOADING": "A carregar",
@@ -264,7 +265,14 @@
     "VESSEL_ID": "ID do Navio",
     "DOCK_ID": "ID da Doca",
     "ARRIVAL_TIME": "Hora de Chegada",
-    "BUTTON_CREATE": "Registar Chegada"
+    "BUTTON_CREATE": "Registar Chegada",
+    "IN_PROGRESS_VVES": "Execuções de Visita de Embarcação Em Curso",
+    "BERTH": "Hora de Chegada",
+    "DOCK": "Doca",
+    "UPDATE_SUCCESS": "Execução de Visita de Embarcação atualizada com sucesso.",
+    "UPDATE_FAILURE": "Erro ao atualizar Execução de Visita de Embarcação.",
+    "BERTH_REQUIRED": "Hora de Chegada é de preenchimento obrigatório.",
+    "DOCK_REQUIRED": "Doca é de preenchimento obrigatório."
   },
   "OP_PLAN": {
     "TITLE_LIST": "Planos de Operação",
