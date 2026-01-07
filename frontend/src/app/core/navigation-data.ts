@@ -78,6 +78,11 @@ export const MENU_ITEMS: MenuItem[] = [
     requiredRoles: ['LO']
   },
   {
+    label: 'MENU.VVE_UPDATE_BERTH_DOCK',
+    link: '/visit-executions/update-berth-dock',
+    requiredRoles: ['LO']
+  },
+  {
     label: 'MENU.OP_PLANS',
     link: '/operation-plans',
     requiredRoles: ['LO']

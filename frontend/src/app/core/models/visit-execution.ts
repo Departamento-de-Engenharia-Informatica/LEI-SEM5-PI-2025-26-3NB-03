@@ -15,3 +15,8 @@ export interface CreateVisitExecutionDto {
   arrivalTime: string;
   creatorId: string;
 }
+
+export interface UpdateBerthDockDTO {
+  arrivalTime?: string;
+  dockId?: string;
+}

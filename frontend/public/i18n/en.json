@@ -31,7 +31,8 @@
     "CATEGORIES_LIST": "Categories",
     "VVE_CREATE": "Register Vessel Arrival",
     "OP_PLANS": "Operation Plans",
-    "INCIDENTS": "Incident Management"
+    "INCIDENTS": "Incident Management",
+    "VVE_UPDATE_BERTH_DOCK": "Update Berth Time and Dock"
   },
   "COMMON": {
     "LOADING": "Loading",
@@ -263,7 +264,14 @@
     "VESSEL_ID": "Vessel ID",
     "DOCK_ID": "Dock ID",
     "ARRIVAL_TIME": "Arrival Time",
-    "BUTTON_CREATE": "Register Arrival"
+    "BUTTON_CREATE": "Register Arrival",
+    "IN_PROGRESS_VVES": "In Progress Vessel Visit Executions",
+    "BERTH": "Berth Time",
+    "DOCK": "Dock",
+    "UPDATE_SUCCESS": "Vessel Visit Execution updated successfully.",
+    "UPDATE_FAILURE": "Error updating Vessel Visit Execution.",
+    "BERTH_REQUIRED": "Berth Time is required.",
+    "DOCK_REQUIRED": "Dock is required."
   },
   "OP_PLAN": {
     "TITLE_LIST": "Operation Plans",
