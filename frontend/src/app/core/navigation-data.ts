@@ -45,8 +45,6 @@ export const MENU_ITEMS: MenuItem[] = [
   { label: 'MENU.QUALIFICATIONS', link: '/qualifications', requiredRoles: ['LO'] },
   { label: 'MENU.CREATE_TASK', link: '/tasks/create', requiredRoles: ['LO'] },
 
-
-  {  label: 'MENU.VVE_MANAGEMENT', link: '/visit-executions/management', requiredRoles: ['LO']},
   /*
     Representative (qualquer email / rep)
     Pages: 2.2.8. Create Vessel Visit Notification
@@ -84,6 +82,7 @@ export const MENU_ITEMS: MenuItem[] = [
     link: '/visit-executions/update-berth-dock',
     requiredRoles: ['LO']
   },
+  {  label: 'MENU.VVE_MANAGEMENT', link: '/visit-executions/management', requiredRoles: ['LO']},
   {
     label: 'MENU.OP_PLANS',
     link: '/operation-plans',

@@ -4,7 +4,6 @@ export interface VesselDto {
   name: string; 
   vesselType: string;
   operator: string;
-
 }
 
 export interface UpdateVesselDto {
