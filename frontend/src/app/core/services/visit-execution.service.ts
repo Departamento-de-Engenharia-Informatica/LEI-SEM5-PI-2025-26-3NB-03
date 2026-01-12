@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { VisitExecution, CreateVisitExecutionDto, UpdateBerthDockDTO } from '../models/visit-execution';
+import { VisitExecution, CreateVisitExecutionDto, UpdateBerthDockDTO, UpdateVisitExecutionDto } from '../models/visit-execution';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +18,12 @@ export class VisitExecutionService {
   create(vve: CreateVisitExecutionDto): Observable<VisitExecution> {
     return this.http.post<VisitExecution>(`${this.apiUrl}/visit-executions`, vve);
   }
-
+  
   updateBerthAndDock(id: string, dto: UpdateBerthDockDTO): Observable<any> {
     return this.http.patch(`${this.apiUrl}/visit-executions/${id}/berth-dock`, dto);
+  }
+
+  update(id: string, dto: UpdateVisitExecutionDto): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/visit-executions/${id}`, dto);
   }
 }

@@ -35,6 +35,12 @@ export default async ({ expressApp }) => {
         schema: '../persistence/schemas/visitExecutionSchema',
     };
 
+    const auditLogSchema = {
+        name: 'auditLogSchema',
+        schema: '../persistence/schemas/auditLogSchema',
+    };
+  
+
     const operationPlanSchema = {
         name: 'operationPlanSchema',
         schema: '../persistence/schemas/operationPlanSchema',
@@ -74,6 +80,12 @@ export default async ({ expressApp }) => {
         path: '../controllers/operationPlanController'
     };
 
+    const auditLogController = { 
+        name: 'AuditLogController', 
+        path: '../controllers/auditLogController' 
+    };
+
+
 
     // --- REPOS ---
     const roleRepo = {
@@ -99,6 +111,11 @@ export default async ({ expressApp }) => {
     const visitExecutionRepo = {
         name: 'VisitExecutionRepo',
         path: '../repos/visitExecutionRepo'
+    };
+
+    const auditLogRepo = {
+        name: 'AuditLogRepo',
+        path: '../repos/auditLogRepo'
     };
 
     const operationPlanRepo = {
@@ -132,6 +149,12 @@ export default async ({ expressApp }) => {
         path: '../services/operationPlanService'
     };
 
+    const auditLogService = { name: 'AuditLogService', 
+        path: '../services/auditLogService' 
+    };
+
+    
+
     await dependencyInjectorLoader({
         mongoConnection,
         schemas: [
@@ -140,6 +163,7 @@ export default async ({ expressApp }) => {
             complementaryTaskCategorySchema,
             complementaryTaskSchema,
             visitExecutionSchema,
+            auditLogSchema,
             operationPlanSchema,
             privacyPolicySchema,
             incidentSchema
@@ -150,7 +174,7 @@ export default async ({ expressApp }) => {
             complementaryTaskController,
             visitExecutionController,
             operationPlanController,
-            operationPlanController
+            auditLogController
         ],
         repos: [
             roleRepo,
@@ -158,6 +182,7 @@ export default async ({ expressApp }) => {
             complementaryTaskCategoryRepo,
             complementaryTaskRepo,
             visitExecutionRepo,
+            auditLogRepo,
             operationPlanRepo
         ],
         services: [
@@ -165,7 +190,8 @@ export default async ({ expressApp }) => {
             complementaryTaskCategoryService,
             complementaryTaskService,
             visitExecutionService,
-            operationPlanService
+            operationPlanService,
+            auditLogService
         ]
     });
 

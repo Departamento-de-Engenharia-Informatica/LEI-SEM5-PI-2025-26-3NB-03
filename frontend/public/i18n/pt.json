@@ -33,7 +33,8 @@
     "VVE_CREATE": "Registar Chegada Navio",
     "OP_PLANS": "Planos de Operação",
     "INCIDENTS": "Gestão de Incidentes",
-    "VVE_UPDATE_BERTH_DOCK": "Atualizar Hora de Chegada e Doca"
+    "VVE_UPDATE_BERTH_DOCK": "Atualizar Hora de Chegada e Doca",
+    "VVE_MANAGEMENT": "Gestão de Visitas"
   },
   "COMMON": {
     "LOADING": "A carregar",
