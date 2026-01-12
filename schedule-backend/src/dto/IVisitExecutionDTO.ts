@@ -17,3 +17,12 @@ export interface IUpdateVisitExecutionDTO {
   arrivalTime?: string;
   status?: string;
 }
+
+export interface AuditLogDto {
+  entityId: string;
+  entityType: string;
+  action: string;
+  operatorId: string;
+  timestamp: string;
+  details?: any;
+}

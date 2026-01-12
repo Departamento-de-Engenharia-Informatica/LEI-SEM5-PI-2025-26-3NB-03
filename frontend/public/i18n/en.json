@@ -30,7 +30,8 @@
     "TASKS_LIST": "Task List",
     "CATEGORIES_LIST": "Categories",
     "VVE_CREATE": "Register Vessel Arrival",
-    "OP_PLANS": "Operation Plans"
+    "OP_PLANS": "Operation Plans",
+    "VVE_MANAGEMENT": "Gestão de VVE"
   },
   "COMMON": {
     "LOADING": "Loading",

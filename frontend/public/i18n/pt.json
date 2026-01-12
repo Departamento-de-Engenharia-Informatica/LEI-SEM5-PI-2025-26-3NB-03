@@ -31,7 +31,8 @@
     "TASKS_LIST": "Lista de Tarefas",
     "CATEGORIES_LIST": "Categorias",
     "VVE_CREATE": "Registar Chegada Navio",
-    "OP_PLANS": "Planos de Operação"
+    "OP_PLANS": "Planos de Operação",
+    "VVE_MANAGEMENT": "Gestão de Visitas"
   },
   "COMMON": {
     "LOADING": "A carregar",

@@ -5,12 +5,15 @@ import { ICreateVisitExecutionDTO, IVisitExecutionDTO, IUpdateVisitExecutionDTO 
 import IVisitExecutionRepo from '../services/IRepos/IVisitExecutionRepo';
 import { VisitExecution } from '../domain/visitExecution';
 import { VisitExecutionMap } from '../mappers/VisitExecutionMap';
+import AuditLogRepo from '../repos/auditLogRepo';
+
 
 
 @Service()
 export default class VisitExecutionService implements IVisitExecutionService {
     constructor(
-        @Inject('VisitExecutionRepo') private visitExecutionRepo: IVisitExecutionRepo
+        @Inject('VisitExecutionRepo') private visitExecutionRepo: IVisitExecutionRepo,
+         @Inject('AuditLogRepo') private auditLogRepo: AuditLogRepo
     ) {}
 
     public async createVisitExecution(dto: ICreateVisitExecutionDTO): Promise<Result<IVisitExecutionDTO>> {
@@ -75,6 +78,18 @@ export default class VisitExecutionService implements IVisitExecutionService {
     }
 
     const savedVisit = await this.visitExecutionRepo.save(visit);
+
+    await this.auditLogRepo.save({
+      entityId: id,
+      entityType: 'VisitExecution',
+      action: 'UPDATE',
+      operatorId: 'operador_logistico_01',
+      timestamp: new Date(),
+      details: {
+        status: dto.status,
+        arrivalTime: dto.arrivalTime
+      }
+    });
 
     const visitDTOResult = VisitExecutionMap.toDTO(savedVisit) as IVisitExecutionDTO;
     return Result.ok<IVisitExecutionDTO>(visitDTOResult);
