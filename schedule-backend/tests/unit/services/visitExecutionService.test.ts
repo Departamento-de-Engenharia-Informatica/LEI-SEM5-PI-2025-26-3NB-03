@@ -10,27 +10,34 @@ import { UniqueEntityID } from '../../../src/core/domain/UniqueEntityID';
 describe('VisitExecution Service', () => {
     let service: VisitExecutionService;
     let visitExecutionRepoStub: Partial<IVisitExecutionRepo>;
+    let auditLogRepoStub: any;
 
     beforeEach(() => {
+
         visitExecutionRepoStub = {
             save: sinon.stub().callsFake(async (visit) => {
                 return visit;
             })
         };
 
+
+        auditLogRepoStub = {
+            save: sinon.stub().resolves()
+        };
+
+
         service = new VisitExecutionService(
-            visitExecutionRepoStub as IVisitExecutionRepo
+            visitExecutionRepoStub as IVisitExecutionRepo,
+            auditLogRepoStub as any
         );
     });
 
     it('deve criar uma Execução de Visita com sucesso e estado IN_PROGRESS', async () => {
-
         const dto = {
             vvnId: 'VVN-2024-001',
             vesselId: 'IMO1234567',
             arrivalTime: new Date().toISOString(),
             creatorId: 'user123',
-
             dockId: 'DOCK-01'
         };
 
@@ -42,13 +49,11 @@ describe('VisitExecution Service', () => {
     });
 
     it('deve falhar se os dados forem inválidos (ex: vvnId vazio)', async () => {
-
         const dto = {
             vvnId: '',
             vesselId: 'IMO1234567',
             arrivalTime: new Date().toISOString(),
             creatorId: 'user123',
-
             dockId: 'DOCK-01'
         };
 
@@ -56,4 +61,5 @@ describe('VisitExecution Service', () => {
 
         expect(result.isFailure).to.be.true;
     });
+
 });
