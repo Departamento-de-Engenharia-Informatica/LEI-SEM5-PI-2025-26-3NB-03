@@ -32,6 +32,8 @@
     "CATEGORIES_LIST": "Categorias",
     "VVE_CREATE": "Registar Chegada Navio",
     "OP_PLANS": "Planos de Operação",
+    "INCIDENTS": "Gestão de Incidentes",
+    "VVE_UPDATE_BERTH_DOCK": "Atualizar Hora de Chegada e Doca",
     "VVE_MANAGEMENT": "Gestão de Visitas"
   },
   "COMMON": {
@@ -262,8 +264,16 @@
     "TITLE": "Registar Chegada de Navio",
     "VVN_ID": "ID da Visita (VVN)",
     "VESSEL_ID": "ID do Navio",
+    "DOCK_ID": "ID da Doca",
     "ARRIVAL_TIME": "Hora de Chegada",
-    "BUTTON_CREATE": "Registar Chegada"
+    "BUTTON_CREATE": "Registar Chegada",
+    "IN_PROGRESS_VVES": "Execuções de Visita de Embarcação Em Curso",
+    "BERTH": "Hora de Chegada",
+    "DOCK": "Doca",
+    "UPDATE_SUCCESS": "Execução de Visita de Embarcação atualizada com sucesso.",
+    "UPDATE_FAILURE": "Erro ao atualizar Execução de Visita de Embarcação.",
+    "BERTH_REQUIRED": "Hora de Chegada é de preenchimento obrigatório.",
+    "DOCK_REQUIRED": "Doca é de preenchimento obrigatório."
   },
   "OP_PLAN": {
     "TITLE_LIST": "Planos de Operação",
@@ -285,5 +295,52 @@
     "TH_RESOURCE": "Recurso",
     "TH_START": "Início",
     "TH_END": "Fim"
+  },
+  "INCIDENTS": {
+    "TITLE": "Gestão de Incidentes",
+    "CREATE_TITLE": "Registar Novo Incidente",
+    "FILTER_STATUS": "Filtrar por Estado:",
+    "ALL": "Todos",
+    "ACTIVE": "Ativos (Em Curso)",
+    "RESOLVED": "Resolvidos",
+    "BTN_CREATE": "+ Registar Incidente",
+    "BTN_RESOLVE": "✓ Resolver",
+    "BTN_SAVE": "Guardar Incidente",
+    "BTN_CANCEL": "Cancelar",
+    "TABLE": {
+      "TITLE": "Título",
+      "TYPE": "Tipo",
+      "SEVERITY": "Severidade",
+      "STATUS": "Estado",
+      "START": "Início",
+      "DURATION": "Duração",
+      "ACTIONS": "Ações",
+      "EMPTY": "Não existem incidentes registados com os filtros atuais."
+    },
+    "FORM": {
+      "TITLE_LABEL": "Título",
+      "TYPE_LABEL": "Tipo de Incidente",
+      "SEVERITY_LABEL": "Severidade",
+      "START_LABEL": "Data/Hora Início",
+      "AFFECTED_LABEL": "Execuções Afetadas (IDs separados por vírgula)",
+      "DESC_LABEL": "Descrição Detalhada",
+      "PLACEHOLDER_VVE": "Ex: VVE-101, VVE-102"
+    },
+    "TYPES": {
+      "MECHANICAL": "Avaria Mecânica",
+      "WEATHER": "Condições Meteorológicas",
+      "STRIKE": "Greve",
+      "ACCIDENT": "Acidente",
+      "OTHER": "Outro"
+    },
+    "SEVERITY": {
+      "MINOR": "Menor",
+      "MAJOR": "Grave",
+      "CRITICAL": "Crítica"
+    },
+    "STATUS_LABEL": {
+      "ACTIVE": "EM CURSO",
+      "RESOLVED": "RESOLVIDO"
+    }
   }
 }

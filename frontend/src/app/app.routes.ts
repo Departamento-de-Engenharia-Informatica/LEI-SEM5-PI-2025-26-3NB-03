@@ -15,8 +15,11 @@ import { PhysicalResource } from './features/physicalresource/physicalresource';
 import { OpListComponent } from './features/operation-plan/op-list/op-list.component';
 import { OpGenerateComponent } from './features/operation-plan/op-generate/op-generate.component';
 import { OpEditComponent } from './features/operation-plan/op-edit/op-edit.component';
-import {PrivacyPolicyComponent} from './features/privacy/privacy-policy/privacy-policy.component';
-import {UserProfileComponent} from './features/user/user-profile/user-profile.component';
+import { PrivacyPolicyComponent } from './features/privacy/privacy-policy/privacy-policy.component';
+import { UserProfileComponent } from './features/user/user-profile/user-profile.component';
+import { IncidentListComponent } from './features/incidents/incident-list/incident-list.component';
+import { IncidentCreateComponent } from './features/incidents/incident-create/incident-create.component';
+import { UpdateBerthDock } from './features/visit-execution/vve-update-berth-dock/update-berth-dock/update-berth-dock';
 
 export const routes: Routes = [
   {
@@ -167,6 +170,13 @@ export const routes: Routes = [
         canActivate: [roleGuard], data: { roles: ['LO'] }
       },
       {
+        path: 'visit-executions/update-berth-dock',
+        component: UpdateBerthDock,
+        title: 'UpdateBerthDock',
+        canActivate: [roleGuard],
+        data: { roles: ['LO'] },
+      },
+      {
         path: 'operation-plans',
         component: OpListComponent
       },
@@ -180,6 +190,8 @@ export const routes: Routes = [
       },
       { path: 'privacy-policy', component: PrivacyPolicyComponent },
       { path: 'user-profile', component: UserProfileComponent },
+      { path: 'incidents', component: IncidentListComponent },
+      { path: 'incidents/create', component: IncidentCreateComponent },
       {
         path: 'port',
         loadComponent: () => import('./features/port-visualization/port-visualization').then(m => m.PortVisualization),

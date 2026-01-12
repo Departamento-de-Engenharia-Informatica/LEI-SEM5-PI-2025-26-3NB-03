@@ -51,6 +51,8 @@ export default async ({ expressApp }) => {
         schema: '../persistence/schemas/privacyPolicySchema'
     };
 
+    const incidentSchema = { name: 'incidentSchema', schema: '../persistence/schemas/incidentSchema' };
+
 
     // --- CONTROLLERS ---
     const roleController = {
@@ -163,7 +165,8 @@ export default async ({ expressApp }) => {
             visitExecutionSchema,
             auditLogSchema,
             operationPlanSchema,
-            privacyPolicySchema
+            privacyPolicySchema,
+            incidentSchema
         ],
         controllers: [
             roleController,

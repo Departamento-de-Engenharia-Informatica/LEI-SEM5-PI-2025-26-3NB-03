@@ -6,18 +6,20 @@ import complementaryTaskCategory from './routes/complementaryTaskCategoryRoute';
 import complementaryTaskRoute from './routes/complementaryTaskRoute';
 import visitExecutionRoute from './routes/visitExecutionRoute';
 import operationPlanRoute from './routes/operationPlanRoute';
+import incident from './routes/incidentRoute';
 import auditLogRoute from './routes/auditLogRoute';
 
 export default () => {
-	const app = Router();
+  const app = Router();
 
-	auth(app);
-	user(app);
-	role(app);
-    complementaryTaskCategory(app);
-    complementaryTaskRoute(app);
-    visitExecutionRoute(app);
-	auditLogRoute(app);
-    operationPlanRoute(app);
-	return app
+  auth(app);
+  user(app);
+  role(app);
+  complementaryTaskCategory(app);
+  complementaryTaskRoute(app);
+  visitExecutionRoute(app);
+  auditLogRoute(app);
+  operationPlanRoute(app);
+  incident(app);
+  return app
 }

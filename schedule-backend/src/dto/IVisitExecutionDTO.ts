@@ -2,6 +2,7 @@ export interface IVisitExecutionDTO {
     id: string;
     vvnId: string;
     vesselId: string;
+    dockId: string;
     arrivalTime: string;
     status: string;
 }
@@ -9,6 +10,7 @@ export interface IVisitExecutionDTO {
 export interface ICreateVisitExecutionDTO {
     vvnId: string;
     vesselId: string;
+    dockId: string;
     arrivalTime: string;
     creatorId: string;
 }
@@ -16,6 +18,11 @@ export interface ICreateVisitExecutionDTO {
 export interface IUpdateVisitExecutionDTO {
   arrivalTime?: string;
   status?: string;
+}
+
+export interface IUpdateBerthDockDTO {
+  arrivalTime?: string;
+  dockId?: string;
 }
 
 export interface AuditLogDto {
