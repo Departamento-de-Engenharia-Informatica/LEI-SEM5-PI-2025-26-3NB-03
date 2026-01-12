@@ -23,7 +23,7 @@ export class VisitExecutionService {
     return this.http.patch(`${this.apiUrl}/visit-executions/${id}/berth-dock`, dto);
   }
 
-  update(id: string, dto: UpdateVisitExecutionDto): Observable<VisitExecution> {
+  update(id: string, dto: UpdateVisitExecutionDto): Observable<any> {
     return this.http.patch(`${this.apiUrl}/visit-executions/${id}`, dto);
   }
 }
