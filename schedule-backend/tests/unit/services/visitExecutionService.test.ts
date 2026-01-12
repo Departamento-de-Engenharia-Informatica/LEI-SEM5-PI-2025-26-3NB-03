@@ -12,13 +12,11 @@ describe('VisitExecution Service', () => {
     let visitExecutionRepoStub: Partial<IVisitExecutionRepo>;
 
     beforeEach(() => {
-
         visitExecutionRepoStub = {
             save: sinon.stub().callsFake(async (visit) => {
                 return visit;
             })
         };
-
 
         service = new VisitExecutionService(
             visitExecutionRepoStub as IVisitExecutionRepo
@@ -31,25 +29,27 @@ describe('VisitExecution Service', () => {
             vvnId: 'VVN-2024-001',
             vesselId: 'IMO1234567',
             arrivalTime: new Date().toISOString(),
-            creatorId: 'user123'
-        };
+            creatorId: 'user123',
 
+            dockId: 'DOCK-01'
+        };
 
         const result = await service.createVisitExecution(dto);
 
-
         expect(result.isSuccess).to.be.true;
         expect(result.getValue().vvnId).to.equal(dto.vvnId);
-        expect(result.getValue().status).to.equal("IN_PROGRESS"); // Garante a regra de negócio
+        expect(result.getValue().status).to.equal("IN_PROGRESS");
     });
 
     it('deve falhar se os dados forem inválidos (ex: vvnId vazio)', async () => {
 
         const dto = {
-            vvnId: '', // Inválido
+            vvnId: '',
             vesselId: 'IMO1234567',
             arrivalTime: new Date().toISOString(),
-            creatorId: 'user123'
+            creatorId: 'user123',
+
+            dockId: 'DOCK-01'
         };
 
         const result = await service.createVisitExecution(dto);
