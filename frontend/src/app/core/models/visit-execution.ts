@@ -20,3 +20,17 @@ export interface UpdateBerthDockDTO {
   arrivalTime?: string;
   dockId?: string;
 }
+
+export interface UpdateVisitExecutionDto {
+  arrivalTime?: string;
+  status?: string;
+}
+
+export interface AuditLogDto {
+  entityId: string;
+  entityType: string;
+  action: string;
+  operatorId: string;
+  timestamp: string;
+  details?: any;
+}

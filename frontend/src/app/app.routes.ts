@@ -125,6 +125,15 @@ export const routes: Routes = [
         data: { roles: ['Rep'] }
       },
       {
+        path: 'visit-executions/management',
+        loadComponent: () =>
+          import('./features/vve-management/vve-management')
+            .then(m => m.VveManagementComponent),
+        title: 'Gerir Visit Executions',
+        canActivate: [roleGuard],
+        data: { roles: ['LO'] }
+      },
+      {
         path: 'categories/create',
         loadComponent: () =>
           import('./features/task-category/category-create/category-create.component')

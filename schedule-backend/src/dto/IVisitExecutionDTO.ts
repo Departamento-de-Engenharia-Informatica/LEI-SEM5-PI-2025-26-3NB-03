@@ -24,3 +24,12 @@ export interface IUpdateBerthDockDTO {
   arrivalTime?: string;
   dockId?: string;
 }
+
+export interface AuditLogDto {
+  entityId: string;
+  entityType: string;
+  action: string;
+  operatorId: string;
+  timestamp: string;
+  details?: any;
+}
